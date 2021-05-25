@@ -1,0 +1,85 @@
+*{
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+.App {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+
+.wrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+header {
+  margin-top: 20px;
+  width: 80%;
+  display: flex;
+  justify-content: space-between;
+}
+
+nav {
+  width: 80%;
+  background-color: rgb(6, 119, 15);
+  color: azure;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 2px;
+}
+
+nav li {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  align-items: center;
+}
+
+nav ul {
+  display: flex;
+  box-sizing: content-box;
+  list-style-type: none;
+  align-items: center;
+  margin: 10px;
+  margin-left: 0px;
+  height: 100%;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+nav ul:hover {
+  background-color: rgb(0, 94, 16);
+  border-radius: 2px;
+}
+
+nav a{
+  text-decoration: none;
+  color: azure;
+}
+
+section {
+  background-color: rgb(240, 240, 240);
+  height: 25vh;
+  width: 80%;
+  padding: 1px;
+}
+
+.content {
+  padding: 10px;
+  color: red;
+}
+
+footer {
+  font-size: smaller;
+  background-color: rgb(211, 211, 211);
+  width: 80%;
+  padding: 5px;
+  display: flex;
+  justify-content: flex-end;
+}
