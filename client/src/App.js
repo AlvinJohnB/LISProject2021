@@ -16,6 +16,7 @@ const App = () => {
         <li>
             <ul>Patient Search</ul>
             <ul>Patient Registration</ul>
+            <ul>Add Order</ul>
             <ul>Orders</ul>
             <ul>Laboratory</ul>
             <ul>Results</ul>

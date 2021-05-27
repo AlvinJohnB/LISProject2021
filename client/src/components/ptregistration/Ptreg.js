@@ -5,7 +5,7 @@ import './ptreg.css';
 const Ptreg = () => {
   return (
     <div className="ptregwrapper">
-            <form className="form-grp" autocomplete="false">
+            <form className="form-grp" autoComplete="false">
                 
             <h1>Patient Registration</h1>
             <hr />
@@ -15,18 +15,18 @@ const Ptreg = () => {
             <div className="form-group">
 
                 <div className="form-content">
-                    <label className="form-content" for="lastname">Lastname:</label>
+                    <label className="form-content" htmlFor="lastname">Lastname:</label>
                     <input className="form-content" type="text" name="lastname" placeholder="Lastname" />
                 </div>
 
                 <div className="form-content">
-                    <label className="form-content" for="firstname">First name:</label>
+                    <label className="form-content" htmlFor="firstname">First name:</label>
                     <input className="form-content" type="text" name="firstname" placeholder="First name" />
                 </div>
 
                 
                 <div className="form-content">
-                    <label className="form-content" for="midlename">Middle name:</label>
+                    <label className="form-content" htmlFor="midlename">Middle name:</label>
                     <input className="form-content" type="text" name="middlename" placeholder="Middlename" />
                 </div>
             </div>
@@ -34,21 +34,22 @@ const Ptreg = () => {
             <div className="form-group">
 
                 <div className="form-content">
-                    <label className="form-content" for="gender">Gender:</label>
+                    <label className="form-content" htmlFor="gender">Gender:</label>
                     <select>
+                    <option className="form-content" value="invalid">Select gender</option>
                         <option className="form-content" value="Male">Male</option>
                         <option className="form-content" value="Female">Female</option>
                     </select>
                 </div>
 
                 <div className="form-content">
-                    <label className="form-content" for="bday">Birthdate:</label>
+                    <label className="form-content" htmlFor="bday">Birthdate:</label>
                     <input className="form-content" type="date" name="bday" />
                 </div>
 
 
                 <div className="form-content">
-                    <label className="form-content" for="age">Age:</label>
+                    <label className="form-content" htmlFor="age">Age:</label>
                     <input className="form-content" type="number" name="age" disabled/>
                 </div>
                 </div>
@@ -57,12 +58,12 @@ const Ptreg = () => {
                 <div className="form-group">
                         
                     <div className="form-content">
-                        <label className="form-content" for="address">Address:</label>
+                        <label className="form-content" htmlFor="address">Address:</label>
                         <input className="form-content" type="text" name="address" placeholder="Address" />
                     </div>
 
                     <div className="form-content">
-                        <label className="form-content" for="phone">Phone Number:</label>
+                        <label className="form-content" htmlFor="phone">Phone Number:</label>
                         <input className="form-content" type="tel" name="phone" placeholder="Phone number" />
                     </div>
                 </div>
@@ -70,7 +71,7 @@ const Ptreg = () => {
 
                 <div className="form-group">    
                     <div className="form-content">
-                            <label className="form-content" for="identi">Identification Card No. (SC, PWD, etc.)</label>
+                            <label className="form-content" htmlFor="identi">Identification Card No. (SC, PWD, etc.)</label>
                             <input className="form-content" type="text" name="identi" placeholder="ID No." />
                     </div>
                 </div>
