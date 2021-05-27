@@ -1,10 +1,18 @@
 import React from 'react';
-
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 import Ptreg from './components/ptregistration/Ptreg';
 
 const App = () => {
+
+  useEffect( () => {
+    axios.get("http://localhost:3001/patient").then((response) => {
+      console.log(response.data)
+    })
+  });
+
   return (
     <div className="wrapper">
       <header>
