@@ -1,48 +1,42 @@
 import React from 'react';
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import './App.css';
+import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 import Ptreg from './components/ptregistration/Ptreg';
 import Ptsearch from "./components/ptsearch/Ptsearch";
 
 const App = () => {
 
-  const [listOfPatients, setListOfPatients] = useState([]);
-
-  useEffect( () => {
-    axios.get("http://localhost:3001/patient").then((response) => {
-      setListOfPatients(response.data);
-    });
-  }, []);
-
-
-
   return (
-    <div className="wrapper">
-      <header>
-        <div>logo</div>
-        <span>Welcome, user. Log-out?</span>
-      </header>
+    <Router>
+      <Switch>
+          <div className="wrapper">
+            <header>
+              <div>logo</div>
+              <span>Welcome, user. Log-out?</span>
+            </header>
 
-      <nav>
-        <li>
-            <ul>Patient Search</ul>
-            <ul>Patient Registration</ul>
-            <ul>Add Order</ul>
-            <ul>Orders</ul>
-            <ul>Laboratory</ul>
-            <ul>Results</ul>
-        </li>
-      </nav>
-      <section>
-        
-      <Ptreg />
-      <Ptsearch />
-      </section>
-      <footer>Laboratory Information System by Bregs</footer>
-      
-    </div>
+            <nav>
+              <li>
+                  <ul><Link to="/ptsearch">Patient Search</Link></ul>
+                  <ul><Link to="/registerpatient">Patient Registration</Link></ul>
+                  <ul>Add Order</ul>
+                  <ul>Orders</ul>
+                  <ul>Laboratory</ul>
+                  <ul>Results</ul>
+              </li>
+            </nav>
+            <section>
+              <Route path="/" exact component={Ptsearch} />
+              <Route path="/ptsearch" component={Ptsearch} />
+              <Route path="/registerpatient" component={Ptreg} />
+
+            </section>
+            <footer>Laboratory Information System by Bregs</footer>
+            
+          </div>
+        </Switch>
+    </Router>
   );
 }
 
