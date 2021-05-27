@@ -65,9 +65,10 @@ nav a{
 
 section {
   background-color: rgb(240, 240, 240);
-  height: 25vh;
   width: 80%;
   padding: 1px;
+  display: flex;
+  justify-content: center;
 }
 
 .content {

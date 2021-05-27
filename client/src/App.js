@@ -1,5 +1,8 @@
 import React from 'react';
+
 import './App.css';
+
+import Ptreg from './components/ptregistration/Ptreg';
 
 const App = () => {
   return (
@@ -19,8 +22,8 @@ const App = () => {
         </li>
       </nav>
       <section>
-
-      <div className="content">Hello world</div>
+        
+      <Ptreg />
 
       </section>
       <footer>Laboratory Information System by Bregs</footer>
