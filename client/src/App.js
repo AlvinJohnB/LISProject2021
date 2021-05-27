@@ -4,14 +4,19 @@ import { useEffect, useState } from 'react';
 import './App.css';
 
 import Ptreg from './components/ptregistration/Ptreg';
+import Ptsearch from "./components/ptsearch/Ptsearch";
 
 const App = () => {
 
+  const [listOfPatients, setListOfPatients] = useState([]);
+
   useEffect( () => {
     axios.get("http://localhost:3001/patient").then((response) => {
-      console.log(response.data)
-    })
-  });
+      setListOfPatients(response.data);
+    });
+  }, []);
+
+
 
   return (
     <div className="wrapper">
@@ -33,9 +38,10 @@ const App = () => {
       <section>
         
       <Ptreg />
-
+      <Ptsearch />
       </section>
       <footer>Laboratory Information System by Bregs</footer>
+      
     </div>
   );
 }

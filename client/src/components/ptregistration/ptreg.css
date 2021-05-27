@@ -20,7 +20,7 @@ hr{
 
 .form-group{
     display: flex;
-    align-items: baseline;
+    align-items: center;
 }
 
 .form-group input{

@@ -5,7 +5,7 @@ import './ptreg.css';
 const Ptreg = () => {
   return (
     <div className="ptregwrapper">
-            <form className="form-grp" autoComplete="false">
+            <form autoComplete="false">
                 
             <h1>Patient Registration</h1>
             <hr />

@@ -66,9 +66,11 @@ nav a{
 section {
   background-color: rgb(240, 240, 240);
   width: 80%;
+  overflow: hidden;
   padding: 1px;
-  display: flex;
+  display: block;
   justify-content: center;
+  height: auto;
 }
 
 .content {
@@ -80,7 +82,6 @@ footer {
   font-size: smaller;
   background-color: rgb(211, 211, 211);
   width: 80%;
-  padding: 5px;
   display: flex;
   justify-content: flex-end;
 }
