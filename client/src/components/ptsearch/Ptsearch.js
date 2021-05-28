@@ -1,20 +1,11 @@
 import React from 'react';
-import axios from 'axios';
 
 
-import { useEffect, useState } from 'react';
+
 
 import './ptsearch.css';
 
 const Ptsearch = () => {
-
-  const [listOfPatients, setListOfPatients] = useState([]);
-
-  useEffect( () => {
-    axios.get("http://localhost:3001/patient").then((response) => {
-      setListOfPatients(response.data);
-    });
-  }, []);
 
   return (
     <div className="ptsearchwrapper">

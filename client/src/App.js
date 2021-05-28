@@ -4,6 +4,7 @@ import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 import Ptreg from './components/ptregistration/Ptreg';
 import Ptsearch from "./components/ptsearch/Ptsearch";
+import Duplicaterecord from './components/ptregistration/Duplicaterecord';
 
 const App = () => {
 
@@ -14,7 +15,7 @@ const App = () => {
           <div className="wrapper">
             <header>
               <div>logo</div>
-              <span>Welcome, user. Log-out?</span>
+              <p>Welcome, user. Log-out?</p>
             </header>
 
             <nav>
@@ -31,6 +32,7 @@ const App = () => {
               <Route path="/" exact component={Ptsearch} />
               <Route path="/ptsearch" component={Ptsearch} />
               <Route path="/registerpatient" component={Ptreg} />
+              <Route path="/regerror" component={Duplicaterecord} />
 
             </section>
             <footer>Laboratory Information System by Bregs</footer>

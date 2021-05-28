@@ -1,7 +1,7 @@
 module.exports = (sequelize, DataTypes) => {
 
     const Patientlist = sequelize.define("Patientlist", {
-        patientid:{
+        branchid:{
             type: DataTypes.STRING,
         },
         lastname: {
@@ -21,10 +21,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         bday:{
             type: DataTypes.DATE,
-            allowNull: false,
-        },
-        age:{
-            type: DataTypes.INTEGER,
             allowNull: false,
         },
         address:{
