@@ -3,10 +3,12 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 import './ptreg.css';
 
 const Ptreg = () => {
+    let history = useHistory();
 
     const [patientLastId, setPatientLastId] = useState(0);
     const [patientAge, setPatientAge] = useState(0);
@@ -17,10 +19,11 @@ const Ptreg = () => {
       });
       
     }, []);
+    
+    const branch = "CAMILLUS-";
+    let ptId = `${branch}${patientLastId.id+1}`;
 
-    let ptId = `${patientLastId.branchid}${patientLastId.id+1}`;
-
-    const getAge = (e) => {
+    let getAge = (e) => {
 
         var birthday = e.target.value;
         var bdayArray = birthday.split("-");
@@ -44,48 +47,47 @@ const Ptreg = () => {
             aged = aged+31
         }
         setPatientAge(agey);
+        initialValues.age = agey;
+        initialValues.branchid = ptId;
     }
 
+    
     const initialValues = {
-        branchid: "CAMILLUS-",
+        branchid: ptId,
         lastname: "",
         firstname: "",
         middlename: "",
         gender:"",
         bday: "",
+        age: patientAge,
         phone: "",
         address:"",
         idenno:""
     }
+
     const validationSchema = Yup.object().shape({
 
         branchid: Yup.string(),
         lastname: Yup.string().required("This field is required!"),
         firstname: Yup.string().required("This field is required!"),
-        middlename: Yup.string().required("This field is required!"),
+        middlename: Yup.string(),
         bday: Yup.string().required("This field is required!"),
+        age: Yup.number().required(),
         gender: Yup.string().required("This field is required!"),
-        age: Yup.number(),
         phone: Yup.string().required("This field is required!"),
         address: Yup.string().required("This field is required!"),
         idenno: Yup.string("This field is required!"),
 
-        
     })
 
-
     const onSubmit = (data) => {
-        axios.post("http://localhost:3001/patient/findpatient", data).then((response) => {
-        if(response.data === 1){
-            document.location ="/regerror";
-        } else {
-        axios.post("http://localhost:3001/patient/addpatient", data).then((reponse) => {
-            console.log("Patient added to database");
-        });
-        console.log(data);
-        document.location = "/home";
-        }
-        });
+
+        data.branchid = ptId;
+        data.age = patientAge;
+
+        axios.post("http://localhost:3001/patient/addpatient", data).then((response) => {
+            history.push('/home');
+        })
     }
     return (
     <div className="ptregwrapper">
@@ -104,7 +106,7 @@ const Ptreg = () => {
                             name="branchid"
                             id="form-field"
                             type="text"
-                            value= {ptId}
+                            value={ptId}
                             disabled={true}
                        />
                     </div>
@@ -166,8 +168,8 @@ const Ptreg = () => {
                     </div>
 
                     <div className="form-content">
-                        <label className="form-content">Age:</label>
-                        <Field id="form-field" type="number" value={patientAge} disabled={true}/>
+                        <label className="form-content" name="age">Age:</label>
+                        <Field id="form-field" name="age" type="number" value={patientAge} disabled={true}/>
                     </div>
                 </div>
                 <br /><h4>Contact and other information</h4>

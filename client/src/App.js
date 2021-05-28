@@ -29,6 +29,7 @@ const App = () => {
               </li>
             </nav>
             <section>
+              
               <Route path="/" exact component={Ptsearch} />
               <Route path="/ptsearch" component={Ptsearch} />
               <Route path="/registerpatient" component={Ptreg} />
