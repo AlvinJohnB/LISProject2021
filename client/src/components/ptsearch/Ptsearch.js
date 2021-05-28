@@ -36,7 +36,6 @@ const Ptsearch = () => {
 
             <input className="form-content form-botton" type="button" value="Search" />
 
-
         </form>
 
     </div>

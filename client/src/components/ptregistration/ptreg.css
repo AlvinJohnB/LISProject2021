@@ -20,10 +20,12 @@ hr{
 
 .form-group{
     display: flex;
+    flex-direction: row;
     align-items: center;
 }
 
-.form-group input{
+
+#form-field{
     text-align: center;
     width: 100%;
     height: 1.5rem;
@@ -32,6 +34,14 @@ hr{
     border: 1px solid black;
 }
 
+#form-field-address{
+    text-align: center;
+    width: 150%;
+    height: 1.5rem;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    border: 1px solid black;
+}
 .form-content select{
     width:100%;
     background-color: transparent;

@@ -8,6 +8,7 @@ import Ptsearch from "./components/ptsearch/Ptsearch";
 const App = () => {
 
   return (
+    <div>
     <Router>
       <Switch>
           <div className="wrapper">
@@ -37,6 +38,7 @@ const App = () => {
           </div>
         </Switch>
     </Router>
+    </div>
   );
 }
 

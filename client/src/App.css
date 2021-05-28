@@ -70,12 +70,17 @@ section {
   padding: 1px;
   display: block;
   justify-content: center;
-  height: 80vh;
+  padding-bottom: 20px;
+  height: auto;
 }
 
 .content {
   padding: 10px;
   color: red;
+}
+
+.addressdiv{
+  width: 30%;
 }
 
 footer {
