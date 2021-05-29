@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const { Patientlist } = require('../models');
+const { Op } = require("sequelize");
 
 router.get("/", async (req, res) => {
     const ptBkData = {
@@ -9,33 +10,66 @@ router.get("/", async (req, res) => {
         "branchid": "",
         "id": 0
     }
+
     const lastPtData = await Patientlist.findOne({
         order: [
             ['id', 'DESC']
         ]
     });
+
     if(lastPtData == null){
         res.json(ptBkData);
+    }else{
+        res.json(lastPtData);
     }
-    res.json(lastPtData);
 });
 
 router.post("/addpatient", async (req, res) => {
     const ptdata = req.body;
     await Patientlist.create(ptdata);
     res.json(ptdata);
+
 });
 
 router.post("/findpatient", async (req, res) => {
-    const data = req.body    
-    const result = await Patientlist.findAll({
-        where:{
-            lastname: data.lastname,
-            firstname: data.firstname
-        }
-    })
-    res.json(result);
+    const ptdata = req.body;
+    console.log(ptdata);
 
+    // IF FNAME ONLY
+    if(ptdata.lastname === ''){
+        const result = await Patientlist.findAll({
+            where:{
+                firstname:{
+                    [Op.substring]: ptdata.firstname
+                }
+            }
+        })
+        res.json(result);
+    } else
+    if(ptdata.firstname === ''){
+        const result = await Patientlist.findAll({
+            where:{
+                lastname:{
+                    [Op.substring]: ptdata.lastname
+                }
+            }
+        })
+        res.json(result);
+    } else
+    {
+        const result = await Patientlist.findAll({
+            where:{
+                lastname:{
+                    [Op.substring]: ptdata.lastname
+                },
+                firstname:{
+                    [Op.substring]: ptdata.firstname
+                }
+            }
+        })
+        res.json(result);
+    }
 });
+
 
 module.exports = router

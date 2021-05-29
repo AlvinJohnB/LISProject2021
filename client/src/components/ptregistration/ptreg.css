@@ -80,11 +80,16 @@ span{
 }
 
 .error{
-    font-size: 0.9 rem;
+    font-size: 0.8 rem;
     color: red;
+    font-weight: bold;
 }
 
 .link{
     font-weight: bold;
     font-size: 0.6rem;
+}
+
+.hidden{
+    visibility: hidden;
 }

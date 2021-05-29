@@ -6,7 +6,7 @@ import { useHistory, } from 'react-router-dom';
 
 import '../ptregistration/ptreg.css';
 
-const Ptsearch = () => {
+const Noptrecord = () => {
 
   const history = useHistory();
   const initialValues ={
@@ -34,16 +34,14 @@ const Ptsearch = () => {
     }
     })
 
-
   }
-
-
   return (
     <div className="ptregwrapper">
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         <Form>
           <h1>Patient Search</h1>
           <hr />
+          <p className="error">No patient record found.</p>
           <h4>Enter Patient Information:</h4>
           <div className="form-group">
             <div className="form-content">
@@ -74,4 +72,4 @@ const Ptsearch = () => {
   );
 }
 
-export default Ptsearch;
+export default Noptrecord;
