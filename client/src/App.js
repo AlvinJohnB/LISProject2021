@@ -7,11 +7,12 @@ import Ptsearch from "./components/ptsearch/Ptsearch";
 import Duplicaterecord from './components/ptregistration/Duplicaterecord';
 import Searchresult from './components/ptsearch/Searchresult';
 import Noptrecord from './components/ptsearch/Noptrecord';
+import Updatept from './components/updatept/Updatept';
 
 const App = () => {
 
   return (
-    <div>
+
     <Router>
       <Switch>
           <div className="wrapper">
@@ -38,14 +39,14 @@ const App = () => {
               <Route path="/regerror" component={Duplicaterecord} />
               <Route path="/searchresults/:param" component={Searchresult}/>
               <Route path="/noptfound" component={Noptrecord}/>
-
+              <Route path="/updatept/:pId" component={Updatept}/>
             </section>
             <footer>Laboratory Information System by Bregs</footer>
             
           </div>
         </Switch>
     </Router>
-    </div>
+
   );
 }
 

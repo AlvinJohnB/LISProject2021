@@ -22,7 +22,7 @@ const Ptsearch = () => {
   const onSubmit = (data) => {
 
     axios.post('http://localhost:3001/patient/findpatient', data).then((response) => {
-    console.log(response.data.length);
+    
     if(response.data.length <= 0){
       console.log("No patient found");
       history.push('/noptfound');

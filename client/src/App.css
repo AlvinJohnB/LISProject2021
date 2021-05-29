@@ -3,29 +3,20 @@
   padding: 0;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
-.App {
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-}
 
 .wrapper {
   box-sizing: border-box;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  width: 80%;
+  margin: auto;
 }
 
 header {
   margin-top: 20px;
-  width: 80%;
   display: flex;
   justify-content: space-between;
 }
 
 nav {
-  width: 80%;
   background-color: rgb(6, 119, 15);
   color: azure;
   display: flex;
@@ -65,7 +56,6 @@ nav a{
 
 section {
   background-color: rgb(240, 240, 240);
-  width: 80%;
   overflow: hidden;
   padding: 1px;
   display: block;
@@ -86,7 +76,6 @@ section {
 footer {
   font-size: smaller;
   background-color: rgb(211, 211, 211);
-  width: 80%;
   display: flex;
   justify-content: flex-end;
 }

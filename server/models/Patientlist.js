@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
         },
         bday:{
-            type: DataTypes.DATE,
+            type: DataTypes.STRING,
             allowNull: false,
         },
         age:{

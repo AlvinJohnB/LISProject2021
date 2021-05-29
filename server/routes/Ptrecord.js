@@ -24,6 +24,18 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.post("/updatept", async(req, res) => {
+    const ptdata = req.body;
+    let branchid = ptdata.branchid
+    console.log(branchid)
+    await Patientlist.update(ptdata, {
+        where: {
+            branchid: branchid
+        }
+    })
+    res.send();
+})
+
 router.post("/addpatient", async (req, res) => {
     const ptdata = req.body;
     await Patientlist.create(ptdata);
@@ -33,6 +45,63 @@ router.post("/addpatient", async (req, res) => {
 
 router.post("/findpatient", async (req, res) => {
     const ptdata = req.body;
+    console.log(ptdata);
+
+    // IF FNAME ONLY
+    if(ptdata.lastname === ''){
+        const result = await Patientlist.findAll({
+            where:{
+                firstname:{
+                    [Op.substring]: ptdata.firstname
+                }
+            }
+        })
+        res.json(result);
+    } else
+    if(ptdata.firstname === ''){
+        const result = await Patientlist.findAll({
+            where:{
+                lastname:{
+                    [Op.substring]: ptdata.lastname
+                }
+            }
+        })
+        res.json(result);
+    } else
+    {
+        const result = await Patientlist.findAll({
+            where:{
+                lastname:{
+                    [Op.substring]: ptdata.lastname
+                },
+                firstname:{
+                    [Op.substring]: ptdata.firstname
+                }
+            }
+        })
+        res.json(result);
+    }
+});
+
+router.get("/findpatientById/:branchid", async (req, res) => {
+    const branchid = req.params.branchid;
+    const result = await Patientlist.findOne({
+        where: {
+            branchid: branchid
+        }
+    })
+    res.json(result);
+})
+
+router.get("/findpatient/:name", async (req, res) => {
+    const rawdata = req.params.name;
+
+    let dataArray = rawdata.split(',');
+
+    let ptdata = {
+        lastname: dataArray[0],
+        firstname: dataArray[1]
+    }
     console.log(ptdata);
 
     // IF FNAME ONLY
