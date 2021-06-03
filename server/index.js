@@ -11,6 +11,8 @@ const db = require('./models');
 const patientlistRouter = require('./routes/Ptrecord')
 app.use("/patient", patientlistRouter);
 
+const testslistRouter = require('./routes/Tests')
+app.use("/test", testslistRouter);
 
 db.sequelize.sync().then( () => {
     app.listen(3001, () => {

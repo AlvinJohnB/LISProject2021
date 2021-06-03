@@ -118,3 +118,8 @@ tr.tbcontent:hover{
     font-size: 0.6rem;
     margin-top: 5px;
 }
+
+.width50{
+    width: 80%;
+    margin: auto;
+}

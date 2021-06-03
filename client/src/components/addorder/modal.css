@@ -1,0 +1,76 @@
+
+.modal{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-wrapper{
+    background-color: white;
+    width: 800px;
+}
+
+.modal-header, .modal-footer{
+    padding: 10px;
+}
+
+.modal-body{
+    padding: 10px;
+    width: 100%;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.testtable{
+    border-collapse: collapse;
+    width: 100%;
+    text-align: center;
+    border: 1px solid black;
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+.tableheader{
+    background-color: white;
+    font-weight: bold;
+    border-bottom: 1px solid black;
+
+}
+
+.tablewrapper{
+    height: 200px;
+    display: block;
+}
+
+.tablebody{
+    height: 120px;
+    overflow-y: auto;
+}
+
+.tablecontent{
+    width:100%;
+    border-collapse: collapse;
+}
+
+.width-1{
+    width: 15%;
+}
+
+.width-2{
+    width: 70%;
+}
+
+.closeButton{
+    background-color: red;
+    color: white;
+    padding: 5px;
+    border: 1px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+}

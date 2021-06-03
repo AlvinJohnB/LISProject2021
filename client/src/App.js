@@ -8,6 +8,7 @@ import Duplicaterecord from './components/ptregistration/Duplicaterecord';
 import Searchresult from './components/ptsearch/Searchresult';
 import Noptrecord from './components/ptsearch/Noptrecord';
 import Updatept from './components/updatept/Updatept';
+import Addorder from './components/addorder/Addorder';
 
 const App = () => {
 
@@ -40,6 +41,7 @@ const App = () => {
               <Route path="/searchresults/:param" component={Searchresult}/>
               <Route path="/noptfound" component={Noptrecord}/>
               <Route path="/updatept/:pId" component={Updatept}/>
+              <Route path="/addorder/" component={Addorder}/>
             </section>
             <footer>Laboratory Information System by Bregs</footer>
             
