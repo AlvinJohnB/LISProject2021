@@ -15,7 +15,8 @@ const Addorder = () => {
     const [testData, setTestData] = useState([])
     const [show, setShow] = useState(false)
     const [tests, setTests] = useState([])
-    const [labTestsRequested, setLabTestsRequested] = useState("");
+    const [labTestsRequested, setLabTestsRequested] = useState("")
+    const [labTestInput, setLabTestInput] = useState("")
 
 
     useEffect(() => {
@@ -43,7 +44,7 @@ const Addorder = () => {
         bday: "",
         age: "",
         reqDr:"",
-        testsRequested:""
+        testsRequested:{labTestInput}
     }
 
     const validationSchema = Yup.object().shape({
@@ -55,9 +56,8 @@ const Addorder = () => {
         bday: Yup.string().required("This field is required!"),
         age: Yup.number().required(),
         gender: Yup.string().required("This field is required!"),
-        phone: Yup.string().required("This field is required!"),
-        address: Yup.string().required("This field is required!"),
-        idenno: Yup.string("This field is required!"),
+        reqDr: Yup.string(),
+        testsRequested: Yup.string("This field is required!"),
 
     })
 
@@ -162,6 +162,7 @@ const Addorder = () => {
                                 type="text"
                                 placeholder="Test Requested"
                                 hidden={false}
+                                value={labTestInput}
                             />
                         </div>
                         <input type="text" value={test.map((test))} />
