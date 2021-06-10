@@ -27,7 +27,7 @@ const Testsrow = ({ testcode, testname, test, testlist, close }) => {
             alert("Duplicate test detected, please recheck.");
             close();
         } else if(notDuplicate){
-            testlist.push({testname: testSelected.testname, index: key});
+            testlist.push({testname: testSelected.testname, testcode: testSelected.testcode, index: key});
             close();
         }
     }
