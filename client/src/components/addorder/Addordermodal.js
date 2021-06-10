@@ -1,7 +1,8 @@
 import React from 'react'
-import { useState } from 'react'
+
 
 import './modal.css'
+import Testsrow from './Testsrow';
 
 const Addordermodal = (props) => {
 
@@ -31,27 +32,34 @@ const Addordermodal = (props) => {
         }
     }
 
-    const handleClick = (e) => {
-        let testSelected = e.target.id;
-        let testlist = props.testlist;
+    // const handleClick = (e) => {
+    //     let testSelected = e.target.id;
+    //     let testlist = props.testlist;
+    //     let key = testlist.length;
 
-        if(testlist.length >= 1){
-            for(let i = 0; i < testlist.length; i++){
-                let test = testlist[i].testname;
-                let key = i;
-                if(test.indexOf(testSelected) > -1){
-                    props.close();
-                    alert("Duplicate test detected!");
-                }else{
-                    testlist.push({testname: testSelected});
-                    props.close();
-                }
-             }
-        }else{
-            testlist.push({testname: testSelected});
-            props.close();
-        }
-    }
+    //     // Check for duplicate
+    //     let duplicate = false;
+    //     let notDuplicate = true;
+
+    //     if(testlist.length >= 1){
+    //         for(let i = 0; i < testlist.length; i++){
+    //             let test = testlist[i].testname;
+    //             if(testSelected === test){
+    //                 duplicate = true;
+    //             } else {
+    //                 notDuplicate = true;
+    //             }
+    //         }
+    //     }
+    //     if(duplicate){
+    //         alert("Duplicate test detected, please recheck.");
+    //         props.close();
+    //     } else if(notDuplicate){
+    //         testlist.push({testname: testSelected, index: key});
+    //         props.close();
+    //     }
+    // }
+
     return (
         <div className ="modal">
             <div className="modal-wrapper">
@@ -75,11 +83,9 @@ const Addordermodal = (props) => {
                                         <table id="teststable" className="tablecontent">
                                             <tbody>
                                                 {props.tests.map((test, key) => {
-                                                    return <tr key={key}>
-                                                        <td className="width-1">{test.testcode}</td>
-                                                        <td className="width-2">{test.testname}</td>
-                                                        <td className="width-1" id={test.testname} onClick={handleClick}>Select</td>
-                                                    </tr>
+                                                    return (
+                                                        <Testsrow key={key} testcode={test.testcode} testlist={props.testlist} testname={test.testname} test={test} close={props.close} />
+                                                    )
                                                 })}
                                             </tbody>
                                         </table>

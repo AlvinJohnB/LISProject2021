@@ -3,6 +3,8 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import Testrow from './Testrow';
+
 
 import Addordermodal from './Addordermodal'
 import '../../components/ptregistration/ptreg.css'
@@ -12,13 +14,13 @@ const Addorder = () => {
 
     const [testData, setTestData] = useState([])
     const [show, setShow] = useState(false)
-    
-    const [tests] = useState([])
+    const [tests, setTests] = useState([])
+    const [labTestsRequested, setLabTestsRequested] = useState("");
+
 
     useEffect(() => {
         axios.get("http://localhost:3001/test").then((response) => {
             setTestData(response.data);
-            console.log(response.data)
         })
     }, [])
 
@@ -40,9 +42,8 @@ const Addorder = () => {
         gender:"",
         bday: "",
         age: "",
-        phone: "",
-        address:"",
-        idenno:""
+        reqDr:"",
+        testsRequested:""
     }
 
     const validationSchema = Yup.object().shape({
@@ -64,7 +65,7 @@ const Addorder = () => {
          <div className="ptregwrapper">
             <Formik initialValues={initialValues} validationSchema={validationSchema}>
                 <Form>
-                    <h1>Add Patient Ordder</h1>
+                    <h1>Add Patient Order</h1>
                     <hr />
                     <h4>Patient Information Information</h4>
                     <div className="form-group">
@@ -146,13 +147,24 @@ const Addorder = () => {
                         <div className="form-content addressdiv">
                         <label className="form-content" htmlFor="address">Requesting Physician:</label>
                         <Field 
-                            name="address"
+                            name="reqDr"
                             id="form-field"
                             type="text"
                             placeholder="Requesting Physician"
                         />
-                        <ErrorMessage name="address" component="span" />
+                        <ErrorMessage name="reqDr" component="span" />
                         </div>
+                        <div className="form-content">
+                        <label className="form-content" htmlFor="testsRequested">Tests Requested:</label>
+                            <Field 
+                                name="testsRequested"
+                                id="form-field"
+                                type="text"
+                                placeholder="Test Requested"
+                                hidden={false}
+                            />
+                        </div>
+                        <input type="text" value={test.map((test))} />
                         
                     </div><br />
                     <table className="table width50">
@@ -163,10 +175,7 @@ const Addorder = () => {
                             </tr>
                             {tests.map((test) => {
                                 return (
-                                    <tr key={test.key}>
-                                        <td>{test.testname}</td>
-                                        <td>Remove</td>
-                                    </tr>
+                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} />
                                 )
                             })}
                             <tr>
@@ -175,6 +184,7 @@ const Addorder = () => {
                             </tr>
                         </tbody>
                     </table>
+
                     <button className="form-content form-botton" type="submit">Submit</button>
                     <Addordermodal show={show} tests={testData} close={closeModal} testlist={tests}/>
 
