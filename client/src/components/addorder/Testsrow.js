@@ -1,6 +1,6 @@
 import React from 'react'
 
-const Testsrow = ({ testcode, testname, test, testlist, close }) => {
+const Testsrow = ({ testcode, testname, test, testlist, close, inputHandler }) => {
 
     const handleClick = () => {
         let testSelected = test;
@@ -28,6 +28,7 @@ const Testsrow = ({ testcode, testname, test, testlist, close }) => {
             close();
         } else if(notDuplicate){
             testlist.push({testname: testSelected.testname, testcode: testSelected.testcode, index: key});
+            inputHandler();
             close();
         }
     }

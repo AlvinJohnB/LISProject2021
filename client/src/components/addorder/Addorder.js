@@ -15,7 +15,6 @@ const Addorder = () => {
     const [testData, setTestData] = useState([])
     const [show, setShow] = useState(false)
     const [tests, setTests] = useState([])
-    const [labTestsRequested, setLabTestsRequested] = useState("")
     const [labTestInput, setLabTestInput] = useState("")
 
 
@@ -25,6 +24,13 @@ const Addorder = () => {
         })
     }, [])
 
+
+    const inputHandler = () => {
+
+        const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '')
+        
+        console.log(reducedTests);
+    }
 
     const showModal = () => {
         setShow(true);
@@ -46,6 +52,7 @@ const Addorder = () => {
         reqDr:"",
         testsRequested:{labTestInput}
     }
+
 
     const validationSchema = Yup.object().shape({
 
@@ -165,7 +172,6 @@ const Addorder = () => {
                                 value={labTestInput}
                             />
                         </div>
-                        <input type="text" value={test.map((test))} />
                         
                     </div><br />
                     <table className="table width50">
@@ -176,7 +182,7 @@ const Addorder = () => {
                             </tr>
                             {tests.map((test) => {
                                 return (
-                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} />
+                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} inputHandler={inputHandler} />
                                 )
                             })}
                             <tr>
