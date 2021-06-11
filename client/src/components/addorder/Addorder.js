@@ -4,6 +4,7 @@ import * as Yup from 'yup';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Testrow from './Testrow';
+import { useParams } from 'react-router-dom';
 
 
 import Addordermodal from './Addordermodal'
@@ -11,25 +12,38 @@ import '../../components/ptregistration/ptreg.css'
 
 
 const Addorder = () => {
-
+    const [isLoading, setIsLoading] = useState(true)
     const [testData, setTestData] = useState([])
     const [show, setShow] = useState(false)
     const [tests, setTests] = useState([])
     const [labTestInput, setLabTestInput] = useState("")
+    const [ptData, setPtData] = useState({})
 
+    let { pId } = useParams();
 
     useEffect(() => {
         axios.get("http://localhost:3001/test").then((response) => {
             setTestData(response.data);
         })
-    }, [])
 
+        axios.get(`http://localhost:3001/patient/findpatientById/${pId}`).then((response) => {
+            setPtData(response.data);
+            setIsLoading(false);
+        })
 
-    const inputHandler = () => {
+    }, [pId])
 
+    const submitHandler = () => {
+        // Reduce array for test input
         const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '')
-        
+        setLabTestInput(reducedTests);
         console.log(reducedTests);
+    }
+
+    const onSubmit = (data) => {
+        data.testsRequested = labTestInput;
+        console.log(data);
+
     }
 
     const showModal = () => {
@@ -38,19 +52,20 @@ const Addorder = () => {
 
     const closeModal= () => {
         setShow(false);
+        submitHandler()
     }
 
 
     const initialValues = {
-        branchid: "",
-        lastname: "",
-        firstname: "",
-        middlename: "",
-        gender:"",
-        bday: "",
-        age: "",
+        branchid: ptData.branchid,
+        lastname: ptData.lastname,
+        firstname: ptData.firstname,
+        middlename: ptData.middlename,
+        gender:ptData.gender,
+        bday: ptData.bday,
+        age: ptData.age,
         reqDr:"",
-        testsRequested:{labTestInput}
+        testsRequested:labTestInput
     }
 
 
@@ -63,14 +78,22 @@ const Addorder = () => {
         bday: Yup.string().required("This field is required!"),
         age: Yup.number().required(),
         gender: Yup.string().required("This field is required!"),
-        reqDr: Yup.string(),
-        testsRequested: Yup.string("This field is required!"),
+        reqDr: Yup.string().required("This field is required! Put N/A if none"),
+        testsRequested: Yup.string(),
 
     })
 
+    if(isLoading){
+        return(
+            <div className="ptregwrapper">
+            <h3>Loading...</h3>
+            </div>
+        )
+    }
+
     return (
          <div className="ptregwrapper">
-            <Formik initialValues={initialValues} validationSchema={validationSchema}>
+            <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                 <Form>
                     <h1>Add Patient Order</h1>
                     <hr />
@@ -96,6 +119,7 @@ const Addorder = () => {
                             id="form-field"
                             name="lastname"
                             placeholder="Lastname"
+                            disabled={true}
                         />
                         <ErrorMessage name="lastname" component="span" />
                         
@@ -107,6 +131,7 @@ const Addorder = () => {
                             id="form-field"
                             name="firstname"
                             placeholder="First name"
+                            disabled={true}
                         />
                         <ErrorMessage name="firstname" component="span" />
                     </div>
@@ -117,6 +142,7 @@ const Addorder = () => {
                             id="form-field"
                             name="middlename"
                             placeholder="Middle name"
+                            disabled={true}
                         />
                         <ErrorMessage name="middlename" component="span" />
                     </div>
@@ -126,7 +152,7 @@ const Addorder = () => {
 
                     <div className="form-content">
                         <label className="form-content" htmlFor="gender">Gender:</label>
-                        <Field id="form-field" as="select" name="gender">
+                        <Field id="form-field" as="select" name="gender" disabled={true}>
                             <option  value="invalid">Select gender</option>
                             <option  value="Male">Male</option>
                             <option  value="Female">Female</option>
@@ -139,6 +165,7 @@ const Addorder = () => {
                         <Field 
                         id="form-field"
                         type="date"
+                        disabled={true}
                         name="bday" />
                         <ErrorMessage name="bday" component="span" />
                     </div>
@@ -162,7 +189,6 @@ const Addorder = () => {
                         <ErrorMessage name="reqDr" component="span" />
                         </div>
                         <div className="form-content">
-                        <label className="form-content" htmlFor="testsRequested">Tests Requested:</label>
                             <Field 
                                 name="testsRequested"
                                 id="form-field"
@@ -170,6 +196,7 @@ const Addorder = () => {
                                 placeholder="Test Requested"
                                 hidden={false}
                                 value={labTestInput}
+                                disabled={false}
                             />
                         </div>
                         
@@ -182,7 +209,7 @@ const Addorder = () => {
                             </tr>
                             {tests.map((test) => {
                                 return (
-                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} inputHandler={inputHandler} />
+                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} submitHandler={submitHandler} />
                                 )
                             })}
                             <tr>

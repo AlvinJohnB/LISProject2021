@@ -26,7 +26,6 @@ const Searchresult = () => {
     const onSelect = (e) => {
         const pId = e.target.id
         history.push(`/updatept/${pId}`)
-        console.log(e.target.id);
     }
 
     if(isLoading){

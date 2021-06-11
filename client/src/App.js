@@ -41,7 +41,7 @@ const App = () => {
               <Route path="/searchresults/:param" component={Searchresult}/>
               <Route path="/noptfound" component={Noptrecord}/>
               <Route path="/updatept/:pId" component={Updatept}/>
-              <Route path="/addorder/" component={Addorder}/>
+              <Route path="/addorder/for:pId" component={Addorder}/>
             </section>
             <footer>Laboratory Information System by Bregs</footer>
             

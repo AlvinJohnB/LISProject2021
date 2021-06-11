@@ -5,8 +5,6 @@ const Testsrow = ({ testcode, testname, test, testlist, close, inputHandler }) =
     const handleClick = () => {
         let testSelected = test;
 
-        // let testSelected = e.target.id;
-
         let key = testlist.length;
 
         // Check for duplicate
@@ -28,7 +26,6 @@ const Testsrow = ({ testcode, testname, test, testlist, close, inputHandler }) =
             close();
         } else if(notDuplicate){
             testlist.push({testname: testSelected.testname, testcode: testSelected.testcode, index: key});
-            inputHandler();
             close();
         }
     }

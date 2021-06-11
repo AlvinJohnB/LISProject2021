@@ -81,7 +81,7 @@ const Updatept = () => {
     const onSubmit = (data) => {
         data.age = initialValues.age;
         axios.post("http://localhost:3001/patient/updatept", data).then(() => {
-            history.push('/addorder/for');
+            history.push(`/addorder/for${pId}`);
         })
     }
    

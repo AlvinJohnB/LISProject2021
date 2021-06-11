@@ -32,34 +32,6 @@ const Addordermodal = (props) => {
         }
     }
 
-    // const handleClick = (e) => {
-    //     let testSelected = e.target.id;
-    //     let testlist = props.testlist;
-    //     let key = testlist.length;
-
-    //     // Check for duplicate
-    //     let duplicate = false;
-    //     let notDuplicate = true;
-
-    //     if(testlist.length >= 1){
-    //         for(let i = 0; i < testlist.length; i++){
-    //             let test = testlist[i].testname;
-    //             if(testSelected === test){
-    //                 duplicate = true;
-    //             } else {
-    //                 notDuplicate = true;
-    //             }
-    //         }
-    //     }
-    //     if(duplicate){
-    //         alert("Duplicate test detected, please recheck.");
-    //         props.close();
-    //     } else if(notDuplicate){
-    //         testlist.push({testname: testSelected, index: key});
-    //         props.close();
-    //     }
-    // }
-
     return (
         <div className ="modal">
             <div className="modal-wrapper">
@@ -84,7 +56,14 @@ const Addordermodal = (props) => {
                                             <tbody>
                                                 {props.tests.map((test, key) => {
                                                     return (
-                                                        <Testsrow key={key} testcode={test.testcode} testlist={props.testlist} testname={test.testname} test={test} close={props.close} />
+                                                        <Testsrow 
+                                                            key={key} 
+                                                            testcode={test.testcode} 
+                                                            testlist={props.testlist} 
+                                                            testname={test.testname} 
+                                                            test={test} 
+                                                            close={props.close} 
+                                                        />
                                                     )
                                                 })}
                                             </tbody>
