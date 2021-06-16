@@ -35,7 +35,7 @@ const Addorder = () => {
 
     const submitHandler = () => {
         // Reduce array for test input
-        const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '')
+        const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
         setLabTestInput(reducedTests);
         console.log(reducedTests);
     }
@@ -51,35 +51,25 @@ const Addorder = () => {
     }
 
     const closeModal= () => {
+        submitHandler();
         setShow(false);
-        submitHandler()
     }
 
 
     const initialValues = {
         branchid: ptData.branchid,
-        lastname: ptData.lastname,
-        firstname: ptData.firstname,
-        middlename: ptData.middlename,
-        gender:ptData.gender,
-        bday: ptData.bday,
-        age: ptData.age,
         reqDr:"",
         testsRequested:labTestInput
+        labNumber: "",
     }
 
 
     const validationSchema = Yup.object().shape({
 
         branchid: Yup.string(),
-        lastname: Yup.string().required("This field is required!"),
-        firstname: Yup.string().required("This field is required!"),
-        middlename: Yup.string(),
-        bday: Yup.string().required("This field is required!"),
-        age: Yup.number().required(),
-        gender: Yup.string().required("This field is required!"),
         reqDr: Yup.string().required("This field is required! Put N/A if none"),
         testsRequested: Yup.string(),
+        labNumber: Yup.string(),
 
     })
 
@@ -101,8 +91,6 @@ const Addorder = () => {
                     <div className="form-group">
                         <div className="form-content">
                         <label htmlFor="branchid" className="form-content">Patient ID:</label>
-                        <ErrorMessage name="branchid" component="span" /> 
-
                     <Field 
                             name="branchid"
                             id="form-field"
@@ -111,40 +99,27 @@ const Addorder = () => {
                     />
                     </div>
                 </div>
+                
                 <div className="form-group">
                 
                     <div className="form-content">
                         <label className="form-content" htmlFor="lastname">Lastname:</label> 
-                        <Field 
-                            id="form-field"
-                            name="lastname"
-                            placeholder="Lastname"
-                            disabled={true}
-                        />
-                        <ErrorMessage name="lastname" component="span" />
+
+                        <input type="text" id="form-field" value={ptData.lastname} />
                         
                     </div>
 
                     <div className="form-content">
                         <label className="form-content" htmlFor="firstname">First name:</label>
-                        <Field 
-                            id="form-field"
-                            name="firstname"
-                            placeholder="First name"
-                            disabled={true}
-                        />
-                        <ErrorMessage name="firstname" component="span" />
+                        
+                    <input type="text" id="form-field" value={ptData.firstname} />
+                        
                     </div>
 
                     <div className="form-content">
                         <label className="form-content" htmlFor="middlename">Middle name:</label>
-                        <Field 
-                            id="form-field"
-                            name="middlename"
-                            placeholder="Middle name"
-                            disabled={true}
-                        />
-                        <ErrorMessage name="middlename" component="span" />
+                        
+                        <input type="text" id="form-field" value={ptData.middlename} />
                     </div>
                 </div>
 
@@ -161,20 +136,14 @@ const Addorder = () => {
                     </div>
 
                     <div className="form-content">
-                        <label className="form-content" htmlFor="bday">Birthdate:</label>
-                        <Field 
-                        id="form-field"
-                        type="date"
-                        disabled={true}
-                        name="bday" />
-                        <ErrorMessage name="bday" component="span" />
-                    </div>
-
-                    <div className="form-content">
                         <label className="form-content" name="age">Age:</label>
-                        <Field id="form-field" name="age" type="number" disabled={true}/>
+                        
+                        <input type="text" id="form-field" value={ptData.age/>
+                        
                     </div>
+                    
                 </div>
+                
                 <br /><h4>Request Information</h4>
                     <div className="form-group">
 
@@ -196,6 +165,16 @@ const Addorder = () => {
                                 placeholder="Test Requested"
                                 hidden={false}
                                 value={labTestInput}
+                                disabled={false}
+                            />
+                        </div>
+                        <div className="form-content">
+                            <Field 
+                                name="labNumber"
+                                id="form-field"
+                                type="text"
+                                placeholder="Lab No."
+                                hidden={false}
                                 disabled={false}
                             />
                         </div>
