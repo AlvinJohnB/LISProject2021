@@ -18,6 +18,7 @@ const Addorder = () => {
     const [tests, setTests] = useState([])
     const [labTestInput, setLabTestInput] = useState("")
     const [ptData, setPtData] = useState({})
+    const [labNumberInput, setLabNumberInput] = useState("")
 
     let { pId } = useParams();
 
@@ -38,10 +39,19 @@ const Addorder = () => {
         const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
         setLabTestInput(reducedTests);
         console.log(reducedTests);
+        
+        //Set Lab No 
+        let year = new Date().getFullYear();
+        const branchcode = "CAMILLUS-";
+        let concatLabNo = `${branchcode}${year}`
+        //Add last order ID
+        
+        setLabNumberInput(concatLabNo);
     }
 
     const onSubmit = (data) => {
         data.testsRequested = labTestInput;
+        data.labNumber = labNumberInput;
         console.log(data);
 
     }
@@ -168,6 +178,7 @@ const Addorder = () => {
                                 disabled={false}
                             />
                         </div>
+                        
                         <div className="form-content">
                             <Field 
                                 name="labNumber"
