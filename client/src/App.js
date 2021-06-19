@@ -4,7 +4,6 @@ import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
 import Ptreg from './components/ptregistration/Ptreg';
 import Ptsearch from "./components/ptsearch/Ptsearch";
-import Duplicaterecord from './components/ptregistration/Duplicaterecord';
 import Searchresult from './components/ptsearch/Searchresult';
 import Noptrecord from './components/ptsearch/Noptrecord';
 import Updatept from './components/updatept/Updatept';
@@ -36,7 +35,6 @@ const App = () => {
               <Route path="/" exact component={Ptsearch} />
               <Route path="/ptsearch" component={Ptsearch} />
               <Route path="/registerpatient" component={Ptreg} />
-              <Route path="/regerror" component={Duplicaterecord} />
               <Route path="/searchresults/:param" component={Searchresult}/>
               <Route path="/noptfound" component={Noptrecord}/>
               <Route path="/updatept/:pId" component={Updatept}/>
