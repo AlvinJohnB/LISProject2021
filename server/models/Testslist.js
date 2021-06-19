@@ -12,8 +12,8 @@ module.exports = (sequelize, DataTypes) => {
         section: {
             type: DataTypes.STRING,
             allowNull: false,
-        }
-    })
+        },
+    }, {timestamps: false})
 
     return Testslist;
 }

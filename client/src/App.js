@@ -26,7 +26,6 @@ const App = () => {
               <li>
                   <ul><Link to="/ptsearch">Patient Search</Link></ul>
                   <ul><Link to="/registerpatient">Patient Registration</Link></ul>
-                  <ul>Add Order</ul>
                   <ul>Orders</ul>
                   <ul>Laboratory</ul>
                   <ul>Results</ul>

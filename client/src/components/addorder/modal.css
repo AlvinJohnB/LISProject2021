@@ -74,3 +74,29 @@
     border-radius: 5px;
     cursor: pointer;
 }
+
+tr.tbcontent:hover{
+    background-color: rgb(135, 228, 151);
+    font-style: italic;
+    cursor: pointer;
+}
+
+tr.tbcontentremove:hover{
+    background-color: rgb(255, 188, 188);
+    font-style: italic;
+    cursor: pointer;
+}
+
+.form-input{
+    text-align: center;
+    width: 25%;
+    height: 1.5rem;
+    background-color: transparent;
+    color: rgb(0, 0, 0);
+    border: 1px solid black;
+}
+
+.select:hover{
+    cursor: pointer;
+    font-style: italic;
+}

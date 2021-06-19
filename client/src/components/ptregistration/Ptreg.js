@@ -86,7 +86,7 @@ const Ptreg = () => {
         data.age = patientAge;
 
         axios.post("http://localhost:3001/patient/addpatient", data).then((response) => {
-            history.push('/home');
+            history.push(`/addorder/for${ptId}`);
         })
     }
     return (
@@ -116,6 +116,7 @@ const Ptreg = () => {
                     <div className="form-content">
                         <label className="form-content" htmlFor="lastname">Lastname:</label> 
                         <Field 
+                            autoComplete="off"
                             id="form-field"
                             name="lastname"
                             placeholder="Lastname"
@@ -127,6 +128,7 @@ const Ptreg = () => {
                     <div className="form-content">
                         <label className="form-content" htmlFor="firstname">First name:</label>
                         <Field 
+                            autoComplete="off"
                             id="form-field"
                             name="firstname"
                             placeholder="First name"
@@ -137,6 +139,7 @@ const Ptreg = () => {
                     <div className="form-content">
                         <label className="form-content" htmlFor="middlename">Middle name:</label>
                         <Field 
+                            autoComplete="off"
                             id="form-field"
                             name="middlename"
                             placeholder="Middle name"
@@ -160,6 +163,7 @@ const Ptreg = () => {
                     <div className="form-content">
                         <label className="form-content" htmlFor="bday">Birthdate:</label>
                         <Field 
+                        autoComplete="off"
                         id="form-field"
                         type="date"
                         onBlur={getAge}
@@ -178,6 +182,7 @@ const Ptreg = () => {
                         <div className="form-content addressdiv">
                         <label className="form-content" htmlFor="address">Address:</label>
                         <Field 
+                            autoComplete="off"
                             name="address"
                             id="form-field"
                             type="text"
@@ -188,6 +193,7 @@ const Ptreg = () => {
                         <div className="form-content">
                             <label className="form-content" htmlFor="phone">Phone Number:</label>
                             <Field 
+                                autoComplete="off"
                                 id="form-field"
                                 name="phone"
                                 type="tel"
@@ -201,6 +207,7 @@ const Ptreg = () => {
                         <div className="form-content">
                         <label className="form-content" htmlFor="idenno">Identification Card No. (SC, PWD, etc.)</label>
                         <Field 
+                            autoComplete="off"
                             id="form-field"
                             name="idenno"
                             placeholder="ID Number"

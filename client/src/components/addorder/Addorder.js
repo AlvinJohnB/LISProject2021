@@ -4,11 +4,12 @@ import * as Yup from 'yup';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Testrow from './Testrow';
-import { useParams } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 
 
 import Addordermodal from './Addordermodal'
 import '../../components/ptregistration/ptreg.css'
+import './modal.css'
 
 
 const Addorder = () => {
@@ -19,12 +20,19 @@ const Addorder = () => {
     const [labTestInput, setLabTestInput] = useState("")
     const [ptData, setPtData] = useState({})
     const [labNumberInput, setLabNumberInput] = useState("")
+    const [lastOrderIdData, setLastOrderIdData] = useState({})
 
     let { pId } = useParams();
+    let history = useHistory();
 
     useEffect(() => {
         axios.get("http://localhost:3001/test").then((response) => {
             setTestData(response.data);
+        })
+
+        axios.get("http://localhost:3001/order").then((response) => {
+            setLastOrderIdData(response.data);
+
         })
 
         axios.get(`http://localhost:3001/patient/findpatientById/${pId}`).then((response) => {
@@ -34,25 +42,39 @@ const Addorder = () => {
 
     }, [pId])
 
+    useEffect(() => {
+
+            const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setLabTestInput(reducedTests);
+
+    }, [tests])
+
     const submitHandler = () => {
         // Reduce array for test input
         const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
         setLabTestInput(reducedTests);
-        console.log(reducedTests);
-        
+
         //Set Lab No 
         let year = new Date().getFullYear();
-        const branchcode = "CAMILLUS-";
-        let concatLabNo = `${branchcode}${year}`
-        //Add last order ID
-        
+        let month = new Date().getMonth();
+
+        const branchcode = "CAM";
+
+        let id = lastOrderIdData.id+1;
+
+        let concatLabNo = `${branchcode}-${year}-${month}-${id}`
         setLabNumberInput(concatLabNo);
+    
     }
 
     const onSubmit = (data) => {
+
         data.testsRequested = labTestInput;
         data.labNumber = labNumberInput;
-        console.log(data);
+
+        axios.post("http://localhost:3001/order/addorder", data).then((response) => {
+            history.push('/home');
+        })
 
     }
 
@@ -67,16 +89,16 @@ const Addorder = () => {
 
 
     const initialValues = {
-        branchid: ptData.branchid,
+        forPtId: ptData.branchid,
         reqDr:"",
-        testsRequested:labTestInput
+        testsRequested:labTestInput,
         labNumber: "",
     }
 
 
     const validationSchema = Yup.object().shape({
 
-        branchid: Yup.string(),
+        forPtId: Yup.string(),
         reqDr: Yup.string().required("This field is required! Put N/A if none"),
         testsRequested: Yup.string(),
         labNumber: Yup.string(),
@@ -100,9 +122,9 @@ const Addorder = () => {
                     <h4>Patient Information Information</h4>
                     <div className="form-group">
                         <div className="form-content">
-                        <label htmlFor="branchid" className="form-content">Patient ID:</label>
+                        <label htmlFor="forPtId" className="form-content">Patient ID:</label>
                     <Field 
-                            name="branchid"
+                            name="forPtId"
                             id="form-field"
                             type="text"
                             disabled={true}
@@ -115,21 +137,21 @@ const Addorder = () => {
                     <div className="form-content">
                         <label className="form-content" htmlFor="lastname">Lastname:</label> 
 
-                        <input type="text" id="form-field" value={ptData.lastname} />
+                        <input type="text" id="form-field" value={ptData.lastname} disabled />
                         
                     </div>
 
                     <div className="form-content">
                         <label className="form-content" htmlFor="firstname">First name:</label>
                         
-                    <input type="text" id="form-field" value={ptData.firstname} />
+                    <input type="text" id="form-field" value={ptData.firstname} disabled/>
                         
                     </div>
 
                     <div className="form-content">
                         <label className="form-content" htmlFor="middlename">Middle name:</label>
                         
-                        <input type="text" id="form-field" value={ptData.middlename} />
+                        <input type="text" id="form-field" value={ptData.middlename} disabled />
                     </div>
                 </div>
 
@@ -137,18 +159,13 @@ const Addorder = () => {
 
                     <div className="form-content">
                         <label className="form-content" htmlFor="gender">Gender:</label>
-                        <Field id="form-field" as="select" name="gender" disabled={true}>
-                            <option  value="invalid">Select gender</option>
-                            <option  value="Male">Male</option>
-                            <option  value="Female">Female</option>
-                        </Field><br />
-                        <ErrorMessage name="gender" component="span" />
+                        <input type="text" id="form-field" value={ptData.gender} disabled/>
                     </div>
 
                     <div className="form-content">
                         <label className="form-content" name="age">Age:</label>
                         
-                        <input type="text" id="form-field" value={ptData.age/>
+                        <input type="text" id="form-field" value={ptData.age} disabled/>
                         
                     </div>
                     
@@ -164,6 +181,7 @@ const Addorder = () => {
                             id="form-field"
                             type="text"
                             placeholder="Requesting Physician"
+                            autoComplete="off"
                         />
                         <ErrorMessage name="reqDr" component="span" />
                         </div>
@@ -173,7 +191,7 @@ const Addorder = () => {
                                 id="form-field"
                                 type="text"
                                 placeholder="Test Requested"
-                                hidden={false}
+                                hidden={true}
                                 value={labTestInput}
                                 disabled={false}
                             />
@@ -185,8 +203,9 @@ const Addorder = () => {
                                 id="form-field"
                                 type="text"
                                 placeholder="Lab No."
-                                hidden={false}
+                                hidden={true}
                                 disabled={false}
+                                value={labNumberInput}
                             />
                         </div>
                         
@@ -199,11 +218,11 @@ const Addorder = () => {
                             </tr>
                             {tests.map((test) => {
                                 return (
-                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} submitHandler={submitHandler} />
+                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} submitHandler={submitHandler} setLabTestInput={setLabTestInput} />
                                 )
                             })}
                             <tr>
-                                <td onClick={showModal}>Click here to add test</td>
+                                <td className="select" onClick={showModal}>Click here to add test</td>
                                 <td></td>
                             </tr>
                         </tbody>

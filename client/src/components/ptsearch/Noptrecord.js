@@ -47,6 +47,7 @@ const Noptrecord = () => {
             <div className="form-content">
               <label className="form-content" htmlFor="lastname">Lastname:</label>
               <Field
+                autoComplete="off"
                 type="text"
                 name="lastname"
                 id="form-field"
@@ -58,6 +59,7 @@ const Noptrecord = () => {
             <div className="form-content">
               <label className="form-content" htmlFor="firstname">First name:</label>
               <Field
+                autoComplete="off"
                 type="text"
                 name="firstname"
                 id="form-field"

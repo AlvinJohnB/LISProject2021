@@ -123,3 +123,7 @@ tr.tbcontent:hover{
     width: 80%;
     margin: auto;
 }
+
+.widthauto{
+    width: auto;
+}

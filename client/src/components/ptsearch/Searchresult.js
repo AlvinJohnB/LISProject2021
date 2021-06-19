@@ -16,7 +16,7 @@ const Searchresult = () => {
     useEffect(() => {
 
     axios.get(`http://localhost:3001/patient/findpatient/${param}`).then((response) => {
-        console.log(response.data);
+
         setResultData(response.data);
         setIsLoading(false);
     })

@@ -1,5 +1,7 @@
 import React from 'react'
 
+import './modal.css'
+
 const Testsrow = ({ testcode, testname, test, testlist, close, inputHandler }) => {
 
     const handleClick = () => {
@@ -31,7 +33,7 @@ const Testsrow = ({ testcode, testname, test, testlist, close, inputHandler }) =
     }
 
     return (
-        <tr>
+        <tr className="tbcontent">
             <td className="width-1">{testcode}</td>
             <td className="width-2">{testname}</td>
             <td className="width-1" onClick={handleClick}>Select</td>

@@ -120,6 +120,7 @@ const Updatept = () => {
                 <div className="form-content">
                     <label className="form-content" htmlFor="lastname">Lastname:</label> 
                     <Field 
+                        autoComplete="off"
                         id="form-field"
                         name="lastname"
                         placeholder="Lastname"
@@ -131,6 +132,7 @@ const Updatept = () => {
                 <div className="form-content">
                     <label className="form-content" htmlFor="firstname">First name:</label>
                     <Field 
+                        autoComplete="off"
                         id="form-field"
                         name="firstname"
                         placeholder="First name"
@@ -141,6 +143,7 @@ const Updatept = () => {
                 <div className="form-content">
                     <label className="form-content" htmlFor="middlename">Middle name:</label>
                     <Field 
+                        autoComplete="off"
                         id="form-field"
                         name="middlename"
                         placeholder="Middle name"
@@ -182,6 +185,7 @@ const Updatept = () => {
                     <div className="form-content addressdiv">
                     <label className="form-content" htmlFor="address">Address:</label>
                     <Field 
+                        autoComplete="off"
                         name="address"
                         id="form-field"
                         type="text"
@@ -192,6 +196,7 @@ const Updatept = () => {
                     <div className="form-content">
                         <label className="form-content" htmlFor="phone">Phone Number:</label>
                         <Field 
+                            autoComplete="off"
                             id="form-field"
                             name="phone"
                             type="tel"
@@ -205,6 +210,7 @@ const Updatept = () => {
                     <div className="form-content">
                     <label className="form-content" htmlFor="idenno">Identification Card No. (SC, PWD, etc.)</label>
                     <Field 
+                        autoComplete="off"
                         id="form-field"
                         name="idenno"
                         placeholder="ID Number"
@@ -212,7 +218,7 @@ const Updatept = () => {
                     </div>
                 </div>
 
-                <button className="form-content form-botton" type="submit">Update</button>
+                <button className="form-content form-botton widthauto" type="submit">Update / Proceed</button>
 
             </Form>
         </Formik>
