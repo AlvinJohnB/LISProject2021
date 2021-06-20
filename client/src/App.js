@@ -8,6 +8,10 @@ import Searchresult from './components/ptsearch/Searchresult';
 import Noptrecord from './components/ptsearch/Noptrecord';
 import Updatept from './components/updatept/Updatept';
 import Addorder from './components/addorder/Addorder';
+import UserLogin from './components/users/UserLogin';
+import UserReg from './components/users/UserReg';
+
+
 
 const App = () => {
 
@@ -15,6 +19,8 @@ const App = () => {
 
     <Router>
       <Switch>
+          <Route path="/login" exact component={UserLogin} />
+          <Route path="/register" exact component={UserReg} />
           <div className="wrapper">
             <header>
               <div>logo</div>
