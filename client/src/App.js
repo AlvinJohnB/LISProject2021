@@ -10,47 +10,68 @@ import Updatept from './components/updatept/Updatept';
 import Addorder from './components/addorder/Addorder';
 import UserLogin from './components/users/UserLogin';
 import UserReg from './components/users/UserReg';
-
+import { AuthContext } from './helpers/AuthContext';
+import { useState, useEffect } from 'react'
+import axios from 'axios';
 
 
 const App = () => {
 
+  const [authState, setAuthState] = useState("false");
+
+useEffect(() => {
+  axios.get("http://localhost:3001/auth/auth",{
+    headers:{
+      accessToken: localStorage.getItem("accessToken"),
+    }
+  }).then((response) => {
+    if(response.data.error){
+      setAuthState("false");
+    }else{
+      setAuthState("true");
+    }
+})
+},[])
+
   return (
+    <AuthContext.Provider value={{authState, setAuthState}}>
+      <Router>
+        <Switch>
+            <Route path="/login" exact component={UserLogin} />
+            <Route path="/register" exact component={UserReg} />
+            <div className="wrapper">
 
-    <Router>
-      <Switch>
-          <Route path="/login" exact component={UserLogin} />
-          <Route path="/register" exact component={UserReg} />
-          <div className="wrapper">
-            <header>
-              <div>logo</div>
-              <p>Welcome, user. Log-out?</p>
-            </header>
+                  <header>
+                    <div>logo</div>
+                    <p>Welcome, {authState}. Log-out?</p>
+                  </header>
 
-            <nav>
-              <li>
-                  <ul><Link to="/ptsearch">Patient Search</Link></ul>
-                  <ul><Link to="/registerpatient">Patient Registration</Link></ul>
-                  <ul>Orders</ul>
-                  <ul>Laboratory</ul>
-                  <ul>Results</ul>
-              </li>
-            </nav>
-            <section>
+
+              <nav>
+                <li>
+                    <ul><Link to="/ptsearch">Patient Search</Link></ul>
+                    <ul><Link to="/registerpatient">Patient Registration</Link></ul>
+                    <ul>Orders</ul>
+                    <ul>Laboratory</ul>
+                    <ul>Results</ul>
+                </li>
+              </nav>
+              <section>
+                
+                <Route path="/" exact component={Ptsearch} />
+                <Route path="/ptsearch" component={Ptsearch} />
+                <Route path="/registerpatient" component={Ptreg} />
+                <Route path="/searchresults/:param" component={Searchresult}/>
+                <Route path="/noptfound" component={Noptrecord}/>
+                <Route path="/updatept/:pId" component={Updatept}/>
+                <Route path="/addorder/for:pId" component={Addorder}/>
+              </section>
+              <footer>Laboratory Information System by Bregs</footer>
               
-              <Route path="/" exact component={Ptsearch} />
-              <Route path="/ptsearch" component={Ptsearch} />
-              <Route path="/registerpatient" component={Ptreg} />
-              <Route path="/searchresults/:param" component={Searchresult}/>
-              <Route path="/noptfound" component={Noptrecord}/>
-              <Route path="/updatept/:pId" component={Updatept}/>
-              <Route path="/addorder/for:pId" component={Addorder}/>
-            </section>
-            <footer>Laboratory Information System by Bregs</footer>
-            
-          </div>
-        </Switch>
-    </Router>
+            </div>
+          </Switch>
+      </Router>
+    </AuthContext.Provider>
 
   );
 }

@@ -1,21 +1,31 @@
 import React from 'react'
-import { useEffect, useState } from 'react';
+import { useState, useContext } from 'react';
 import axios from 'axios';
+import { useHistory } from 'react-router-dom';
+import { AuthContext } from '../../helpers/AuthContext';
 
 
 import './users.css'
 
 function UserLogin() {
+    let history = useHistory();
     const [username, setUsername] = useState("");
     const[password, setPassword] = useState("");
     const[msg, setMsg] = useState("");
+    const {setAuthState} = useContext(AuthContext);
 
     const onSubmit = () => {
         const data = { username, password }
         
         axios.post("http://localhost:3001/auth/login", data).then((response) => {
-            console.log(response.data);
-            setMsg(response.data.msg);
+            // console.log(response.data);
+            if(response.data.msg){
+                setMsg(response.data.msg);
+            }else{
+                localStorage.setItem("accessToken", response.data);
+                setAuthState("true");
+                history.push('/');
+            }
         })
     }
     return (
