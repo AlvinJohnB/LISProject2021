@@ -85,8 +85,18 @@ const Ptreg = () => {
         data.branchid = ptId;
         data.age = patientAge;
 
-        axios.post("http://localhost:3001/patient/addpatient", data).then((response) => {
-            history.push(`/addorder/for${ptId}`);
+        axios.post("http://localhost:3001/patient/addpatient", data,
+        {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            }
+        }).then((response) => {
+            if(response.data.error){
+                alert("You are not logged in. Please log-in!");
+                history.push('/login');
+            }else{
+                history.push(`/addorder/for${ptId}`);
+            }
         })
     }
     return (

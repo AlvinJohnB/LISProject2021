@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Orders } = require('../models');
 const { Op } = require("sequelize");
+const { validateToken } = require('../middlewares/AuthMiddleware');
 
 
 router.get("/", async (req, res) => {
@@ -26,8 +27,11 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/addorder", async (req, res) => {
+router.post("/addorder", validateToken, async (req, res) => {
     const orderdata = req.body;
+    const username = req.user.username;
+    orderdata.encodedBy = username;
+
     await Orders.create(orderdata);
     res.json(orderdata);
 

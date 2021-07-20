@@ -78,8 +78,18 @@ const Addorder = () => {
         data.testsRequested = labTestInput;
         data.labNumber = labNumberInput;
 
-        axios.post("http://localhost:3001/order/addorder", data).then((response) => {
-            history.push('/home');
+        axios.post("http://localhost:3001/order/addorder", data,
+        {
+            headers: {
+                accessToken: localStorage.getItem("accessToken")
+            }
+        }).then((response) => {
+            if(response.data.error){
+                alert('You are not logged in, please log-in!');
+                history.push('/login');
+            }else{
+                history.push('/order');
+            }
         })
 
     }

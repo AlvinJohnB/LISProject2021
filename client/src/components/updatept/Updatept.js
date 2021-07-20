@@ -80,8 +80,18 @@ const Updatept = () => {
 
     const onSubmit = (data) => {
         data.age = initialValues.age;
-        axios.post("http://localhost:3001/patient/updatept", data).then(() => {
-            history.push(`/addorder/for${pId}`);
+        axios.post("http://localhost:3001/patient/updatept", data,
+        {
+            headers: {
+                accessToken: localStorage.getItem("accessToken")
+            }
+        }).then((response) => {
+            if(response.data.error){
+                alert("You are not logged in, please log-in!");
+                history.push("/login");
+            }else{
+                history.push(`/addorder/for${pId}`);
+            }
         })
     }
    
