@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Orders } = require('../models');
+const { Orders, Sectionorders } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -34,6 +34,16 @@ router.post("/addorder", validateToken, async (req, res) => {
 
     await Orders.create(orderdata);
     res.json(orderdata);
+
+});
+
+router.post("/addsord", validateToken, async (req, res) => {
+    const sectorderdata = req.body;
+    const username = req.user.username;
+    sectorderdata.updatedBy = username;
+
+    await Sectionorders.create(sectorderdata);
+    res.json(sectorderdata);
 
 });
 

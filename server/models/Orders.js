@@ -26,5 +26,13 @@ module.exports = (sequelize, DataTypes) => {
         },
     })
 
+    Orders.associate = (models) => {
+
+        Orders.hasMany(models.Sectionorders, {
+        onDelete: "cascade",
+        sourceKey: 'labNumber',
+        foreignKey: 'forOrderId',
+    })
+    }
     return Orders;
 }

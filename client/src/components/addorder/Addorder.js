@@ -99,6 +99,14 @@ const Addorder = () => {
         data.testsRequested = labTestInput;
         data.labNumber = labNumberInput;
 
+        // data.chemTests = chemTestsInput;
+        // data.hemaTests = hemaTestsInput;
+        // data.cmTests = cmTestsInput;
+        // data.seroTests = seroTestsInput;
+        // data.microTests = microTestsInput;
+
+        //Check if sections are null
+
         axios.post("http://localhost:3001/order/addorder", data,
         {
             headers: {
@@ -109,7 +117,113 @@ const Addorder = () => {
                 alert('You are not logged in, please log-in!');
                 history.push('/login');
             }else{
-                history.push('/order');
+
+                if(cmTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                        {
+                            section: "CM",
+                            tests: cmTestsInput,
+                            forOrderId: labNumberInput,
+                            sectNumber: `(CM)-${labNumberInput}`
+                        },
+                    {
+                        headers: {
+                            accessToken: localStorage.getItem("accessToken")
+                        }
+                    }).then((response) => {
+                        if(response.data.error){
+                            alert('You are not logged in, please log-in!');
+                            history.push('/login');
+                        }
+                    })
+                }
+
+
+                if(chemTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                    {
+                        section: "Chemistry",
+                        tests: chemTestsInput,
+                        forOrderId: labNumberInput,
+                        sectNumber: `(CHEM)-${labNumberInput}`
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+                }
+
+
+                if(hemaTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                    {
+                        section: "Hematology",
+                        tests: hemaTestsInput,
+                        forOrderId: labNumberInput,
+                        sectNumber: `(HEMA)-${labNumberInput}`
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+                }
+
+
+                if(seroTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                    {
+                        section: "Serology",
+                        tests: seroTestsInput,
+                        forOrderId: labNumberInput,
+                        sectNumber: `(SERO)-${labNumberInput}`
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+                }
+
+
+                if(microTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                    {
+                        section: "Micro",
+                        tests: microTestsInput,
+                        forOrderId: labNumberInput,
+                        sectNumber: `(MICRO)-${labNumberInput}`
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+                }
+
+                history.push('/orders')
+            
             }
         })
 
