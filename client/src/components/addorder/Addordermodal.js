@@ -63,6 +63,11 @@ const Addordermodal = (props) => {
                                                             testname={test.testname} 
                                                             test={test} 
                                                             close={props.close} 
+                                                            hemaTests={props.hemaTests}
+                                                            cmTests={props.cmTests}
+                                                            chemTests={props.chemTests}
+                                                            seroTests={props.seroTests}
+                                                            microTests={props.microTests}
                                                         />
                                                     )
                                                 })}

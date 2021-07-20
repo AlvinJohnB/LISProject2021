@@ -2,16 +2,16 @@ import React from 'react'
 
 import './modal.css'
 
-const Testsrow = ({ testcode, testname, test, testlist, close, inputHandler }) => {
+const Testsrow = ({ testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests }) => {
 
     const handleClick = () => {
         let testSelected = test;
 
-        let key = testlist.length;
-
         // Check for duplicate
         let duplicate = false;
         let notDuplicate = true;
+
+        let key = testlist.length;
 
         if(testlist.length >= 1){
             for(let i = 0; i < testlist.length; i++){
@@ -27,7 +27,16 @@ const Testsrow = ({ testcode, testname, test, testlist, close, inputHandler }) =
             alert("Duplicate test detected, please recheck.");
             close();
         } else if(notDuplicate){
-            testlist.push({testname: testSelected.testname, testcode: testSelected.testcode, index: key});
+            // Check what section
+            let section = testSelected.section;
+            if(section === "Chemistry"){
+                chemTests.push({testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section});
+            }else if(section === "Hematology"){
+                hemaTests.push({testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section});
+            }else if(section === "CM"){
+                cmTests.push({testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section});
+            }
+            testlist.push({testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section, index: key});
             close();
         }
     }

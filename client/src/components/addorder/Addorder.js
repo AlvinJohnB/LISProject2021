@@ -21,6 +21,12 @@ const Addorder = () => {
     const [ptData, setPtData] = useState({})
     const [labNumberInput, setLabNumberInput] = useState("")
     const [lastOrderIdData, setLastOrderIdData] = useState({})
+    
+    const [hemaTests, setHemaTests] = useState([])
+    const [cmTests, setCmTests] = useState([])
+    const [chemTests, setChemTests] = useState([])
+    const [seroTests, setSeroTests] = useState([])
+    const [microTests, setMicroTests] = useState([])
 
     let { pId } = useParams();
     let history = useHistory();
@@ -191,7 +197,7 @@ const Addorder = () => {
                                 id="form-field"
                                 type="text"
                                 placeholder="Test Requested"
-                                hidden={true}
+                                hidden={false}
                                 value={labTestInput}
                                 disabled={false}
                             />
@@ -203,7 +209,7 @@ const Addorder = () => {
                                 id="form-field"
                                 type="text"
                                 placeholder="Lab No."
-                                hidden={true}
+                                hidden={false}
                                 disabled={false}
                                 value={labNumberInput}
                             />
@@ -218,7 +224,24 @@ const Addorder = () => {
                             </tr>
                             {tests.map((test) => {
                                 return (
-                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} submitHandler={submitHandler} setLabTestInput={setLabTestInput} />
+                                    <Testrow
+                                        setTests={setTests}
+                                        tests={tests}
+                                        key={test.index}
+                                        test={test}
+                                        submitHandler={submitHandler}
+                                        setLabTestInput={setLabTestInput}
+                                        setHemaTests={setHemaTests}
+                                        setCmTests={setCmTests}
+                                        setChemTests={setChemTests}
+                                        setSeroTests={setSeroTests}
+                                        setMicroTests={setMicroTests}
+                                        hemaTests={hemaTests}
+                                        cmTests={cmTests}
+                                        chemTests={chemTests}
+                                        seroTests={seroTests}
+                                        microTests={microTests}
+                                    />
                                 )
                             })}
                             <tr>
@@ -229,7 +252,17 @@ const Addorder = () => {
                     </table>
 
                     <button className="form-content form-botton" type="submit">Submit</button>
-                    <Addordermodal show={show} tests={testData} close={closeModal} testlist={tests}/>
+                    <Addordermodal 
+                        show={show}
+                        tests={testData}
+                        close={closeModal}
+                        testlist={tests}
+                        hemaTests={hemaTests}
+                        cmTests={cmTests}
+                        chemTests={chemTests}
+                        seroTests={seroTests}
+                        microTests={microTests}
+                    />
 
                 </Form>
             </Formik>
