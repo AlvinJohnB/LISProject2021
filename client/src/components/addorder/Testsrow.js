@@ -2,7 +2,7 @@ import React from 'react'
 
 import './modal.css'
 
-const Testsrow = ({ testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests }) => {
+const Testsrow = ({setTestsList, setHemaTests, setCmTests, setSeroTests, setMicroTests, testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests, setChemTests }) => {
 
     const handleClick = () => {
         let testSelected = test;
@@ -30,13 +30,17 @@ const Testsrow = ({ testcode, testname, test, testlist, close, cmTests, microTes
             // Check what section
             let section = testSelected.section;
             if(section === "Chemistry"){
-                chemTests.push({testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section});
+                setChemTests([...chemTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
             }else if(section === "Hematology"){
-                hemaTests.push({testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section});
+                setHemaTests([...hemaTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
             }else if(section === "CM"){
-                cmTests.push({testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section});
+                setCmTests([...cmTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
+            }else if(section === "Serology"){
+                setSeroTests([...seroTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
+            }else if(section === "Micro"){
+                setMicroTests([...microTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
             }
-            testlist.push({testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section, index: key});
+            setTestsList([...testlist, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section, index: key} ])
             close();
         }
     }

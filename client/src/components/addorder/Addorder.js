@@ -23,10 +23,15 @@ const Addorder = () => {
     const [lastOrderIdData, setLastOrderIdData] = useState({})
     
     const [hemaTests, setHemaTests] = useState([])
+    const [hemaTestsInput, setHemaTestsInput] = useState("")
     const [cmTests, setCmTests] = useState([])
+    const [cmTestsInput, setCmTestsInput] = useState("")
     const [chemTests, setChemTests] = useState([])
+    const [chemTestsInput, setChemTestsInput] = useState("")
     const [seroTests, setSeroTests] = useState([])
+    const [seroTestsInput, setSeroTestsInput] = useState("")
     const [microTests, setMicroTests] = useState([])
+    const [microTestsInput, setMicroTestsInput] = useState("")
 
     let { pId } = useParams();
     let history = useHistory();
@@ -49,11 +54,27 @@ const Addorder = () => {
     }, [pId])
 
     useEffect(() => {
-
             const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
             setLabTestInput(reducedTests);
 
+            const reducedChemTests = chemTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setChemTestsInput(reducedChemTests);  
+            
+            const reducedCmTests = cmTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setCmTestsInput(reducedCmTests);
+            
+            const reducedSeroTests = seroTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setSeroTestsInput(reducedSeroTests);
+            
+            const reducedHemaTests = hemaTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setHemaTestsInput(reducedHemaTests);
+            
+            const reducedMicroTests = microTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setMicroTestsInput(reducedMicroTests);  
+
     }, [tests])
+
+
 
     const submitHandler = () => {
         // Reduce array for test input
@@ -207,7 +228,7 @@ const Addorder = () => {
                                 id="form-field"
                                 type="text"
                                 placeholder="Test Requested"
-                                hidden={false}
+                                hidden={true}
                                 value={labTestInput}
                                 disabled={false}
                             />
@@ -219,7 +240,7 @@ const Addorder = () => {
                                 id="form-field"
                                 type="text"
                                 placeholder="Lab No."
-                                hidden={false}
+                                hidden={true}
                                 disabled={false}
                                 value={labNumberInput}
                             />
@@ -267,11 +288,17 @@ const Addorder = () => {
                         tests={testData}
                         close={closeModal}
                         testlist={tests}
+                        setTestsList={setTests}
                         hemaTests={hemaTests}
+                        setHemaTests={setHemaTests}
                         cmTests={cmTests}
+                        setCmTests={setCmTests}
                         chemTests={chemTests}
                         seroTests={seroTests}
+                        setSeroTests={setSeroTests}
                         microTests={microTests}
+                        setMicroTests={setMicroTests}
+                        setChemTests={setChemTests}
                     />
 
                 </Form>
