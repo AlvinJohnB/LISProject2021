@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Orders, Sectionorders } = require('../models');
+const { Orders, Sectionorders, Patientlist, Orderlist } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -27,6 +27,18 @@ router.get("/", async (req, res) => {
     }
 });
 
+router.get("/getorders", async (req, res) => {
+    const orders = await Orders.findAll(
+        {
+            where: {
+                status: "PENDING"
+            },
+            include: {model: Patientlist}
+        }
+    );
+    res.json(orders);
+})
+
 router.post("/addorder", validateToken, async (req, res) => {
     const orderdata = req.body;
     const username = req.user.username;
@@ -44,6 +56,13 @@ router.post("/addsord", validateToken, async (req, res) => {
 
     await Sectionorders.create(sectorderdata);
     res.json(sectorderdata);
+
+});
+
+router.post("/cnxtion", validateToken, async (req, res) => {
+    const data = req.body;
+    await Orderlist.create(data);
+    res.json(data);
 
 });
 

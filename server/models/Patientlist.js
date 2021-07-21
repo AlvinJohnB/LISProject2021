@@ -39,14 +39,13 @@ module.exports = (sequelize, DataTypes) => {
         }
 
     })
-
     Patientlist.associate = (models) => {
 
-    Patientlist.hasMany(models.Orders, {
-    onDelete: "cascade",
-    sourceKey: 'branchid',
-    foreignKey: 'forPtId',
-})
-}
+        Patientlist.hasMany(models.Orders, {
+        constraint: false,
+        onDelete: "cascade",
+        foreignKey: "forPtId"
+    })
+    }
     return Patientlist;
 }

@@ -23,15 +23,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "PENDING",
-        },
+        }
     })
-
     Orders.associate = (models) => {
 
         Orders.hasMany(models.Sectionorders, {
         onDelete: "cascade",
-        sourceKey: 'labNumber',
-        foreignKey: 'forOrderId',
     })
     }
     return Orders;

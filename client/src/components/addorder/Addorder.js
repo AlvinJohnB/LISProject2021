@@ -72,7 +72,7 @@ const Addorder = () => {
             const reducedMicroTests = microTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
             setMicroTestsInput(reducedMicroTests);  
 
-    }, [tests])
+    }, [tests, chemTests, cmTests, seroTests, microTests, hemaTests])
 
 
 
@@ -89,21 +89,15 @@ const Addorder = () => {
 
         let id = lastOrderIdData.id+1;
 
-        let concatLabNo = `${branchcode}-${year}-${month}-${id}`
+        let concatLabNo = `${branchcode}-${year}-${month+1}-${id}`
         setLabNumberInput(concatLabNo);
     
     }
 
     const onSubmit = (data) => {
-
+        data.forPtId = ptData.id;
         data.testsRequested = labTestInput;
         data.labNumber = labNumberInput;
-
-        // data.chemTests = chemTestsInput;
-        // data.hemaTests = hemaTestsInput;
-        // data.cmTests = cmTestsInput;
-        // data.seroTests = seroTestsInput;
-        // data.microTests = microTestsInput;
 
         //Check if sections are null
 
@@ -222,7 +216,24 @@ const Addorder = () => {
                 })
                 }
 
-                history.push('/orders')
+
+                axios.post("http://localhost:3001/order/cnxtion",
+                    {
+                        OrderId: lastOrderIdData.id+1,
+                        PatientlistId: ptData.id
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+
+                history.push('/')
             
             }
         })
@@ -273,13 +284,8 @@ const Addorder = () => {
                     <h4>Patient Information Information</h4>
                     <div className="form-group">
                         <div className="form-content">
-                        <label htmlFor="forPtId" className="form-content">Patient ID:</label>
-                    <Field 
-                            name="forPtId"
-                            id="form-field"
-                            type="text"
-                            disabled={true}
-                    />
+                        <label className="form-content">Patient ID:</label>
+                        <input type="text" id="form-field" value={ptData.branchid} disabled={true} />
                     </div>
                 </div>
                 
