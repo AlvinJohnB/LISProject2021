@@ -99,6 +99,12 @@ span{
     width: 100%;
 }
 
+.ordertable{
+    border-collapse: collapse;
+    width: 100%;
+    padding: auto;
+}
+
 
 tr.header{
     background-color: rgb(6, 119, 15);

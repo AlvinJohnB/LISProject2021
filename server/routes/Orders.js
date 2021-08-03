@@ -1,7 +1,8 @@
 const express = require('express');
 const router = express.Router();
-const { Orders } = require('../models');
+const { Orders, Sectionorders, Patientlist, Orderlist } = require('../models');
 const { Op } = require("sequelize");
+const { validateToken } = require('../middlewares/AuthMiddleware');
 
 
 router.get("/", async (req, res) => {
@@ -26,10 +27,42 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/addorder", async (req, res) => {
+router.get("/getorders", async (req, res) => {
+    const orders = await Orders.findAll(
+        {
+            where: {
+                status: "PENDING"
+            },
+            include: {model: Patientlist}
+        }
+    );
+    res.json(orders);
+})
+
+router.post("/addorder", validateToken, async (req, res) => {
     const orderdata = req.body;
+    const username = req.user.username;
+    orderdata.encodedBy = username;
+
     await Orders.create(orderdata);
     res.json(orderdata);
+
+});
+
+router.post("/addsord", validateToken, async (req, res) => {
+    const sectorderdata = req.body;
+    const username = req.user.username;
+    sectorderdata.updatedBy = username;
+
+    await Sectionorders.create(sectorderdata);
+    res.json(sectorderdata);
+
+});
+
+router.post("/cnxtion", validateToken, async (req, res) => {
+    const data = req.body;
+    await Orderlist.create(data);
+    res.json(data);
 
 });
 

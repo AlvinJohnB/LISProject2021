@@ -21,6 +21,17 @@ const Addorder = () => {
     const [ptData, setPtData] = useState({})
     const [labNumberInput, setLabNumberInput] = useState("")
     const [lastOrderIdData, setLastOrderIdData] = useState({})
+    
+    const [hemaTests, setHemaTests] = useState([])
+    const [hemaTestsInput, setHemaTestsInput] = useState("")
+    const [cmTests, setCmTests] = useState([])
+    const [cmTestsInput, setCmTestsInput] = useState("")
+    const [chemTests, setChemTests] = useState([])
+    const [chemTestsInput, setChemTestsInput] = useState("")
+    const [seroTests, setSeroTests] = useState([])
+    const [seroTestsInput, setSeroTestsInput] = useState("")
+    const [microTests, setMicroTests] = useState([])
+    const [microTestsInput, setMicroTestsInput] = useState("")
 
     let { pId } = useParams();
     let history = useHistory();
@@ -43,11 +54,27 @@ const Addorder = () => {
     }, [pId])
 
     useEffect(() => {
-
             const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
             setLabTestInput(reducedTests);
 
-    }, [tests])
+            const reducedChemTests = chemTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setChemTestsInput(reducedChemTests);  
+            
+            const reducedCmTests = cmTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setCmTestsInput(reducedCmTests);
+            
+            const reducedSeroTests = seroTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setSeroTestsInput(reducedSeroTests);
+            
+            const reducedHemaTests = hemaTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setHemaTestsInput(reducedHemaTests);
+            
+            const reducedMicroTests = microTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            setMicroTestsInput(reducedMicroTests);  
+
+    }, [tests, chemTests, cmTests, seroTests, microTests, hemaTests])
+
+
 
     const submitHandler = () => {
         // Reduce array for test input
@@ -62,18 +89,153 @@ const Addorder = () => {
 
         let id = lastOrderIdData.id+1;
 
-        let concatLabNo = `${branchcode}-${year}-${month}-${id}`
+        let concatLabNo = `${branchcode}-${year}-${month+1}-${id}`
         setLabNumberInput(concatLabNo);
     
     }
 
     const onSubmit = (data) => {
-
+        data.forPtId = ptData.id;
         data.testsRequested = labTestInput;
         data.labNumber = labNumberInput;
 
-        axios.post("http://localhost:3001/order/addorder", data).then((response) => {
-            history.push('/home');
+        //Check if sections are null
+
+        axios.post("http://localhost:3001/order/addorder", data,
+        {
+            headers: {
+                accessToken: localStorage.getItem("accessToken")
+            }
+        }).then((response) => {
+            if(response.data.error){
+                alert('You are not logged in, please log-in!');
+                history.push('/login');
+            }else{
+
+                if(cmTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                        {
+                            section: "CM",
+                            tests: cmTestsInput,
+                            forOrderId: labNumberInput,
+                            sectNumber: `(CM)-${labNumberInput}`
+                        },
+                    {
+                        headers: {
+                            accessToken: localStorage.getItem("accessToken")
+                        }
+                    }).then((response) => {
+                        if(response.data.error){
+                            alert('You are not logged in, please log-in!');
+                            history.push('/login');
+                        }
+                    })
+                }
+
+
+                if(chemTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                    {
+                        section: "Chemistry",
+                        tests: chemTestsInput,
+                        forOrderId: labNumberInput,
+                        sectNumber: `(CHEM)-${labNumberInput}`
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+                }
+
+
+                if(hemaTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                    {
+                        section: "Hematology",
+                        tests: hemaTestsInput,
+                        forOrderId: labNumberInput,
+                        sectNumber: `(HEMA)-${labNumberInput}`
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+                }
+
+
+                if(seroTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                    {
+                        section: "Serology",
+                        tests: seroTestsInput,
+                        forOrderId: labNumberInput,
+                        sectNumber: `(SERO)-${labNumberInput}`
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+                }
+
+
+                if(microTestsInput){
+                    axios.post("http://localhost:3001/order/addsord",
+                    {
+                        section: "Micro",
+                        tests: microTestsInput,
+                        forOrderId: labNumberInput,
+                        sectNumber: `(MICRO)-${labNumberInput}`
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+                }
+
+
+                axios.post("http://localhost:3001/order/cnxtion",
+                    {
+                        OrderId: lastOrderIdData.id+1,
+                        PatientlistId: ptData.id
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+
+                history.push('/')
+            
+            }
         })
 
     }
@@ -122,13 +284,8 @@ const Addorder = () => {
                     <h4>Patient Information Information</h4>
                     <div className="form-group">
                         <div className="form-content">
-                        <label htmlFor="forPtId" className="form-content">Patient ID:</label>
-                    <Field 
-                            name="forPtId"
-                            id="form-field"
-                            type="text"
-                            disabled={true}
-                    />
+                        <label className="form-content">Patient ID:</label>
+                        <input type="text" id="form-field" value={ptData.branchid} disabled={true} />
                     </div>
                 </div>
                 
@@ -218,7 +375,24 @@ const Addorder = () => {
                             </tr>
                             {tests.map((test) => {
                                 return (
-                                    <Testrow setTests={setTests} tests={tests} key={test.index} test={test} submitHandler={submitHandler} setLabTestInput={setLabTestInput} />
+                                    <Testrow
+                                        setTests={setTests}
+                                        tests={tests}
+                                        key={test.index}
+                                        test={test}
+                                        submitHandler={submitHandler}
+                                        setLabTestInput={setLabTestInput}
+                                        setHemaTests={setHemaTests}
+                                        setCmTests={setCmTests}
+                                        setChemTests={setChemTests}
+                                        setSeroTests={setSeroTests}
+                                        setMicroTests={setMicroTests}
+                                        hemaTests={hemaTests}
+                                        cmTests={cmTests}
+                                        chemTests={chemTests}
+                                        seroTests={seroTests}
+                                        microTests={microTests}
+                                    />
                                 )
                             })}
                             <tr>
@@ -229,7 +403,23 @@ const Addorder = () => {
                     </table>
 
                     <button className="form-content form-botton" type="submit">Submit</button>
-                    <Addordermodal show={show} tests={testData} close={closeModal} testlist={tests}/>
+                    <Addordermodal 
+                        show={show}
+                        tests={testData}
+                        close={closeModal}
+                        testlist={tests}
+                        setTestsList={setTests}
+                        hemaTests={hemaTests}
+                        setHemaTests={setHemaTests}
+                        cmTests={cmTests}
+                        setCmTests={setCmTests}
+                        chemTests={chemTests}
+                        seroTests={seroTests}
+                        setSeroTests={setSeroTests}
+                        microTests={microTests}
+                        setMicroTests={setMicroTests}
+                        setChemTests={setChemTests}
+                    />
 
                 </Form>
             </Formik>

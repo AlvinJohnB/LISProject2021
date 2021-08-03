@@ -4,6 +4,13 @@
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
+body{
+  background-image: url(./images/background.jpg);
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+}
+
 .wrapper {
   box-sizing: border-box;
   width: 80%;

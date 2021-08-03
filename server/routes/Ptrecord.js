@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const { Patientlist } = require('../models');
 const { Op } = require("sequelize");
+const { validateToken } = require('../middlewares/AuthMiddleware');
 
 router.get("/", async (req, res) => {
     const ptBkData = {
@@ -24,7 +25,7 @@ router.get("/", async (req, res) => {
     }
 });
 
-router.post("/updatept", async(req, res) => {
+router.post("/updatept", validateToken, async(req, res) => {
     const ptdata = req.body;
     let branchid = ptdata.branchid
     console.log(branchid)
@@ -36,7 +37,7 @@ router.post("/updatept", async(req, res) => {
     res.send();
 })
 
-router.post("/addpatient", async (req, res) => {
+router.post("/addpatient", validateToken, async (req, res) => {
     const ptdata = req.body;
     await Patientlist.create(ptdata);
     res.json(ptdata);

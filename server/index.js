@@ -17,6 +17,9 @@ app.use("/test", testslistRouter);
 const orderRouter = require('./routes/Orders')
 app.use("/order", orderRouter);
 
+const usersRouter = require('./routes/Users')
+app.use("/auth", usersRouter);
+
 
 
 

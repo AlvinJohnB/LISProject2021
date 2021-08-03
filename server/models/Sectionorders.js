@@ -1,35 +1,30 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const Orders = sequelize.define("Orders", {
+    const Sectionorders = sequelize.define("Sectionorders", {
 
-        reqDr:{
+        sectNumber:{
+            type: DataTypes.STRING,
+            allowNull: false,
+            unique: true
+        },
+        section:{
             type: DataTypes.STRING,
             allowNull: false,
         },
-        testsRequested: {
+        tests: {
             type: DataTypes.STRING,
             allowNull: false,
-        },
-        encodedBy: {
-            type: DataTypes.STRING,
-            allowNull: false,
-        },
-        labNumber: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            unique: true,
         },
         status: {
             type: DataTypes.STRING,
             allowNull: false,
-            defaultValue: "PENDING",
+            defaultValue: "FOR CHECK-IN",
+        },
+        updatedBy: {
+            type: DataTypes.STRING,
+            allowNull: true,
         }
     })
-    Orders.associate = (models) => {
 
-        Orders.hasMany(models.Sectionorders, {
-        onDelete: "cascade",
-    })
-    }
-    return Orders;
+    return Sectionorders;
 }

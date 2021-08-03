@@ -1,12 +1,32 @@
 import React from 'react'
 
 import './modal.css'
-const Testrow = ({setTests, test, tests}) => {
+const Testrow = ({setTests, test, tests, setCmTests, cmTests, chemTests, setChemTests, hemaTests, setHemaTests, seroTests, setSeroTests, microTests, setMicroTests}) => {
 
     const removeHandler = () => {
         
-        let testToRemove = test.index;
-        setTests(tests.filter((test) => test.index !== testToRemove));
+        
+        // Check what section
+        let section = test.section;
+        let testToRemove = test.testcode;
+
+        if(section === "CM"){
+            setCmTests(cmTests.filter((test) => test.testcode !== testToRemove));
+        }
+        if(section === "Chemistry"){
+            setChemTests(chemTests.filter((test) => test.testcode !== testToRemove));
+        }
+        if(section === "Hematology"){
+            setHemaTests(hemaTests.filter((test) => test.testcode !== testToRemove));
+        }
+        if(section === "Serology"){
+            setSeroTests(seroTests.filter((test) => test.testcode !== testToRemove));
+        }
+        if(section === "Micro"){
+            setMicroTests(microTests.filter((test) => test.testcode !== testToRemove));
+        }
+
+        setTests(tests.filter((test) => test.testcode !== testToRemove));
 
     }
 
