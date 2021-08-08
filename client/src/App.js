@@ -14,6 +14,7 @@ import UserReg from './components/users/UserReg';
 import Orders from './components/orders/Orders';
 import OrderDetails from './components/orders/OrderDetails';
 import LabClient from './components/laboratory/LabClient';
+import ChemForm from './components/laboratory/chemistry/ChemForm';
 
 import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react'
@@ -43,6 +44,7 @@ useEffect(() => {
       <Router>
         <Switch>
             <Route path="/laboratory" exact component={LabClient} />
+            <Route path="/laboratory/chemistry" exact component={ChemForm} />
             <Route path="/login" exact component={UserLogin} />
             <Route path="/register" exact component={UserReg} />
             <div className="wrapper">

@@ -54,6 +54,22 @@ router.get("/getorder/:labNumber", async (req, res) => {
     res.json(orders);
 })
 
+router.get("/forcheckin/:section", async (req, res) => {
+    const section = req.params.section;
+    const orders = await Orders.findAll(
+        {
+            include: [
+                {model: Patientlist},
+                {model: Sectionorders,
+                where: {
+                    section: section
+                }},
+               ]
+        }
+    );
+    res.json(orders);
+})
+
 
 router.post("/addorder", validateToken, async (req, res) => {
     const orderdata = req.body;

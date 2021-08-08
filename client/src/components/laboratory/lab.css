@@ -1,0 +1,68 @@
+.labwrapper{
+    width: 95%;
+    display: block;
+    margin: auto;
+    padding: 20px;
+}
+
+.labcontentheader{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 14rem;
+}
+
+.labdiv{
+    width: 100%;
+    border: 1px solid black;
+}
+
+.labdivcontent{
+    margin-top: 10px;
+    padding: 10px;
+}
+
+.labdiv-flex-block{
+    display: flex;
+}
+
+.tablelab{
+    border-collapse: collapse;
+    border: 1px solid black;
+    padding: 5px;
+    text-align: center;
+    margin-top: 1px;
+    width: 100%;
+}
+
+tr.labheader{
+    background-color: rgb(10, 105, 194);
+    color: white;
+    font-weight: bold;
+  }
+
+
+  .mt-10{
+      margin-top: 10px;;
+  }
+
+  .mr-10{
+      margin-right: 10px;
+  }
+
+  .btn{
+    color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.filter{
+    background-color: rgb(10, 105, 194);
+}
+
+.filter:hover{
+    background-color: rgb(64, 142, 216);
+    cursor: pointer;
+}
