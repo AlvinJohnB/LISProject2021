@@ -54,22 +54,22 @@ const Addorder = () => {
     }, [pId])
 
     useEffect(() => {
-            const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode} `, '');
             setLabTestInput(reducedTests);
 
-            const reducedChemTests = chemTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            const reducedChemTests = chemTests.reduce((acc, curr) => `${acc}${curr.testcode} `, '');
             setChemTestsInput(reducedChemTests);  
             
-            const reducedCmTests = cmTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            const reducedCmTests = cmTests.reduce((acc, curr) => `${acc}${curr.testcode} `, '');
             setCmTestsInput(reducedCmTests);
             
-            const reducedSeroTests = seroTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            const reducedSeroTests = seroTests.reduce((acc, curr) => `${acc}${curr.testcode} `, '');
             setSeroTestsInput(reducedSeroTests);
             
-            const reducedHemaTests = hemaTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            const reducedHemaTests = hemaTests.reduce((acc, curr) => `${acc}${curr.testcode} `, '');
             setHemaTestsInput(reducedHemaTests);
             
-            const reducedMicroTests = microTests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+            const reducedMicroTests = microTests.reduce((acc, curr) => `${acc}${curr.testcode} `, '');
             setMicroTestsInput(reducedMicroTests);  
 
     }, [tests, chemTests, cmTests, seroTests, microTests, hemaTests])
@@ -78,7 +78,7 @@ const Addorder = () => {
 
     const submitHandler = () => {
         // Reduce array for test input
-        const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode},`, '');
+        const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode} `, '');
         setLabTestInput(reducedTests);
 
         //Set Lab No 
@@ -117,7 +117,7 @@ const Addorder = () => {
                         {
                             section: "CM",
                             tests: cmTestsInput,
-                            forOrderId: labNumberInput,
+                            forOrderID: lastOrderIdData.id+1,
                             sectNumber: `(CM)-${labNumberInput}`
                         },
                     {
@@ -138,7 +138,7 @@ const Addorder = () => {
                     {
                         section: "Chemistry",
                         tests: chemTestsInput,
-                        forOrderId: labNumberInput,
+                        forOrderID: lastOrderIdData.id+1,
                         sectNumber: `(CHEM)-${labNumberInput}`
                     },
                 {
@@ -159,7 +159,7 @@ const Addorder = () => {
                     {
                         section: "Hematology",
                         tests: hemaTestsInput,
-                        forOrderId: labNumberInput,
+                        forOrderID: lastOrderIdData.id+1,
                         sectNumber: `(HEMA)-${labNumberInput}`
                     },
                 {
@@ -180,7 +180,7 @@ const Addorder = () => {
                     {
                         section: "Serology",
                         tests: seroTestsInput,
-                        forOrderId: labNumberInput,
+                        forOrderID: lastOrderIdData.id+1,
                         sectNumber: `(SERO)-${labNumberInput}`
                     },
                 {
@@ -201,7 +201,7 @@ const Addorder = () => {
                     {
                         section: "Micro",
                         tests: microTestsInput,
-                        forOrderId: labNumberInput,
+                        forOrderID: lastOrderIdData.id+1,
                         sectNumber: `(MICRO)-${labNumberInput}`
                     },
                 {

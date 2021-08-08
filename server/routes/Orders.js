@@ -39,6 +39,22 @@ router.get("/getorders", async (req, res) => {
     res.json(orders);
 })
 
+router.get("/getorder/:labNumber", async (req, res) => {
+    const labNumber = req.params.labNumber;
+    const orders = await Orders.findAll(
+        {
+            where: {
+                labNumber: labNumber
+            },
+            include: [
+                {model: Sectionorders},
+                {model: Patientlist}]
+        }
+    );
+    res.json(orders);
+})
+
+
 router.post("/addorder", validateToken, async (req, res) => {
     const orderdata = req.body;
     const username = req.user.username;

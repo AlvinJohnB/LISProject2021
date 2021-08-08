@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
 
+import Header from './components/Header';
 import Ptreg from './components/ptregistration/Ptreg';
 import Ptsearch from "./components/ptsearch/Ptsearch";
 import Searchresult from './components/ptsearch/Searchresult';
@@ -11,6 +12,8 @@ import Addorder from './components/addorder/Addorder';
 import UserLogin from './components/users/UserLogin';
 import UserReg from './components/users/UserReg';
 import Orders from './components/orders/Orders';
+import OrderDetails from './components/orders/OrderDetails';
+import LabClient from './components/laboratory/LabClient';
 
 import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react'
@@ -39,22 +42,17 @@ useEffect(() => {
     <AuthContext.Provider value={{authState, setAuthState}}>
       <Router>
         <Switch>
+            <Route path="/laboratory" exact component={LabClient} />
             <Route path="/login" exact component={UserLogin} />
             <Route path="/register" exact component={UserReg} />
             <div className="wrapper">
-
-                  <header>
-                    <div>logo</div>
-                    <p>Welcome, {authState}. Log-out?</p>
-                  </header>
-
-
+              <Header />
               <nav>
                 <li>
                     <ul><Link to="/ptsearch">Patient Search</Link></ul>
                     <ul><Link to="/registerpatient">Patient Registration</Link></ul>
                     <ul><Link to="/orders">Orders</Link></ul>
-                    <ul>Laboratory</ul>
+                    <ul><Link to="/laboratory">Laboratory</Link></ul>
                     <ul>Results</ul>
                 </li>
               </nav>
@@ -68,6 +66,7 @@ useEffect(() => {
                 <Route path="/updatept/:pId" component={Updatept}/>
                 <Route path="/addorder/for:pId" component={Addorder}/>
                 <Route path="/orders" component={Orders}/>
+                <Route path="/order/:labNumber" component={OrderDetails}/>
               </section>
               <footer>Laboratory Information System by Bregs</footer>
               
