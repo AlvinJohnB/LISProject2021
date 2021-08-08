@@ -62,7 +62,8 @@ router.get("/forcheckin/:section", async (req, res) => {
                 {model: Patientlist},
                 {model: Sectionorders,
                 where: {
-                    section: section
+                    section: section,
+                    status: "FOR CHECK-IN"
                 }},
                ]
         }
