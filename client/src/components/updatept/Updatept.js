@@ -59,7 +59,8 @@ const Updatept = () => {
             agem = agem-1
             aged = aged+31
         }
-        updatePtData.age = agey;
+        setUpdatePtData({age: agey});
+
     }
     
 
@@ -186,7 +187,7 @@ const Updatept = () => {
 
                 <div className="form-content">
                     <label className="form-content" name="age">Age:</label>
-                    <Field id="form-field" name="age" type="number" value={initialValues.age} disabled={true} />
+                    <Field id="form-field" name="age" type="number" value={updatePtData.age} disabled={true} />
                 </div>
             </div>
             <br /><h4>Contact and other information</h4>
