@@ -66,3 +66,13 @@ tr.labheader{
     background-color: rgb(64, 142, 216);
     cursor: pointer;
 }
+
+tr.tbcontent:hover{
+    background-color: rgb(64, 142, 216);
+    font-style: italic;
+    cursor: pointer; 
+}
+
+tr:nth-child(even) {
+    background: rgb(175, 175, 175);
+  }

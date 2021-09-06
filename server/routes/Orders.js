@@ -54,6 +54,22 @@ router.get("/getorder/:labNumber", async (req, res) => {
     res.json(orders);
 })
 
+router.get("/getorder/id/:orderid/:section", async (req, res) => {
+    const orderid = req.params.orderid;
+    const section = req.params.section;
+    const orders = await Orders.findAll(
+        {
+            where: {
+                id: orderid,
+            },
+            include: [
+                {model: Sectionorders, where:{section: section}},
+                {model: Patientlist}]
+        }
+    );
+    res.json(orders);
+})
+
 router.get("/forcheckin/:section", async (req, res) => {
     const section = req.params.section;
     const orders = await Orders.findAll(
@@ -69,6 +85,18 @@ router.get("/forcheckin/:section", async (req, res) => {
         }
     );
     res.json(orders);
+})
+
+router.post("/updatesorder", validateToken, async(req, res) => {
+    const status = req.body.status;
+    let sectnumber = req.body.sectNumber;
+    console.log(sectnumber);
+    await Sectionorders.update({status: status}, {
+        where: {
+            sectNumber: sectnumber
+        }
+    })
+    res.send();
 })
 
 

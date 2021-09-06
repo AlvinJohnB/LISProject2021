@@ -7,12 +7,60 @@ import './lab.css'
 import Header from '../Header';
 import LabNav from './LabNav';
 import CheckInTr from './checkin/CheckInTr';
+import CheckInModal from './checkin/CheckInModal';
 
 function LabClient() {
 
     const [isLoading, setIsLoading] = useState(true);
     const [checkInDetails, setCheckInDetails] = useState([]);
-    const [section, setSection] = useState();
+    const [section, setSection] = useState("Chemistry");
+    const [show, setShow] = useState(false);
+    const [orderid, setOrderID] = useState(0);
+    const [selected, setSelected] = useState([  {
+                                                    "id": 3,
+                                                    "reqDr": "N/A",
+                                                    "testsRequested": "FBS LIPID CBCPLT URINAL ",
+                                                    "encodedBy": "ALVINJOHNEB",
+                                                    "labNumber": "CAM-2021-9-3",
+                                                    "status": "PENDING",
+                                                    "createdAt": "2021-09-05T11:54:30.000Z",
+                                                    "updatedAt": "2021-09-05T11:54:30.000Z",
+                                                    "forPtId": 1,
+                                                    "Sectionorders": [
+                                                    {
+                                                        "id": 4,
+                                                        "sectNumber": "(CHEM)-CAM-2021-9-3",
+                                                        "section": "Chemistry",
+                                                        "tests": "FBS LIPID ",
+                                                        "status": "FOR CHECK-IN",
+                                                        "updatedBy": "ALVINJOHNEB",
+                                                        "createdAt": "2021-09-05T11:54:30.000Z",
+                                                        "updatedAt": "2021-09-05T11:54:30.000Z",
+                                                        "forOrderID": 3
+                                                    }
+                                                    ],
+                                                    "Patientlists": [
+                                                    {
+                                                        "id": 1,
+                                                        "branchid": "CAMILLUS-1",
+                                                        "lastname": "Bregana",
+                                                        "firstname": "Alvin John",
+                                                        "middlename": "Edra",
+                                                        "gender": "Male",
+                                                        "bday": "1999-10-30",
+                                                        "age": 23,
+                                                        "address": "Aguitap",
+                                                        "phone": "09997725143",
+                                                        "idenno": "2151607",
+                                                        "createdAt": "2021-09-05T09:46:28.000Z",
+                                                        "updatedAt": "2021-09-05T11:53:37.000Z",
+                                                        "Orderlist": {
+                                                        "PatientlistId": 1,
+                                                        "OrderId": 3
+                                                        }
+                                                    }
+                                                    ]
+                                                }]);
 
     useEffect(() => {
 
@@ -25,19 +73,34 @@ function LabClient() {
     }, [])
 
 
+    useEffect(() => {
+        axios.get(`http://localhost:3001/order/getorder/id/${orderid}/${section}`).then((response) => {
+            if(response.data.length === 1){
+             setSelected(response.data);
+             console.log(response.data[0].Patientlists[0])
+             setIsLoading(false);
+            }
+         })
+     },[orderid, section])
+
+
+
+
     const sectionHandler = (e) => {
         const section = e.target.value;
-
-        if(section === "CM"){
-            setSection("Clinical Microscopy")
-        }else{
-            setSection(section);
-        }
+        setSection(section);
 
         axios.get(`http://localhost:3001/order/forcheckin/${section}`).then((response) => {
             setCheckInDetails(response.data);
-            console.log(response.data);
         })
+    }
+
+    const showModal = () =>{
+        setShow(true);
+    }
+
+    const closeModal = () =>{
+        setShow(false);
     }
 
     if(isLoading){
@@ -82,19 +145,23 @@ function LabClient() {
                                         <input className="btn filter" type="button" value="Filter" />
                                     </div>
                                 </div>
-                                
-                                 <h3 className="mt-10">{section}</h3>
+                                <br />
                                 <table className="tablelab">
                                     <tbody>
                                         <tr className="labheader">
-                                            <td>LabNumber</td>
-                                            <td>Client Name</td>
-                                            <td>Test/s</td>
-                                            <td>Action</td>
+                                            <th>LabNumber</th>
+                                            <th>Client Name</th>
+                                            <th>Test/s</th>
+                                            <th>Action</th>
                                         </tr>
                                         {checkInDetails.map((details) => {
                                         return(
-                                            <CheckInTr details={details} key={details.id} />
+                                            <CheckInTr 
+                                                details={details} 
+                                                key={details.id}
+                                                setShow={setShow} 
+                                                setOrderID={setOrderID}
+                                            />
                                         )
                                     })}
 
@@ -107,6 +174,15 @@ function LabClient() {
                         
                 </div>
              </div>
+             <CheckInModal
+                show={show}
+                showModal={showModal}
+                closeModal={closeModal}
+                selected={selected}
+                setShow={setShow}
+                section={section}
+                setCheckInDetails={setCheckInDetails}
+                />
              </section>
               <footer>Laboratory Information System by Bregs</footer>
         </div>
