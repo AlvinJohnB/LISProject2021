@@ -1,10 +1,17 @@
 import React from 'react'
+import axios from 'axios';
 
-function chemTr({details, setShow}) {
+function chemTr({details, setShow, setResultFormData, setSectionResultArray}) {
 
-    const selectHandler = () => {
-        setShow(true);
-        console.log(details.Sectionorders[0].sectNumber);
+    const selectHandler = async () => {
+
+        await axios.get(`http://localhost:3001/order/resultform/${details.labNumber}`).then((response) => {
+            setResultFormData(response.data);
+            setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
+            setShow(true);
+            console.log(response.data[0].Sectionorders[0].Sectionresults)
+        })
+        
     }
     return (
         <tr className="tbcontent">

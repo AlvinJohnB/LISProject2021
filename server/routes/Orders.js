@@ -186,13 +186,15 @@ router.get("/section/:section", async (req, res) => {
     res.json(orders);
 })
 
-router.get("/resultform/", async (req, res) => {
-    const section = req.params.section;
+router.get("/resultform/:labnumber", async (req, res) => {
+    const labnumber = req.params.labnumber;
 
-    const data = await  Sectionorders.findAll(
+    const data = await  Orders.findAll(
         {
-            include: [
-                {model: Sectionresults, include: [{model: Orders}]},
+            where: {labNumber: labnumber},
+            include:[
+                {model: Patientlist},
+                {model: Sectionorders, where:{section: "Chemistry"}, include:[{model: Sectionresults}]},
             ]
         }
     )
