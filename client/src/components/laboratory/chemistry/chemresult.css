@@ -1,0 +1,79 @@
+.checkin-modal{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.checkin-modal-wrapper{
+    position: fixed;
+    top: 20vh;
+    background-color: white;
+    width: 60%;
+    border: 1px solid black;
+}
+
+.checkin-modal-footer{
+    padding: 10px;
+}
+
+.checkin-modal-header{
+    background-color: rgb(10, 105, 194);
+    color: white;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.checkin-closebtn{
+    position: relative;
+    right: 10px;
+    bottom: 20px;
+    float: right;
+    font-weight: bolder;
+    cursor: pointer;
+    border: 1px solid white;
+    width: 20px;
+    text-align: center;
+    font-size: 12px;
+}
+
+.checkin-closebtn:hover{
+    background-color: red;
+    border-color: black;
+}
+
+.checkin-modal-body{
+    padding: 30px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.order-dits{
+    font-size: small;
+}
+
+.checkin-btn{
+    border: 1px solid black;
+    margin: 2px;
+    padding: 4px;
+    color: white;
+    border-radius: 3px;
+}
+
+.checkin-btn:hover{
+    cursor: pointer;
+    font-weight: bolder;
+}
+
+.accept{
+    background-color: rgb(10, 105, 194);
+}
+
+.reject{
+    background-color: red;
+}

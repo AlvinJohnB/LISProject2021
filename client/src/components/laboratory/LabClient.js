@@ -77,7 +77,6 @@ function LabClient() {
         axios.get(`http://localhost:3001/order/getorder/id/${orderid}/${section}`).then((response) => {
             if(response.data.length === 1){
              setSelected(response.data);
-             console.log(response.data[0].Patientlists[0])
              setIsLoading(false);
             }
          })

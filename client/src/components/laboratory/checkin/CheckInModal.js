@@ -3,13 +3,14 @@ import './checkinmodal.css'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
+
 function CheckInModal(props) {
     const history = useHistory();
 
-    const onAccept = () => {
-        console.log("Accepted");
-        console.log(props.selected[0].Sectionorders[0].sectNumber);
-        axios.post("http://localhost:3001/order/updatesorder", {
+
+    const onAccept = async () => {
+
+        await axios.post("http://localhost:3001/order/updatesorder", {
             status: "RUNNING",
             sectNumber: props.selected[0].Sectionorders[0].sectNumber
         },
@@ -21,11 +22,42 @@ function CheckInModal(props) {
             if(response.data.error){
                 alert("You are not logged in, please log in!");
                 history.push("/login");
-            }else{
-                axios.get(`http://localhost:3001/order/forcheckin/${props.section}`).then((response) => {
-                    props.setCheckInDetails(response.data);
-                })
             }
+        })
+
+        // create result form
+        
+        const etests = props.selected[0].Sectionorders[0].tests;
+        const expTests = etests.split(" ");
+
+        expTests.pop();
+        for (let i = 0; i < expTests.length; i++){
+
+            console.log(`${expTests[i]} checked in`);
+
+            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+            test: expTests[i],
+        },
+        {
+            headers: {
+                accessToken: localStorage.getItem("accessToken")
+            }
+        }).then((response) => {
+            if(response.data.error){
+                alert("You are not logged in, please log in!");
+                history.push("/login");
+            }else{
+                console.log(`FrontEND Success ${expTests[i]}`)
+
+            }
+        })
+
+
+        }
+        console.log(expTests);
+
+        await axios.get(`http://localhost:3001/order/forcheckin/${props.section}`).then((response) => {
+            props.setCheckInDetails(response.data);
         })
         props.setShow(false);
     }
