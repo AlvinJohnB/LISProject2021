@@ -16,13 +16,16 @@
     width: 800px;
 }
 
-.modal-header, .modal-footer{
+.modal-footer{
+    padding: 10px;
+}
+
+.modal-header{
     padding: 10px;
 }
 
 .modal-body{
     padding: 10px;
-    width: 100%;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }

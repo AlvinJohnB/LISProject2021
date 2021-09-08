@@ -1,9 +1,14 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
+
 
 function Ordersrow(props) {
 
+    let history = useHistory();
+
     const onSelect = () => {
-        console.log(props.order)
+        history.push(`/order/${props.order.labNumber}`)
+
     }
     return (
         <tr className="tbcontent">
