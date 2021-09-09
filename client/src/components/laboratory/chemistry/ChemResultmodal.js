@@ -1,9 +1,12 @@
 import React from 'react'
 import './chemresult.css'
-import { useEffect } from 'react'
+import { useState, useEffect } from 'react'
 
+import ChemResultInput from './ChemResultInput'
+import ChemTest from './ChemTest'
 function ChemResultmodal ({show, closeModal, resultFormData, sectionResultArray} ) {
 
+    const[running, setRunning] = useState(true);
 
     if(!show){
         return null
@@ -32,22 +35,22 @@ function ChemResultmodal ({show, closeModal, resultFormData, sectionResultArray}
                                         <th>Reference</th>
                                     </tr>
                                     
-                                    {sectionResultArray.map((details) => {
+                                    {sectionResultArray.map((test) => {
                                     return(
-                                       <tr>
-                                            {details.test}
-                                       </tr>
+                                    <ChemTest test={test} />
                                     )
                                 })}
 
                                 </tbody>
                             </table>
                         </p>
+                        {running ?
+                        <input type="button" className="checkin-btn accept" value="Release"/>:
+                        <input type="button" className="checkin-btn reject" value="Undo Release"/>}
                     </div>
                 <div className="checkin-modal-footer">
-                        {/* <input type="button" className="checkin-btn accept" value="Accept" onClick={onAccept}/>
-                        <input type="button" className="checkin-btn reject" value="Reject"/> */}
                 </div>
+                    <ChemResultInput />
             </div>
         </div>
     )

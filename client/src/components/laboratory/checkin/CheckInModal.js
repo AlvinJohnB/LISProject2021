@@ -52,6 +52,44 @@ function CheckInModal(props) {
             }
         })
 
+        if(expTests[i] === "LIPID"){
+
+            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                test: "CHOLE",
+            },
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken")
+                }
+            })
+            
+            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                test: "TRIG",
+            },
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken")
+                }
+            })
+
+            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                test: "HDL",
+            },
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken")
+                }
+            })
+
+            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                test: "LDL",
+            },
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken")
+                }
+            })
+        }
 
         }
         console.log(expTests);

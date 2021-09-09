@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist } = require('../models');
+const { Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -142,10 +142,17 @@ router.post("/cnxtion", validateToken, async (req, res) => {
 // RESULTS
 router.post("/form/result/create/:secreqID", validateToken, async (req, res) => {
     const secreqID = req.params.secreqID;
-    const test = req.body;
+    const test = req.body.test;
 
-    await Sectionresults.create(test);
+    //Get TestlistId
+    const TestslistId = await Testslist.findOne({
+        where: {testcode: test}
+    })
 
+    await Sectionresults.create({
+        test: test,
+        TestslistId: TestslistId.id
+    });
 
     const lastRxData = await Sectionresults.findOne({
         order: [
@@ -163,7 +170,6 @@ router.post("/form/result/create/:secreqID", validateToken, async (req, res) => 
             SectionresultId: lastRxData.id,
             SectionorderId: secreqID,
         });    
-        console.log(lastRxData.id)
     }
     res.send();
 });
@@ -194,7 +200,7 @@ router.get("/resultform/:labnumber", async (req, res) => {
             where: {labNumber: labnumber},
             include:[
                 {model: Patientlist},
-                {model: Sectionorders, where:{section: "Chemistry"}, include:[{model: Sectionresults}]},
+                {model: Sectionorders, where:{section: "Chemistry"}, include:[{model: Sectionresults, include: [{model: Testslist}]}]},
             ]
         }
     )
