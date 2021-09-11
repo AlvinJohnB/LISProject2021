@@ -1,12 +1,67 @@
 import React from 'react'
 import './chemresult.css'
-import { useState, useEffect } from 'react'
+import axios from 'axios';
 
-import ChemResultInput from './ChemResultInput'
 import ChemTest from './ChemTest'
-function ChemResultmodal ({show, closeModal, resultFormData, sectionResultArray} ) {
+import { useHistory } from 'react-router-dom';
 
-    const[running, setRunning] = useState(true);
+    function ChemResultmodal ({setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
+
+    let history = useHistory();
+
+    const onRelease = async () => {
+
+        const sectOrderID = resultFormData[0].Sectionorders[0].id
+
+        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RELEASED`,
+        {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            }
+        }).then((response) => {
+            if(response.data.error){
+                alert("You are not logged in. Please log-in!");
+                history.push('/login');
+            }
+        }).catch((err) => {
+            console.log("Record not updated");
+        })
+
+        // RE RENDER DATA
+
+        await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}`).then((response) => {
+            setResultFormData(response.data);
+            setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
+            console.log(response.data[0].Sectionorders[0].Sectionresults)
+        })
+    }
+
+    const onUndoRelease = async () => {
+
+        const sectOrderID = resultFormData[0].Sectionorders[0].id
+
+        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RUNNING`,
+        {
+            headers: {
+                accessToken: localStorage.getItem("accessToken"),
+            }
+        }).then((response) => {
+            if(response.data.error){
+                alert("You are not logged in. Please log-in!");
+                history.push('/login');
+            }
+        }).catch((err) => {
+            console.log("Record not updated");
+        })
+
+        // RE RENDER DATA
+
+        await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}`).then((response) => {
+            setResultFormData(response.data);
+            setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
+            console.log(response.data[0].Sectionorders[0].Sectionresults)
+        })
+    }
 
     if(!show){
         return null
@@ -37,20 +92,19 @@ function ChemResultmodal ({show, closeModal, resultFormData, sectionResultArray}
                                     
                                     {sectionResultArray.map((test) => {
                                     return(
-                                    <ChemTest test={test} />
+                                    <ChemTest ptdata={resultFormData[0].Patientlists[0]} test={test} />
                                     )
                                 })}
 
                                 </tbody>
                             </table>
                         </p>
-                        {running ?
-                        <input type="button" className="checkin-btn accept" value="Release"/>:
-                        <input type="button" className="checkin-btn reject" value="Undo Release"/>}
+
+                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && <input type="button" onClick={onRelease} className="checkin-btn accept" value="Release" />}
+                        {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={onUndoRelease} className="checkin-btn reject" value="Undo Release" />}
                     </div>
                 <div className="checkin-modal-footer">
                 </div>
-                    <ChemResultInput />
             </div>
         </div>
     )

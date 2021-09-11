@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist } = require('../models');
+const { Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -200,23 +200,41 @@ router.get("/resultform/:labnumber", async (req, res) => {
             where: {labNumber: labnumber},
             include:[
                 {model: Patientlist},
-                {model: Sectionorders, where:{section: "Chemistry"}, include:[{model: Sectionresults, include: [{model: Testslist}]}]},
+                {model: Sectionorders, where:{section: "Chemistry"}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
             ]
         }
     )
-    // const orders = await Orders.findAll(
-    //     {
-    //         include: [
-    //             {model: Patientlist},
-    //             {model: Sectionorders,
-    //             where: {
-    //                 section: section,
-    //                 status: "RUNNING"
-    //             }},
-    //            ]
-    //     }
-    // );
     res.json(data);
+})
+
+router.post("/result/update/:sectionResultID/:result", async (req, res) => {
+    const sectionResultID = req.params.sectionResultID;
+    const result = req.params.result;
+
+    await Sectionresults.update({
+        result: result
+    }, {
+        where: {
+            id: sectionResultID
+        }
+    })
+
+    res.json({msg: "Record Saved"});
+})
+
+router.post("/result/release/:sectionOrderID/:status", async (req, res) => {
+    const sectionOrderID = req.params.sectionOrderID;
+    const status = req.params.status;
+
+    await Sectionorders.update({
+        status: status
+    }, {
+        where: {
+            id: sectionOrderID
+        }
+    })
+
+    res.send();
 })
 
 module.exports = router

@@ -14,7 +14,7 @@ function chemTr({details, setShow, setResultFormData, setSectionResultArray}) {
         
     }
     return (
-        <tr className="tbcontent">
+        <tr className="lab tbcontent">
                 <td>{details.labNumber}</td>
                 <td>{details.Patientlists[0].lastname}, {details.Patientlists[0].firstname} {details.Patientlists[0].middlename}</td>
                 <td>{details.Sectionorders[0].tests}</td>

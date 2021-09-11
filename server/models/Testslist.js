@@ -18,7 +18,19 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false,
             allowNull: false,
         },
+        unit: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     }, {timestamps: false})
+
+    Testslist.associate = (models) => {
+
+        Testslist.hasOne(models.Referencevalues, {
+        constraint: false,
+        onDelete: "cascade",
+    })
+    }
 
     return Testslist;
 }

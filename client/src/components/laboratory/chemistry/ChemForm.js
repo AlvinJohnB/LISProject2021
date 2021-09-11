@@ -26,7 +26,7 @@ function ChemForm() {
             setSectionData(response.data);
             setIsLoading(false);
         })
-    },[])
+    },[sectionResultArray])
 
     if(isLoading){
         return (
@@ -92,6 +92,7 @@ function ChemForm() {
                         resultFormData={resultFormData}
                         sectionResultArray={sectionResultArray}
                         setSectionResultArray={setSectionResultArray}
+                        setResultFormData={setResultFormData}
                     />
                     
                 </div>
