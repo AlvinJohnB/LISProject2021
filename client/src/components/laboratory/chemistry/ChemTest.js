@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 
-function ChemTest({test, ptdata}) {
+function ChemTest({test, ptdata, status}) {
 
     let history = useHistory();
 
@@ -40,7 +40,8 @@ function ChemTest({test, ptdata}) {
 
                 <tr className="rform">
                     <td >{test.Testslist.testname}</td>
-                    <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>
+                    {status === "RUNNING" && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
+                    {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                     <td>{test.Testslist.unit}</td>
                     <td>{test.Testslist.Referencevalue.Male}</td>
                 </tr>
@@ -48,7 +49,8 @@ function ChemTest({test, ptdata}) {
             return (
                 <tr className="rform">
                     <td>{test.Testslist.testname}</td>
-                    <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>
+                    {status === "RUNNING" && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
+                    {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                     <td>{test.Testslist.unit}</td>
                     <td>{test.Testslist.Referencevalue.Female}</td>
                 </tr>

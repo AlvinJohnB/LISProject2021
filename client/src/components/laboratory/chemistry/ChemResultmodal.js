@@ -1,13 +1,21 @@
 import React from 'react'
 import './chemresult.css'
 import axios from 'axios';
-
+import { useState, useEffect } from 'react'
 import ChemTest from './ChemTest'
 import { useHistory } from 'react-router-dom';
 
-    function ChemResultmodal ({setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
-
+    function ChemResultmodal ({setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
+    
+    const [isLoading, setIsLoading] = useState(true);
     let history = useHistory();
+
+    useEffect(()=>{
+      if(prevResultData){
+        setIsLoading(false);
+        console.log(prevResultData)
+      }
+    },[prevResultData])
 
     const onRelease = async () => {
 
@@ -32,7 +40,6 @@ import { useHistory } from 'react-router-dom';
         await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
-            console.log(response.data[0].Sectionorders[0].Sectionresults)
         })
     }
 
@@ -67,6 +74,14 @@ import { useHistory } from 'react-router-dom';
         return null
     }
 
+    if(isLoading){
+        return (
+            <div className="ptregwrapper">
+                <h3>Loading...</h3>
+            </div>
+        )
+    }
+
     return (
         <div className="checkin-modal">
             <div className="checkin-modal-wrapper">
@@ -79,8 +94,10 @@ import { useHistory } from 'react-router-dom';
                             <strong>Patient Name:</strong> {resultFormData[0].Patientlists[0].lastname}, {resultFormData[0].Patientlists[0].firstname} {resultFormData[0].Patientlists[0].middlename}<br />
                             <strong>Section:</strong> {resultFormData[0].Sectionorders[0].section}<br />
                             <strong>Section Number:</strong> {resultFormData[0].Sectionorders[0].sectNumber}<br />
+                            {resultFormData[0].Sectionorders[0].status === "RELEASED" && <h2 className="red">Released</h2>}
+                            {prevResultData.Orders.length > 0 && resultFormData[0].Sectionorders[0].status === "RUNNING" && <input type="button" value="Show previous result" className="checkin-btn reject" />}
                             <br />
-
+                            </p>
                             <table className="tablelab">
                                 <tbody>
                                     <tr className="labheader">
@@ -90,15 +107,15 @@ import { useHistory } from 'react-router-dom';
                                         <th>Reference</th>
                                     </tr>
                                     
-                                    {sectionResultArray.map((test) => {
+                                    {sectionResultArray.map((test, index) => {
                                     return(
-                                    <ChemTest ptdata={resultFormData[0].Patientlists[0]} test={test} />
+                                    <ChemTest key={index} status={resultFormData[0].Sectionorders[0].status} ptdata={resultFormData[0].Patientlists[0]} test={test} />
                                     )
                                 })}
 
                                 </tbody>
                             </table>
-                        </p>
+                        
 
                         {resultFormData[0].Sectionorders[0].status === "RUNNING" && <input type="button" onClick={onRelease} className="checkin-btn accept" value="Release" />}
                         {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={onUndoRelease} className="checkin-btn reject" value="Undo Release" />}

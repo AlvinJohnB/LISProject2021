@@ -207,6 +207,7 @@ router.get("/resultform/:labnumber", async (req, res) => {
     res.json(data);
 })
 
+//Update Result
 router.post("/result/update/:sectionResultID/:result", async (req, res) => {
     const sectionResultID = req.params.sectionResultID;
     const result = req.params.result;
@@ -222,6 +223,7 @@ router.post("/result/update/:sectionResultID/:result", async (req, res) => {
     res.json({msg: "Record Saved"});
 })
 
+//Release Rx
 router.post("/result/release/:sectionOrderID/:status", async (req, res) => {
     const sectionOrderID = req.params.sectionOrderID;
     const status = req.params.status;
@@ -237,4 +239,15 @@ router.post("/result/release/:sectionOrderID/:status", async (req, res) => {
     res.send();
 })
 
+//Previous result
+router.get("/result/previous/:ptID/:section", async (req, res) => {
+    const id = req.params.ptID;
+    const section = req.params.section;
+
+    const presult = await Patientlist.findOne({
+        where:{ id: id },
+        include:[{ model: Orders, include:[{model: Sectionorders, where:{status: "RELEASED", section: section}, include: [{model: Sectionresults}], limit: 5}] }]
+    })
+    res.json(presult);
+})
 module.exports = router

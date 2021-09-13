@@ -106,3 +106,7 @@ tr.rform:hover{
     background-color: rgb(184, 183, 183);
     cursor: pointer;
 }
+
+.red{
+    color: red;
+}
