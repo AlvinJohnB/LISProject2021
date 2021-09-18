@@ -246,7 +246,7 @@ router.get("/result/previous/:ptID/:section", async (req, res) => {
 
     const presult = await Patientlist.findOne({
         where:{ id: id },
-        include:[{ model: Orders, include:[{model: Sectionorders, where:{status: "RELEASED", section: section}, include: [{model: Sectionresults}], limit: 5}] }]
+        include:[{ model: Orders, where:{status: "RELEASED"}, include:[{model: Sectionorders, where:{status: "RELEASED", section: section}, include: [{model: Sectionresults, include:[{model: Testslist}]}], limit: 5}] }]
     })
     res.json(presult);
 })

@@ -4,18 +4,22 @@ import axios from 'axios';
 import { useState, useEffect } from 'react'
 import ChemTest from './ChemTest'
 import { useHistory } from 'react-router-dom';
+import PrevResultModal from './PrevResultModal';
 
-    function ChemResultmodal ({setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
+    function ChemResultmodal ({showPrevResModal, setShowPrevResModal, setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
     
     const [isLoading, setIsLoading] = useState(true);
     let history = useHistory();
 
     useEffect(()=>{
-      if(prevResultData){
+      if(prevResultData || prevResultData == null){
         setIsLoading(false);
-        console.log(prevResultData)
       }
     },[prevResultData])
+
+    const prevResClick = () => {
+        setShowPrevResModal(true);
+    }
 
     const onRelease = async () => {
 
@@ -95,7 +99,7 @@ import { useHistory } from 'react-router-dom';
                             <strong>Section:</strong> {resultFormData[0].Sectionorders[0].section}<br />
                             <strong>Section Number:</strong> {resultFormData[0].Sectionorders[0].sectNumber}<br />
                             {resultFormData[0].Sectionorders[0].status === "RELEASED" && <h2 className="red">Released</h2>}
-                            {prevResultData.Orders.length > 0 && resultFormData[0].Sectionorders[0].status === "RUNNING" && <input type="button" value="Show previous result" className="checkin-btn reject" />}
+                            {prevResultData !== null && resultFormData[0].Sectionorders[0].status === "RUNNING" && <input onClick={prevResClick} type="button" value="Show previous result" className="checkin-btn reject" />}
                             <br />
                             </p>
                             <table className="tablelab">

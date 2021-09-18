@@ -1,5 +1,6 @@
 import React from 'react'
 import axios from 'axios';
+import PrevResultModal from './PrevResultModal';
 
 function ChemTr({resultFormData, setPrevResultData, details, setShow, setResultFormData, setSectionResultArray}) {
 
@@ -12,7 +13,6 @@ function ChemTr({resultFormData, setPrevResultData, details, setShow, setResultF
         
         axios.get(`http://localhost:3001/order/result/previous/${response.data[0].Patientlists[0].id}/Chemistry`).then((response) => {
             setPrevResultData(response.data)
-            console.log(response.data.Orders.length)
         })
         })
         
@@ -24,6 +24,7 @@ function ChemTr({resultFormData, setPrevResultData, details, setShow, setResultF
                 <td>{details.Patientlists[0].lastname}, {details.Patientlists[0].firstname} {details.Patientlists[0].middlename}</td>
                 <td>{details.Sectionorders[0].tests}</td>
                 <td onClick={selectHandler}>Select</td>
+                <PrevResultModal showPrevResModal={showPrevResModal} setShowPrevResModal={setShowPrevResModal} prevResultData={prevResultData} />
         </tr>
     )
 }
