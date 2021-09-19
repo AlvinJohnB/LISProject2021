@@ -1,8 +1,7 @@
 import React from 'react'
 import axios from 'axios';
-import PrevResultModal from './PrevResultModal';
 
-function ChemTr({resultFormData, setPrevResultData, details, setShow, setResultFormData, setSectionResultArray}) {
+function ChemTr({ setPrevResultData, details, setShow, setResultFormData, setSectionResultArray}) {
 
     const selectHandler = async () => {
 
@@ -24,7 +23,6 @@ function ChemTr({resultFormData, setPrevResultData, details, setShow, setResultF
                 <td>{details.Patientlists[0].lastname}, {details.Patientlists[0].firstname} {details.Patientlists[0].middlename}</td>
                 <td>{details.Sectionorders[0].tests}</td>
                 <td onClick={selectHandler}>Select</td>
-                <PrevResultModal showPrevResModal={showPrevResModal} setShowPrevResModal={setShowPrevResModal} prevResultData={prevResultData} />
         </tr>
     )
 }

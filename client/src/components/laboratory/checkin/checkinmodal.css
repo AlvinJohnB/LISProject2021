@@ -18,6 +18,8 @@
 
 .checkin-modal-footer{
     padding: 10px;
+    justify-content: center;
+    display: flex;
 }
 
 .checkin-modal-header{

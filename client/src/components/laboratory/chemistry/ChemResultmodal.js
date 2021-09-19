@@ -99,7 +99,13 @@ import PrevResultModal from './PrevResultModal';
                             <strong>Section:</strong> {resultFormData[0].Sectionorders[0].section}<br />
                             <strong>Section Number:</strong> {resultFormData[0].Sectionorders[0].sectNumber}<br />
                             {resultFormData[0].Sectionorders[0].status === "RELEASED" && <h2 className="red">Released</h2>}
-                            {prevResultData !== null && resultFormData[0].Sectionorders[0].status === "RUNNING" && <input onClick={prevResClick} type="button" value="Show previous result" className="checkin-btn reject" />}
+                            {prevResultData != null && resultFormData[0].Sectionorders[0].status === "RUNNING" && <input onClick={prevResClick} type="button" value="Show previous result" className="checkin-btn reject" />}
+                            
+                            {/* Prev Result Modal */}
+                            {prevResultData != null &&
+                            <PrevResultModal showPrevResModal={showPrevResModal} setShowPrevResModal={setShowPrevResModal} prevResultData={prevResultData} />}
+
+
                             <br />
                             </p>
                             <table className="tablelab">

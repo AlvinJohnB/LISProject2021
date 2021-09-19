@@ -235,8 +235,55 @@ router.post("/result/release/:sectionOrderID/:status", async (req, res) => {
             id: sectionOrderID
         }
     })
-
     res.send();
+})
+
+//Check if completed
+router.post("/check/:labNumber/", async (req, res) => {
+    const labNumber = req.params.labNumber;
+
+    let done;
+    let secorders;
+
+    const queryOne = await Orders.findOne( {
+        where: {
+            labNumber: labNumber
+        },
+        include:[{model: Sectionorders}]
+    })
+
+    secorders = queryOne.Sectionorders.length
+    // res.json(queryOne.Sectionorders.length);
+
+    const queryTwo = await Orders.findOne({
+        where: {
+            labNumber: labNumber
+        },
+        include:[{model: Sectionorders, where:{status: "RELEASED"}}]
+    })
+    // res.json(queryTwo)
+
+    if(queryTwo == null){
+        done = 0
+    }else{
+        done = queryTwo.Sectionorders.length
+    }
+
+    if(done / secorders == 1){
+        await Orders.update({
+            status: "RELEASED"
+        }, {where: {
+            labNumber: labNumber
+        }})
+        res.send();
+    }else{
+        await Orders.update({
+            status: "PENDING"
+        }, {where: {
+            labNumber: labNumber
+        }})
+        res.send();
+    }
 })
 
 //Previous result
@@ -244,9 +291,15 @@ router.get("/result/previous/:ptID/:section", async (req, res) => {
     const id = req.params.ptID;
     const section = req.params.section;
 
-    const presult = await Patientlist.findOne({
-        where:{ id: id },
-        include:[{ model: Orders, where:{status: "RELEASED"}, include:[{model: Sectionorders, where:{status: "RELEASED", section: section}, include: [{model: Sectionresults, include:[{model: Testslist}]}], limit: 5}] }]
+    const presult = await Orders.findAll({
+        order: [
+            ['updatedAt', 'DESC']
+        ],
+        where:{ forPtId: id },
+        limit: 5,
+        include:[
+            {model: Patientlist},
+            {model: Sectionorders, where:{status: "RELEASED", section: section}, include: [{model: Sectionresults, include:[{model: Testslist, include:[{model: Referencevalues}]}]}]}]
     })
     res.json(presult);
 })

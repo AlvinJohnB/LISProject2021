@@ -110,3 +110,29 @@ tr.rform:hover{
 .red{
     color: red;
 }
+
+.pagination-bttns{
+    width: 80%;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-bttns a{
+    padding: 10px;
+    margin: 8px;
+    border: 1px solid rgb(10, 105, 194);
+    color: rgb(10, 105, 194);
+    cursor: pointer;
+}
+
+.pagination-bttns a:hover{
+    color:white;
+    background-color: rgb(10, 105, 194);
+}
+
+.pgninate-active a{
+    color: white;
+    background-color: rgb(10, 105, 194);
+}

@@ -79,7 +79,8 @@ function ChemForm() {
                                         setShow={setShow}
                                         setResultFormData={setResultFormData}
                                         setSectionResultArray={setSectionResultArray}
-                                        setPrevResultData={setPrevResultData}
+                                        prevResultData={prevResultData}
+                                        setPrevResultData={setPrevResultData}     
                                     />
                                 )
                             })}
