@@ -111,7 +111,6 @@ const Ptreg = () => {
                     <div className="form-content">
                        <label htmlFor="branchid" className="form-content">Patient ID:</label>
                        <ErrorMessage name="branchid" component="span" /> 
-
                        <Field 
                             name="branchid"
                             id="form-field"
@@ -130,7 +129,7 @@ const Ptreg = () => {
                             id="form-field"
                             name="lastname"
                             placeholder="Lastname"
-                        />
+                        /><br />
                         <ErrorMessage name="lastname" component="span" />
                         
                     </div>
@@ -142,7 +141,7 @@ const Ptreg = () => {
                             id="form-field"
                             name="firstname"
                             placeholder="First name"
-                        />
+                        /><br />
                         <ErrorMessage name="firstname" component="span" />
                     </div>
 
@@ -153,7 +152,7 @@ const Ptreg = () => {
                             id="form-field"
                             name="middlename"
                             placeholder="Middle name"
-                        />
+                        /><br />
                          <ErrorMessage name="middlename" component="span" />
                     </div>
                 </div>
@@ -177,7 +176,7 @@ const Ptreg = () => {
                         id="form-field"
                         type="date"
                         onBlur={getAge}
-                        name="bday" />
+                        name="bday" /><br />
                         <ErrorMessage name="bday" component="span" />
                     </div>
 
@@ -197,7 +196,7 @@ const Ptreg = () => {
                             id="form-field"
                             type="text"
                             placeholder="Address"
-                        />
+                        /><br />
                          <ErrorMessage name="address" component="span" />
                         </div>
                         <div className="form-content">
@@ -208,7 +207,7 @@ const Ptreg = () => {
                                 name="phone"
                                 type="tel"
                                 placeholder="Phone number"
-                            />
+                            /><br />
                              <ErrorMessage name="phone" component="span" />
                         </div>
                         

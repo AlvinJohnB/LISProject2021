@@ -5,6 +5,7 @@ function LabNav() {
     return (
         <nav className="lab">
         <li>
+            <ul><Link to="/">Reception</Link></ul>
             <ul><Link to="/laboratory">Specimen Check-in</Link></ul>
             <ul><Link to="/laboratory/chemistry">Chemistry</Link></ul>
             <ul><Link to="/laboratory">Hematology</Link></ul>

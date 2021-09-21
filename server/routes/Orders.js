@@ -39,7 +39,7 @@ router.get("/getorders", async (req, res) => {
     res.json(orders);
 })
 
-router.get("/getorder/:labNumber", async (req, res) => {
+router.get("/getorder/:labNumber", validateToken, async (req, res) => {
     const labNumber = req.params.labNumber;
     const orders = await Orders.findAll(
         {
@@ -208,7 +208,7 @@ router.get("/resultform/:labnumber", async (req, res) => {
 })
 
 //Update Result
-router.post("/result/update/:sectionResultID/:result", async (req, res) => {
+router.post("/result/update/:sectionResultID/:result", validateToken, async (req, res) => {
     const sectionResultID = req.params.sectionResultID;
     const result = req.params.result;
 
@@ -224,7 +224,7 @@ router.post("/result/update/:sectionResultID/:result", async (req, res) => {
 })
 
 //Release Rx
-router.post("/result/release/:sectionOrderID/:status", async (req, res) => {
+router.post("/result/release/:sectionOrderID/:status",validateToken, async (req, res) => {
     const sectionOrderID = req.params.sectionOrderID;
     const status = req.params.status;
 
@@ -239,7 +239,7 @@ router.post("/result/release/:sectionOrderID/:status", async (req, res) => {
 })
 
 //Check if completed
-router.post("/check/:labNumber/", async (req, res) => {
+router.post("/check/:labNumber", async (req, res) => {
     const labNumber = req.params.labNumber;
 
     let done;
@@ -304,3 +304,17 @@ router.get("/result/previous/:ptID/:section", async (req, res) => {
     res.json(presult);
 })
 module.exports = router
+
+//Find order by ID
+router.get("/results/findByID/:section/:orderID", async (req, res) => {
+    const orderId = req.params.orderID;
+    const section = req.params.section;
+
+    const result = await Orders.findOne({
+        where:{ id: orderId },
+        include:[
+            {model: Patientlist},
+            {model: Sectionorders, where:{status: "RELEASED", section: section}, include: [{model: Sectionresults, include:[{model: Testslist, include:[{model: Referencevalues}]}]}]}]
+    })
+    res.json(result);
+})

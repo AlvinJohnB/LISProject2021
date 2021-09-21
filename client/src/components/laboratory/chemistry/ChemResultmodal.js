@@ -23,9 +23,9 @@ import PrevResultModal from './PrevResultModal';
 
     const onRelease = async () => {
 
-        const sectOrderID = resultFormData[0].Sectionorders[0].id
+        const sectOrderID = resultFormData[0].Sectionorders[0].id;
 
-        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RELEASED`,
+        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RELEASED`,{},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -44,6 +44,11 @@ import PrevResultModal from './PrevResultModal';
         await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
+        })
+
+        //CHECK IF ALL TESTS COMPLETED
+        await axios.post(`http://localhost:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
+
         })
     }
 
@@ -51,7 +56,7 @@ import PrevResultModal from './PrevResultModal';
 
         const sectOrderID = resultFormData[0].Sectionorders[0].id
 
-        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RUNNING`,
+        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RUNNING`, {},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -70,7 +75,11 @@ import PrevResultModal from './PrevResultModal';
         await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
-            console.log(response.data[0].Sectionorders[0].Sectionresults)
+        })
+
+        //CHECK IF ALL TESTS COMPLETED
+        await axios.post(`http://localhost:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
+
         })
     }
 
@@ -94,12 +103,12 @@ import PrevResultModal from './PrevResultModal';
                     <div className="checkin-closebtn" onClick={closeModal}>X</div>
                 </div>
                     <div className="checkin-modal-body">
+                        {resultFormData[0].Sectionorders[0].status === "RELEASED" && <h2 className="red">Released</h2>}
                         <p className="order-dits">
                             <strong>Patient Name:</strong> {resultFormData[0].Patientlists[0].lastname}, {resultFormData[0].Patientlists[0].firstname} {resultFormData[0].Patientlists[0].middlename}<br />
                             <strong>Section:</strong> {resultFormData[0].Sectionorders[0].section}<br />
                             <strong>Section Number:</strong> {resultFormData[0].Sectionorders[0].sectNumber}<br />
-                            {resultFormData[0].Sectionorders[0].status === "RELEASED" && <h2 className="red">Released</h2>}
-                            {prevResultData != null && resultFormData[0].Sectionorders[0].status === "RUNNING" && <input onClick={prevResClick} type="button" value="Show previous result" className="checkin-btn reject" />}
+                            {prevResultData != null && resultFormData[0].Sectionorders[0].status === "RUNNING" && prevResultData.length > 0 && <input onClick={prevResClick} type="button" value="Show previous result" className="checkin-btn reject" />}
                             
                             {/* Prev Result Modal */}
                             {prevResultData != null &&

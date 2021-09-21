@@ -10,7 +10,7 @@ function ChemTest({test, ptdata, status}) {
         const result = e.target.value;
         const sResultID = test.id
         
-        await axios.post(`http://localhost:3001/order/result/update/${sResultID}/${result}`,
+        await axios.post(`http://localhost:3001/order/result/update/${sResultID}/${result}`,{},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),

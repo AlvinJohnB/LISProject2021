@@ -5,6 +5,13 @@
     padding: 20px;
 }
 
+.labwrapper-orderdeats{
+    width: 95%;
+    display: block;
+    margin: auto;
+    padding: -10px;
+}
+
 .labcontentheader{
     position: relative;
     top: 10px;
@@ -12,6 +19,24 @@
     z-index: 0;
     background-color: rgb(240, 240, 240);
     width: 14rem;
+}
+
+.labcontentheader-orderdeats{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 11rem;
+}
+
+.labcontentheader-results{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 7rem;
 }
 
 .labdiv{
@@ -22,6 +47,10 @@
 .labdivcontent{
     margin-top: 10px;
     padding: 10px;
+}
+
+.p-10{
+    padding-left: 10px;
 }
 
 .labdiv-flex-block{
@@ -93,6 +122,10 @@ input.rform-input:focus{
     font-weight: bolder;
 }
 
+.margin-0{
+    margin: 0;
+}
+
 tr.rform{
    border: 1px solid black;
 }
@@ -135,4 +168,8 @@ tr.rform:hover{
 .pgninate-active a{
     color: white;
     background-color: rgb(10, 105, 194);
+}
+
+.block{
+    display: block;
 }

@@ -15,10 +15,12 @@ import Orders from './components/orders/Orders';
 import OrderDetails from './components/orders/OrderDetails';
 import LabClient from './components/laboratory/LabClient';
 import ChemForm from './components/laboratory/chemistry/ChemForm';
+import Results from './components/results/Results'
 
 import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
+import ResultForm from './components/results/ResultForm';
 
 
 const App = () => {
@@ -55,7 +57,7 @@ useEffect(() => {
                     <ul><Link to="/registerpatient">Patient Registration</Link></ul>
                     <ul><Link to="/orders">Orders</Link></ul>
                     <ul><Link to="/laboratory">Laboratory</Link></ul>
-                    <ul>Results</ul>
+                    <ul><Link to="/results">Results</Link></ul>
                 </li>
               </nav>
               <section>
@@ -69,6 +71,8 @@ useEffect(() => {
                 <Route path="/addorder/for:pId" component={Addorder}/>
                 <Route path="/orders" component={Orders}/>
                 <Route path="/order/:labNumber" component={OrderDetails}/>
+                <Route path="/results/" component={Results}/>
+                <Route path="/resultform/" component={ResultForm}/>
               </section>
               <footer>Laboratory Information System by Bregs</footer>
               

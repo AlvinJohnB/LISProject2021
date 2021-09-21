@@ -47,7 +47,7 @@ function PrevResultModal({showPrevResModal, setShowPrevResModal, prevResultData}
 
     const closePrevResModal = () => {
         setShowPrevResModal(false);
-        console.log(prevResultData[0].Sectionorders[0].Sectionresults);
+        console.log(prevResultData.length);
     }
 
     if(!showPrevResModal){

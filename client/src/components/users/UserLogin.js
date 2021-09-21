@@ -24,7 +24,7 @@ function UserLogin() {
             }else{
                 localStorage.setItem("accessToken", response.data);
                 setAuthState("true");
-                history.push('/');
+                history.push('/checkin');
             }
         })
     }
