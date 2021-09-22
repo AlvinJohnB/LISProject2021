@@ -14,71 +14,80 @@ const styles = StyleSheet.create({
     borderRightWidth: 10,
     borderBottomWidth: 10,
     flexWrap: 'wrap',
-    border: "1px solid black"
+    border: "1px solid black",
+    alignItems: 'center'
   },
-  header:{
-    flex: 1,
+header:{
     width: 550,
-    height: 550,
+    height: 90,
     alignItems: 'center',
-    border: '1px solid black',
   },
-  headerText:{
-      fontFamily: 'Verdana, sans-serif',
+companyHeader:{
+    width: 550,
+    height: 60,
   },
-  title: {
-    fontSize: 14,
+  companyHText:{
+    fontSize: '16px',
+    textAlign: 'center'
+  },
+  contactText:{
     textAlign: 'center',
-    marginBottom: 10,
+    fontSize: '8px'
   },
-  titleContacts: {
-    fontSize: 8,
-    textAlign: 'center',
-    marginBottom: 8,
+  marginTop:{
+    marginTop: 2,
   },
   patientHeader:{
     flex: 1,
+    flexDirection: 'row',
+    height: 30,
     width: 550,
-    height: 1,
-    alignItems: 'flex-start',
-    alignSelf: 'flex-start',
-    border: '1px solid red'
   },
-  compHeader:{
-        flex: 1,
-        width: 550,
-        height: 100,
-        flexShrink: 1,
+  pcol:{
+    width: 350,
+    height: 30,
   },
-  ptDetails:{
-      fontSize: 9,
+  pcol1:{
+    width: 200,
+    height: 30,
+  },
+  patientInfoText:{
+    fontSize: '9px',
   },
   resultBody:{
-    flex: 1,
     width: 550,
-    height: 250,
-    alignItems: 'flex-start',
+    height: 260,
   },
   resultHeader:{
-    flex: 1,
-    width: 550,
-    height: 20,
+    marginTop: '5px',
+    fontSize: '10px',
+    fontWeight: "bold"
   },
   footer:{
-    position: 'absolute',
-    fontSize: 12,
-    bottom: 30,
-    left: 0,
-    right: 0,
-    textAlign: 'center',
-    flex: 1,
     width: 550,
-    height: 20,
+    height: 30,
+    flex: 1,
+    flexDirection: 'row',
+    justifyContent: 'space-around'
   },
-  resultBody:{
-    flex: 1,
-    width: 550,
-    height: 230,
+  footerCol:{
+    width: 200,
+    height: 30,
+  },
+  footerCol1:{
+    width: 200,
+    height: 30,
+  },
+  footerText:{
+    fontSize: '9px',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  footerMessage:{
+    position: 'relative',
+    fontSize: '9px',
+    textAlign: 'center',
+    fontWeight: 'bold',
   }
 });
 
@@ -87,74 +96,46 @@ const ResultForm = () => (
 <PDFViewer width="800px" height="500px" showToolbar={false}>
   <Document>
     <Page size="A5" orientation= "landscape" style={styles.page}>
-
         <View fixed={true} style={styles.header}>
-            <View style={styles.compHeader}>
-                <Text style={styles.title}>St. Camillus De Lellis General Hospital</Text>
-                <Text style={[styles.title]}>Laboratory Department</Text>
-                <Text style={styles.titleContacts}>Contact No.: 600-1125</Text>
-                <Text style={styles.titleContacts}>e-mail: st.camillusdelellislab@yahoo.com</Text>  
-                <Text style={[styles.title]}>Laboratory Report</Text>   
-               
+          <View style={styles.companyHeader}>
+            <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
+            <Text style={styles.companyHText}>Laboratory Department</Text>
+            <Text style={styles.contactText}>Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
+            <Text style={[styles.companyHText, styles.marginTop]}>Laboratory Report</Text>
+          </View>
+          <View style={styles.patientHeader}>
+            <View style={styles.pcol}>
+              <Text style={styles.patientInfoText}>Patient Name:</Text>
+              <Text style={styles.patientInfoText}>Age/Gender:</Text>
+              <Text style={styles.patientInfoText}>Requesting Physician:</Text>
             </View>
-            {/* Patient Header */}
-            <View style={styles.patientHeader}> 
-                <Text style={[styles.ptDetails]}>Patient Name:</Text>
-                <Text style={styles.ptDetails}>Age/Gender:</Text>
-                <Text style={styles.ptDetails}>Address / Room:</Text>
-                <Text style={styles.ptDetails}>Physician:</Text>
-            </View>
-        
-        </View>
 
+            <View style={styles.pcol1}>
+              <Text style={styles.patientInfoText}>Date:</Text>
+              <Text style={styles.patientInfoText}>Paitent Type/Room:</Text>
+              <Text style={styles.patientInfoText}>Laboratory Number:</Text>
+            </View>
+          </View>
+        </View>
 
         <View style={styles.resultBody}>
-            <View style={styles.resultHeader}>
-                <Text style={[styles.title]}>Section</Text> 
-            </View>
-            <View style={styles.resultBody}>
-            </View>
-
-
+          <Text style={styles.resultHeader}>Section</Text>
         </View>
-
-
+        <Text fixed={true} style={styles.footerMessage}>** Results are electronically printed. Physical signature is not necessary. **</Text>
         <View fixed={true} style={styles.footer}>
-            <Text style={styles.ptDetails}>RMT:</Text>
-            <Text style={styles.ptDetails}>Pathologist:</Text>
+          <View style={styles.footerCol}>
+            {/* IMAGE HERE FOR RMT */}
+            <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
+          </View>
+
+          <View style={styles.footerCol1}>
+            {/* IMAGE HERE FOR PATHO SIG */}
+          <Text style={styles.footerText}>PATHOLOGIST</Text>
+          </View>
         </View>
     </Page>
   </Document>
 </PDFViewer>
 );
-
-//  <View style={{
-//   }}>
-
-
-//     <View style={{
-//       flex: 1,
-//       width: 550,
-//       height: 250,
-//     }}>
-//       <View style={{
-//         flex: 1,
-//         width: 550,
-//         height: 20,
-//       }} />
-//       <View style={{
-//         flex: 1,
-//         width: 550,
-//         height: 230,
-//       }} />
-//     </View>
-
-
-//     <View style={{
-//       flex: 1,
-//       width: 550,
-//       height: 30,
-//     }} />
-//   </View>
 
 export default ResultForm;
