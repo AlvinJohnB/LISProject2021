@@ -1,0 +1,90 @@
+[
+	{
+		"id" : 1,
+		"testcode" : "FBS",
+		"testname" : "Fasting Blood Sugar",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "mg/dL"
+	},
+	{
+		"id" : 2,
+		"testcode" : "LIPID",
+		"testname" : "Lipid Profile",
+		"section" : "Chemistry",
+		"isPackage" : 1,
+		"unit" : "N/A"
+	},
+	{
+		"id" : 3,
+		"testcode" : "CHOLE",
+		"testname" : "Total Cholesterol",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "mg/dL"
+	},
+	{
+		"id" : 4,
+		"testcode" : "TRIG",
+		"testname" : "Triglycerides",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "mg/dL"
+	},
+	{
+		"id" : 5,
+		"testcode" : "HDL",
+		"testname" : "High Density Lipoprotein (HDL)",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "mg/dL"
+	},
+	{
+		"id" : 6,
+		"testcode" : "LDL",
+		"testname" : "Low Density Lipoprotein (LDL)",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "mg/dL"
+	},
+	{
+		"id" : 7,
+		"testcode" : "BUN",
+		"testname" : "Blood Uric Acid",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "mg/dL"
+	},
+	{
+		"id" : 8,
+		"testcode" : "CREA",
+		"testname" : "Serum Creatinine",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "mg/dL"
+	},
+	{
+		"id" : 9,
+		"testcode" : "ALT/SGPT",
+		"testname" : "Alanine Transaminase (ALT/SGPT)",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "U/L"
+	},
+	{
+		"id" : 10,
+		"testcode" : "AST/SGOT",
+		"testname" : "Aspartate Aminotransferase (AST/SGOT)",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "U/L"
+	},
+	{
+		"id" : 11,
+		"testcode" : "BUA",
+		"testname" : "Blood Uric Acid",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"unit" : "mg/dL"
+	}
+]

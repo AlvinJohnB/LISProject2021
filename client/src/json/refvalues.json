@@ -1,0 +1,72 @@
+[
+	{
+		"id" : 1,
+		"test" : "FBS",
+		"Male" : "70-100",
+		"Female" : "70-100",
+		"TestslistId" : 1
+	},
+	{
+		"id" : 2,
+		"test" : "CHOLE",
+		"Male" : "<200",
+		"Female" : "<200",
+		"TestslistId" : 3
+	},
+	{
+		"id" : 3,
+		"test" : "TRIG",
+		"Male" : "<200",
+		"Female" : "<200",
+		"TestslistId" : 4
+	},
+	{
+		"id" : 4,
+		"test" : "HDL",
+		"Male" : ">40",
+		"Female" : ">40",
+		"TestslistId" : 5
+	},
+	{
+		"id" : 5,
+		"test" : "LDL",
+		"Male" : "<130",
+		"Female" : "<130",
+		"TestslistId" : 6
+	},
+	{
+		"id" : 6,
+		"test" : "BUN",
+		"Male" : "13-43",
+		"Female" : "13-43",
+		"TestslistId" : 7
+	},
+	{
+		"id" : 7,
+		"test" : "CREA",
+		"Male" : "0.2",
+		"Female" : "1.4",
+		"TestslistId" : 8
+	},
+	{
+		"id" : 8,
+		"test" : "ALT/SGPT",
+		"Male" : "<45",
+		"Female" : "<34",
+		"TestslistId" : 9
+	},
+	{
+		"id" : 9,
+		"test" : "AST/SGOT",
+		"Male" : "<50",
+		"Female" : "<35",
+		"TestslistId" : 10
+	},
+	{
+		"id" : 10,
+		"test" : "BUA",
+		"Male" : "3.4-7.0",
+		"Female" : "2.4-5.7",
+		"TestslistId" : 11
+	}
+]
