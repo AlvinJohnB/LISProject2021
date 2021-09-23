@@ -3,24 +3,21 @@ import { Page, Text, View, Document, StyleSheet, PDFViewer } from '@react-pdf/re
 
 
 
+
+
 // Create styles
 const styles = StyleSheet.create({
   page: {
-    flex: 1,
-    alignItems: 'flex-start',
-    padding: 10,
-    margin: 10,
-    borderTopWidth: 10,
-    borderLeftWidth: 10,
-    borderRightWidth: 10,
-    borderBottomWidth: 10,
-    flexWrap: 'wrap',
-    border: "1px solid black",
+    paddingTop: 15,
+    paddingBottom: 100,
+    paddingHorizontal: 35,
     alignItems: 'center'
   },
 header:{
     width: 575.28,
-    alignItems: 'center',
+  },
+  wrap:{
+    width: 575.28,
   },
 companyHeader:{
     width: 575.28,
@@ -67,7 +64,7 @@ companyHeader:{
     flexDirection: 'row',
     justifyContent: 'space-around',
     position: 'absolute',
-    bottom: 30
+    bottom: 29
   },
   footerCol:{
     width: 200,
@@ -93,7 +90,12 @@ companyHeader:{
   },
   resHText:{
     fontSize: '10px',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    width: 138.82,
+    textAlign: 'center',
+    borderBottom: '1px dotted black',
+    borderTop: '1px dotted black',
+    padding: 5
   },
   tableHeader:{
     width: 575.28,
@@ -112,8 +114,8 @@ companyHeader:{
 const ResultForm = () => (
 <PDFViewer width="800px" height="500px" showToolbar={false}>
   <Document>
-    <Page size="A5" orientation= "landscape">
-      <View style={styles.page}>
+    <Page size="A5" orientation= "landscape" style={styles.page}>
+      <View style={styles.wrap}>
         <View fixed={true} style={styles.header}>
           <View style={styles.companyHeader}>
             <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
@@ -147,7 +149,6 @@ const ResultForm = () => (
                 <Text style={styles.resHText}>Unit</Text>
                 <Text style={styles.resHText}>Reference</Text>
             </View>
-            
 
 
             
@@ -159,6 +160,8 @@ const ResultForm = () => (
       
       
       
+
+        </View>
         <Text fixed={true} style={styles.footerMessage}>** Results are electronically printed. Physical signature is not necessary. **</Text>
         <View fixed={true} style={styles.footer}>
           <View style={styles.footerCol}>
@@ -170,7 +173,6 @@ const ResultForm = () => (
             {/* IMAGE HERE FOR PATHO SIG */}
           <Text style={styles.footerText}>PATHOLOGIST</Text>
           </View>
-        </View>
         </View>
     </Page>
       
