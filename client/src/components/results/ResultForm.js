@@ -86,20 +86,22 @@ companyHeader:{
   },
   resTable:{
     width: 550,
-    border: '1px solid black',
-    flexDirection: 'row',
-    justifyContent: 'space-between'
   },
   resHText:{
     fontSize: '10px',
     fontWeight: 'bold'
+  },
+  tableHeader:{
+    width: 550,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
   }
 });
 
 // Create Document Component
 const ResultForm = () => (
 <PDFViewer width="800px" height="500px" showToolbar={false}>
-   <Document>
+  <Document>
     <Page size="A5" orientation= "landscape" style={styles.page}>
         <View fixed={true} style={styles.header}>
           <View style={styles.companyHeader}>
@@ -127,11 +129,12 @@ const ResultForm = () => (
           <Text style={styles.resultHeader}>Section</Text>
           
           <View style={styles.resTable}>
-            
-            <Text style={styles.resHText}>Test Name</Text>
-            <Text style={styles.resHText}>Result</Text>
-            <Text style={styles.resHText}>Unit</Text>
-            <Text style={styles.resHText}>Reference</Text>
+            <View style={styles.tableHeader}>
+                <Text style={styles.resHText}>Test Name</Text>
+                <Text style={styles.resHText}>Result</Text>
+                <Text style={styles.resHText}>Unit</Text>
+                <Text style={styles.resHText}>Reference</Text>
+            </View>
             
           </View>
           
