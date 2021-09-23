@@ -19,12 +19,10 @@ const styles = StyleSheet.create({
   },
 header:{
     width: 550,
-    height: 90,
     alignItems: 'center',
   },
 companyHeader:{
     width: 550,
-    height: 60,
   },
   companyHText:{
     fontSize: '16px',
@@ -40,23 +38,19 @@ companyHeader:{
   patientHeader:{
     flex: 1,
     flexDirection: 'row',
-    height: 30,
     width: 550,
   },
   pcol:{
     width: 350,
-    height: 30,
   },
   pcol1:{
     width: 200,
-    height: 30,
   },
   patientInfoText:{
     fontSize: '9px',
   },
   resultBody:{
     width: 550,
-    height: 260,
   },
   resultHeader:{
     marginTop: '5px',
@@ -65,14 +59,12 @@ companyHeader:{
   },
   footer:{
     width: 550,
-    height: 30,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around'
   },
   footerCol:{
     width: 200,
-    height: 30,
   },
   footerCol1:{
     width: 200,
