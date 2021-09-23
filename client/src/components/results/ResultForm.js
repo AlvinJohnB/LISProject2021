@@ -9,6 +9,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'flex-start',
     padding: 10,
+    margin: 10,
     borderTopWidth: 10,
     borderLeftWidth: 10,
     borderRightWidth: 10,
@@ -18,11 +19,11 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
 header:{
-    width: 550,
+    width: 575.28,
     alignItems: 'center',
   },
 companyHeader:{
-    width: 550,
+    width: 575.28,
   },
   companyHText:{
     fontSize: '16px',
@@ -38,7 +39,8 @@ companyHeader:{
   patientHeader:{
     flex: 1,
     flexDirection: 'row',
-    width: 550,
+    width: 575.28,
+    padding: '10px'
   },
   pcol:{
     width: 350,
@@ -50,15 +52,17 @@ companyHeader:{
     fontSize: '9px',
   },
   resultBody:{
-    width: 550,
+    width: 575.28,
+    padding: '10px',
   },
   resultHeader:{
     marginTop: '5px',
     fontSize: '10px',
-    fontWeight: "bold"
+    fontWeight: "bold",
+    width: 575.28
   },
   footer:{
-    width: 550,
+    width: 575.28,
     flex: 1,
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -85,24 +89,31 @@ companyHeader:{
     bottom: 29,
   },
   resTable:{
-    width: 550,
+    width: 555.28,
   },
   resHText:{
     fontSize: '10px',
     fontWeight: 'bold'
   },
   tableHeader:{
-    width: 550,
+    width: 575.28,
     flexDirection: 'row',
-    justifyContent: 'space-between'
-  }
+    justifyContent: 'space-between',
+    width: 555.28,
+  },
+   body:{
+    paddingTop: 35,
+    paddingBottom: 65,
+    paddingHorizontal: 35,
+}
 });
 
 // Create Document Component
 const ResultForm = () => (
 <PDFViewer width="800px" height="500px" showToolbar={false}>
   <Document>
-    <Page size="A5" orientation= "landscape" style={styles.page}>
+    <Page size="A5" orientation= "landscape">
+      <View style={styles.page}>
         <View fixed={true} style={styles.header}>
           <View style={styles.companyHeader}>
             <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
@@ -126,15 +137,21 @@ const ResultForm = () => (
         </View>
 
         <View style={styles.resultBody}>
-          <Text style={styles.resultHeader}>Section</Text>
+          <Text fixed={true} style={styles.resultHeader}>Section</Text>
           
           <View style={styles.resTable}>
-            <View style={styles.tableHeader}>
+            
+            <View style={styles.tableHeader} fixed={true}>
                 <Text style={styles.resHText}>Test Name</Text>
                 <Text style={styles.resHText}>Result</Text>
                 <Text style={styles.resHText}>Unit</Text>
                 <Text style={styles.resHText}>Reference</Text>
             </View>
+            
+
+
+            
+            
             
           </View>
           
@@ -154,7 +171,9 @@ const ResultForm = () => (
           <Text style={styles.footerText}>PATHOLOGIST</Text>
           </View>
         </View>
+        </View>
     </Page>
+      
   </Document>
 </PDFViewer>
 );
