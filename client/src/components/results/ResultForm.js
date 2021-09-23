@@ -83,13 +83,23 @@ companyHeader:{
     textAlign: 'center',
     fontWeight: 'bold',
     bottom: 29,
+  },
+  resTable:{
+    width: 550,
+    border: '1px solid black',
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  resHText:{
+    fontSize: '10px',
+    fontWeight: 'bold'
   }
 });
 
 // Create Document Component
 const ResultForm = () => (
 <PDFViewer width="800px" height="500px" showToolbar={false}>
-  <Document>
+   <Document>
     <Page size="A5" orientation= "landscape" style={styles.page}>
         <View fixed={true} style={styles.header}>
           <View style={styles.companyHeader}>
@@ -115,7 +125,20 @@ const ResultForm = () => (
 
         <View style={styles.resultBody}>
           <Text style={styles.resultHeader}>Section</Text>
+          
+          <View style={styles.resTable}>
+            
+            <Text style={styles.resHText}>Test Name</Text>
+            <Text style={styles.resHText}>Result</Text>
+            <Text style={styles.resHText}>Unit</Text>
+            <Text style={styles.resHText}>Reference</Text>
+            
+          </View>
+          
         </View>
+      
+      
+      
         <Text fixed={true} style={styles.footerMessage}>** Results are electronically printed. Physical signature is not necessary. **</Text>
         <View fixed={true} style={styles.footer}>
           <View style={styles.footerCol}>
