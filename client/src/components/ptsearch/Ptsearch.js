@@ -19,9 +19,9 @@ const Ptsearch = () => {
     firstname: Yup.string()
   })
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
 
-    axios.post('http://localhost:3001/patient/findpatient', data).then((response) => {
+    await axios.post('http://localhost:3001/patient/findpatient', data).then((response) => {
     
     if(response.data.length <= 0){
       console.log("No patient found");
@@ -57,7 +57,6 @@ const Ptsearch = () => {
               /><br />
               <ErrorMessage name="lastname" component="span"/>
             </div>
-
             <div className="form-content">
               <label className="form-content" htmlFor="firstname">First name:</label>
               <Field

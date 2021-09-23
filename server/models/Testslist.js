@@ -13,7 +13,24 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        isPackage: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: false,
+        },
+        unit: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
     }, {timestamps: false})
+
+    Testslist.associate = (models) => {
+
+        Testslist.hasOne(models.Referencevalues, {
+        constraint: false,
+        onDelete: "cascade",
+    })
+    }
 
     return Testslist;
 }

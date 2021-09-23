@@ -255,6 +255,7 @@ const Addorder = () => {
         reqDr:"",
         testsRequested:labTestInput,
         labNumber: "",
+        ptType: "",
     }
 
 
@@ -262,6 +263,7 @@ const Addorder = () => {
 
         forPtId: Yup.string(),
         reqDr: Yup.string().required("This field is required! Put N/A if none"),
+        ptType: Yup.string().required("This field is required!"),
         testsRequested: Yup.string(),
         labNumber: Yup.string(),
 
@@ -332,7 +334,7 @@ const Addorder = () => {
                     <div className="form-group">
 
                         <div className="form-content addressdiv">
-                        <label className="form-content" htmlFor="address">Requesting Physician:</label>
+                        <label className="form-content" htmlFor="reqDr">Requesting Physician:</label>
                         <Field 
                             name="reqDr"
                             id="form-field"
@@ -341,7 +343,22 @@ const Addorder = () => {
                             autoComplete="off"
                         />
                         <ErrorMessage name="reqDr" component="span" />
+
                         </div>
+
+                        <div className="form-content addressdiv">
+                        <label className="form-content" htmlFor="reqDr">Patient Type:</label>
+                        <Field 
+                            name="ptType"
+                            id="form-field"
+                            type="text"
+                            placeholder="OPD / Room No."
+                            autoComplete="off"
+                        />
+                        <ErrorMessage name="ptType" component="span" />
+
+                        </div>
+
                         <div className="form-content">
                             <Field 
                                 name="testsRequested"
@@ -366,7 +383,9 @@ const Addorder = () => {
                             />
                         </div>
                         
-                    </div><br />
+                    </div>
+                    
+                    <br />
                     <table className="table width50">
                         <tbody>
                             <tr className="header">

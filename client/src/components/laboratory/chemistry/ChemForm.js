@@ -16,6 +16,8 @@ function ChemForm() {
     const [show, setShow] = useState(false);
     const [resultFormData, setResultFormData] = useState();
     const [sectionResultArray, setSectionResultArray] = useState();
+    const [prevResultData, setPrevResultData] = useState();
+    const [showPrevResModal, setShowPrevResModal] = useState(false);
 
     const closeModal = () => {
         setShow(false);
@@ -26,7 +28,7 @@ function ChemForm() {
             setSectionData(response.data);
             setIsLoading(false);
         })
-    },[])
+    },[sectionResultArray])
 
     if(isLoading){
         return (
@@ -77,6 +79,8 @@ function ChemForm() {
                                         setShow={setShow}
                                         setResultFormData={setResultFormData}
                                         setSectionResultArray={setSectionResultArray}
+                                        prevResultData={prevResultData}
+                                        setPrevResultData={setPrevResultData}     
                                     />
                                 )
                             })}
@@ -92,6 +96,11 @@ function ChemForm() {
                         resultFormData={resultFormData}
                         sectionResultArray={sectionResultArray}
                         setSectionResultArray={setSectionResultArray}
+                        setResultFormData={setResultFormData}
+                        prevResultData={prevResultData}
+                        setPrevResultData={setPrevResultData}
+                        showPrevResModal = {showPrevResModal}
+                        setShowPrevResModal = {setShowPrevResModal}
                     />
                     
                 </div>

@@ -18,6 +18,8 @@
 
 .checkin-modal-footer{
     padding: 10px;
+    justify-content: center;
+    display: flex;
 }
 
 .checkin-modal-header{
@@ -74,4 +76,14 @@
 
 .reject{
     background-color: red;
+}
+
+.checkin-btn-disabled{
+    border: 1px solid black;
+    margin: 2px;
+    padding: 4px;
+    color: black;
+    border-radius: 3px;
+    cursor: not-allowed;
+    background-color: rgb(255, 147, 147);
 }

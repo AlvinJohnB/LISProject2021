@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist } = require('../models');
+const { Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -39,7 +39,7 @@ router.get("/getorders", async (req, res) => {
     res.json(orders);
 })
 
-router.get("/getorder/:labNumber", async (req, res) => {
+router.get("/getorder/:labNumber", validateToken, async (req, res) => {
     const labNumber = req.params.labNumber;
     const orders = await Orders.findAll(
         {
@@ -142,10 +142,17 @@ router.post("/cnxtion", validateToken, async (req, res) => {
 // RESULTS
 router.post("/form/result/create/:secreqID", validateToken, async (req, res) => {
     const secreqID = req.params.secreqID;
-    const test = req.body;
+    const test = req.body.test;
 
-    await Sectionresults.create(test);
+    //Get TestlistId
+    const TestslistId = await Testslist.findOne({
+        where: {testcode: test}
+    })
 
+    await Sectionresults.create({
+        test: test,
+        TestslistId: TestslistId.id
+    });
 
     const lastRxData = await Sectionresults.findOne({
         order: [
@@ -163,7 +170,6 @@ router.post("/form/result/create/:secreqID", validateToken, async (req, res) => 
             SectionresultId: lastRxData.id,
             SectionorderId: secreqID,
         });    
-        console.log(lastRxData.id)
     }
     res.send();
 });
@@ -194,23 +200,121 @@ router.get("/resultform/:labnumber", async (req, res) => {
             where: {labNumber: labnumber},
             include:[
                 {model: Patientlist},
-                {model: Sectionorders, where:{section: "Chemistry"}, include:[{model: Sectionresults}]},
+                {model: Sectionorders, where:{section: "Chemistry"}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
             ]
         }
     )
-    // const orders = await Orders.findAll(
-    //     {
-    //         include: [
-    //             {model: Patientlist},
-    //             {model: Sectionorders,
-    //             where: {
-    //                 section: section,
-    //                 status: "RUNNING"
-    //             }},
-    //            ]
-    //     }
-    // );
     res.json(data);
 })
 
+//Update Result
+router.post("/result/update/:sectionResultID/:result", validateToken, async (req, res) => {
+    const sectionResultID = req.params.sectionResultID;
+    const result = req.params.result;
+
+    await Sectionresults.update({
+        result: result
+    }, {
+        where: {
+            id: sectionResultID
+        }
+    })
+
+    res.json({msg: "Record Saved"});
+})
+
+//Release Rx
+router.post("/result/release/:sectionOrderID/:status",validateToken, async (req, res) => {
+    const sectionOrderID = req.params.sectionOrderID;
+    const status = req.params.status;
+
+    await Sectionorders.update({
+        status: status
+    }, {
+        where: {
+            id: sectionOrderID
+        }
+    })
+    res.send();
+})
+
+//Check if completed
+router.post("/check/:labNumber", async (req, res) => {
+    const labNumber = req.params.labNumber;
+
+    let done;
+    let secorders;
+
+    const queryOne = await Orders.findOne( {
+        where: {
+            labNumber: labNumber
+        },
+        include:[{model: Sectionorders}]
+    })
+
+    secorders = queryOne.Sectionorders.length
+    // res.json(queryOne.Sectionorders.length);
+
+    const queryTwo = await Orders.findOne({
+        where: {
+            labNumber: labNumber
+        },
+        include:[{model: Sectionorders, where:{status: "RELEASED"}}]
+    })
+    // res.json(queryTwo)
+
+    if(queryTwo == null){
+        done = 0
+    }else{
+        done = queryTwo.Sectionorders.length
+    }
+
+    if(done / secorders == 1){
+        await Orders.update({
+            status: "RELEASED"
+        }, {where: {
+            labNumber: labNumber
+        }})
+        res.send();
+    }else{
+        await Orders.update({
+            status: "PENDING"
+        }, {where: {
+            labNumber: labNumber
+        }})
+        res.send();
+    }
+})
+
+//Previous result
+router.get("/result/previous/:ptID/:section", async (req, res) => {
+    const id = req.params.ptID;
+    const section = req.params.section;
+
+    const presult = await Orders.findAll({
+        order: [
+            ['updatedAt', 'DESC']
+        ],
+        where:{ forPtId: id },
+        limit: 5,
+        include:[
+            {model: Patientlist},
+            {model: Sectionorders, where:{status: "RELEASED", section: section}, include: [{model: Sectionresults, include:[{model: Testslist, include:[{model: Referencevalues}]}]}]}]
+    })
+    res.json(presult);
+})
 module.exports = router
+
+//Find order by ID
+router.get("/results/findByID/:section/:orderID", async (req, res) => {
+    const orderId = req.params.orderID;
+    const section = req.params.section;
+
+    const result = await Orders.findOne({
+        where:{ id: orderId },
+        include:[
+            {model: Patientlist},
+            {model: Sectionorders, where:{status: "RELEASED", section: section}, include: [{model: Sectionresults, include:[{model: Testslist, include:[{model: Referencevalues}]}]}]}]
+    })
+    res.json(result);
+})

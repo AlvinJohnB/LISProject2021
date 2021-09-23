@@ -5,6 +5,13 @@
     padding: 20px;
 }
 
+.labwrapper-orderdeats{
+    width: 95%;
+    display: block;
+    margin: auto;
+    padding: -10px;
+}
+
 .labcontentheader{
     position: relative;
     top: 10px;
@@ -12,6 +19,24 @@
     z-index: 0;
     background-color: rgb(240, 240, 240);
     width: 14rem;
+}
+
+.labcontentheader-orderdeats{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 11rem;
+}
+
+.labcontentheader-results{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 7rem;
 }
 
 .labdiv{
@@ -22,6 +47,10 @@
 .labdivcontent{
     margin-top: 10px;
     padding: 10px;
+}
+
+.p-10{
+    padding-left: 10px;
 }
 
 .labdiv-flex-block{
@@ -67,12 +96,80 @@ tr.labheader{
     cursor: pointer;
 }
 
-tr.tbcontent:hover{
+tr.tbcontent.lab:hover{
     background-color: rgb(64, 142, 216);
     font-style: italic;
     cursor: pointer; 
 }
 
-tr:nth-child(even) {
+tr.lab:nth-child(even){
     background: rgb(175, 175, 175);
-  }
+}
+
+input.rform-input{
+    border: none;
+    border-bottom: 1px solid black;
+    text-align: center;
+    width: 100px;
+    color: black;
+    background-color: transparent;
+}
+
+input.rform-input:focus{
+    color: black;
+    background-color: rgb(230, 230, 230);
+    outline: none;
+    font-weight: bolder;
+}
+
+.margin-0{
+    margin: 0;
+}
+
+tr.rform{
+   border: 1px solid black;
+}
+
+tr.rform-header{
+    border-bottom: 1px solid black;
+    background-color: rgb(175, 175, 175);
+}
+
+tr.rform:hover{
+    background-color: rgb(184, 183, 183);
+    cursor: pointer;
+}
+
+.red{
+    color: red;
+}
+
+.pagination-bttns{
+    width: 80%;
+    height: 40px;
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.pagination-bttns a{
+    padding: 10px;
+    margin: 8px;
+    border: 1px solid rgb(10, 105, 194);
+    color: rgb(10, 105, 194);
+    cursor: pointer;
+}
+
+.pagination-bttns a:hover{
+    color:white;
+    background-color: rgb(10, 105, 194);
+}
+
+.pgninate-active a{
+    color: white;
+    background-color: rgb(10, 105, 194);
+}
+
+.block{
+    display: block;
+}

@@ -10,5 +10,14 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
         }
     }, {timestamps: false})
+
+    Sectionresults.associate = (models) => {
+        
+        Sectionresults.belongsTo(models.Testslist, {
+            constraint: false,
+        })
+
+        
+    }
     return Sectionresults;
 }
