@@ -61,7 +61,9 @@ companyHeader:{
     width: 550,
     flex: 1,
     flexDirection: 'row',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    position: 'absolute',
+    bottom: 30
   },
   footerCol:{
     width: 200,
@@ -76,10 +78,11 @@ companyHeader:{
     fontWeight: 'bold',
   },
   footerMessage:{
-    position: 'relative',
+    position: 'absolute',
     fontSize: '9px',
     textAlign: 'center',
     fontWeight: 'bold',
+    bottom: 29,
   }
 });
 
