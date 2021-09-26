@@ -15,6 +15,7 @@ import Orders from './components/orders/Orders';
 import OrderDetails from './components/orders/OrderDetails';
 import LabClient from './components/laboratory/LabClient';
 import ChemForm from './components/laboratory/chemistry/ChemForm';
+import Hemaform from './components/laboratory/hema/Hemaform';
 import Results from './components/results/Results'
 
 import { AuthContext } from './helpers/AuthContext';
@@ -26,6 +27,7 @@ import ResultForm from './components/results/ResultForm';
 const App = () => {
 
   const [authState, setAuthState] = useState("false");
+  
 
 useEffect(() => {
   axios.get("http://localhost:3001/auth/auth",{
@@ -47,6 +49,7 @@ useEffect(() => {
         <Switch>
             <Route path="/laboratory" exact component={LabClient} />
             <Route path="/laboratory/chemistry" exact component={ChemForm} />
+            <Route path="/laboratory/hematology" exact component={Hemaform} />
             <Route path="/login" exact component={UserLogin} />
             <Route path="/register" exact component={UserReg} />
             <div className="wrapper">

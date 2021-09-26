@@ -71,9 +71,79 @@
 	},
 	{
 		"id" : 11,
-		"test" : "SERPT",
-		"Male" : "-",
-		"Female" : "-",
-		"TestslistId" : 12
+		"test" : "WBCCT",
+		"Male" : "4.0-12.0",
+		"Female" : "4.0-12.0",
+		"TestslistId" : 13
+	},
+	{
+		"id" : 12,
+		"test" : "GRNCT",
+		"Male" : "50-70",
+		"Female" : "50-70",
+		"TestslistId" : 14
+	},
+	{
+		"id" : 13,
+		"test" : "LYMPCT",
+		"Male" : "25-50",
+		"Female" : "25-50",
+		"TestslistId" : 15
+	},
+	{
+		"id" : 14,
+		"test" : "MID",
+		"Male" : "0-7",
+		"Female" : "0-7",
+		"TestslistId" : 16
+	},
+	{
+		"id" : 15,
+		"test" : "RBCCT",
+		"Male" : "4.0-6.20",
+		"Female" : "4.0-6.20",
+		"TestslistId" : 17
+	},
+	{
+		"id" : 16,
+		"test" : "HGB",
+		"Male" : "11.0-17.0",
+		"Female" : "11.0-17.0",
+		"TestslistId" : 18
+	},
+	{
+		"id" : 17,
+		"test" : "HCT",
+		"Male" : "35.0-55.0",
+		"Female" : "35.0-55.0",
+		"TestslistId" : 19
+	},
+	{
+		"id" : 18,
+		"test" : "MCV",
+		"Male" : "80.0-100.0",
+		"Female" : "80.0-100.0",
+		"TestslistId" : 20
+	},
+	{
+		"id" : 19,
+		"test" : "MCH",
+		"Male" : "26.0-34.0",
+		"Female" : "26.0-34.0",
+		"TestslistId" : 21
+	},
+	{
+		"id" : 20,
+		"test" : "MCHC",
+		"Male" : "31.0-95.5",
+		"Female" : "31.0-95.5",
+		"TestslistId" : 22
+	},
+	{
+		"id" : 21,
+		"test" : "PLTCT",
+		"Male" : "150-400",
+		"Female" : "150-400",
+		"TestslistId" : 23
 	}
 ]

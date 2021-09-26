@@ -16,6 +16,7 @@ function LabClient() {
     const [section, setSection] = useState("Chemistry");
     const [show, setShow] = useState(false);
     const [orderid, setOrderID] = useState(0);
+    const [testComp, setTestComp] = useState()
     const [selected, setSelected] = useState([  {
                                                     "id": 3,
                                                     "reqDr": "N/A",
@@ -62,6 +63,8 @@ function LabClient() {
                                                     ]
                                                 }]);
 
+                                               
+
     useEffect(() => {
 
         axios.get(`http://localhost:3001/order/forcheckin/Chemistry`).then((response) => {
@@ -82,6 +85,12 @@ function LabClient() {
          })
      },[orderid, section])
 
+
+     useEffect(() => {
+        axios.get('http://localhost:3001/test/profiles').then((response) => {
+            setTestComp(response.data);
+        })
+    },[])
 
 
 
@@ -181,6 +190,7 @@ function LabClient() {
                 setShow={setShow}
                 section={section}
                 setCheckInDetails={setCheckInDetails}
+                testComp={testComp}
                 />
              </section>
               <footer>Laboratory Information System by Bregs</footer>

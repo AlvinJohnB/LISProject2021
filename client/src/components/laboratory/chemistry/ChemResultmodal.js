@@ -114,7 +114,7 @@ import PrevResultModal from './PrevResultModal';
 
     return (
         <div className="checkin-modal">
-            <div className="checkin-modal-wrapper">
+            <div className="result-modal-wrapper">
                 <div className="checkin-modal-header">
                     <div><strong>Result Entry for Lab Number: {resultFormData[0].labNumber}</strong></div>
                     <div className="checkin-closebtn" onClick={closeModal}>X</div>
@@ -171,15 +171,10 @@ import PrevResultModal from './PrevResultModal';
                             })}
                             </select>
                         }
-                            
-                            <br /><br />
-                        
-
+                        <br /><br />
                         {resultFormData[0].Sectionorders[0].status === "RUNNING" && <input type="button" onClick={onRelease} className="checkin-btn accept" value="Release" />}
                         {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={onUndoRelease} className="checkin-btn reject" value="Undo Release" />}
                     </div>
-                <div className="checkin-modal-footer">
-                </div>
             </div>
         </div>
     )

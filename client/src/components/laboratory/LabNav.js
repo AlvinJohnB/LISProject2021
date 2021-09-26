@@ -8,7 +8,7 @@ function LabNav() {
             <ul><Link to="/">Reception</Link></ul>
             <ul><Link to="/laboratory">Specimen Check-in</Link></ul>
             <ul><Link to="/laboratory/chemistry">Chemistry</Link></ul>
-            <ul><Link to="/laboratory">Hematology</Link></ul>
+            <ul><Link to="/laboratory/hematology">Hematology</Link></ul>
             <ul>Clinical Microscopy</ul>
             <ul>Serology</ul>
         </li>

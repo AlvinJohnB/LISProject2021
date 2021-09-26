@@ -2,10 +2,13 @@ import React from 'react'
 import './checkinmodal.css'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { useState, useEffect } from 'react'
 
 
 function CheckInModal(props) {
-    const history = useHistory();
+
+    let history = useHistory();
+    
 
 
     const onAccept = async () => {
@@ -51,48 +54,62 @@ function CheckInModal(props) {
 
             }
         })
-
+        // Chemistry Profiles
         if(expTests[i] === "LIPID"){
-
-            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                test: "CHOLE",
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
+            const test = ["CHOLE","TRIG","HDL","LDL"]
+            setTimeout(async () => {
+                for(let i=0; i<test.length; i++){
+                    await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        test: test[i],
+                    },
+                    {
+                        headers: {
+                            accessToken: localStorage.getItem("accessToken")
+                        }
+                    })  
                 }
-            })
-            
-            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                test: "TRIG",
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
-                }
-            })
-
-            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                test: "HDL",
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
-                }
-            })
-
-            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                test: "LDL",
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
-                }
-            })
+            }, 500)
         }
 
+        // CM Profiles
+
+        // Hema Profiles
+        if(expTests[i] === "CBCPLT"){
+            const test = ["WBCCT","GRNCT","LYMPCT","MID","RBCCT","HGB","HCT","MCV","MCH","MCHC","PLTCT"]
+            setTimeout(async () => {
+                for(let i=0; i<test.length; i++){
+                    await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        test: test[i],
+                    },
+                    {
+                        headers: {
+                            accessToken: localStorage.getItem("accessToken")
+                        }
+                    })  
+                }
+            }, 500)
         }
-        console.log(expTests);
+        if(expTests[i] === "Hgb/Hct"){
+            const test = ["HGB","HCT"]
+            setTimeout(async () => {
+                for(let i=0; i<test.length; i++){
+                    await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        test: test[i],
+                    },
+                    {
+                        headers: {
+                            accessToken: localStorage.getItem("accessToken")
+                        }
+                    })  
+                }
+            }, 500)
+        }
+
+        // Sero Profiles
+
+        //MircroProfiles
+
+        }
 
         await axios.get(`http://localhost:3001/order/forcheckin/${props.section}`).then((response) => {
             props.setCheckInDetails(response.data);
