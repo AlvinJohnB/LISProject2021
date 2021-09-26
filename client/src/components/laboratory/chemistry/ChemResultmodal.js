@@ -9,12 +9,20 @@ import PrevResultModal from './PrevResultModal';
     function ChemResultmodal ({showPrevResModal, setShowPrevResModal, setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
     
     const [isLoading, setIsLoading] = useState(true);
+    const [patholist, setPatho] = useState();
+    const [pathoSelected, setPathoSelected] = useState("invalid");
+
     let history = useHistory();
+
 
     useEffect(()=>{
       if(prevResultData || prevResultData == null){
         setIsLoading(false);
+        axios.post(`http://localhost:3001/auth/pathofetch`).then((response) => {
+            setPatho(response.data);
+        })
       }
+
     },[prevResultData])
 
     const prevResClick = () => {
@@ -22,10 +30,12 @@ import PrevResultModal from './PrevResultModal';
     }
 
     const onRelease = async () => {
+        if(pathoSelected === "invalid"){
+            alert("Please select pathologist before releasing!")
+        }else{
+            const sectOrderID = resultFormData[0].Sectionorders[0].id;
 
-        const sectOrderID = resultFormData[0].Sectionorders[0].id;
-
-        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RELEASED`,{},
+        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RELEASED`, {pathologist: pathoSelected} ,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -36,7 +46,7 @@ import PrevResultModal from './PrevResultModal';
                 history.push('/login');
             }
         }).catch((err) => {
-            console.log("Record not updated");
+            console.log(err);
         })
 
         // RE RENDER DATA
@@ -50,13 +60,14 @@ import PrevResultModal from './PrevResultModal';
         await axios.post(`http://localhost:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
 
         })
+        }
     }
 
     const onUndoRelease = async () => {
-
+        setPathoSelected("invalid")
         const sectOrderID = resultFormData[0].Sectionorders[0].id
 
-        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RUNNING`, {},
+        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RUNNING`, {pathologist: null},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -82,6 +93,12 @@ import PrevResultModal from './PrevResultModal';
 
         })
     }
+
+    const onSelectChange = (e) => {
+        setPathoSelected(e.target.value)
+    }
+
+    
 
     if(!show){
         return null
@@ -131,9 +148,31 @@ import PrevResultModal from './PrevResultModal';
                                     <ChemTest key={index} status={resultFormData[0].Sectionorders[0].status} ptdata={resultFormData[0].Patientlists[0]} test={test} />
                                     )
                                 })}
-
                                 </tbody>
                             </table>
+
+
+
+                            <label>Pathologist:</label>
+                            <br />
+                        {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
+                            <select  id="form-field" disabled={true}>
+                            <option>{resultFormData[0].Sectionorders[0].pathologist}</option>
+                            </select>
+                        }
+                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
+                            <select  id="form-field" onChange={onSelectChange}>
+                            <option value="invalid">Select...</option>
+                            {patholist.map((patho, index) => {
+                                
+                                return(
+                                    <option key={index} value={patho.name}>{patho.name}</option>
+                                )
+                            })}
+                            </select>
+                        }
+                            
+                            <br /><br />
                         
 
                         {resultFormData[0].Sectionorders[0].status === "RUNNING" && <input type="button" onClick={onRelease} className="checkin-btn accept" value="Release" />}

@@ -16,7 +16,7 @@ module.exports = (sequelize, DataTypes) => {
         options:{
             type: DataTypes.STRING,
             allowNull: true,
-        }
+        },
     }, {timestamps: false})
 
     Sectionresults.associate = (models) => {

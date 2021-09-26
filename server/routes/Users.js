@@ -46,5 +46,10 @@ router.get('/auth', validateToken, (req, res) => {
     res.json(req.user);
 })
 
+router.post('/pathofetch', async (req, res) => {
+    const pathos = await Users.findAll({ where: {position: "Pathologist"} });
+    res.json(pathos);
+})
+
 
 module.exports = router

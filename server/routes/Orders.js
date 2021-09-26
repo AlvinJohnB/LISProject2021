@@ -213,9 +213,11 @@ router.get("/resultform/:labnumber", async (req, res) => {
 router.post("/result/update/:sectionResultID/:result", validateToken, async (req, res) => {
     const sectionResultID = req.params.sectionResultID;
     const result = req.params.result;
+    const username = req.user.username;
 
     await Sectionresults.update({
-        result: result
+        result: result,
+        releasedBy: username
     }, {
         where: {
             id: sectionResultID
@@ -229,9 +231,13 @@ router.post("/result/update/:sectionResultID/:result", validateToken, async (req
 router.post("/result/release/:sectionOrderID/:status",validateToken, async (req, res) => {
     const sectionOrderID = req.params.sectionOrderID;
     const status = req.params.status;
+    const pathologist = req.body.pathologist
+    const username = req.user.username
 
     await Sectionorders.update({
-        status: status
+        status: status,
+        pathologist: pathologist,
+        releasedBy: username
     }, {
         where: {
             id: sectionOrderID
