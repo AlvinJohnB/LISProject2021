@@ -251,5 +251,16 @@
 		"show" : 0,
 		"options" : null,
 		"unit" : "K/uL"
+	},
+	{
+		"id" : 24,
+		"testcode" : "Hgb/Hct",
+		"testname" : "Hemoglobin/Hematocrit",
+		"section" : "Hematology",
+		"isPackage" : 1,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
+		"unit" : null
 	}
 ]
