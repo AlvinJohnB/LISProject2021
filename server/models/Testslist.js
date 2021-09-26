@@ -18,9 +18,18 @@ module.exports = (sequelize, DataTypes) => {
             defaultValue: false,
             allowNull: false,
         },
+        isQuali: {
+            type: DataTypes.BOOLEAN,
+            defaultValue: false,
+            allowNull: true,
+        },
+        options:{
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
         unit: {
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
     }, {timestamps: false})
 

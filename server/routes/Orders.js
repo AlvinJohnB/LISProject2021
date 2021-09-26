@@ -151,7 +151,9 @@ router.post("/form/result/create/:secreqID", validateToken, async (req, res) => 
 
     await Sectionresults.create({
         test: test,
-        TestslistId: TestslistId.id
+        TestslistId: TestslistId.id,
+        isQuali: TestslistId.isQuali,
+        options: TestslistId.options
     });
 
     const lastRxData = await Sectionresults.findOne({

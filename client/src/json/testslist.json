@@ -5,6 +5,8 @@
 		"testname" : "Fasting Blood Sugar",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -13,6 +15,8 @@
 		"testname" : "Lipid Profile",
 		"section" : "Chemistry",
 		"isPackage" : 1,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "N/A"
 	},
 	{
@@ -21,6 +25,8 @@
 		"testname" : "Total Cholesterol",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -29,6 +35,8 @@
 		"testname" : "Triglycerides",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -37,6 +45,8 @@
 		"testname" : "High Density Lipoprotein (HDL)",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -45,6 +55,8 @@
 		"testname" : "Low Density Lipoprotein (LDL)",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -53,6 +65,8 @@
 		"testname" : "Blood Uric Acid",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -61,6 +75,8 @@
 		"testname" : "Serum Creatinine",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -69,6 +85,8 @@
 		"testname" : "Alanine Transaminase (ALT/SGPT)",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "U/L"
 	},
 	{
@@ -77,6 +95,8 @@
 		"testname" : "Aspartate Aminotransferase (AST/SGOT)",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "U/L"
 	},
 	{
@@ -85,6 +105,18 @@
 		"testname" : "Blood Uric Acid",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
+	},
+	{
+		"id" : 12,
+		"testcode" : "SEROLOGY",
+		"testname" : "Serum Pregnancy Test",
+		"section" : "Chemistry",
+		"isPackage" : 0,
+		"isQuali" : 1,
+		"options" : "POSITIVE,NEGATIVE",
+		"unit" : null
 	}
 ]

@@ -407,13 +407,11 @@ companyHeader:{
     width: 575.28,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 555.28,
   },
   resTr:{
     width: 575.28,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    width: 555.28,
   },
    body:{
     paddingTop: 35,
