@@ -36,7 +36,7 @@ function Results() {
             }
         })
     }
-
+ 
     return (
             <div className="labwrapper">
                 <NotLoggedInModal />

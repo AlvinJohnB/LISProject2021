@@ -106,6 +106,10 @@ tr.lab:nth-child(even){
     background: rgb(175, 175, 175);
 }
 
+tr.order:nth-child(even){
+    background: rgb(175, 175, 175);
+}
+
 input.rform-input{
     border: none;
     border-bottom: 1px solid black;
@@ -172,4 +176,29 @@ tr.rform:hover{
 
 .block{
     display: block;
+}
+
+
+.orders-pagination-bttns{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.orders-pagination-bttns a{
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    color: rgb(6, 119, 15);
+    cursor: pointer;
+}
+
+.orders-pagination-bttns a:hover{
+    color:white;
+    background-color: rgb(6, 119, 15);
+}
+
+.orders-pgninate-active a{
+    color: white;
+    background-color: rgb(6, 119, 15);
 }

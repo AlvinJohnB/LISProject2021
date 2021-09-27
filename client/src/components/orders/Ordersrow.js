@@ -1,5 +1,6 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
+import Moment from 'moment';
 
 
 function Ordersrow(props) {
@@ -11,11 +12,11 @@ function Ordersrow(props) {
 
     }
     return (
-        <tr className="tbcontent">
+        <tr className="tbcontent order">
             <td>{props.order.labNumber}</td>
             <td>{props.order.Patientlists[0].lastname}, {props.order.Patientlists[0].firstname} {props.order.Patientlists[0].middlename}</td>
             <td>{props.order.testsRequested}</td>
-            <td>{props.order.status}</td>
+            <td>{Moment(props.order.createdAt).format('MMMM DD, yyyy')}</td>
             <td onClick={onSelect}>Select</td>
         </tr>
     )

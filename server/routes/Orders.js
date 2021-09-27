@@ -28,11 +28,22 @@ router.get("/", async (req, res) => {
 });
 
 router.get("/getorders", async (req, res) => {
+
+    const year = new Date().getFullYear()
+    const month =  new Date().getMonth()
+
     const orders = await Orders.findAll(
         {
             where: {
-                status: "PENDING"
+                status: "PENDING",
+                createdAt: {
+                    [Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
+                }
             },
+            order: [
+                ['id', 'DESC']
+            ]
+            ,
             include: {model: Patientlist}
         }
     );

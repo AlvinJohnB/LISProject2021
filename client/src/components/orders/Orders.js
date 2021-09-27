@@ -1,16 +1,32 @@
 import React from 'react'
-import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios'
 import NotLoggedInModal from '../NotLoggedInModal'
 import Ordersrow from './Ordersrow'
-
+import ReactPaginate from 'react-paginate'
 import '../../components/ptregistration/ptreg.css'
 import LoadingModal from '../LoadingModal'
-
+import { useState } from 'react'
 
 function Orders() {
+
     const [isLoading, setIsLoading] = useState(true)
     const [orders, setOrders] = useState([])
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const orderPerPage = 15;
+    const pagesVisited = pageNumber * orderPerPage
+    const pageCount = Math.ceil(orders.length / orderPerPage);
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    }
+
+    const displayOrders = orders.slice(pagesVisited, pagesVisited + orderPerPage).map((order) => {
+        return (<Ordersrow key={order.id} order={order} />)
+    })
+
+
 
     useEffect(() => {
         axios.get(`http://localhost:3001/order/getorders`).then((response) => {
@@ -50,31 +66,42 @@ function Orders() {
     }
 
     return (
-        <div className="ptregwrapper">
-            <NotLoggedInModal />
-            <br />
-            <h1>Orders</h1>
-            <hr />
-            <label className="form-content">Search lab number:</label>
-            <input type="text" className="form-input" autoComplete="off" placeholder="Search Lab No..." onChange={filterOrders}/>
-            <br />
-            <table className="table width50" id="ordertable">
-                <tbody>
-                    <tr className="header">
-                        <th>Lab Number</th>
-                        <th>Patient Name</th>
-                        <th>Test/s Requested</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
+        <div className="labwrapper">
+            <h1 className="labcontentheader-results">&nbsp; Orders</h1>
+            <div className="labdiv">
+                <div className="labdivcontent">
+                    <label className="form-content">Search lab number:</label>
+                    <input type="text" className="form-input" autoComplete="off" placeholder="Search Lab No..." onChange={filterOrders}/>
+                    <br /><br />
+                    <table className="tablelab" id="ordertable">
+                        <tbody>
+                            <tr className="header">
+                                <th>Lab Number</th>
+                                <th>Patient Name</th>
+                                <th>Test/s Requested</th>
+                                <th>Date Encoded</th>
+                                <th>Action</th>
+                            </tr>
 
-                    {orders.map((order) => {
-                        return (
-                            <Ordersrow key={order.id} order={order} />
-                        )
-                    })}
-                </tbody>
-            </table>
+                           {displayOrders}
+                        </tbody>
+                    </table>
+                    <br />
+                    <ReactPaginate
+                    previousLabel = {"<"}
+                    nextLabel = {">"}
+                    pageCount = {pageCount}
+                    onPageChange={changePage}
+                    containerClassName={"orders-pagination-bttns"}
+                    previousLinkClassName={"orders-prevBttn"}
+                    nextLinkClassName={"orders-nextbtn"}
+                    disabledClassName={"orders-pgnte-disabled"}
+                    activeClassName={"orders-pgninate-active"}
+                />
+                </div>
+
+            </div>
+            <NotLoggedInModal /> 
         </div>
     )
 }
