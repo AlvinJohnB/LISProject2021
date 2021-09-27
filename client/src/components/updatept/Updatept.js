@@ -6,6 +6,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 import '../../components/ptregistration/ptreg.css'
+import LoadingModal from '../LoadingModal';
 
 const Updatept = () => {
 
@@ -79,6 +80,7 @@ const Updatept = () => {
     })
 
     const onSubmit = (data) => {
+        setIsLoading(true);
         data.age = initialValues.age;
         axios.post("http://localhost:3001/patient/updatept", data,
         {
@@ -99,7 +101,7 @@ const Updatept = () => {
     if(isLoading){
         return (
             <div className="ptregwrapper">
-                <h3>Loading...</h3>
+                <LoadingModal />
             </div>
         )
     }

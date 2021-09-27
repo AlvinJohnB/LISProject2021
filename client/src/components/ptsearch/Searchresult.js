@@ -5,6 +5,7 @@ import { useParams, useHistory, Link } from 'react-router-dom';
 
 
 import '../ptregistration/ptreg.css';
+import LoadingModal from '../LoadingModal';
 
 const Searchresult = () => {
     const [isLoading, setIsLoading] = useState(true);
@@ -31,7 +32,7 @@ const Searchresult = () => {
     if(isLoading){
         return (
             <div className="ptregwrapper">
-                <h3>Loading...</h3>
+                <LoadingModal />
             </div>
         )
     }

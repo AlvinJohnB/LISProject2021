@@ -5,9 +5,11 @@ import Header from '../../Header';
 import LabNav from '../LabNav';
 import ChemTr from './ChemTr';
 import ChemResultmodal from './ChemResultmodal';
-
+import NotLoggedInModal from '../../NotLoggedInModal';
 
 import { useState, useEffect } from 'react'
+import LabLoadingModal from '../../LabLoadingModal';
+
 
 function ChemForm() {
 
@@ -33,13 +35,14 @@ function ChemForm() {
     if(isLoading){
         return (
             <div className="ptregwrapper">
-                <h3>Loading...</h3>
+                <LabLoadingModal />
             </div>
         )
     }
 
     return (
         <div className="wrapper">
+        <NotLoggedInModal />
         <Header />
         <LabNav />
           <section>

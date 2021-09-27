@@ -26,7 +26,7 @@ import ResultForm from './components/results/ResultForm';
 
 const App = () => {
 
-  const [authState, setAuthState] = useState("false");
+  const [authState, setAuthState] = useState({name: "", username: "", id: 0, status: false});
   
 
 useEffect(() => {
@@ -36,9 +36,9 @@ useEffect(() => {
     }
   }).then((response) => {
     if(response.data.error){
-      setAuthState("false");
+      setAuthState({...authState, status: false});
     }else{
-      setAuthState("true");
+      setAuthState({name: response.data.name, username: response.data.username, id: response.data.id, status: true});
     }
 })
 },[])

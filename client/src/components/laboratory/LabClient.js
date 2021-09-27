@@ -8,6 +8,9 @@ import Header from '../Header';
 import LabNav from './LabNav';
 import CheckInTr from './checkin/CheckInTr';
 import CheckInModal from './checkin/CheckInModal';
+import NotLoggedInModal from '../NotLoggedInModal';
+import LabLoadingModal from '../LabLoadingModal';
+
 
 function LabClient() {
 
@@ -114,13 +117,14 @@ function LabClient() {
     if(isLoading){
         return (
             <div className="ptregwrapper">
-                <h3>Loading...</h3>
+               <LabLoadingModal />
             </div>
         )
     }
 
     return (
         <div className="wrapper">
+            <NotLoggedInModal />
             <Header />
             <LabNav />
               <section>

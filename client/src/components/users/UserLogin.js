@@ -23,7 +23,7 @@ function UserLogin() {
                 setMsg(response.data.msg);
             }else{
                 localStorage.setItem("accessToken", response.data);
-                setAuthState("true");
+                setAuthState(response.data);
                 history.push('/checkin');
             }
         })

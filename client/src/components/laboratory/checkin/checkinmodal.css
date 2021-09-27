@@ -8,11 +8,31 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    z-index: 1;
+}
+
+.loading-modal{
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    background-color: rgba(243, 243, 243, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 .checkin-modal-wrapper{
     background-color: white;
     width: 500px;
+    border: 1px solid black;
+}
+
+.login-modal-wrapper{
+    background-color: white;
+    width: 300px;
     border: 1px solid black;
 }
 
@@ -24,6 +44,20 @@
 
 .checkin-modal-header{
     background-color: rgb(10, 105, 194);
+    color: white;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.loading-modal-header{
+    background-color: rgb(0, 94, 16);
+    color: white;
+    padding: 10px;
+    border-bottom: 1px solid black;
+}
+
+.login-modal-header{
+    background-color: red;
     color: white;
     padding: 10px;
     border-bottom: 1px solid black;
@@ -49,6 +83,16 @@
 
 .checkin-modal-body{
     padding: 30px;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+}
+
+.loading-modal-body{
+    padding: 30px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     border-top: 1px solid #eee;
     border-bottom: 1px solid #eee;
 }

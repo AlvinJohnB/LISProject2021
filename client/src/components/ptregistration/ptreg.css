@@ -134,3 +134,17 @@ tr.tbcontent:hover{
 .widthauto{
     width: auto;
 }
+
+header{
+    background-color: white;
+    padding: 15px;
+}
+
+.logOut{
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.userDiv{
+    text-align: right;
+}

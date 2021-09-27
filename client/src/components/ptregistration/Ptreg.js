@@ -4,12 +4,14 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
+import NotLoggedInModal from '../NotLoggedInModal';
 
 import './ptreg.css';
+import LoadingModal from '../LoadingModal';
 
 const Ptreg = () => {
     let history = useHistory();
-
+    const [isLoading, setIsLoading] = useState(false);
     const [patientLastId, setPatientLastId] = useState(0);
     const [patientAge, setPatientAge] = useState(0);
 
@@ -19,6 +21,12 @@ const Ptreg = () => {
       });
       
     }, []);
+
+    if(isLoading === true){
+        return (
+            <LoadingModal />
+        )
+    }
     
     const branch = "CAMILLUS-";
     let ptId = `${branch}${patientLastId.id+1}`;
@@ -80,9 +88,15 @@ const Ptreg = () => {
 
     })
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+        setIsLoading(true);
 
-        data.branchid = ptId;
+        await axios.get("http://localhost:3001/patient").then((response) => {
+            setPatientLastId(response.data)
+            const branch = "CAMILLUS-";
+            data.branchid = `${branch}${response.data.id+1}`;
+          });
+
         data.age = patientAge;
 
         axios.post("http://localhost:3001/patient/addpatient", data,
@@ -101,6 +115,7 @@ const Ptreg = () => {
     }
     return (
     <div className="ptregwrapper">
+        <NotLoggedInModal />
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                 <Form>
 

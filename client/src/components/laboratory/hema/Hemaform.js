@@ -5,9 +5,11 @@ import Header from '../../Header';
 import LabNav from '../LabNav';
 import ChemTr from '../chemistry/ChemTr';
 import ChemResultmodal from '../chemistry/ChemResultmodal';
-
+import NotLoggedInModal from '../../NotLoggedInModal';
 
 import { useState, useEffect } from 'react'
+import LabLoadingModal from '../../LabLoadingModal';
+
 
 function Hemaform() {
 
@@ -33,19 +35,20 @@ function Hemaform() {
     if(isLoading){
         return (
             <div className="ptregwrapper">
-                <h3>Loading...</h3>
+               <LabLoadingModal />
             </div>
         )
     }
 
     return (
         <div className="wrapper">
+        <NotLoggedInModal />
         <Header />
         <LabNav />
           <section>
           <div className="ptregwrapper">
             <div className="labwrapper">
-                <h1 className="labcontentheader">&nbsp; Clinical Chemistry</h1>
+                <h1 className="labcontentheader">&nbsp; Hematology</h1>
                 
                 <div className="labdiv">
                     <div className="labdivcontent">

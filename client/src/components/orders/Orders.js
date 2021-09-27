@@ -1,10 +1,11 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-
+import NotLoggedInModal from '../NotLoggedInModal'
 import Ordersrow from './Ordersrow'
 
 import '../../components/ptregistration/ptreg.css'
+import LoadingModal from '../LoadingModal'
 
 
 function Orders() {
@@ -43,13 +44,14 @@ function Orders() {
     if(isLoading){
         return(
             <div className="ptregwrapper">
-            <h3>Loading...</h3>
+                <LoadingModal />
             </div>
         )
     }
 
     return (
         <div className="ptregwrapper">
+            <NotLoggedInModal />
             <br />
             <h1>Orders</h1>
             <hr />

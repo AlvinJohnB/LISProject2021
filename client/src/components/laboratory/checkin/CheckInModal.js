@@ -3,16 +3,24 @@ import './checkinmodal.css'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useState, useEffect } from 'react'
+import LabLoadingModal from '../../LabLoadingModal';
 
 
 function CheckInModal(props) {
 
     let history = useHistory();
+    const [isLoading, setIsLoading] = useState(false)
     
 
-
+    if(isLoading === true){
+        return (
+            <LabLoadingModal />
+        )
+    }
     const onAccept = async () => {
+        setIsLoading(true);
 
+        props.setShow(false);
         await axios.post("http://localhost:3001/order/updatesorder", {
             status: "RUNNING",
             sectNumber: props.selected[0].Sectionorders[0].sectNumber
@@ -114,7 +122,7 @@ function CheckInModal(props) {
         await axios.get(`http://localhost:3001/order/forcheckin/${props.section}`).then((response) => {
             props.setCheckInDetails(response.data);
         })
-        props.setShow(false);
+        setTimeout(()=>{setIsLoading(false);}, 1000)
     }
 
     if(!props.show){
