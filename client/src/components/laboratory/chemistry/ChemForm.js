@@ -104,6 +104,7 @@ function ChemForm() {
                         setPrevResultData={setPrevResultData}
                         showPrevResModal = {showPrevResModal}
                         setShowPrevResModal = {setShowPrevResModal}
+                        setSectionData={setSectionData}
                     />
                     
                 </div>

@@ -6,7 +6,7 @@ import ChemTest from './ChemTest'
 import { useHistory } from 'react-router-dom';
 import PrevResultModal from './PrevResultModal';
 
-    function ChemResultmodal ({showPrevResModal, setShowPrevResModal, setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
+    function ChemResultmodal ({setSectionData, showPrevResModal, setShowPrevResModal, setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
     
     const [isLoading, setIsLoading] = useState(true);
     const [patholist, setPatho] = useState();
@@ -58,9 +58,26 @@ import PrevResultModal from './PrevResultModal';
 
         //CHECK IF ALL TESTS COMPLETED
         await axios.post(`http://localhost:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
-
         })
         }
+    }
+
+    const undoCheckIn = async () => {
+        await axios.post(`http://localhost:3001/order/updatesorder`, {
+            sectNumber: resultFormData[0].Sectionorders[0].sectNumber,
+            status: "Sample Rejected - For Check-In"
+        }, {
+            headers:{
+                    accessToken: localStorage.getItem("accessToken"),
+            }
+        })
+
+        //Rerender Data
+        axios.get(`http://localhost:3001/order/section/Chemistry`).then((response) => {
+            setSectionData(response.data);
+        })
+
+        closeModal();
     }
 
     const onUndoRelease = async () => {
@@ -172,7 +189,12 @@ import PrevResultModal from './PrevResultModal';
                             </select>
                         }
                         <br /><br />
-                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && <input type="button" onClick={onRelease} className="checkin-btn accept" value="Release" />}
+                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
+                            <input type="button" onClick={onRelease} className="checkin-btn accept" value="Release"/>
+                        }
+                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
+                           <input type="button" onClick={undoCheckIn} className="checkin-btn reject" value="Undo Check-in/Reject sample" />
+                        }
                         {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={onUndoRelease} className="checkin-btn reject" value="Undo Release" />}
                     </div>
             </div>

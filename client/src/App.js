@@ -41,7 +41,7 @@ useEffect(() => {
       setAuthState({name: response.data.name, username: response.data.username, id: response.data.id, status: true});
     }
 })
-},[])
+},[setAuthState, authState])
 
   return (
     <AuthContext.Provider value={{authState, setAuthState}}>

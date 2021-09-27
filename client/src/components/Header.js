@@ -22,7 +22,7 @@ function Header() {
           setAuthState({name: response.data.name, username: response.data.username, id: response.data.id, status: true});
         }
     })
-    },[authState])
+    },[authState, setAuthState])
 
     const logOut = () => {
       localStorage.removeItem("accessToken")

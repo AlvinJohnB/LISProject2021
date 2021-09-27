@@ -2,7 +2,7 @@ import React from 'react'
 import './checkinmodal.css'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
 
 
@@ -146,7 +146,6 @@ function CheckInModal(props) {
                     </div>
                 <div className="checkin-modal-footer">
                         <input type="button" className="checkin-btn accept" value="Accept" onClick={onAccept}/>
-                        <input type="button" className="checkin-btn reject" value="Reject"/>
                 </div>
             </div>
         </div>

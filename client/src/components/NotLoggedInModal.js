@@ -1,12 +1,11 @@
 import React from 'react'
 import '../components/laboratory/checkin/checkinmodal.css'
-import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import { useContext, useEffect } from 'react';
+import { useContext } from 'react';
 import { AuthContext } from '../helpers/AuthContext';
 
 function NotLoggedInModal() {
-    const {setAuthState, authState} = useContext(AuthContext);
+    const {authState} = useContext(AuthContext);
     let history = useHistory();
     
     if(authState.status === true){

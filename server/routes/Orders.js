@@ -90,7 +90,7 @@ router.get("/forcheckin/:section", async (req, res) => {
                 {model: Sectionorders,
                 where: {
                     section: section,
-                    status: "FOR CHECK-IN"
+                    status: ["FOR CHECK-IN", "Sample rejected - For Check-in"]
                 }},
                ]
         }
@@ -253,6 +253,21 @@ router.post("/result/release/:sectionOrderID/:status",validateToken, async (req,
     }, {
         where: {
             id: sectionOrderID
+        }
+    })
+    res.send();
+})
+
+//UndoCheck-In, Delete Order, Archive
+router.post("/labno/update", async (req, res) => {
+    const labNumber = req.body.labNumber;
+    const status = req.body.status;
+
+    await Orders.update({
+        status: status,
+    }, {
+        where: {
+            labNumber: labNumber
         }
     })
     res.send();

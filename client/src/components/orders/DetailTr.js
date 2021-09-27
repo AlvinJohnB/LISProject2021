@@ -10,7 +10,7 @@ function DetailTr({detail}) {
             <td>{detail.status}</td>
             <td>
                 {detail.status === "RELEASED" && <button className="checkin-btn accept" onClick={onGenerate}>Generate Report</button>}
-                {detail.status === "RUNNING" && <button className="checkin-btn-disabled" disabled={true} onClick={onGenerate}>Generate Report</button>}
+                {detail.status !== "RELEASED"  && <button className="checkin-btn-disabled" disabled={true} onClick={onGenerate}>Generate Report</button>}
             </td>
         </tr>
     )
