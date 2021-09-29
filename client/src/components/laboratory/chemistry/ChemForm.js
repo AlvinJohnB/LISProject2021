@@ -5,15 +5,17 @@ import Header from '../../Header';
 import LabNav from '../LabNav';
 import ChemTr from './ChemTr';
 import ChemResultmodal from './ChemResultmodal';
+import ReactPaginate from 'react-paginate';
 import NotLoggedInModal from '../../NotLoggedInModal';
-
+import {Formik, Form, Field} from 'formik';
+import * as Yup from 'yup';
 import { useState, useEffect } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
 
 
 function ChemForm() {
 
-    const [sectionData, setSectionData] = useState({})
+    const [sectionData, setSectionData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     const [show, setShow] = useState(false);
     const [resultFormData, setResultFormData] = useState();
@@ -21,16 +23,53 @@ function ChemForm() {
     const [prevResultData, setPrevResultData] = useState();
     const [showPrevResModal, setShowPrevResModal] = useState(false);
 
+    const initialValues = {
+        labNumber: "",
+    }
+
+    const validationSchema = Yup.object().shape({
+        labNumber: Yup.string().required("This field is required!"),
+
+    })
+
+    const onSubmit = async (data) => {
+        await axios.get(`http://localhost:3001/order/section/Chemistry/${data.labNumber}`).then((response) => {
+            setSectionData(response.data);
+            setIsLoading(false);
+        })
+    }
+
     const closeModal = () => {
         setShow(false);
     }
-
+ 
     useEffect(() => {
         axios.get(`http://localhost:3001/order/section/Chemistry`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
     },[sectionResultArray])
+
+    const [pageNumber, setPageNumber] = useState(0);
+    const orderPerPage = 15;
+    const pagesVisited = pageNumber * orderPerPage
+    const pageCount = Math.ceil(sectionData.length / orderPerPage);
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    }
+
+    const displayOrders = sectionData.slice(pagesVisited, pagesVisited + orderPerPage).map((details) => {
+        return (<ChemTr 
+            details={details} 
+            key={details.id}
+            setShow={setShow}
+            setResultFormData={setResultFormData}
+            setSectionResultArray={setSectionResultArray}
+            prevResultData={prevResultData}
+            setPrevResultData={setPrevResultData}     
+        />)
+    })
 
     if(isLoading){
         return (
@@ -54,18 +93,24 @@ function ChemForm() {
                     <div className="labdivcontent">
                         <div className="labdiv-flex-block">
 
-                            <div className="mr-10">
-                                <label>Filter:</label><br />
-                                <input type="text" placeholder="Enter lab no..." />
-                            </div>
-
-                            <div className="mr-10">
-                                <input className="btn filter" type="button" value="Filter" />
-                            </div>
+                        <div className="form-content">
+                            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                                <Form  className="margin-0">
+                                    <label className = "filter-label">Filter:</label>
+                                    <Field 
+                                            name="labNumber"
+                                            id="form-field"
+                                            type="text"
+                                            placeholder = "Enter lab no..."
+                                    />
+                                    <button className="form-botton filter" type="submit">Search</button>
+                                </Form>
+                            </Formik>
+                        </div>
                             
                         </div>
 
-                        <br />
+                        <br /> 
                         <table className="tablelab">
                             <tbody>
                                 <tr className="labheader">
@@ -74,19 +119,19 @@ function ChemForm() {
                                     <th>Test/s</th>
                                     <th>Action</th>
                                 </tr>
-                                {sectionData.map((details) => {
-                                return(
-                                    <ChemTr 
-                                        details={details} 
-                                        key={details.id}
-                                        setShow={setShow}
-                                        setResultFormData={setResultFormData}
-                                        setSectionResultArray={setSectionResultArray}
-                                        prevResultData={prevResultData}
-                                        setPrevResultData={setPrevResultData}     
-                                    />
-                                )
-                            })}
+                                {displayOrders}
+                                {pageCount > 1 &&                     
+                        <ReactPaginate
+                        previousLabel = {"<"}
+                        nextLabel = {">"}
+                        pageCount = {pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"orders-pagination-bttns"}
+                        previousLinkClassName={"orders-prevBttn"}
+                        nextLinkClassName={"orders-nextbtn"}
+                        disabledClassName={"orders-pgnte-disabled"}
+                        activeClassName={"orders-pgninate-active"}
+                    />}
 
                             </tbody>
                         </table>

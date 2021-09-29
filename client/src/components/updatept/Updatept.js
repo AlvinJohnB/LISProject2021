@@ -230,7 +230,11 @@ const Updatept = () => {
                     </div>
                 </div>
 
-                <button className="form-content form-botton widthauto" type="submit">Update / Proceed</button>
+                <div className="form-group">
+                    <button className="form-content form-botton widthauto" type="submit">Update / Proceed</button>
+                    <button className="form-content form-botton widthauto filter" type="button">Show Previous Transactions</button>
+                </div>
+                
 
             </Form>
         </Formik>

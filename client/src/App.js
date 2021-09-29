@@ -36,12 +36,18 @@ useEffect(() => {
     }
   }).then((response) => {
     if(response.data.error){
-      setAuthState({...authState, status: false});
+      //setAuthState({...authState, status: false});
+      setAuthState(prevAuthState => {
+        return { ...prevAuthState, status: false}
+      })
     }else{
-      setAuthState({name: response.data.name, username: response.data.username, id: response.data.id, status: true});
+      setAuthState(() => {
+        return { name: response.data.name, username: response.data.username, id: response.data.id, status: true}
+      })
+      //setAuthState({name: response.data.name, username: response.data.username, id: response.data.id, status: true});
     }
 })
-},[setAuthState, authState])
+},[setAuthState])
 
   return (
     <AuthContext.Provider value={{authState, setAuthState}}>

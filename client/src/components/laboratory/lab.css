@@ -87,6 +87,10 @@ tr.labheader{
     border-radius: 5px;
 }
 
+.space{
+    justify-content: space-between;
+}
+
 .filter{
     background-color: rgb(10, 105, 194);
 }
@@ -149,16 +153,17 @@ tr.rform:hover{
 }
 
 .pagination-bttns{
-    width: 80%;
+    width: 100%;
     height: 40px;
     list-style: none;
     display: flex;
     justify-content: center;
+
 }
 
 .pagination-bttns a{
-    padding: 10px;
-    margin: 8px;
+    padding: 5px;
+    margin: 5px;
     border: 1px solid rgb(10, 105, 194);
     color: rgb(10, 105, 194);
     cursor: pointer;
@@ -201,4 +206,8 @@ tr.rform:hover{
 .orders-pgninate-active a{
     color: white;
     background-color: rgb(6, 119, 15);
+}
+
+.filter-label{
+    position: absolute;
 }

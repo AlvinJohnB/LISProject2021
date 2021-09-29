@@ -18,13 +18,15 @@ function UserLogin() {
         const data = { username, password }
         
         axios.post("http://localhost:3001/auth/login", data).then((response) => {
-            // console.log(response.data);
+
             if(response.data.msg){
                 setMsg(response.data.msg);
             }else{
                 localStorage.setItem("accessToken", response.data);
-                setAuthState(response.data);
-                history.push('/checkin');
+                setAuthState(prevAuthState => {
+                    return { ...prevAuthState, status: true}
+                  })
+                history.push('/');
             }
         })
     }

@@ -5,7 +5,8 @@ import { useContext } from 'react';
 import { AuthContext } from '../helpers/AuthContext';
 
 function NotLoggedInModal() {
-    const {authState} = useContext(AuthContext);
+    const { authState } = useContext(AuthContext);
+
     let history = useHistory();
     
     if(authState.status === true){

@@ -382,7 +382,7 @@ const Addorder = () => {
                                 id="form-field"
                                 type="text"
                                 placeholder="Test Requested"
-                                hidden={false}
+                                hidden={true}
                                 value={labTestInput}
                                 disabled={false}
                             />

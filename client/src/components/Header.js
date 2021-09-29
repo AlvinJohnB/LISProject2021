@@ -1,15 +1,15 @@
-import React from 'react'
-import { useContext, useEffect } from 'react';
+import React, { useEffect } from 'react'
+import { useContext } from 'react';
 import { AuthContext } from '../helpers/AuthContext';
-import axios from 'axios'
 import './ptregistration/ptreg.css'
 import logo from '../images/stcamlogo.jpg'
 import {useHistory} from 'react-router-dom'
+import axios from 'axios';
 
 function Header() {
   let history = useHistory();
     const {setAuthState, authState} = useContext(AuthContext);
-    
+
     useEffect(() => {
       axios.get("http://localhost:3001/auth/auth",{
         headers:{
@@ -17,12 +17,16 @@ function Header() {
         }
       }).then((response) => {
         if(response.data.error){
-          setAuthState({...authState, status: false});
+          setAuthState(prevAuthState => {
+            return { ...prevAuthState, status: false}
+          })
         }else{
-          setAuthState({name: response.data.name, username: response.data.username, id: response.data.id, status: true});
+          setAuthState(() => {
+            return { name: response.data.name, username: response.data.username, id: response.data.id, status: true}
+          })
         }
     })
-    },[authState, setAuthState])
+    },[setAuthState])
 
     const logOut = () => {
       localStorage.removeItem("accessToken")

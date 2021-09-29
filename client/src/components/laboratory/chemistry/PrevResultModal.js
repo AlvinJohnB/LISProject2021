@@ -63,17 +63,19 @@ function PrevResultModal({showPrevResModal, setShowPrevResModal, prevResultData}
             </div>
                 {displayPrevResults}
             <div className="checkin-modal-footer">
-            <ReactPaginate
-                    previousLabel = {"<"}
-                    nextLabel = {">"}
-                    pageCount = {pageCount}
-                    onPageChange={changePage}
-                    containerClassName={"pagination-bttns"}
-                    previousLinkClassName={"prevBttn"}
-                    nextLinkClassName={"nextbtn"}
-                    disabledClassName={"pgnte-disabled"}
-                    activeClassName={"pgninate-active"}
-                />
+            {pageCount > 1 &&
+                        <ReactPaginate
+                        previousLabel = {"<"}
+                        nextLabel = {">"}
+                        pageCount = {pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"pagination-bttns"}
+                        previousLinkClassName={"prevBttn"}
+                        nextLinkClassName={"nextbtn"}
+                        disabledClassName={"pgnte-disabled"}
+                        activeClassName={"pgninate-active"}
+                    />
+            }
             </div>
         </div>
     </div>

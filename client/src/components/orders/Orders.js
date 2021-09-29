@@ -7,14 +7,25 @@ import ReactPaginate from 'react-paginate'
 import '../../components/ptregistration/ptreg.css'
 import LoadingModal from '../LoadingModal'
 import { useState } from 'react'
+import {Formik, Form, Field} from 'formik';
+import * as Yup from 'yup';
 
 function Orders() {
 
     const [isLoading, setIsLoading] = useState(true)
     const [orders, setOrders] = useState([])
 
+    const initialValues = {
+        labNumber: "",
+    }
+
+    const validationSchema = Yup.object().shape({
+        labNumber: Yup.string().required("This field is required!"),
+
+    })
+
     const [pageNumber, setPageNumber] = useState(0);
-    const orderPerPage = 15;
+    const orderPerPage = 10;
     const pagesVisited = pageNumber * orderPerPage
     const pageCount = Math.ceil(orders.length / orderPerPage);
 
@@ -27,7 +38,6 @@ function Orders() {
     })
 
 
-
     useEffect(() => {
         axios.get(`http://localhost:3001/order/getorders`).then((response) => {
             setOrders(response.data);
@@ -35,25 +45,22 @@ function Orders() {
         })
     },[])
 
-    const filterOrders = (e) => {
-        const table = document.querySelector("#ordertable");
-        const tr = table.getElementsByTagName("tr");
-        let filter = e.target.value.toUpperCase();
-        
+    const onSubmit = async (data) => {
+        setIsLoading(true)
 
-        if(tr){
-            for(let i = 0; i < tr.length; i++){
-                let td = tr[i].getElementsByTagName("td")[0]
-                if(td){
-                    let test = td.innerHTML || td.innerText
-                    if(test.indexOf(filter) > -1){
-                        tr[i].style.display = "";
-                    }else{
-                        tr[i].style.display = "none";
-                    }
-                }
+        await axios.post(`http://localhost:3001/order/filter`, data).then((response) => {
+            if(response.data.length === 0){
+                alert('Lab number not found!')
+                setIsLoading(false);
             }
-        }
+
+            if(response.data[0].status === "DELETED"){
+                alert("That lab number is deleted!")
+            }else{
+                setOrders(response.data);
+            }
+            setIsLoading(false);
+        })
     }
 
 
@@ -70,9 +77,23 @@ function Orders() {
             <h1 className="labcontentheader-results">&nbsp; Orders</h1>
             <div className="labdiv">
                 <div className="labdivcontent">
-                    <label className="form-content">Search lab number:</label>
-                    <input type="text" className="form-input" autoComplete="off" placeholder="Search Lab No..." onChange={filterOrders}/>
-                    <br /><br />
+                <div className="form-content">
+                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                        <Form  className="margin-0">
+                            <label className="form-content filter-label">Search lab number:</label>
+                            <Field 
+                                    name="labNumber"
+                                    id="form-field"
+                                    type="text"
+                                    placeholder = "Enter lab no..."
+                                    className="margin-0"
+                            />
+                            <button className="form-botton" type="submit">Search</button>
+                        </Form> 
+                    </Formik>
+                </div>
+                <br />
+
                     <table className="tablelab" id="ordertable">
                         <tbody>
                             <tr className="header">
@@ -87,17 +108,19 @@ function Orders() {
                         </tbody>
                     </table>
                     <br />
-                    <ReactPaginate
-                    previousLabel = {"<"}
-                    nextLabel = {">"}
-                    pageCount = {pageCount}
-                    onPageChange={changePage}
-                    containerClassName={"orders-pagination-bttns"}
-                    previousLinkClassName={"orders-prevBttn"}
-                    nextLinkClassName={"orders-nextbtn"}
-                    disabledClassName={"orders-pgnte-disabled"}
-                    activeClassName={"orders-pgninate-active"}
-                />
+                    {pageCount > 1 &&                     
+                        <ReactPaginate
+                        previousLabel = {"<"}
+                        nextLabel = {">"}
+                        pageCount = {pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"orders-pagination-bttns"}
+                        previousLinkClassName={"orders-prevBttn"}
+                        nextLinkClassName={"orders-nextbtn"}
+                        disabledClassName={"orders-pgnte-disabled"}
+                        activeClassName={"orders-pgninate-active"}
+                    />}
+
                 </div>
 
             </div>

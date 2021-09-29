@@ -19,9 +19,26 @@ function CheckInModal(props) {
     }
     const onAccept = async () => {
         setIsLoading(true);
-
         props.setShow(false);
-        await axios.post("http://localhost:3001/order/updatesorder", {
+
+        if(props.selected[0].Sectionorders[0].status === "Sample Rejected - For Check-In"){
+
+            await axios.post("http://localhost:3001/order/updatesorder", {
+                status: "RUNNING",
+                sectNumber: props.selected[0].Sectionorders[0].sectNumber
+            },
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken")
+                }
+            }).then((response) => {
+                if(response.data.error){
+                    alert("You are not logged in, please log in!");
+                    history.push("/login");
+                }
+            })
+        }else{
+            await axios.post("http://localhost:3001/order/updatesorder", {
             status: "RUNNING",
             sectNumber: props.selected[0].Sectionorders[0].sectNumber
         },
@@ -118,11 +135,12 @@ function CheckInModal(props) {
         //MircroProfiles
 
         }
-
+        }
         await axios.get(`http://localhost:3001/order/forcheckin/${props.section}`).then((response) => {
             props.setCheckInDetails(response.data);
         })
         setTimeout(()=>{setIsLoading(false);}, 1000)
+        setIsLoading(false);
     }
 
     if(!props.show){

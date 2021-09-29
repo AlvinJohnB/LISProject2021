@@ -1,8 +1,9 @@
 import React from 'react'
 import axios from 'axios';
 import { useState, useEffect } from 'react'
-
-
+import ReactPaginate from 'react-paginate';
+import {Formik, Form, Field} from 'formik';
+import * as Yup from 'yup';
 import './lab.css'
 import Header from '../Header';
 import LabNav from './LabNav';
@@ -19,7 +20,7 @@ function LabClient() {
     const [section, setSection] = useState("Chemistry");
     const [show, setShow] = useState(false);
     const [orderid, setOrderID] = useState(0);
-    const [selected, setSelected] = useState([  {
+    const [orderselected, setSelected] = useState([  {
                                                     "id": 3,
                                                     "reqDr": "N/A",
                                                     "testsRequested": "FBS LIPID CBCPLT URINAL ",
@@ -64,9 +65,14 @@ function LabClient() {
                                                     }
                                                     ]
                                                 }]);
+    const initialValues = {
+        labNumber: "",
+    }
 
-                                               
+    const validationSchema = Yup.object().shape({
+        labNumber: Yup.string().required("This field is required!"),
 
+    })
     useEffect(() => {
 
         axios.get(`http://localhost:3001/order/forcheckin/Chemistry`).then((response) => {
@@ -106,6 +112,36 @@ function LabClient() {
         setShow(false);
     }
 
+    const [pageNumber, setPageNumber] = useState(0);
+    const orderPerPage = 10;
+    const pagesVisited = pageNumber * orderPerPage
+    const pageCount = Math.ceil(checkInDetails.length / orderPerPage);
+
+    const changePage = ({selected}) => {
+        setPageNumber(selected);
+    }
+
+    const displayOrders = checkInDetails.slice(pagesVisited, pagesVisited + orderPerPage).map((details) => {
+        return ( <CheckInTr 
+            details={details} 
+            key={details.id}
+            setShow={setShow} 
+            setOrderID={setOrderID}
+        />)
+    })
+
+    const onSubmit = async (data) => {
+
+        await axios.get(`http://localhost:3001/order/forcheckin/Chemistry/${data.labNumber}`).then((response) => {
+            if(response.data.length === 0){
+                alert('No order found with that lab number!')
+            }else{
+                setCheckInDetails(response.data);
+            }
+
+        })
+    }
+
     if(isLoading){
         return (
             <div className="ptregwrapper">
@@ -129,24 +165,32 @@ function LabClient() {
                         
                         <div className="labdiv">
                             <div className="labdivcontent">
-                                <div className="labdiv-flex-block">
-                                    <div className="mr-10">
-                                        <label>Section:</label><br />
-                                        <select onChange={sectionHandler}>
-                                            <option value="Chemistry">Chemistry</option>
-                                            <option value="Hematology">Hematology</option>
-                                            <option value="CM">Clinical Microscopy</option>
-                                            <option value="Serology">Serology</option>
-                                        </select>
-                                    </div>
+                                <div className="form-group space">
+                                    <div className="form-content">
+                                        <div className="form-content">
+                                            <label className="filter-label">Section:</label><br />
 
-                                    <div className="mr-10">
-                                        <label>Filter:</label><br />
-                                        <input type="text" placeholder="Enter lab no..." />
-                                    </div>
-
-                                    <div className="mr-10">
-                                        <input className="btn filter" type="button" value="Filter" />
+                                            <select id="form-field" onChange={sectionHandler}>
+                                                <option value="Chemistry">Chemistry</option>
+                                                <option value="Hematology">Hematology</option>
+                                                <option value="CM">Clinical Microscopy</option>
+                                                <option value="Serology">Serology</option>
+                                            </select>
+                                        </div>
+                                        
+                                        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                                            <Form  className="margin-0">
+                                                <label className = "filter-label">Filter:</label>
+                                                <Field 
+                                                        name="labNumber"
+                                                        id="form-field"
+                                                        type="text"
+                                                        placeholder = "Enter lab no..."
+                                                />
+                                                <button className="form-botton filter" type="submit">Search</button>
+                                            </Form>
+                                        </Formik>
+                                        
                                     </div>
                                 </div>
                                 <br />
@@ -158,22 +202,25 @@ function LabClient() {
                                             <th>Test/s</th>
                                             <th>Action</th>
                                         </tr>
-                                        {checkInDetails.map((details) => {
-                                        return(
-                                            <CheckInTr 
-                                                details={details} 
-                                                key={details.id}
-                                                setShow={setShow} 
-                                                setOrderID={setOrderID}
-                                            />
-                                        )
-                                    })}
-
+                                        {displayOrders}
                                     </tbody>
                                 </table>
 
-
                             </div>
+                            <br />
+                                {pageCount > 1 &&
+                                    <ReactPaginate
+                                    previousLabel = {"<"}
+                                    nextLabel = {">"}
+                                    pageCount = {pageCount}
+                                    onPageChange={changePage}
+                                    containerClassName={"pagination-bttns"}
+                                    previousLinkClassName={"prevBttn"}
+                                    nextLinkClassName={"nextbtn"}
+                                    disabledClassName={"pgnte-disabled"}
+                                    activeClassName={"pgninate-active"}
+                                />
+                                }
                         </div>
                         
                 </div>
@@ -182,7 +229,7 @@ function LabClient() {
                 show={show}
                 showModal={showModal}
                 closeModal={closeModal}
-                selected={selected}
+                selected={orderselected}
                 setShow={setShow}
                 section={section}
                 setCheckInDetails={setCheckInDetails}

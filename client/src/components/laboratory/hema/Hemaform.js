@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import Header from '../../Header';
 import LabNav from '../LabNav';
-import ChemTr from '../chemistry/ChemTr';
+import ChemTr from '../chemistry/ChemTr'
 import ChemResultmodal from '../chemistry/ChemResultmodal';
 import NotLoggedInModal from '../../NotLoggedInModal';
 
@@ -35,7 +35,7 @@ function Hemaform() {
     if(isLoading){
         return (
             <div className="ptregwrapper">
-               <LabLoadingModal />
+                <LabLoadingModal />
             </div>
         )
     }
@@ -104,6 +104,7 @@ function Hemaform() {
                         setPrevResultData={setPrevResultData}
                         showPrevResModal = {showPrevResModal}
                         setShowPrevResModal = {setShowPrevResModal}
+                        setSectionData={setSectionData}
                     />
                     
                 </div>

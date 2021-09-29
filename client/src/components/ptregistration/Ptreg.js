@@ -19,7 +19,6 @@ const Ptreg = () => {
       axios.get("http://localhost:3001/patient").then((response) => {
         setPatientLastId(response.data)
       });
-      
     }, []);
 
     if(isLoading === true){
@@ -90,7 +89,6 @@ const Ptreg = () => {
 
     const onSubmit = async (data) => {
         setIsLoading(true);
-
         await axios.get("http://localhost:3001/patient").then((response) => {
             setPatientLastId(response.data)
             const branch = "CAMILLUS-";
@@ -243,9 +241,6 @@ const Ptreg = () => {
 
                 </Form>
             </Formik>
-                       
-
-
     </div>
   );
 }
