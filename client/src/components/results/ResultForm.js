@@ -481,8 +481,12 @@ const ResultForm = () => (
                 <Text style={styles.resHText}>Reference</Text>
             </View>
             {data.Sectionorders[0].Sectionresults.map((result, index) => {
-              return(
-                <View wrap={false} style={styles.resTr} key={index}>
+              if(result.result === "!" || result.result === 0 || result.result === null){
+                return (null)
+              }else
+              {
+                return(
+                    <View wrap={false} style={styles.resTr} key={index}>
                      {result.Testslist.isPackage === true && <Text style={styles.trCenterBold}>{result.Testslist.testname}</Text>}
                      {result.Testslist.isPackage === false && <Text style={styles.testName}>{result.Testslist.testname}</Text>}
                     <Text style={styles.trCenter}>{result.result}</Text>
@@ -490,7 +494,9 @@ const ResultForm = () => (
                     {result.Testslist.isPackage === false && <Text style={styles.trCenter}>{result.Testslist.unit}</Text>}
                     {result.Testslist.Referencevalue == null &&  <Text style={styles.trCenter}></Text>}
                     {result.Testslist.Referencevalue !== null && data.Patientlists[0].gender === "Male" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Male}</Text>}
-                </View>
+                </View>)
+
+              }
               )
             })}
 
