@@ -29,8 +29,9 @@ router.get("/", async (req, res) => {
 
 
 //Prev Transactions
-router.get("/", async (req, res) => {
+router.get("/trx/prev/:pID", async (req, res) => {
     const pID = req.params.pID
+
     const year = new Date().getFullYear()
     const month =  new Date().getMonth()-5
 
@@ -39,13 +40,13 @@ router.get("/", async (req, res) => {
             branchid: pID
         },
         include: [
-            {model: Orders,
-                where: {createdAt:{[Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
+            {model: Orders,  order: [
+                ['id', 'DESC']
+        ],
+                where: {
+                    createdAt:{[Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
             }}
         }
-        ],
-        order: [
-                ['id', 'DESC']
         ]
     })
     res.json(orders);

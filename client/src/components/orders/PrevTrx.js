@@ -1,7 +1,7 @@
 import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import { useParams, useHistory } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import '../../components/ptregistration/ptreg.css'
 import './orderdetails.css'
 import PrevTrxTr from './PrevTrxTr'
@@ -10,9 +10,7 @@ import PrevTrxTr from './PrevTrxTr'
 function PrevTrx() {
 
     const [isLoading, setIsLoading] = useState(true)
-    const [orderDetails, setOrderDetails] = useState({})
-    let { labNumber } = useParams();
-    let history = useHistory();
+    const [orderDetails, setOrderDetails] = useState([])
     let { pId } = useParams();
 
 
@@ -33,22 +31,21 @@ function PrevTrx() {
 
     return (
         <div className="labwrapper-orderdeats">
-        <h1 className="labcontentheader-orderdeats">&nbsp;Previous Orders</h1>
+        <h1 className="labcontentheader-orderdeats">&nbsp;Prev Orders</h1>
             <div className="labdiv">
                 <div className="labdivcontent p-10">
                     <h4 className="center">Showing Previous Transactions of</h4>
                     </div>
-                    <br />
                     <div className="divblock p-10">
-                    <strong>Name:</strong> <p className="orderdetail">{orderDetails[0].Patientlists[0].lastname}, {orderDetails[0].Patientlists[0].firstname} {orderDetails[0].Patientlists[0].middlename}</p>
+                    <strong>Name:</strong> <p className="orderdetail">{orderDetails[0].lastname}, {orderDetails[0].firstname} {orderDetails[0].middlename}</p>
                     </div>
 
                     <div className="divblock p-10">
-                    <strong>Age/Gender:</strong> <p className="orderdetail">{orderDetails[0].Patientlists[0].age}/{orderDetails[0].Patientlists[0].gender}</p>
-                    </div>
+                    <strong>Age/Gender:</strong> <p className="orderdetail">{orderDetails[0].age}/{orderDetails[0].gender}</p>
+                    </div><br />
 
                 <div className="divblock p-10">
-                    <strong>Previous Transaction/s:</strong>
+                    <strong>Transaction/s:</strong>
                 </div>
                 <div className="divblock p-10">
                 <table className="detailtable">
