@@ -1,30 +1,42 @@
 import React from 'react'
-import { PDFDownloadLink } from '@react-pdf/renderer'
-import ResultForm from '../results/ResultForm'
+import axios from 'axios'
+import { useState } from 'react'
+
+import LoadingModal from '../LoadingModal'
+import Selectsize from './Selectsize'
 
 function DetailTr({detail}) {
 
-    const onGenerate = async () => {
+    const [isLoading, setIsLoading] = useState(false)
+    const [resultData, setResultData] = useState([])
+    const [modalShow, setModalShow] = useState(false)
 
+    const onGenerate = async () => {
+        setIsLoading(true)
+        console.log(detail)
+        await axios.get(`http://localhost:3001/order/results/${detail.forOrderID}/${detail.section}`).then((response) => {
+            setResultData(response.data)
+            setIsLoading(false)
+            console.log(response.data)
+            //setModalShow(true)
+        })
+    }
+
+    if(isLoading){
+        return(
+            <div className="ptregwrapper">
+                <LoadingModal />
+            </div>
+        )
     }
     return (
         <tr>
             <td>{detail.sectNumber}</td>
             <td>{detail.status}</td>
             <td>
+                  <Selectsize show={modalShow} setShow={setModalShow} data={resultData} detail={detail} />
                 {detail.status === "RELEASED" && <button className="checkin-btn accept" onClick={onGenerate}>Generate Report</button>}
-                {detail.status === "RELEASED" && <PDFDownloadLink
-                                                        document={<ResultForm />}
-                                                        fileName="movielist.pdf"
-                                                        style={{
-                                                            textDecoration: "none",
-                                                            padding: "10px",
-                                                            color: "#4a4a4a",
-                                                            backgroundColor: "#f2f2f2",
-                                                            border: "1px solid #4a4a4a"
-                                                        }}
-                                                        >
-                                                        </PDFDownloadLink>}
+          
                 {detail.status !== "RELEASED"  && <button className="checkin-btn-disabled" disabled={true} onClick={onGenerate}>Generate Report</button>}
             </td>
         </tr>

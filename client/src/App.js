@@ -22,7 +22,7 @@ import PrevTrx from './components/orders/PrevTrx'
 import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
-import ResultForm from './components/results/ResultForm';
+import ResultFormA4 from './components/results/ResultFormA4';
 
 
 const App = () => {
@@ -83,7 +83,7 @@ useEffect(() => {
                 <Route path="/orders" component={Orders}/>
                 <Route path="/order/:labNumber" component={OrderDetails}/>
                 <Route path="/results/" component={Results}/>
-                <Route path="/resultform/" component={ResultForm}/>
+                <Route path="/resultform/" component={ResultFormA4}/>
               </section>
               <footer>Laboratory Information System by Bregs</footer>
               

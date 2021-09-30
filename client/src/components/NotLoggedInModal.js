@@ -3,7 +3,7 @@ import '../components/laboratory/checkin/checkinmodal.css'
 import { useHistory } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../helpers/AuthContext';
-
+ 
 function NotLoggedInModal() {
     const { authState } = useContext(AuthContext);
 

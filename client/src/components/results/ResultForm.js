@@ -5,300 +5,6 @@ import arialbd from '../../fonts/arialbd.ttf'
 
 import logo from '../../images/stcamlogo.jpg'
 
-const data = {
-  "id": 4,
-  "reqDr": "Dr. D",
-  "testsRequested": "FBS LIPID BUN CREA ALT/SGPT AST/SGOT ",
-  "encodedBy": "ALVINJOHNEB",
-  "labNumber": "CAM-2021-9-4",
-  "ptType": "OPD",
-  "status": "RELEASED",
-  "createdAt": "2021-09-22T17:46:31.000Z",
-  "updatedAt": "2021-09-22T17:47:32.000Z",
-  "logo": '../../images/stcamlogo.jpg',
-  "forPtId": 1,
-  "Patientlists": [
-    {
-      "id": 1,
-      "branchid": "CAMILLUS-1",
-      "lastname": "Bregana",
-      "firstname": "Alvin John",
-      "middlename": "Edra",
-      "gender": "Male",
-      "bday": "1998-06-05",
-      "age": 23,
-      "address": "Aguitap",
-      "phone": "0997725143",
-      "idenno": "2151607",
-      "createdAt": "2021-09-22T15:46:29.000Z",
-      "updatedAt": "2021-09-22T17:44:54.000Z",
-      "Orderlist": {
-        "PatientlistId": 1,
-        "OrderId": 4
-      }
-    }
-  ],
-  "Sectionorders": [
-    {
-      "id": 4,
-      "sectNumber": "(CHEM)-CAM-2021-9-4",
-      "section": "Chemistry",
-      "tests": "FBS LIPID BUN CREA ALT/SGPT AST/SGOT ",
-      "status": "RELEASED",
-      "updatedBy": "ALVINJOHNEB",
-      "createdAt": "2021-09-22T17:46:31.000Z",
-      "updatedAt": "2021-09-22T17:47:32.000Z",
-      "forOrderID": 4,
-      "Sectionresults": [
-        {
-          "id": 11,
-          "test": "FBS",
-          "result": "80",
-          "TestslistId": 1,
-          "Sectionorderlist": {
-            "SectionresultId": 11,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 1,
-            "testcode": "FBS",
-            "testname": "Fasting Blood Sugar",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "mg/dL",
-            "Referencevalue": {
-              "id": 1,
-              "test": "FBS",
-              "Male": "70-100",
-              "Female": "70-100",
-              "TestslistId": 1
-            }
-          }
-        },
-        {
-          "id": 12,
-          "test": "LIPID",
-          "result": null,
-          "TestslistId": 2,
-          "Sectionorderlist": {
-            "SectionresultId": 12,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 2,
-            "testcode": "LIPID",
-            "testname": "Lipid Profile",
-            "section": "Chemistry",
-            "isPackage": true,
-            "unit": "N/A",
-            "Referencevalue": null
-          }
-        },
-        {
-          "id": 13,
-          "test": "CHOLE",
-          "result": "150",
-          "TestslistId": 3,
-          "Sectionorderlist": {
-            "SectionresultId": 13,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 3,
-            "testcode": "CHOLE",
-            "testname": "Total Cholesterol",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "mg/dL",
-            "Referencevalue": {
-              "id": 2,
-              "test": "CHOLE",
-              "Male": "<200",
-              "Female": "<200",
-              "TestslistId": 3
-            }
-          }
-        },
-        {
-          "id": 14,
-          "test": "TRIG",
-          "result": "150",
-          "TestslistId": 4,
-          "Sectionorderlist": {
-            "SectionresultId": 14,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 4,
-            "testcode": "TRIG",
-            "testname": "Triglycerides",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "mg/dL",
-            "Referencevalue": {
-              "id": 3,
-              "test": "TRIG",
-              "Male": "<200",
-              "Female": "<200",
-              "TestslistId": 4
-            }
-          }
-        },
-        {
-          "id": 15,
-          "test": "HDL",
-          "result": "60",
-          "TestslistId": 5,
-          "Sectionorderlist": {
-            "SectionresultId": 15,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 5,
-            "testcode": "HDL",
-            "testname": "High Density Lipoprotein (HDL)",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "mg/dL",
-            "Referencevalue": {
-              "id": 4,
-              "test": "HDL",
-              "Male": ">40",
-              "Female": ">40",
-              "TestslistId": 5
-            }
-          }
-        },
-        {
-          "id": 16,
-          "test": "LDL",
-          "result": "110",
-          "TestslistId": 6,
-          "Sectionorderlist": {
-            "SectionresultId": 16,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 6,
-            "testcode": "LDL",
-            "testname": "Low Density Lipoprotein (LDL)",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "mg/dL",
-            "Referencevalue": {
-              "id": 5,
-              "test": "LDL",
-              "Male": "<130",
-              "Female": "<130",
-              "TestslistId": 6
-            }
-          }
-        },
-        {
-          "id": 17,
-          "test": "BUN",
-          "result": "13",
-          "TestslistId": 7,
-          "Sectionorderlist": {
-            "SectionresultId": 17,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 7,
-            "testcode": "BUN",
-            "testname": "Blood Urea Nitrogen",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "mg/dL",
-            "Referencevalue": {
-              "id": 6,
-              "test": "BUN",
-              "Male": "13-43",
-              "Female": "13-43",
-              "TestslistId": 7
-            }
-          }
-        },
-        {
-          "id": 18,
-          "test": "CREA",
-          "result": null,
-          "TestslistId": 8,
-          "Sectionorderlist": {
-            "SectionresultId": 18,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 8,
-            "testcode": "CREA",
-            "testname": "Serum Creatinine",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "mg/dL",
-            "Referencevalue": {
-              "id": 7,
-              "test": "CREA",
-              "Male": "0.2-1.4",
-              "Female": "0.2-1.4",
-              "TestslistId": 8
-            }
-          }
-        },
-        {
-          "id": 19,
-          "test": "ALT/SGPT",
-          "result": "40",
-          "TestslistId": 9,
-          "Sectionorderlist": {
-            "SectionresultId": 19,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 9,
-            "testcode": "ALT/SGPT",
-            "testname": "Alanine Transaminase (ALT/SGPT)",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "U/L",
-            "Referencevalue": {
-              "id": 8,
-              "test": "ALT/SGPT",
-              "Male": "<45",
-              "Female": "<34",
-              "TestslistId": 9
-            }
-          }
-        },
-        {
-          "id": 20,
-          "test": "AST/SGOT",
-          "result": "!",
-          "TestslistId": 10,
-          "Sectionorderlist": {
-            "SectionresultId": 20,
-            "SectionorderId": 4
-          },
-          "Testslist": {
-            "id": 10,
-            "testcode": "AST/SGOT",
-            "testname": "Aspartate Aminotransferase (AST/SGOT)",
-            "section": "Chemistry",
-            "isPackage": false,
-            "unit": "U/L",
-            "Referencevalue": {
-              "id": 9,
-              "test": "AST/SGOT",
-              "Male": "<50",
-              "Female": "<35",
-              "TestslistId": 10
-            }
-          }
-        }
-      ]
-    }
-  ]
-}
-
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 
 // Create styles
@@ -343,7 +49,7 @@ companyHeader:{
     width: 200,
   },
   patientInfoText:{
-    fontSize: '9px',
+    fontSize: '10px',
   },
   resultBody:{
     width: 575.28,
@@ -406,12 +112,12 @@ companyHeader:{
     padding: 5
   },
   tableHeader:{
-    width: 575.28,
+    width: 560.28,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
   resTr:{
-    width: 575.28,
+    width: 560.28,
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
@@ -445,12 +151,19 @@ logo:{
   width: "55px",
   position: 'absolute',
   left: "80px"
+},
+signature:{
+  position: 'absolute',
+  left: "0px",
+  width: "200px",
+  bottom: "30px",
+  height: "30px",
+  border: "2px red solid"
 }
 });
 
 // Create Document Component
-const ResultForm = () => (
-<PDFViewer width="800px" height="500px" showToolbar={false}>
+const ResultForm = ({data}) => (
   <Document>
     <Page size="A5" orientation= "landscape" style={styles.page}>
       <View style={styles.wrap}>
@@ -464,15 +177,15 @@ const ResultForm = () => (
           </View>
           <View style={styles.patientHeader}>
             <View style={styles.pcol}>
-              <Text style={styles.patientInfoText}>Patient Name: {data.Patientlists[0].lastname}, {data.Patientlists[0].firstname} {data.Patientlists[0].middlename}</Text>
-              <Text style={styles.patientInfoText}>Age/Gender: {data.Patientlists[0].age}/{data.Patientlists[0].gender}</Text>
-              <Text style={styles.patientInfoText}>Requesting Physician: {data.reqDr}</Text>
+              <Text style={styles.patientInfoText}>Patient Name: {data[0].Patientlists[0].lastname}, {data[0].Patientlists[0].firstname} {data[0].Patientlists[0].middlename}</Text>
+              <Text style={styles.patientInfoText}>Age/Gender: {data[0].Patientlists[0].age} / {data[0].Patientlists[0].gender}</Text>
+              <Text style={styles.patientInfoText}>Requesting Physician: {data[0].reqDr}</Text>
             </View>
 
             <View style={styles.pcol1}>
-              <Text style={styles.patientInfoText}>Date: {Moment(data.createdAt).format('MMMM DD, yyyy')}</Text>
-              <Text style={styles.patientInfoText}>Paitent Type/Room: {data.ptType}</Text>
-              <Text style={styles.patientInfoText}>Laboratory Number: {data.labNumber}</Text>
+              <Text style={styles.patientInfoText}>Date: {Moment(data[0].createdAt).format('MMMM DD, yyyy')}</Text>
+              <Text style={styles.patientInfoText}>Paitent Type/Room: {data[0].ptType}</Text>
+              <Text style={styles.patientInfoText}>Laboratory Number: {data[0].labNumber}</Text>
             </View>
           </View>
         </View>
@@ -488,23 +201,22 @@ const ResultForm = () => (
                 <Text style={styles.resHText}>Unit</Text>
                 <Text style={styles.resHText}>Reference</Text>
             </View>
-            {data.Sectionorders[0].Sectionresults.map((result, index) => {
+            {data[0].Sectionorders[0].Sectionresults.map((result, index) => {
                 return(
-                    <View>
-                    {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false} style={styles.resTr} key={index}>
+                    <View key={index}>
+                    {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false} style={styles.resTr}>
                      {result.Testslist.isPackage === true && <Text style={styles.trCenterBold}>{result.Testslist.testname}</Text>}
                      {result.Testslist.isPackage === false && <Text style={styles.testName}>{result.Testslist.testname}</Text>}
                     <Text style={styles.trCenter}>{result.result}</Text>
                     {result.Testslist.isPackage === true && <Text style={styles.trCenter}></Text>}
                     {result.Testslist.isPackage === false && <Text style={styles.trCenter}>{result.Testslist.unit}</Text>}
                     {result.Testslist.Referencevalue == null &&  <Text style={styles.trCenter}></Text>}
-                    {result.Testslist.Referencevalue !== null && data.Patientlists[0].gender === "Male" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Male}</Text>}
+                    {result.Testslist.Referencevalue !== null && data[0].Patientlists[0].gender === "Male" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Male}</Text>}
+                    {result.Testslist.Referencevalue !== null && data[0].Patientlists[0].gender === "Female" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Female}</Text>}
                 </View>}
                     </View>)
-
-          
-
             })}
+
           </View>
           
         </View>
@@ -517,18 +229,19 @@ const ResultForm = () => (
         <View fixed={true} style={styles.footer}>
           <View style={styles.footerCol}>
             {/* IMAGE HERE FOR RMT */}
+            <Image src={require(`../../images/${data[0].Sectionorders[0].releasedBy}.jpg`).default} style={styles.signature} fixed={true}/>
             <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
           </View>
 
           <View style={styles.footerCol1}>
             {/* IMAGE HERE FOR PATHO SIG */}
+            <Image src={require(`../../images/${data[0].Sectionorders[0].releasedBy}.jpg`).default} style={styles.signature} fixed={true}/>
           <Text style={styles.footerText}>PATHOLOGIST</Text>
           </View>
         </View>
     </Page>
       
   </Document>
-</PDFViewer>
 );
 
 export default ResultForm;
