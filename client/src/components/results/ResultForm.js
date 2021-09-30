@@ -497,10 +497,6 @@ const ResultForm = () => (
           
 
             })}
-
-            
-            
-            
           </View>
           
         </View>
