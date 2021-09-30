@@ -79,6 +79,10 @@ const Updatept = () => {
 
     })
 
+    const onPrevTrans = () => {
+        history.push(`/porders/${pId}`)
+    }
+
     const onSubmit = (data) => {
         setIsLoading(true);
         data.age = initialValues.age;
@@ -232,7 +236,7 @@ const Updatept = () => {
 
                 <div className="form-group">
                     <button className="form-content form-botton widthauto" type="submit">Update / Proceed</button>
-                    <button className="form-content form-botton widthauto filter" type="button">Show Previous Transactions</button>
+                    <button className="form-content form-botton widthauto filter" onClick={onPrevTrans} type="button">Show Previous Transactions</button>
                 </div>
                 
 

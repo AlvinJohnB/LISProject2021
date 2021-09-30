@@ -27,6 +27,31 @@ router.get("/", async (req, res) => {
     }
 });
 
+
+//Prev Transactions
+router.get("/", async (req, res) => {
+    const pID = req.params.pID
+    const year = new Date().getFullYear()
+    const month =  new Date().getMonth()-5
+
+    const orders = await Patientlist.findAll({
+        where: {
+            branchid: pID
+        },
+        include: [
+            {model: Orders,
+                where: {createdAt:{[Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
+            }}
+        }
+        ],
+        order: [
+                ['id', 'DESC']
+        ]
+    })
+    res.json(orders);
+})
+
+
 router.get("/getorders", async (req, res) => {
 
     const year = new Date().getFullYear()

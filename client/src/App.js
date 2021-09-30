@@ -17,6 +17,7 @@ import LabClient from './components/laboratory/LabClient';
 import ChemForm from './components/laboratory/chemistry/ChemForm';
 import Hemaform from './components/laboratory/hema/Hemaform';
 import Results from './components/results/Results'
+import PrevTrx from './components/orders/PrevTrx'
 
 import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react'
@@ -77,6 +78,7 @@ useEffect(() => {
                 <Route path="/searchresults/:param" component={Searchresult}/>
                 <Route path="/noptfound" component={Noptrecord}/>
                 <Route path="/updatept/:pId" component={Updatept}/>
+                <Route path="/porders/:pId" component={PrevTrx}/>
                 <Route path="/addorder/for:pId" component={Addorder}/>
                 <Route path="/orders" component={Orders}/>
                 <Route path="/order/:labNumber" component={OrderDetails}/>
