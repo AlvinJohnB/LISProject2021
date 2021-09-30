@@ -50,8 +50,9 @@ import PrevResultModal from './PrevResultModal';
         })
 
         // RE RENDER DATA
+        
 
-        await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}`).then((response) => {
+        await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
         })
@@ -100,7 +101,7 @@ import PrevResultModal from './PrevResultModal';
 
         // RE RENDER DATA
 
-        await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}`).then((response) => {
+        await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
         })
@@ -136,21 +137,20 @@ import PrevResultModal from './PrevResultModal';
                     <div><strong>Result Entry for Lab Number: {resultFormData[0].labNumber}</strong></div>
                     <div className="checkin-closebtn" onClick={closeModal}>X</div>
                 </div>
-                    <div className="checkin-modal-body">
+                    <div className="lab-modal-body">
                         {resultFormData[0].Sectionorders[0].status === "RELEASED" && <h2 className="red">Released</h2>}
                         <p className="order-dits">
                             <strong>Patient Name:</strong> {resultFormData[0].Patientlists[0].lastname}, {resultFormData[0].Patientlists[0].firstname} {resultFormData[0].Patientlists[0].middlename}<br />
                             <strong>Section:</strong> {resultFormData[0].Sectionorders[0].section}<br />
                             <strong>Section Number:</strong> {resultFormData[0].Sectionorders[0].sectNumber}<br />
                             {prevResultData != null && resultFormData[0].Sectionorders[0].status === "RUNNING" && prevResultData.length > 0 && <input onClick={prevResClick} type="button" value="Show previous result" className="checkin-btn reject" />}
-                            
+                        </p>  
                             {/* Prev Result Modal */}
                             {prevResultData != null &&
                             <PrevResultModal showPrevResModal={showPrevResModal} setShowPrevResModal={setShowPrevResModal} prevResultData={prevResultData} />}
 
 
                             <br />
-                            </p>
                             <table className="tablelab">
                                 <tbody>
                                     <tr className="labheader">
@@ -167,36 +167,35 @@ import PrevResultModal from './PrevResultModal';
                                 })}
                                 </tbody>
                             </table>
-
-
-
-                            <label>Pathologist:</label>
-                            <br />
-                        {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
-                            <select  id="form-field" disabled={true}>
-                            <option>{resultFormData[0].Sectionorders[0].pathologist}</option>
-                            </select>
-                        }
-                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
-                            <select  id="form-field" onChange={onSelectChange}>
-                            <option value="invalid">Select...</option>
-                            {patholist.map((patho, index) => {
-                                
-                                return(
-                                    <option key={index} value={patho.name}>{patho.name}</option>
-                                )
-                            })}
-                            </select>
-                        }
-                        <br /><br />
-                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
-                            <input type="button" onClick={onRelease} className="checkin-btn accept" value="Release"/>
-                        }
-                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
-                           <input type="button" onClick={undoCheckIn} className="checkin-btn reject" value="Undo Check-in/Reject sample" />
-                        }
-                        {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={onUndoRelease} className="checkin-btn reject" value="Undo Release" />}
                     </div>
+                <div className="res-footer">
+                    <label>Pathologist:</label>
+                                <br />
+                            {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
+                                <select  id="form-field" disabled={true}>
+                                <option>{resultFormData[0].Sectionorders[0].pathologist}</option>
+                                </select>
+                            }
+                            {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
+                                <select  id="form-field" onChange={onSelectChange}>
+                                <option value="invalid">Select...</option>
+                                {patholist.map((patho, index) => {
+                                    
+                                    return(
+                                        <option key={index} value={patho.name}>{patho.name}</option>
+                                    )
+                                })}
+                                </select>
+                            }
+                            <br /><br />
+                            {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
+                                <input type="button" onClick={onRelease} className="checkin-btn accept" value="Release"/>
+                            }
+                            {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
+                            <input type="button" onClick={undoCheckIn} className="checkin-btn reject" value="Undo Check-in/Reject sample" />
+                            }
+                            {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={onUndoRelease} className="checkin-btn reject" value="Undo Release" />}
+                </div>
             </div>
         </div>
     )

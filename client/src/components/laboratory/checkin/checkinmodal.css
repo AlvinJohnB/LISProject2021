@@ -30,6 +30,12 @@
     border: 1px solid black;
 }
 
+.pres-modal-wrapper{
+    background-color: white;
+    width: 60%;
+    border: 1px solid black;
+}
+
 .login-modal-wrapper{
     background-color: white;
     width: 300px;
@@ -81,12 +87,14 @@
     border-color: black;
 }
 
-.checkin-modal-body{
+.lab-modal-body{
     padding: 30px;
     border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
 }
 
+.res-footer{
+    padding: 30px;
+}
 .loading-modal-body{
     padding: 30px;
     display: flex;

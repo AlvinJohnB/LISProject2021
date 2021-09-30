@@ -1,9 +1,8 @@
 import React from 'react'
-import { Page, Image, Text, View, Document, StyleSheet, PDFViewer, Font } from '@react-pdf/renderer';
+import { Page, Text, View, Document, StyleSheet, PDFViewer, Font } from '@react-pdf/renderer';
 import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
 
-import logo from '../../images/stcamlogo.jpg'
 
 const data = {
   "id": 4,
@@ -15,7 +14,6 @@ const data = {
   "status": "RELEASED",
   "createdAt": "2021-09-22T17:46:31.000Z",
   "updatedAt": "2021-09-22T17:47:32.000Z",
-  "logo": '../../images/stcamlogo.jpg',
   "forPtId": 1,
   "Patientlists": [
     {
@@ -440,11 +438,6 @@ trCenterBold:{
   width: 130,
   padding: 2,
   textAlign: 'center',
-},
-logo:{
-  width: "55px",
-  position: 'absolute',
-  left: "80px"
 }
 });
 
@@ -452,11 +445,10 @@ logo:{
 const ResultForm = () => (
 <PDFViewer width="800px" height="500px" showToolbar={false}>
   <Document>
-    <Page size="A5" orientation= "landscape" style={styles.page}>
+    <Page size="A4" orientation= "landscape" style={styles.page}>
       <View style={styles.wrap}>
         <View fixed={true} style={styles.header}>
           <View style={styles.companyHeader}>
-            <Image src={logo} style={styles.logo} fixed={true}/>
             <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
             <Text style={styles.companyHText}>Laboratory Department</Text>
             <Text style={styles.contactText}>Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
@@ -511,7 +503,7 @@ const ResultForm = () => (
       
       
       
-      
+
         </View>
         <Text fixed={true} style={styles.footerMessage}>** Results are electronically printed. Physical signature is not necessary. **</Text>
         <View fixed={true} style={styles.footer}>

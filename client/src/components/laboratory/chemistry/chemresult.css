@@ -9,7 +9,7 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    overflow-y: initial !important
+    overflow-y: initial !important;
 }
 
 .result-modal-wrapper{
@@ -18,7 +18,7 @@
     background-color: white;
     width: 70%;
     border: 1px solid black;
-    height: 60vh;
+    height: 55vh;
     overflow-y: auto;
 }
 

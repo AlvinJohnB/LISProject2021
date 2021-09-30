@@ -56,7 +56,7 @@ function PrevResultModal({showPrevResModal, setShowPrevResModal, prevResultData}
 
     return (
         <div className="checkin-modal">
-        <div className="checkin-modal-wrapper">
+        <div className="pres-modal-wrapper"> 
             <div className="checkin-modal-header">
                 <div><strong>Previous Result Module:</strong></div>
                 <div className="checkin-closebtn" onClick={closePrevResModal}>X</div>
