@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
 
 
-function Hemaform() {
+function Cmform() {
 
     const [sectionData, setSectionData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ function Hemaform() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://localhost:3001/order/section/Hematology/${data.labNumber}`).then((response) => {
+        await axios.get(`http://localhost:3001/order/section/Serology/${data.labNumber}`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -44,7 +44,7 @@ function Hemaform() {
     }
  
     useEffect(() => {
-        axios.get(`http://localhost:3001/order/section/Hematology`).then((response) => {
+        axios.get(`http://localhost:3001/order/section/Serology`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -87,7 +87,7 @@ function Hemaform() {
           <section>
           <div className="ptregwrapper">
             <div className="labwrapper">
-                <h1 className="labcontentheader-hema">&nbsp; Hematology</h1>
+                <h1 className="labcontentheader-sero">&nbsp; Serology</h1>
                 
                 <div className="labdiv">
                     <div className="labdivcontent">
@@ -162,4 +162,4 @@ function Hemaform() {
     )
 }
 
-export default Hemaform
+export default Cmform

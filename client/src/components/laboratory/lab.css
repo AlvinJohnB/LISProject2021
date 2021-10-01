@@ -21,6 +21,24 @@
     width: 14rem;
 }
 
+.labcontentheader-sero{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 8rem;
+}
+
+.labcontentheader-hema{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 10rem;
+}
+
 .labcontentheader-orderdeats{
     position: relative;
     top: 10px;

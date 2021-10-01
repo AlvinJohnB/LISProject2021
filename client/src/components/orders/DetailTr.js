@@ -11,15 +11,8 @@ function DetailTr({detail}) {
     const [resultData, setResultData] = useState([])
     const [modalShow, setModalShow] = useState(false)
 
-    const onGenerate = async () => {
-        setIsLoading(true)
-        console.log(detail)
-        await axios.get(`http://localhost:3001/order/results/${detail.forOrderID}/${detail.section}`).then((response) => {
-            setResultData(response.data)
-            setIsLoading(false)
-            console.log(response.data)
-            //setModalShow(true)
-        })
+    const onGenerate = () => {
+        setModalShow(true)
     }
 
     if(isLoading){
@@ -34,7 +27,7 @@ function DetailTr({detail}) {
             <td>{detail.sectNumber}</td>
             <td>{detail.status}</td>
             <td>
-                  <Selectsize show={modalShow} setShow={setModalShow} data={resultData} detail={detail} />
+                  <Selectsize show={modalShow} setShow={setModalShow} detail={detail} forOrderID={detail.forOrderID} section={detail.section}/>
                 {detail.status === "RELEASED" && <button className="checkin-btn accept" onClick={onGenerate}>Generate Report</button>}
           
                 {detail.status !== "RELEASED"  && <button className="checkin-btn-disabled" disabled={true} onClick={onGenerate}>Generate Report</button>}

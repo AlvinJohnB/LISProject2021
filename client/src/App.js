@@ -23,7 +23,8 @@ import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import ResultFormA4 from './components/results/ResultFormA4';
-
+import Cmform from './components/laboratory/cm/CmForm';
+import Seroform from './components/laboratory/sero/Seroform'
 
 const App = () => {
 
@@ -57,6 +58,8 @@ useEffect(() => {
             <Route path="/laboratory" exact component={LabClient} />
             <Route path="/laboratory/chemistry" exact component={ChemForm} />
             <Route path="/laboratory/hematology" exact component={Hemaform} />
+            <Route path="/laboratory/cm" exact component={Cmform} />
+            <Route path="/laboratory/sero" exact component={Seroform} />
             <Route path="/login" exact component={UserLogin} />
             <Route path="/register" exact component={UserReg} />
             <div className="wrapper">

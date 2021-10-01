@@ -1,10 +1,9 @@
 import React from 'react'
 import { Page, Image, Text, View, Document, StyleSheet, PDFViewer, Font } from '@react-pdf/renderer';
 import Moment from 'moment'
+import { useState, useEffect } from 'react'
 import arialbd from '../../fonts/arialbd.ttf'
-
 import logo from '../../images/stcamlogo.jpg'
-
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 
 // Create styles
@@ -163,7 +162,8 @@ signature:{
 });
 
 // Create Document Component
-const ResultForm = ({data}) => (
+const ResultForm = (props) => {
+  return(
   <Document>
     <Page size="A5" orientation= "landscape" style={styles.page}>
       <View style={styles.wrap}>
@@ -177,15 +177,15 @@ const ResultForm = ({data}) => (
           </View>
           <View style={styles.patientHeader}>
             <View style={styles.pcol}>
-              <Text style={styles.patientInfoText}>Patient Name: {data[0].Patientlists[0].lastname}, {data[0].Patientlists[0].firstname} {data[0].Patientlists[0].middlename}</Text>
-              <Text style={styles.patientInfoText}>Age/Gender: {data[0].Patientlists[0].age} / {data[0].Patientlists[0].gender}</Text>
-              <Text style={styles.patientInfoText}>Requesting Physician: {data[0].reqDr}</Text>
+              <Text style={styles.patientInfoText}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>
+              <Text style={styles.patientInfoText}>Age/Gender: {props.data.Patientlists[0].age} / {props.data.Patientlists[0].gender}</Text>
+              <Text style={styles.patientInfoText}>Requesting Physician: {props.data.reqDr}</Text>
             </View>
 
             <View style={styles.pcol1}>
-              <Text style={styles.patientInfoText}>Date: {Moment(data[0].createdAt).format('MMMM DD, yyyy')}</Text>
-              <Text style={styles.patientInfoText}>Paitent Type/Room: {data[0].ptType}</Text>
-              <Text style={styles.patientInfoText}>Laboratory Number: {data[0].labNumber}</Text>
+              <Text style={styles.patientInfoText}>Date: {Moment(props.data.createdAt).format('MMMM DD, yyyy')}</Text>
+              <Text style={styles.patientInfoText}>Paitent Type/Room: {props.data.ptType}</Text>
+              <Text style={styles.patientInfoText}>Laboratory Number: {props.data.labNumber}</Text>
             </View>
           </View>
         </View>
@@ -201,7 +201,7 @@ const ResultForm = ({data}) => (
                 <Text style={styles.resHText}>Unit</Text>
                 <Text style={styles.resHText}>Reference</Text>
             </View>
-            {data[0].Sectionorders[0].Sectionresults.map((result, index) => {
+            {props.data.Sectionorders[0].Sectionresults.map((result, index) => {
                 return(
                     <View key={index}>
                     {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false} style={styles.resTr}>
@@ -211,8 +211,8 @@ const ResultForm = ({data}) => (
                     {result.Testslist.isPackage === true && <Text style={styles.trCenter}></Text>}
                     {result.Testslist.isPackage === false && <Text style={styles.trCenter}>{result.Testslist.unit}</Text>}
                     {result.Testslist.Referencevalue == null &&  <Text style={styles.trCenter}></Text>}
-                    {result.Testslist.Referencevalue !== null && data[0].Patientlists[0].gender === "Male" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Male}</Text>}
-                    {result.Testslist.Referencevalue !== null && data[0].Patientlists[0].gender === "Female" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Female}</Text>}
+                    {result.Testslist.Referencevalue !== null && props.data.Patientlists[0].gender === "Male" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Male}</Text>}
+                    {result.Testslist.Referencevalue !== null && props.data.Patientlists[0].gender === "Female" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Female}</Text>}
                 </View>}
                     </View>)
             })}
@@ -229,19 +229,20 @@ const ResultForm = ({data}) => (
         <View fixed={true} style={styles.footer}>
           <View style={styles.footerCol}>
             {/* IMAGE HERE FOR RMT */}
-            <Image src={require(`../../images/${data[0].Sectionorders[0].releasedBy}.jpg`).default} style={styles.signature} fixed={true}/>
+            <Image src={require(`../../images/${props.data.Sectionorders[0].releasedBy}.jpg`).default} style={styles.signature} fixed={true}/>
             <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
           </View>
 
           <View style={styles.footerCol1}>
             {/* IMAGE HERE FOR PATHO SIG */}
-            <Image src={require(`../../images/${data[0].Sectionorders[0].releasedBy}.jpg`).default} style={styles.signature} fixed={true}/>
+            <Image src={require(`../../images/${props.data.Sectionorders[0].pathologist}.jpg`).default} style={styles.signature} fixed={true}/>
           <Text style={styles.footerText}>PATHOLOGIST</Text>
           </View>
         </View>
     </Page>
       
   </Document>
-);
+)
+};
 
 export default ResultForm;
