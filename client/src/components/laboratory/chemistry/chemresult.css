@@ -8,14 +8,18 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    height: 100vh;
+    overflow-y: initial !important;
 }
 
-.checkin-modal-wrapper{
+.result-modal-wrapper{
     position: fixed;
-    top: 20vh;
+    top: 10vh;
     background-color: white;
-    width: 60%;
+    width: 70%;
     border: 1px solid black;
+    height: 55vh;
+    overflow-y: auto;
 }
 
 .checkin-modal-footer{

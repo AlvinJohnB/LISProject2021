@@ -2,7 +2,10 @@ import React from 'react'
 import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
+
 import logo from '../../images/stcamlogo.jpg'
+
+
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 
 // Create styles
@@ -15,13 +18,15 @@ const styles = StyleSheet.create({
   },
 header:{
     width: 575.28,
-    height: 100
+    height: 120,
+    marginBottom: "5px"
   },
   wrap:{
     width: 575.28,
   },
 companyHeader:{
     width: 575.28,
+    marginBottom: "10px"
   },
   companyHText:{
     fontSize: '16px',
@@ -118,6 +123,8 @@ companyHeader:{
     width: 560.28,
     flexDirection: 'row',
     justifyContent: 'space-between',
+    marginTop: "2px",
+    marginBottom: "2px"
   },
    body:{
     paddingTop: 35,
@@ -161,10 +168,10 @@ signature:{
 });
 
 // Create Document Component
-const ResultForm = (props) => {
+const ResultFormA4 = (props) => {
   return(
   <Document>
-    <Page size="A5" orientation= "landscape" style={styles.page}>
+    <Page size="A4" orientation= "portrait" style={styles.page}>
       <View style={styles.wrap}>
         <View fixed={true} style={styles.header}>
           <View style={styles.companyHeader}>
@@ -244,4 +251,4 @@ const ResultForm = (props) => {
 )
 };
 
-export default ResultForm;
+export default ResultFormA4;

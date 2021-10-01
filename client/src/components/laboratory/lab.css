@@ -21,6 +21,24 @@
     width: 14rem;
 }
 
+.labcontentheader-sero{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 8rem;
+}
+
+.labcontentheader-hema{
+    position: relative;
+    top: 10px;
+    left: 20px;
+    z-index: 0;
+    background-color: rgb(240, 240, 240);
+    width: 10rem;
+}
+
 .labcontentheader-orderdeats{
     position: relative;
     top: 10px;
@@ -87,6 +105,10 @@ tr.labheader{
     border-radius: 5px;
 }
 
+.space{
+    justify-content: space-between;
+}
+
 .filter{
     background-color: rgb(10, 105, 194);
 }
@@ -103,6 +125,10 @@ tr.tbcontent.lab:hover{
 }
 
 tr.lab:nth-child(even){
+    background: rgb(175, 175, 175);
+}
+
+tr.order:nth-child(even){
     background: rgb(175, 175, 175);
 }
 
@@ -145,16 +171,17 @@ tr.rform:hover{
 }
 
 .pagination-bttns{
-    width: 80%;
+    width: 100%;
     height: 40px;
     list-style: none;
     display: flex;
     justify-content: center;
+
 }
 
 .pagination-bttns a{
-    padding: 10px;
-    margin: 8px;
+    padding: 5px;
+    margin: 5px;
     border: 1px solid rgb(10, 105, 194);
     color: rgb(10, 105, 194);
     cursor: pointer;
@@ -172,4 +199,33 @@ tr.rform:hover{
 
 .block{
     display: block;
+}
+
+
+.orders-pagination-bttns{
+    list-style: none;
+    display: flex;
+    justify-content: center;
+}
+
+.orders-pagination-bttns a{
+    padding: 5px;
+    margin: 5px;
+    border: 1px solid black;
+    color: rgb(6, 119, 15);
+    cursor: pointer;
+}
+
+.orders-pagination-bttns a:hover{
+    color:white;
+    background-color: rgb(6, 119, 15);
+}
+
+.orders-pgninate-active a{
+    color: white;
+    background-color: rgb(6, 119, 15);
+}
+
+.filter-label{
+    position: absolute;
 }

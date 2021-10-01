@@ -3,8 +3,8 @@ import axios from 'axios';
 
 import Header from '../../Header';
 import LabNav from '../LabNav';
-import ChemTr from './ChemTr';
-import ChemResultmodal from './ChemResultmodal';
+import ChemTr from '../chemistry/ChemTr';
+import ChemResultmodal from '../chemistry/ChemResultmodal';
 import ReactPaginate from 'react-paginate';
 import NotLoggedInModal from '../../NotLoggedInModal';
 import {Formik, Form, Field} from 'formik';
@@ -13,7 +13,7 @@ import { useState, useEffect } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
 
 
-function ChemForm() {
+function Hemaform() {
 
     const [sectionData, setSectionData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
@@ -33,7 +33,7 @@ function ChemForm() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://localhost:3001/order/section/Chemistry/${data.labNumber}`).then((response) => {
+        await axios.get(`http://localhost:3001/order/section/Hematology/${data.labNumber}`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -44,7 +44,7 @@ function ChemForm() {
     }
  
     useEffect(() => {
-        axios.get(`http://localhost:3001/order/section/Chemistry`).then((response) => {
+        axios.get(`http://localhost:3001/order/section/Hematology`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -87,7 +87,7 @@ function ChemForm() {
           <section>
           <div className="ptregwrapper">
             <div className="labwrapper">
-                <h1 className="labcontentheader">&nbsp; Clinical Chemistry</h1>
+                <h1 className="labcontentheader-hema">&nbsp; Hematology</h1>
                 
                 <div className="labdiv">
                     <div className="labdivcontent">
@@ -162,4 +162,4 @@ function ChemForm() {
     )
 }
 
-export default ChemForm
+export default Hemaform

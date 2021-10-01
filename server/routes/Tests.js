@@ -5,11 +5,10 @@ const { Op } = require("sequelize");
 
 
 router.get("/", async (req, res) => {
-    let testsdata = await Testslist.findAll();
+    let testsdata = await Testslist.findAll({where:{show: true}});
     res.json(testsdata);
 
 });
-
 
 
 module.exports = router

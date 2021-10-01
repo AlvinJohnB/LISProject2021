@@ -5,6 +5,9 @@
 		"testname" : "Fasting Blood Sugar",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -13,6 +16,9 @@
 		"testname" : "Lipid Profile",
 		"section" : "Chemistry",
 		"isPackage" : 1,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "N/A"
 	},
 	{
@@ -21,6 +27,9 @@
 		"testname" : "Total Cholesterol",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -29,6 +38,9 @@
 		"testname" : "Triglycerides",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -37,6 +49,9 @@
 		"testname" : "High Density Lipoprotein (HDL)",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -45,6 +60,9 @@
 		"testname" : "Low Density Lipoprotein (LDL)",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -53,6 +71,9 @@
 		"testname" : "Blood Uric Acid",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -61,6 +82,9 @@
 		"testname" : "Serum Creatinine",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "mg/dL"
 	},
 	{
@@ -69,6 +93,9 @@
 		"testname" : "Alanine Transaminase (ALT/SGPT)",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "U/L"
 	},
 	{
@@ -77,6 +104,9 @@
 		"testname" : "Aspartate Aminotransferase (AST/SGOT)",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "U/L"
 	},
 	{
@@ -85,6 +115,152 @@
 		"testname" : "Blood Uric Acid",
 		"section" : "Chemistry",
 		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
 		"unit" : "mg/dL"
+	},
+	{
+		"id" : 12,
+		"testcode" : "CBCPLT",
+		"testname" : "Complete Blood Count",
+		"section" : "Hematology",
+		"isPackage" : 1,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
+		"unit" : null
+	},
+	{
+		"id" : 13,
+		"testcode" : "WBCCT",
+		"testname" : "WBC Count",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "K/uL"
+	},
+	{
+		"id" : 14,
+		"testcode" : "GRNCT",
+		"testname" : "GRANULOCYTE",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "%"
+	},
+	{
+		"id" : 15,
+		"testcode" : "LYMPCT",
+		"testname" : "LYMPHOCYTE",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "%"
+	},
+	{
+		"id" : 16,
+		"testcode" : "MID",
+		"testname" : "MID",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "%"
+	},
+	{
+		"id" : 17,
+		"testcode" : "RBCCT",
+		"testname" : "RBC Count",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "m/uL"
+	},
+	{
+		"id" : 18,
+		"testcode" : "HGB",
+		"testname" : "Hemoglobin",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "g/dL"
+	},
+	{
+		"id" : 19,
+		"testcode" : "HCT",
+		"testname" : "Hematocrit",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "%"
+	},
+	{
+		"id" : 20,
+		"testcode" : "MCV",
+		"testname" : "MCV",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "fL"
+	},
+	{
+		"id" : 21,
+		"testcode" : "MCH",
+		"testname" : "MCH",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "pg"
+	},
+	{
+		"id" : 22,
+		"testcode" : "MCHC",
+		"testname" : "MCHC",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "g/dL"
+	},
+	{
+		"id" : 23,
+		"testcode" : "PLTCT",
+		"testname" : "Platelet Count",
+		"section" : "Hematology",
+		"isPackage" : 0,
+		"isQuali" : 0,
+		"show" : 0,
+		"options" : null,
+		"unit" : "K/uL"
+	},
+	{
+		"id" : 24,
+		"testcode" : "Hgb/Hct",
+		"testname" : "Hemoglobin/Hematocrit",
+		"section" : "Hematology",
+		"isPackage" : 1,
+		"isQuali" : 0,
+		"show" : 1,
+		"options" : null,
+		"unit" : null
 	}
 ]

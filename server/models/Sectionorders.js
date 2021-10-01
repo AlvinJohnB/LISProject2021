@@ -23,7 +23,15 @@ module.exports = (sequelize, DataTypes) => {
         updatedBy: {
             type: DataTypes.STRING,
             allowNull: true,
-        }
+        },
+        pathologist:{
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
+        releasedBy:{
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     })
 
     return Sectionorders;

@@ -15,17 +15,21 @@ import Orders from './components/orders/Orders';
 import OrderDetails from './components/orders/OrderDetails';
 import LabClient from './components/laboratory/LabClient';
 import ChemForm from './components/laboratory/chemistry/ChemForm';
+import Hemaform from './components/laboratory/hema/Hemaform';
 import Results from './components/results/Results'
+import PrevTrx from './components/orders/PrevTrx'
 
 import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
-import ResultForm from './components/results/ResultForm';
-
+import ResultFormA4 from './components/results/ResultFormA4';
+import Cmform from './components/laboratory/cm/CmForm';
+import Seroform from './components/laboratory/sero/Seroform'
 
 const App = () => {
 
-  const [authState, setAuthState] = useState("false");
+  const [authState, setAuthState] = useState({name: "", username: "", id: 0, status: false});
+  
 
 useEffect(() => {
   axios.get("http://localhost:3001/auth/auth",{
@@ -34,12 +38,18 @@ useEffect(() => {
     }
   }).then((response) => {
     if(response.data.error){
-      setAuthState("false");
+      //setAuthState({...authState, status: false});
+      setAuthState(prevAuthState => {
+        return { ...prevAuthState, status: false}
+      })
     }else{
-      setAuthState("true");
+      setAuthState(() => {
+        return { name: response.data.name, username: response.data.username, id: response.data.id, status: true}
+      })
+      //setAuthState({name: response.data.name, username: response.data.username, id: response.data.id, status: true});
     }
 })
-},[])
+},[setAuthState])
 
   return (
     <AuthContext.Provider value={{authState, setAuthState}}>
@@ -47,6 +57,9 @@ useEffect(() => {
         <Switch>
             <Route path="/laboratory" exact component={LabClient} />
             <Route path="/laboratory/chemistry" exact component={ChemForm} />
+            <Route path="/laboratory/hematology" exact component={Hemaform} />
+            <Route path="/laboratory/cm" exact component={Cmform} />
+            <Route path="/laboratory/sero" exact component={Seroform} />
             <Route path="/login" exact component={UserLogin} />
             <Route path="/register" exact component={UserReg} />
             <div className="wrapper">
@@ -68,11 +81,12 @@ useEffect(() => {
                 <Route path="/searchresults/:param" component={Searchresult}/>
                 <Route path="/noptfound" component={Noptrecord}/>
                 <Route path="/updatept/:pId" component={Updatept}/>
+                <Route path="/porders/:pId" component={PrevTrx}/>
                 <Route path="/addorder/for:pId" component={Addorder}/>
                 <Route path="/orders" component={Orders}/>
                 <Route path="/order/:labNumber" component={OrderDetails}/>
                 <Route path="/results/" component={Results}/>
-                <Route path="/resultform/" component={ResultForm}/>
+                <Route path="/resultform/" component={ResultFormA4}/>
               </section>
               <footer>Laboratory Information System by Bregs</footer>
               

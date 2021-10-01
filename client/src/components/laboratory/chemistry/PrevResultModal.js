@@ -56,24 +56,26 @@ function PrevResultModal({showPrevResModal, setShowPrevResModal, prevResultData}
 
     return (
         <div className="checkin-modal">
-        <div className="checkin-modal-wrapper">
+        <div className="pres-modal-wrapper"> 
             <div className="checkin-modal-header">
                 <div><strong>Previous Result Module:</strong></div>
                 <div className="checkin-closebtn" onClick={closePrevResModal}>X</div>
             </div>
                 {displayPrevResults}
             <div className="checkin-modal-footer">
-            <ReactPaginate
-                    previousLabel = {"<"}
-                    nextLabel = {">"}
-                    pageCount = {pageCount}
-                    onPageChange={changePage}
-                    containerClassName={"pagination-bttns"}
-                    previousLinkClassName={"prevBttn"}
-                    nextLinkClassName={"nextbtn"}
-                    disabledClassName={"pgnte-disabled"}
-                    activeClassName={"pgninate-active"}
-                />
+            {pageCount > 1 &&
+                        <ReactPaginate
+                        previousLabel = {"<"}
+                        nextLabel = {">"}
+                        pageCount = {pageCount}
+                        onPageChange={changePage}
+                        containerClassName={"pagination-bttns"}
+                        previousLinkClassName={"prevBttn"}
+                        nextLinkClassName={"nextbtn"}
+                        disabledClassName={"pgnte-disabled"}
+                        activeClassName={"pgninate-active"}
+                    />
+            }
             </div>
         </div>
     </div>

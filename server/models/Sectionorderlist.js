@@ -6,11 +6,13 @@ module.exports = (sequelize, DataTypes) => {
 
     models.Sectionresults.belongsToMany(models.Sectionorders, {
         constraint: false,
-        through: 'Sectionorderlist'
+        through: 'Sectionorderlist',
+        onDelete: 'cascade'
     })
     models.Sectionorders.belongsToMany(models.Sectionresults, {
         constraint: false,
-        through: 'Sectionorderlist'
+        through: 'Sectionorderlist',
+        onDelete: 'cascade'
     })
     }
 

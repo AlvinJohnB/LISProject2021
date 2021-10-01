@@ -27,11 +27,62 @@ router.get("/", async (req, res) => {
     }
 });
 
+
+//Prev Transactions
+router.get("/trx/prev/:pID", async (req, res) => {
+    const pID = req.params.pID
+
+    const year = new Date().getFullYear()
+    const month =  new Date().getMonth()-5
+
+    const orders = await Patientlist.findAll({
+        where: {
+            branchid: pID
+        },
+        include: [
+            {model: Orders,  order: [
+                ['id', 'DESC']
+        ],
+                where: {
+                    createdAt:{[Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
+            }}
+        }
+        ]
+    })
+    res.json(orders);
+})
+
+
 router.get("/getorders", async (req, res) => {
+
+    const year = new Date().getFullYear()
+    const month =  new Date().getMonth()
+
     const orders = await Orders.findAll(
         {
             where: {
-                status: "PENDING"
+                status: "PENDING",
+                createdAt: {
+                    [Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
+                }
+            },
+            order: [
+                ['id', 'DESC']
+            ]
+            ,
+            include: {model: Patientlist}
+        }
+    );
+    res.json(orders);
+})
+
+router.post("/filter", async (req, res) => {
+    const labNumber = req.body.labNumber
+
+    const orders = await Orders.findAll(
+        {
+            where: {
+                labNumber: labNumber,
             },
             include: {model: Patientlist}
         }
@@ -69,17 +120,43 @@ router.get("/getorder/id/:orderid/:section", async (req, res) => {
     );
     res.json(orders);
 })
-
+ 
 router.get("/forcheckin/:section", async (req, res) => {
     const section = req.params.section;
     const orders = await Orders.findAll(
         {
+            where: {
+                status: {[Op.not]:["DELETED", "RELEASED"]}
+            },
             include: [
                 {model: Patientlist},
                 {model: Sectionorders,
                 where: {
                     section: section,
-                    status: "FOR CHECK-IN"
+                    status: ["FOR CHECK-IN", "Sample rejected - For Check-in"]
+                }},
+               ]
+        }
+    );
+    res.json(orders);
+})
+
+router.get("/forcheckin/:section/:labnumber", async (req, res) => {
+    const section = req.params.section;
+    const labNumber = req.params.labnumber
+
+    const orders = await Orders.findAll(
+        {
+            where: {
+                status: {[Op.not]:["DELETED", "RELEASED"]},
+                labNumber: labNumber
+            },
+            include: [
+                {model: Patientlist},
+                {model: Sectionorders,
+                where: {
+                    section: section,
+                    status: ["FOR CHECK-IN", "Sample rejected - For Check-in"]
                 }},
                ]
         }
@@ -151,7 +228,9 @@ router.post("/form/result/create/:secreqID", validateToken, async (req, res) => 
 
     await Sectionresults.create({
         test: test,
-        TestslistId: TestslistId.id
+        TestslistId: TestslistId.id,
+        isQuali: TestslistId.isQuali,
+        options: TestslistId.options
     });
 
     const lastRxData = await Sectionresults.findOne({
@@ -192,28 +271,67 @@ router.get("/section/:section", async (req, res) => {
     res.json(orders);
 })
 
-router.get("/resultform/:labnumber", async (req, res) => {
+router.get("/section/:section/:labNumber", async (req, res) => {
+    const section = req.params.section;
+    const labNumber = req.params.labNumber
+    const orders = await Orders.findAll(
+        {
+            where: {labNumber: labNumber},
+            include: [
+                {model: Patientlist},
+                {model: Sectionorders,
+                where: {
+                    section: section,
+                }},
+               ]
+        }
+    );
+    res.json(orders);
+})
+
+router.get("/resultform/:labnumber/:section", async (req, res) => {
     const labnumber = req.params.labnumber;
+    const section = req.params.section;
 
     const data = await  Orders.findAll(
         {
             where: {labNumber: labnumber},
             include:[
                 {model: Patientlist},
-                {model: Sectionorders, where:{section: "Chemistry"}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
+                {model: Sectionorders, where:{section: section}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
             ]
         }
     )
     res.json(data);
 })
 
+//Get results
+router.get("/results/:orderID/:section", async (req, res) => {
+    const orderID = req.params.orderID;
+    const section = req.params.section;
+
+    const data = await  Orders.findAll(
+        {
+            where: {id: orderID},
+            include:[
+                {model: Patientlist},
+                {model: Sectionorders, where:{section: section}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
+            ]
+        }
+    )
+    res.json(data);
+})
+
+
 //Update Result
 router.post("/result/update/:sectionResultID/:result", validateToken, async (req, res) => {
     const sectionResultID = req.params.sectionResultID;
     const result = req.params.result;
+    const username = req.user.username;
 
     await Sectionresults.update({
-        result: result
+        result: result,
+        releasedBy: username
     }, {
         where: {
             id: sectionResultID
@@ -227,12 +345,31 @@ router.post("/result/update/:sectionResultID/:result", validateToken, async (req
 router.post("/result/release/:sectionOrderID/:status",validateToken, async (req, res) => {
     const sectionOrderID = req.params.sectionOrderID;
     const status = req.params.status;
+    const pathologist = req.body.pathologist
+    const username = req.user.username
 
     await Sectionorders.update({
-        status: status
+        status: status,
+        pathologist: pathologist,
+        releasedBy: username
     }, {
         where: {
             id: sectionOrderID
+        }
+    })
+    res.send();
+})
+
+// UndoCheck-In, Delete Order, Archive
+router.post("/labno/update", async (req, res) => {
+    const labNumber = req.body.labNumber;
+    const status = req.body.status;
+
+    await Orders.update({
+        status: status,
+    }, {
+        where: {
+            labNumber: labNumber
         }
     })
     res.send();

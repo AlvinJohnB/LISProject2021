@@ -24,7 +24,8 @@
     padding: 5px;
     text-align: center;
     margin-top: 20px;
-    width: 50%;
+    width: 80%;
+    margin: auto;
 }
 
 .btn{
@@ -52,4 +53,23 @@
 .delete:hover{
     background-color: rgb(161, 1, 1);
     cursor: pointer;
+}
+
+.size-btn{
+    display: flex;
+    background-color: rgb(6, 119, 15);
+    margin: auto;
+    margin-bottom: 5px;
+    margin-top: 5px;
+    width: 50%;
+    flex-direction: column;
+    justify-content: center;
+    color: white;
+    border: 1px solid black;
+    border-radius: 2px;
+}
+
+.size-btn:hover{
+    color: black;
+    background-color:  rgb(0, 94, 16);
 }

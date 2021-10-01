@@ -8,7 +8,15 @@ module.exports = (sequelize, DataTypes) => {
         result:{
             type: DataTypes.STRING,
             allowNull: true,
-        }
+        },
+        isQuali:{
+            type: DataTypes.BOOLEAN,
+            allowNull: true,
+        },
+        options:{
+            type: DataTypes.STRING,
+            allowNull: true,
+        },
     }, {timestamps: false})
 
     Sectionresults.associate = (models) => {

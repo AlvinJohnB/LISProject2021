@@ -3,7 +3,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useHistory, } from 'react-router-dom';
-
+import NotLoggedInModal from '../NotLoggedInModal';
 import '../ptregistration/ptreg.css';
 
 const Ptsearch = () => {
@@ -40,6 +40,7 @@ const Ptsearch = () => {
 
   return (
     <div className="ptregwrapper">
+      <NotLoggedInModal />
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         <Form>
           <h1>Patient Search</h1>

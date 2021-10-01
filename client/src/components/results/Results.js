@@ -1,9 +1,9 @@
 import React from 'react'
 import axios from 'axios';
-import { useState } from 'react'
 import { useHistory, } from 'react-router-dom';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
+import NotLoggedInModal from '../NotLoggedInModal';
 
 function Results() {
     let history = useHistory();
@@ -35,9 +35,10 @@ function Results() {
             }
         })
     }
-
+ 
     return (
             <div className="labwrapper">
+                <NotLoggedInModal />
                 <h1 className="labcontentheader-results">&nbsp; Results</h1>
                 
                 <div className="labdiv">

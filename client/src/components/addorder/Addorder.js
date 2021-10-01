@@ -10,6 +10,7 @@ import { useParams, useHistory } from 'react-router-dom';
 import Addordermodal from './Addordermodal'
 import '../../components/ptregistration/ptreg.css'
 import './modal.css'
+import LoadingModal from '../LoadingModal';
 
 
 const Addorder = () => {
@@ -86,7 +87,6 @@ const Addorder = () => {
         let month = new Date().getMonth();
 
         const branchcode = "CAM";
-
         let id = lastOrderIdData.id+1;
 
         let concatLabNo = `${branchcode}-${year}-${month+1}-${id}`
@@ -94,10 +94,27 @@ const Addorder = () => {
     
     }
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
+     if(labTestInput.length === 0){
+         alert("Please add test!")
+     }else{
+
+        await axios.get("http://localhost:3001/order").then((response) => {
+            setLastOrderIdData(response.data);
+            //Set Lab No 
+            let year = new Date().getFullYear();
+            let month = new Date().getMonth();
+
+            const branchcode = "CAM";
+            let id = lastOrderIdData.id+1;
+
+            let concatLabNo = `${branchcode}-${year}-${month+1}-${id}`
+            data.labNumber = concatLabNo;
+        })
+
+        setIsLoading(true);
         data.forPtId = ptData.id;
         data.testsRequested = labTestInput;
-        data.labNumber = labNumberInput;
 
         //Check if sections are null
 
@@ -237,7 +254,7 @@ const Addorder = () => {
             
             }
         })
-
+     }
     }
 
     const showModal = () => {
@@ -272,7 +289,7 @@ const Addorder = () => {
     if(isLoading){
         return(
             <div className="ptregwrapper">
-            <h3>Loading...</h3>
+                <LoadingModal />
             </div>
         )
     }

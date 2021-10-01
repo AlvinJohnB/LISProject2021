@@ -2,15 +2,43 @@ import React from 'react'
 import './checkinmodal.css'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
+import { useState } from 'react'
+import LabLoadingModal from '../../LabLoadingModal';
 
 
 function CheckInModal(props) {
-    const history = useHistory();
 
+    let history = useHistory();
+    const [isLoading, setIsLoading] = useState(false)
+    
 
+    if(isLoading === true){
+        return (
+            <LabLoadingModal />
+        )
+    }
     const onAccept = async () => {
+        setIsLoading(true);
+        props.setShow(false);
 
-        await axios.post("http://localhost:3001/order/updatesorder", {
+        if(props.selected[0].Sectionorders[0].status === "Sample Rejected - For Check-In"){
+
+            await axios.post("http://localhost:3001/order/updatesorder", {
+                status: "RUNNING",
+                sectNumber: props.selected[0].Sectionorders[0].sectNumber
+            },
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken")
+                }
+            }).then((response) => {
+                if(response.data.error){
+                    alert("You are not logged in, please log in!");
+                    history.push("/login");
+                }
+            })
+        }else{
+            await axios.post("http://localhost:3001/order/updatesorder", {
             status: "RUNNING",
             sectNumber: props.selected[0].Sectionorders[0].sectNumber
         },
@@ -51,53 +79,68 @@ function CheckInModal(props) {
 
             }
         })
-
+        // Chemistry Profiles
         if(expTests[i] === "LIPID"){
-
-            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                test: "CHOLE",
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
+            const test = ["CHOLE","TRIG","HDL","LDL"]
+            setTimeout(async () => {
+                for(let i=0; i<test.length; i++){
+                    await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        test: test[i],
+                    },
+                    {
+                        headers: {
+                            accessToken: localStorage.getItem("accessToken")
+                        }
+                    })  
                 }
-            })
-            
-            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                test: "TRIG",
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
-                }
-            })
-
-            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                test: "HDL",
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
-                }
-            })
-
-            await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                test: "LDL",
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
-                }
-            })
+            }, 500)
         }
 
-        }
-        console.log(expTests);
+        // CM Profiles
 
+        // Hema Profiles
+        if(expTests[i] === "CBCPLT"){
+            const test = ["WBCCT","GRNCT","LYMPCT","MID","RBCCT","HGB","HCT","MCV","MCH","MCHC","PLTCT"]
+            setTimeout(async () => {
+                for(let i=0; i<test.length; i++){
+                    await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        test: test[i],
+                    },
+                    {
+                        headers: {
+                            accessToken: localStorage.getItem("accessToken")
+                        }
+                    })  
+                }
+            }, 500)
+        }
+        if(expTests[i] === "Hgb/Hct"){
+            const test = ["HGB","HCT"]
+            setTimeout(async () => {
+                for(let i=0; i<test.length; i++){
+                    await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        test: test[i],
+                    },
+                    {
+                        headers: {
+                            accessToken: localStorage.getItem("accessToken")
+                        }
+                    })  
+                }
+            }, 500)
+        }
+
+        // Sero Profiles
+
+        //MircroProfiles
+
+        }
+        }
         await axios.get(`http://localhost:3001/order/forcheckin/${props.section}`).then((response) => {
             props.setCheckInDetails(response.data);
         })
-        props.setShow(false);
+        setTimeout(()=>{setIsLoading(false);}, 1000)
+        setIsLoading(false);
     }
 
     if(!props.show){
@@ -121,7 +164,6 @@ function CheckInModal(props) {
                     </div>
                 <div className="checkin-modal-footer">
                         <input type="button" className="checkin-btn accept" value="Accept" onClick={onAccept}/>
-                        <input type="button" className="checkin-btn reject" value="Reject"/>
                 </div>
             </div>
         </div>

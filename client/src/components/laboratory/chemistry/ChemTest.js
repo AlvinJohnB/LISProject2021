@@ -36,25 +36,73 @@ function ChemTest({test, ptdata, status}) {
         )
     }else{
         if(ptdata.gender === "Male"){
-            return (
-
+            if(test.isQuali === true){
+                const options = test.options.split(',');
+                return (
+                    <tr className="rform">
+                        <td >{test.Testslist.testname}</td>
+                        {status === "RUNNING" && 
+                            <td>
+                                <select onChange={saveResult}>
+                                    <option></option>
+                                    {options.map((option, index) => {
+                                        if(test.result === option){
+                                        return(
+                                            <option selected={true} key={index}>{option}</option>
+                                            )
+                                        }else{
+                                            return(<option key={index}>{option}</option>)
+                                        }
+                                    })}
+                                </select>
+                            </td>}
+                        {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
+                        <td>{test.Testslist.unit}</td>
+                        <td>{test.Testslist.Referencevalue.Male}</td>
+                    </tr>
+            )        
+            }else{
+                return(
                 <tr className="rform">
                     <td >{test.Testslist.testname}</td>
-                    {status === "RUNNING" && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
+                    {status === "RUNNING" && test.isQuali === false && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
                     {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                     <td>{test.Testslist.unit}</td>
                     <td>{test.Testslist.Referencevalue.Male}</td>
-                </tr>
-        )}else{
-            return (
+                </tr>                    
+                )
+            }
+        }else{
+            if(test.isQuali === true){
+                const options = test.options.split(',');
+                return (
+                    <tr className="rform">
+                        <td >{test.Testslist.testname}</td>
+                        {status === "RUNNING" && 
+                            <td>
+                                <select onChange={saveResult}>
+                                    <option></option>
+                                    {options.map((option, index) => {
+                                        return(<option key={index}>{option}</option>)
+                                    })}
+                                </select>
+                            </td>}
+                        {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
+                        <td>{test.Testslist.unit}</td>
+                        <td>{test.Testslist.Referencevalue.Male}</td>
+                    </tr>
+            )        
+            }else{
+                return(
                 <tr className="rform">
-                    <td>{test.Testslist.testname}</td>
-                    {status === "RUNNING" && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
+                    <td >{test.Testslist.testname}</td>
+                    {status === "RUNNING" && test.isQuali === false && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
                     {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                     <td>{test.Testslist.unit}</td>
-                    <td>{test.Testslist.Referencevalue.Female}</td>
-                </tr>
-        )
+                    <td>{test.Testslist.Referencevalue.Male}</td>
+                </tr>                    
+                )
+            }
         }
     }
 

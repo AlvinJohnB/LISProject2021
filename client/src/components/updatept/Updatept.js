@@ -6,6 +6,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 
 import '../../components/ptregistration/ptreg.css'
+import LoadingModal from '../LoadingModal';
 
 const Updatept = () => {
 
@@ -79,7 +80,12 @@ const Updatept = () => {
 
     })
 
+    const onPrevTrans = () => {
+        history.push(`/porders/${pId}`)
+    }
+
     const onSubmit = (data) => {
+        setIsLoading(true);
         data.age = initialValues.age;
         axios.post("http://localhost:3001/patient/updatept", data,
         {
@@ -100,7 +106,7 @@ const Updatept = () => {
     if(isLoading){
         return (
             <div className="ptregwrapper">
-                <h3>Loading...</h3>
+                <LoadingModal />
             </div>
         )
     }
@@ -229,7 +235,11 @@ const Updatept = () => {
                     </div>
                 </div>
 
-                <button className="form-content form-botton widthauto" type="submit">Update / Proceed</button>
+                <div className="form-group">
+                    <button className="form-content form-botton widthauto" type="submit">Update / Proceed</button>
+                    <button className="form-content form-botton widthauto filter" onClick={onPrevTrans} type="button">Show Previous Transactions</button>
+                </div>
+                
 
             </Form>
         </Formik>
