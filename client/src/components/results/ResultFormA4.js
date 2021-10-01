@@ -1,5 +1,5 @@
 import React from 'react'
-import { Page, Image, Text, View, Document, StyleSheet, PDFViewer, Font } from '@react-pdf/renderer';
+import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
 

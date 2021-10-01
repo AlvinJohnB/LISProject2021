@@ -1,5 +1,4 @@
 import React from 'react'
-import axios from 'axios'
 import { useState } from 'react'
 
 import LoadingModal from '../LoadingModal'
@@ -7,8 +6,7 @@ import Selectsize from './Selectsize'
 
 function DetailTr({detail}) {
 
-    const [isLoading, setIsLoading] = useState(false)
-    const [resultData, setResultData] = useState([])
+    const [isLoading] = useState(false)
     const [modalShow, setModalShow] = useState(false)
 
     const onGenerate = () => {

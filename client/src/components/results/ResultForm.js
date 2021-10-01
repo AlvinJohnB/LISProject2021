@@ -1,7 +1,6 @@
 import React from 'react'
-import { Page, Image, Text, View, Document, StyleSheet, PDFViewer, Font } from '@react-pdf/renderer';
+import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import Moment from 'moment'
-import { useState, useEffect } from 'react'
 import arialbd from '../../fonts/arialbd.ttf'
 import logo from '../../images/stcamlogo.jpg'
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });

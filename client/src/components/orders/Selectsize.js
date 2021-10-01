@@ -14,9 +14,8 @@ function Selectsize(props) {
             axios.get(`http://localhost:3001/order/results/${props.forOrderID}/${props.section}`).then((response) => {
             setResultData(response.data)
             setIsLoading(false)
-            console.log(props.detail)
         })
-    }, [])
+    }, [props.forOrderID, props.sectionserve])
 
 
     if(props.show === false){
