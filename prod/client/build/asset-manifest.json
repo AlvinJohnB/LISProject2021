@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/static/css/main.89784063.chunk.css",
+    "main.js": "/static/js/main.da8e11c3.chunk.js",
+    "main.js.map": "/static/js/main.da8e11c3.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.a06e69b5.js",
+    "runtime-main.js.map": "/static/js/runtime-main.a06e69b5.js.map",
+    "static/js/2.5739a4da.chunk.js": "/static/js/2.5739a4da.chunk.js",
+    "static/js/2.5739a4da.chunk.js.map": "/static/js/2.5739a4da.chunk.js.map",
+    "index.html": "/index.html",
+    "static/css/main.89784063.chunk.css.map": "/static/css/main.89784063.chunk.css.map",
+    "static/js/2.5739a4da.chunk.js.LICENSE.txt": "/static/js/2.5739a4da.chunk.js.LICENSE.txt",
+    "static/media/ALVINJOHNEB.jpg": "/static/media/ALVINJOHNEB.b4793c8f.jpg",
+    "static/media/Alvin John.jpg": "/static/media/Alvin John.b4793c8f.jpg",
+    "static/media/arialbd.64dde1b4.ttf": "/static/media/arialbd.64dde1b4.ttf",
+    "static/media/background.jpg": "/static/media/background.50aebc22.jpg",
+    "static/media/loading.d3fbaf2b.gif": "/static/media/loading.d3fbaf2b.gif",
+    "static/media/stcamlogo.jpg": "/static/media/stcamlogo.b4793c8f.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.a06e69b5.js",
+    "static/js/2.5739a4da.chunk.js",
+    "static/css/main.89784063.chunk.css",
+    "static/js/main.da8e11c3.chunk.js"
+  ]
+}
