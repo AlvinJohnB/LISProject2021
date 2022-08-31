@@ -24,7 +24,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import ResultFormA4 from './components/results/ResultFormA4';
 import Cmform from './components/laboratory/cm/CmForm';
-import Seroform from './components/laboratory/sero/Seroform'
+import Seroform from './components/laboratory/sero/Seroform';
 
 const App = () => {
 

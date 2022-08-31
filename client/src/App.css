@@ -5,17 +5,14 @@
 }
 
 body{
-  background-image: url(./images/background.jpg);
-  background-repeat: no-repeat;
-  background-attachment: fixed;
-  background-position: center;
+  background-color: antiquewhite;
 }
 
 .wrapper {
   box-sizing: border-box;
   width: 80%;
   margin: auto;
-  box-shadow: 15px 10px 10px black;
+  box-shadow: 10px 10px 10px 10px rgb(139, 121, 121);
 }
 
 header {
@@ -99,6 +96,7 @@ footer {
   font-size: smaller;
   background-color: rgb(211, 211, 211);
   display: flex;
+  padding: 5px;
   justify-content: flex-end;
 }
 

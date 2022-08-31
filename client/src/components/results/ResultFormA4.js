@@ -197,7 +197,7 @@ const ResultFormA4 = (props) => {
         </View>
 
         <View style={styles.resultBody}>
-          <Text fixed={true} style={styles.resultHeader}>Section</Text>
+          <Text fixed={true} style={styles.resultHeader}>Section: {props.data.Sectionorders[0].section}</Text>
           
           <View style={styles.resTable}>
             
