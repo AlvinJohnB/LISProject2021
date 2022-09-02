@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
+const { Users, Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -44,8 +44,8 @@ router.get("/trx/prev/:pID", async (req, res) => {
                 ['id', 'DESC']
         ],
                 where: {
-                    createdAt:{[Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
-            }}
+                    createdAt:{[Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]},
+                    status: {[Op.not]: "DELETED"}}
         }
         ]
     })
@@ -191,9 +191,8 @@ router.get("/sectorders", async (req, res) => {
 
 router.post("/addorder", validateToken, async (req, res) => {
     const orderdata = req.body;
-    const username = req.user.username;
-    orderdata.encodedBy = username;
-
+    const name = req.user.name;
+    orderdata.encodedBy = name
     await Orders.create(orderdata);
     res.json(orderdata);
 
@@ -346,12 +345,12 @@ router.post("/result/release/:sectionOrderID/:status",validateToken, async (req,
     const sectionOrderID = req.params.sectionOrderID;
     const status = req.params.status;
     const pathologist = req.body.pathologist
-    const username = req.user.username
+    const name = req.user.name
 
     await Sectionorders.update({
         status: status,
         pathologist: pathologist,
-        releasedBy: username
+        releasedBy: name
     }, {
         where: {
             id: sectionOrderID
@@ -372,6 +371,17 @@ router.post("/labno/update", async (req, res) => {
             labNumber: labNumber
         }
     })
+
+    if(status == "DELETED"){
+        await Sectionorders.update({
+            status: status,
+        }, {
+            where: {
+                sectNumber: {[Op.like]: `%${labNumber}%` }
+            }
+        })
+    }
+
     res.send();
 })
 

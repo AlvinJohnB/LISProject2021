@@ -4,7 +4,6 @@ import { useEffect, useState } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
 
 import ReactPaginate from 'react-paginate';
-import '../ptregistration/ptreg.css';
 import LoadingModal from '../LoadingModal';
 
 const Searchresult = () => {

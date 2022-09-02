@@ -12,6 +12,7 @@ const Updatept = () => {
 
     const [updatePtData, setUpdatePtData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
+    const [hasPrev, setHasPrev] = useState(false);
     const history = useHistory();
 
     let { pId } = useParams();
@@ -22,6 +23,15 @@ const Updatept = () => {
         setUpdatePtData(response.data);
         setIsLoading(false);
     })
+
+    axios.get(`http://localhost:3001/order/trx/prev/${pId}`).then((response) => {
+        if(response.data.length < 1){
+            setHasPrev(false);
+        }else{
+            setHasPrev(true);
+        }    
+    })
+
     },[pId])
     
     const initialValues = {
@@ -237,7 +247,7 @@ const Updatept = () => {
 
                 <div className="form-group">
                     <button className="form-content form-botton widthauto" type="submit">Update / Proceed</button>
-                    <button className="form-content form-botton widthauto filter" onClick={onPrevTrans} type="button">Show Previous Transactions</button>
+                    {hasPrev === true && <button className="form-content form-botton widthauto filter" onClick={onPrevTrans} type="button">Show Previous Transactions</button>}
                 </div>
                 
 

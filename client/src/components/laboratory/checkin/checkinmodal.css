@@ -10,7 +10,7 @@
     justify-content: center;
     z-index: 1;
 }
-
+ 
 .loading-modal{
     position: fixed;
     left: 0;
@@ -34,6 +34,8 @@
     background-color: white;
     width: 60%;
     border: 1px solid black;
+    height: 60%;
+    overflow: auto;
 }
 
 .login-modal-wrapper{
@@ -53,6 +55,8 @@
     color: white;
     padding: 10px;
     border-bottom: 1px solid black;
+    top: 0;
+    position: sticky;
 }
 
 .loading-modal-header{

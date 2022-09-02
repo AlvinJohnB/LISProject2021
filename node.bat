@@ -1,7 +1,7 @@
 @ECHO OFF
-cd C:\Users\Administrator\Documents\GitHub\Project2021\prod\client
-start npm start
+cd C:\Users\ALVINJOHNEB\Documents\GitHub\LISProject2021\client\build
+start serve
 
 
-cd C:\Users\Administrator\Documents\GitHub\Project2021\server
+cd C:\Users\ALVINJOHNEB\Documents\GitHub\LISProject2021\server
 start npm start

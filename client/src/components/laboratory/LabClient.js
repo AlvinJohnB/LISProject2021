@@ -235,7 +235,7 @@ function LabClient() {
                 setCheckInDetails={setCheckInDetails}
                 />
              </section>
-              <footer>Laboratory Information System by Bregs</footer>
+              <footer>Laboratory Information System by AlvinJohnB</footer>
         </div>
     )
 }

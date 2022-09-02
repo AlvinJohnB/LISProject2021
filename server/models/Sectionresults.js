@@ -8,6 +8,7 @@ module.exports = (sequelize, DataTypes) => {
         result:{
             type: DataTypes.STRING,
             allowNull: true,
+            defaultValue: " ",
         },
         isQuali:{
             type: DataTypes.BOOLEAN,

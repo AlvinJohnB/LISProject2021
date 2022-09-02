@@ -1,26 +1,17 @@
 {
-  "files": {
-    "main.css": "/static/css/main.89784063.chunk.css",
-    "main.js": "/static/js/main.da8e11c3.chunk.js",
-    "main.js.map": "/static/js/main.da8e11c3.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.a06e69b5.js",
-    "runtime-main.js.map": "/static/js/runtime-main.a06e69b5.js.map",
-    "static/js/2.5739a4da.chunk.js": "/static/js/2.5739a4da.chunk.js",
-    "static/js/2.5739a4da.chunk.js.map": "/static/js/2.5739a4da.chunk.js.map",
-    "index.html": "/index.html",
-    "static/css/main.89784063.chunk.css.map": "/static/css/main.89784063.chunk.css.map",
-    "static/js/2.5739a4da.chunk.js.LICENSE.txt": "/static/js/2.5739a4da.chunk.js.LICENSE.txt",
-    "static/media/ALVINJOHNEB.jpg": "/static/media/ALVINJOHNEB.b4793c8f.jpg",
-    "static/media/Alvin John.jpg": "/static/media/Alvin John.b4793c8f.jpg",
-    "static/media/arialbd.64dde1b4.ttf": "/static/media/arialbd.64dde1b4.ttf",
-    "static/media/background.jpg": "/static/media/background.50aebc22.jpg",
-    "static/media/loading.d3fbaf2b.gif": "/static/media/loading.d3fbaf2b.gif",
-    "static/media/stcamlogo.jpg": "/static/media/stcamlogo.b4793c8f.jpg"
-  },
-  "entrypoints": [
-    "static/js/runtime-main.a06e69b5.js",
-    "static/js/2.5739a4da.chunk.js",
-    "static/css/main.89784063.chunk.css",
-    "static/js/main.da8e11c3.chunk.js"
-  ]
+  "main.css": "/static/css/main.9669d597.chunk.css",
+  "main.js": "/static/js/main.a8ccda34.chunk.js",
+  "main.js.map": "/static/js/main.a8ccda34.chunk.js.map",
+  "static/js/1.5832bc06.chunk.js": "/static/js/1.5832bc06.chunk.js",
+  "static/js/1.5832bc06.chunk.js.map": "/static/js/1.5832bc06.chunk.js.map",
+  "runtime~main.js": "/static/js/runtime~main.229c360f.js",
+  "runtime~main.js.map": "/static/js/runtime~main.229c360f.js.map",
+  "static/media/arialbd.ttf": "/static/media/arialbd.858f5a50.ttf",
+  "static/media/arial.ttf": "/static/media/arial.fa3228aa.ttf",
+  "static/media/stcamlogo.b4793c8f.jpg": "/static/media/stcamlogo.b4793c8f.jpg",
+  "static/media/loading.d3fbaf2b.gif": "/static/media/loading.d3fbaf2b.gif",
+  "static/css/main.9669d597.chunk.css.map": "/static/css/main.9669d597.chunk.css.map",
+  "index.html": "/index.html",
+  "precache-manifest.4baa2a86e2bdcc421711ab0326ca7717.js": "/precache-manifest.4baa2a86e2bdcc421711ab0326ca7717.js",
+  "service-worker.js": "/service-worker.js"
 }

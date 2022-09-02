@@ -2,11 +2,11 @@
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
   }
   
   .login-form-wrapper {
     display: flex;
-    box-sizing: border-box;
     width: 100%;
     height: 100vh;
     align-items: center;
@@ -14,8 +14,8 @@
   }
 
   .form-wrapper {
-    width: 25%;
-    height: 40%;
+    width: auto;
+    height: auto;
     background-color: rgb(6, 119, 15);
     border: 1px solid black;
     box-shadow: 1px 2px 2px rgb(173, 173, 173) ;
@@ -24,6 +24,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    position: absolute;
   }
 
   .login-form{
@@ -35,6 +36,7 @@
       height: 100%;
       width: 100%;
       margin: 5px;
+      padding: 20px;
   }
 
   .login-form-content{
@@ -76,4 +78,9 @@
     color: red;
     font-size: small;
     font-weight: bold;
+}
+
+.stcamlogo{
+    height: 50%;
+    position: relative;
 }

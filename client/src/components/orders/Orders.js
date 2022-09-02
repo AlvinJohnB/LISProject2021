@@ -95,7 +95,7 @@ function Orders() {
                 <br />
 
                     <table className="tablelab" id="ordertable">
-                        <tbody>
+                        <tbody className="table-orders">
                             <tr className="header">
                                 <th>Lab Number</th>
                                 <th>Patient Name</th>

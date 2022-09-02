@@ -2,9 +2,7 @@ import React from 'react'
 import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
-
 import logo from '../../images/stcamlogo.jpg'
-
 
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 
@@ -59,9 +57,9 @@ companyHeader:{
     paddingLeft: '10px',
   },
   resultHeader:{
-    fontFamily: 'arialbd',
+    fontFamily: 'Helvetica-Bold',
     fontSize: '11px',
-    fontWeight: "bold",
+    fontWeight: 'bold',
     width: 575.28
   },
   footer:{
@@ -70,14 +68,18 @@ companyHeader:{
     flexDirection: 'row',
     justifyContent: 'space-around',
     position: 'absolute',
-    bottom: 29
+    bottom: 29,
   },
   footerCol:{
     width: 200,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   footerCol1:{
     width: 200,
     height: 30,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   footerText:{
     fontSize: '9px',
@@ -95,9 +97,8 @@ companyHeader:{
     width: 555.28,
   },
   resHText:{
-    fontFamily: 'arialbd',
+    fontFamily: 'Helvetica-Bold',
     fontSize: '10px',
-    fontWeight: 'bold',
     width: 130,
     textAlign: 'center',
     borderBottom: '1px dotted black',
@@ -105,7 +106,7 @@ companyHeader:{
     padding: 5
   },
   testNameHeader:{
-    fontFamily: 'arialbd',
+    fontFamily: 'Helvetica-Bold',
     fontSize: '10px',
     fontWeight: 'bold',
     width: 170,
@@ -133,21 +134,18 @@ companyHeader:{
 },
 testName:{
   fontSize: '10px',
-  fontWeight: 'bold',
   width: 170,
   padding: 2
 },
 trCenter:{
   fontSize: '10px',
-  fontWeight: 'bold',
   width: 130,
   padding: 2,
   textAlign: 'center',
 },
 trCenterBold:{
-  fontFamily: 'arialbd',
-  fontSize: '10px',
-  fontWeight: 'bold',
+  fontFamily: 'Helvetica-Bold',
+  fontSize: '11px',
   width: 130,
   padding: 2,
   textAlign: 'center',
@@ -158,12 +156,12 @@ logo:{
   left: "80px"
 },
 signature:{
-  position: 'absolute',
-  left: "0px",
-  width: "200px",
-  bottom: "30px",
-  height: "30px",
-  border: "2px red solid"
+  fontFamily: 'arial',
+  fontSize: '10px',
+},
+signaturePatho:{
+  fontFamily: 'arial',
+  fontSize: '10px',
 }
 });
 
@@ -231,17 +229,15 @@ const ResultFormA4 = (props) => {
       
       
         </View>
-        <Text fixed={true} style={styles.footerMessage}>** Results are electronically printed. Physical signature is not necessary. **</Text>
-        <View fixed={true} style={styles.footer}>
+         <View fixed={true} style={styles.footer}>
           <View style={styles.footerCol}>
             {/* IMAGE HERE FOR RMT */}
-            <Image src={require(`../../images/${props.data.Sectionorders[0].releasedBy}.jpg`).default} style={styles.signature} fixed={true}/>
+            <Text style={styles.signature} fixed={true}>{props.data.Sectionorders[0].releasedBy}</Text>
             <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
           </View>
 
           <View style={styles.footerCol1}>
-            {/* IMAGE HERE FOR PATHO SIG */}
-            <Image src={require(`../../images/${props.data.Sectionorders[0].pathologist}.jpg`).default} style={styles.signature} fixed={true}/>
+          <Text style={styles.signaturePatho} fixed={true}>{props.data.Sectionorders[0].pathologist}</Text>
           <Text style={styles.footerText}>PATHOLOGIST</Text>
           </View>
         </View>

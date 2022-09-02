@@ -88,7 +88,7 @@ useEffect(() => {
                 <Route path="/results/" component={Results}/>
                 <Route path="/resultform/" component={ResultFormA4}/>
               </section>
-              <footer>Laboratory Information System by Bregs</footer>
+              <footer>Laboratory Information System by AlvinJohnB</footer>
               
             </div>
           </Switch>

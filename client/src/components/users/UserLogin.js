@@ -4,7 +4,7 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../helpers/AuthContext';
 
-
+import logo from '../../images/stcamlogo.jpg'
 import './users.css'
 
 function UserLogin() {
@@ -34,8 +34,8 @@ function UserLogin() {
         <div className="login-form-wrapper">
             <div className="form-wrapper">
                 <div className="login-form">
-                    <h1>Logo</h1>
-                    <h3>Login</h3>
+                    <img src={logo} alt="logo" className="stcamlogo"/>
+                    <h3>Laboratory Information System Login</h3>
                     <form>
                         
                     <p className="errormsg">{msg}</p>

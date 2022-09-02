@@ -42,6 +42,7 @@ function PrevResultModal({showPrevResModal, setShowPrevResModal, prevResultData}
                 </tbody>
             </table>
             </div>
+            
         )
     })
 
