@@ -1,8 +1,9 @@
 import React from 'react'
+import { number } from 'yup';
 
 import './modal.css'
 
-const Testsrow = ({setTestsList, setHemaTests, setCmTests, setSeroTests, setMicroTests, testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests, setChemTests }) => {
+const Testsrow = ({setCmFee, cmFee, setHemaFee, hemaFee, setSeroFee, seroFee, totalCost, setTotalCost, totalFee, chemFee, setTotalFee, setChemFee, setTestsList, setHemaTests, setCmTests, setSeroTests, setMicroTests, testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests, setChemTests }) => {
 
     const handleClick = () => {
         let testSelected = test;
@@ -31,16 +32,22 @@ const Testsrow = ({setTestsList, setHemaTests, setCmTests, setSeroTests, setMicr
             let section = testSelected.section;
             if(section === "Chemistry"){
                 setChemTests([...chemTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
+                setChemFee([...chemFee, testSelected.cost])
             }else if(section === "Hematology"){
                 setHemaTests([...hemaTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
+                setHemaFee([...hemaFee, testSelected.cost])
             }else if(section === "CM"){
                 setCmTests([...cmTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
+                setCmFee([...cmFee, testSelected.cost])
             }else if(section === "Serology"){
                 setSeroTests([...seroTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
+                setSeroFee([...seroFee, testSelected.cost])
             }else if(section === "Micro"){
                 setMicroTests([...microTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
             }
-            setTestsList([...testlist, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section, index: key} ])
+            setTestsList([...testlist, {testname: testSelected.testname,cost: testSelected.cost, testcode: testSelected.testcode, section: testSelected.section, index: key} ])
+            setTotalFee([...totalFee, testSelected.cost])
+
             close();
         }
     }

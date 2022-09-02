@@ -33,10 +33,65 @@ const Addorder = () => {
     const [seroTestsInput, setSeroTestsInput] = useState("")
     const [microTests, setMicroTests] = useState([])
     const [microTestsInput, setMicroTestsInput] = useState("")
+ 
+    //FOR CHARGE SLIP
+    const [totalFee, setTotalFee] = useState([])
+    const [chemFee, setChemFee] = useState([])
+    const [seroFee, setSeroFee] = useState([])
+    const [cmFee, setCmFee] = useState([])
+    const [hemaFee, setHemaFee] = useState([])
+
+    const [chemTotalFee, setChemTotalFee] = useState(0);
+    const [totalCost, setTotalCost] = useState(0);
+    const [hemaTotalCost, setHemaTotalCost] = useState(0);
+    const [seroTotalCost, setSeroTotalCost] = useState(0);
+    const [cmTotalCost, setCmTotalCost] = useState(0);
 
     let { pId } = useParams();
     let history = useHistory();
 
+    const calculate = () => {
+        let total = 0;
+        let chemTotal = 0;
+        let seroTotal = 0;
+        let hemaTotal = 0;
+        let cmTotal = 0;
+
+        //TOTAL FEE
+        for(let i=0; i < totalFee.length; i++){
+            total = parseInt(totalFee[i]) + total
+        }
+        setTotalCost(total);
+
+        //CHEM FEE
+        for(let i=0; i < chemFee.length; i++){
+            chemTotal = parseInt(chemFee[i]) + chemTotal
+        }
+        setChemTotalFee(chemTotal);
+        //SERO FEE
+        for(let i=0; i < seroFee.length; i++){
+            seroTotal = parseInt(seroFee[i]) + seroTotal
+        }
+        setSeroTotalCost(seroTotal);
+        //HEMA FEE
+        for(let i=0; i < hemaFee.length; i++){
+            hemaTotal = parseInt(hemaFee[i]) + hemaTotal
+        }
+        setHemaTotalCost(hemaTotal);
+        //CM FEE
+        for(let i=0; i < cmFee.length; i++){
+            cmTotal = parseInt(cmFee[i]) + cmTotal
+        }
+        setCmTotalCost(cmTotal);
+
+        
+        
+    }
+
+    useEffect(()=>{
+        calculate();
+    },[totalFee])
+    
     useEffect(() => {
         axios.get("http://localhost:3001/test").then((response) => {
             setTestData(response.data);
@@ -51,7 +106,6 @@ const Addorder = () => {
             setPtData(response.data);
             setIsLoading(false);
         })
-
     }, [pId])
 
     useEffect(() => {
@@ -407,6 +461,7 @@ const Addorder = () => {
                         <tbody>
                             <tr className="header">
                                 <td>Requested Test/s</td>
+                                <td>Cost</td>
                                 <td>Action</td>
                             </tr>
                             {tests.map((test) => {
@@ -428,12 +483,29 @@ const Addorder = () => {
                                         chemTests={chemTests}
                                         seroTests={seroTests}
                                         microTests={microTests}
+
+                                        setTotalFee={setTotalFee}
+                                        setChemFee={setChemFee}
+                                        totalFee={totalFee}
+                                        chemFee={chemFee}
+
+                                        setHemaFee={setHemaFee}
+                                        hemaFee={hemaFee}
+
+                                        setSeroFee={setSeroFee}
+                                        seroFee={seroFee}
+
+                                        setCmFee={setCmFee}
+                                        cmFee={cmFee}
+
+                                        totalCost={totalCost}
+                                        setTotalCost={setTotalCost}
                                     />
                                 )
                             })}
                             <tr>
                                 <td className="select" onClick={showModal}>Click here to add test</td>
-                                <td></td>
+                                <td onClick={calculate}>Total: PHP {totalCost}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -455,6 +527,26 @@ const Addorder = () => {
                         microTests={microTests}
                         setMicroTests={setMicroTests}
                         setChemTests={setChemTests}
+
+                        setTotalFee={setTotalFee}
+                        setChemFee={setChemFee}
+                        totalFee={totalFee}
+                        chemFee={chemFee}
+
+                        setHemaFee={setHemaFee}
+                        hemaFee={hemaFee}
+
+                        setSeroFee={setSeroFee}
+                        seroFee={seroFee}
+
+                        setCmFee={setCmFee}
+                        cmFee={cmFee}
+
+                        totalCost={totalCost}
+                        setTotalCost={setTotalCost}
+
+                        
+
                     />
 
                 </Form>
