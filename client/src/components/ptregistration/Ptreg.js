@@ -227,7 +227,7 @@ const Ptreg = () => {
                     </div>
                     <div className="form-group">
                         <div className="form-content">
-                        <label className="form-content" htmlFor="idenno">Identification Card No. (SC, PWD, etc.)</label>
+                        <label className="form-content" htmlFor="idenno">Discount Identification Card No. (SC, PWD, etc.)</label>
                         <Field 
                             autoComplete="off"
                             id="form-field"

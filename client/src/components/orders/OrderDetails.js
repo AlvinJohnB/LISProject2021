@@ -6,11 +6,15 @@ import { useParams, useHistory } from 'react-router-dom';
 import '../../components/ptregistration/ptreg.css'
 import './orderdetails.css'
 import DetailTr from './DetailTr'
+import GetFullResults from './GetFullResults';
 
 
 function OrderDetails() {
     const [isLoading, setIsLoading] = useState(true)
     const [orderDetails, setOrderDetails] = useState({})
+
+    const [generateShow, setGenerateShow] = useState(false)
+
     let { labNumber } = useParams();
     let history = useHistory();
 
@@ -85,6 +89,9 @@ function OrderDetails() {
                 <br />
                 <br />
                 <div className="divblock p-10">
+                {/* RELEASE FULL RESULTS */}
+                <GetFullResults show={generateShow} setShow={setGenerateShow} forOrderID={orderDetails[0].labNumber} />
+                {/* {orderDetails[0].status === "RELEASED" && <button onClick={generateFullRx} className="form-botton"> Generate Full Results</button>} */}
                 {orderDetails[0].status !== "RELEASED" && <button onClick={onOrderDelete} className="btn delete">Delete/Archive</button>}
                 </div><br />
             </div>

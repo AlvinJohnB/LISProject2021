@@ -47,50 +47,78 @@ const Addorder = () => {
     const [seroTotalCost, setSeroTotalCost] = useState(0);
     const [cmTotalCost, setCmTotalCost] = useState(0);
 
+    const [isDiscounted, setIsDiscounted] = useState(true);
+
     let { pId } = useParams();
     let history = useHistory();
 
-    const calculate = () => {
+    const calculateCost = (costArray, section) => {
         let total = 0;
-        let chemTotal = 0;
-        let seroTotal = 0;
-        let hemaTotal = 0;
-        let cmTotal = 0;
 
-        //TOTAL FEE
-        for(let i=0; i < totalFee.length; i++){
-            total = parseInt(totalFee[i]) + total
+        for(let i=0; i=costArray.length; i++){
+            if(isDiscounted === true){
+                total = (parseInt(costArray[i]) + total) * 0.2
+            }else{
+            total = parseInt(costArray[i] + total)
+            }
         }
-        setTotalCost(total);
-
-        //CHEM FEE
-        for(let i=0; i < chemFee.length; i++){
-            chemTotal = parseInt(chemFee[i]) + chemTotal
+        if(section === "hema"){
+            setHemaTotalCost(total)
+        }else if(section === "chem"){
+            setChemTotalFee(total)
+        }else if(section === "sero"){
+            setSeroTotalCost(total)
+        }else if(section === "cm"){
+            setCmTotalCost(total)
+        }else{
+            setTotalCost(total)
         }
-        setChemTotalFee(chemTotal);
-        //SERO FEE
-        for(let i=0; i < seroFee.length; i++){
-            seroTotal = parseInt(seroFee[i]) + seroTotal
-        }
-        setSeroTotalCost(seroTotal);
-        //HEMA FEE
-        for(let i=0; i < hemaFee.length; i++){
-            hemaTotal = parseInt(hemaFee[i]) + hemaTotal
-        }
-        setHemaTotalCost(hemaTotal);
-        //CM FEE
-        for(let i=0; i < cmFee.length; i++){
-            cmTotal = parseInt(cmFee[i]) + cmTotal
-        }
-        setCmTotalCost(cmTotal);
-
-        
-        
     }
 
+    // const calculate = () => {
+    //     let total = 0;
+    //     let chemTotal = 0;
+    //     let seroTotal = 0;
+    //     let hemaTotal = 0;
+    //     let cmTotal = 0;
+
+    //     //TOTAL FEE
+    //     for(let i=0; i < totalFee.length; i++){
+    //         total = parseInt(totalFee[i]) + total
+    //     }
+    //     setTotalCost(total);
+
+    //     //CHEM FEE
+    //     for(let i=0; i < chemFee.length; i++){
+    //         chemTotal = parseInt(chemFee[i]) + chemTotal
+    //     }
+    //     setChemTotalFee(chemTotal);
+    //     //SERO FEE
+    //     for(let i=0; i < seroFee.length; i++){
+    //         seroTotal = parseInt(seroFee[i]) + seroTotal
+    //     }
+    //     setSeroTotalCost(seroTotal);
+    //     //HEMA FEE
+    //     for(let i=0; i < hemaFee.length; i++){
+    //         hemaTotal = parseInt(hemaFee[i]) + hemaTotal
+    //     }
+    //     setHemaTotalCost(hemaTotal);
+    //     //CM FEE
+    //     for(let i=0; i < cmFee.length; i++){
+    //         cmTotal = parseInt(cmFee[i]) + cmTotal
+    //     }
+    //     setCmTotalCost(cmTotal);
+
+        
+        
+    // }
+
     useEffect(()=>{
-        calculate();
-    },[totalFee])
+        calculate(chemFee, "chem");
+        calculate(hemaFee, "hema");
+        calculate(cmFee, "cm");
+        calculate(totalFee, "total");
+    },[totalFee, hemaFee, cmFee, seroFee, chemFee])
     
     useEffect(() => {
         axios.get("http://localhost:3001/test").then((response) => {
@@ -104,6 +132,9 @@ const Addorder = () => {
 
         axios.get(`http://localhost:3001/patient/findpatientById/${pId}`).then((response) => {
             setPtData(response.data);
+            if(response.data.idenno === ""){
+                setIsDiscounted(false)
+            }
             setIsLoading(false);
         })
     }, [pId])
@@ -169,6 +200,12 @@ const Addorder = () => {
         setIsLoading(true);
         data.forPtId = ptData.id;
         data.testsRequested = labTestInput;
+        // ADD COSTS HERE
+        data.totalCost = totalCost;
+        data.chemCost = chemTotalFee;
+        data.seroCost = seroTotalCost;
+        data.hemaCost = hemaTotalCost;
+        data.cmCost = cmTotalCost;
 
         //Check if sections are null
 
@@ -304,7 +341,7 @@ const Addorder = () => {
                     }
                 })
 
-                history.push('/')
+                history.push('/orders')
             
             }
         })

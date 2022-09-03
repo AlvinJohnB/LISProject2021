@@ -27,7 +27,7 @@ function DetailTr({detail}) {
             <td>
                   <Selectsize show={modalShow} setShow={setModalShow} detail={detail} forOrderID={detail.forOrderID} section={detail.section}/>
                 {detail.status === "RELEASED" && <button className="checkin-btn accept" onClick={onGenerate}>Generate Report</button>}
-          
+    
                 {detail.status !== "RELEASED"  && <button className="checkin-btn-disabled" disabled={true} onClick={onGenerate}>Generate Report</button>}
             </td>
         </tr>
