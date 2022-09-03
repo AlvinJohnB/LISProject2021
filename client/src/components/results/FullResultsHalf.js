@@ -158,9 +158,9 @@ logo:{
   left: "40px"
 },
 lablogo:{
-  width: "55px",
-  position: 'absolute',
-  right: "40px",
+    width: "55px",
+    position: 'absolute',
+    right: "40px",
 },
 signature:{
   fontFamily: 'arial',
@@ -173,7 +173,7 @@ signaturePatho:{
 });
 
 // Create Document Component
-const ResultForm = (props) => {
+const FullResultsHalf = (props) => {
   return(
   <Document>
     <Page size="A5" orientation= "landscape" style={styles.page}>
@@ -203,7 +203,6 @@ const ResultForm = (props) => {
         </View>
 
         <View style={styles.resultBody}>
-          <Text fixed={true} style={styles.resultHeader}>Section: {props.data.Sectionorders[0].section}</Text>
           
           <View style={styles.resTable}>
             
@@ -254,4 +253,4 @@ const ResultForm = (props) => {
 )
 };
 
-export default ResultForm;
+export default FullResultsHalf;

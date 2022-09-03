@@ -1,5 +1,5 @@
 import React from 'react'
-import { PDFDownloadLink } from '@react-pdf/renderer'
+import { PDFDownloadLink, PDFViewer } from '@react-pdf/renderer'
 import ResultForm from '../results/ResultForm'
 import ResultFormA4 from '../results/ResultFormA4'
 import { useState, useEffect } from 'react'
@@ -34,14 +34,13 @@ function Selectsize(props) {
                         </div>
                             <div className="checkin-modal-body">
                                <strong>Please select paper size</strong><br />
-                                
                                <PDFDownloadLink
                                 document={<ResultForm data={resultData[0]} />}
                                 fileName={`${props.detail.sectNumber}`}
                                 className="size-btn"
                                 >
                                   {({ blob, url, loading, error }) =>
-                                    loading ? 'Loading...' : 'A5 (half)'
+                                    loading ? 'Loading...' : 'Half bond'
                                 }
                                 </PDFDownloadLink>
     
@@ -52,7 +51,7 @@ function Selectsize(props) {
                                 data={resultData[0]}
                                 >
                                    {({ blob, url, loading, error }) =>
-                                    loading ? 'Loading...' : 'A4 (whole)'
+                                    loading ? 'Loading...' : 'Letter'
                                 }
                                 </PDFDownloadLink>
                             </div>

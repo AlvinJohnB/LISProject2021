@@ -54,70 +54,38 @@ const Addorder = () => {
 
     const calculateCost = (costArray, section) => {
         let total = 0;
+        let price = 0;
 
-        for(let i=0; i=costArray.length; i++){
-            if(isDiscounted === true){
-                total = (parseInt(costArray[i]) + total) * 0.2
-            }else{
-            total = parseInt(costArray[i] + total)
+        for(let i=0; i < costArray.length; i++){
+                total = parseInt(costArray[i]) + total
             }
-        }
-        if(section === "hema"){
-            setHemaTotalCost(total)
-        }else if(section === "chem"){
-            setChemTotalFee(total)
-        }else if(section === "sero"){
-            setSeroTotalCost(total)
-        }else if(section === "cm"){
-            setCmTotalCost(total)
+
+        if(isDiscounted === true){
+            let discount = total * 0.2
+            price = total - discount
         }else{
-            setTotalCost(total)
+            price = total
+        }
+        if(section === "total"){
+            setTotalCost(price);
+        }else if(section === "chem"){
+            setChemTotalFee(price);
+        }else if(section === "cm"){
+            setCmTotalCost(price);
+        }else if(section === "hema"){
+            setHemaTotalCost(price)
+        }else if(section === "sero"){
+            setSeroTotalCost(price)
         }
     }
 
-    // const calculate = () => {
-    //     let total = 0;
-    //     let chemTotal = 0;
-    //     let seroTotal = 0;
-    //     let hemaTotal = 0;
-    //     let cmTotal = 0;
-
-    //     //TOTAL FEE
-    //     for(let i=0; i < totalFee.length; i++){
-    //         total = parseInt(totalFee[i]) + total
-    //     }
-    //     setTotalCost(total);
-
-    //     //CHEM FEE
-    //     for(let i=0; i < chemFee.length; i++){
-    //         chemTotal = parseInt(chemFee[i]) + chemTotal
-    //     }
-    //     setChemTotalFee(chemTotal);
-    //     //SERO FEE
-    //     for(let i=0; i < seroFee.length; i++){
-    //         seroTotal = parseInt(seroFee[i]) + seroTotal
-    //     }
-    //     setSeroTotalCost(seroTotal);
-    //     //HEMA FEE
-    //     for(let i=0; i < hemaFee.length; i++){
-    //         hemaTotal = parseInt(hemaFee[i]) + hemaTotal
-    //     }
-    //     setHemaTotalCost(hemaTotal);
-    //     //CM FEE
-    //     for(let i=0; i < cmFee.length; i++){
-    //         cmTotal = parseInt(cmFee[i]) + cmTotal
-    //     }
-    //     setCmTotalCost(cmTotal);
-
-        
-        
-    // }
 
     useEffect(()=>{
-        calculate(chemFee, "chem");
-        calculate(hemaFee, "hema");
-        calculate(cmFee, "cm");
-        calculate(totalFee, "total");
+        calculateCost(totalFee, "total");
+        calculateCost(chemFee, "chem");
+        calculateCost(hemaFee, "hema");
+        calculateCost(seroFee, "sero");
+        calculateCost(cmFee, "cm");
     },[totalFee, hemaFee, cmFee, seroFee, chemFee])
     
     useEffect(() => {
@@ -132,7 +100,7 @@ const Addorder = () => {
 
         axios.get(`http://localhost:3001/patient/findpatientById/${pId}`).then((response) => {
             setPtData(response.data);
-            if(response.data.idenno === ""){
+            if(response.data.idenno === "" || response.data.idenno === "N/A" || response.data.idenno === "NA" || response.data.idenno === "na" || response.data.idenno === "n/a"){
                 setIsDiscounted(false)
             }
             setIsLoading(false);
@@ -206,6 +174,7 @@ const Addorder = () => {
         data.seroCost = seroTotalCost;
         data.hemaCost = hemaTotalCost;
         data.cmCost = cmTotalCost;
+        data.isDiscounted = isDiscounted
 
         //Check if sections are null
 
@@ -498,7 +467,7 @@ const Addorder = () => {
                         <tbody>
                             <tr className="header">
                                 <td>Requested Test/s</td>
-                                <td>Cost</td>
+                                <td>Regular Unit Cost</td>
                                 <td>Action</td>
                             </tr>
                             {tests.map((test) => {
@@ -542,7 +511,7 @@ const Addorder = () => {
                             })}
                             <tr>
                                 <td className="select" onClick={showModal}>Click here to add test</td>
-                                <td onClick={calculate}>Total: PHP {totalCost}</td>
+                                <td><strong>{isDiscounted === true && `Discounted`} Total: PHP {totalCost}</strong></td>
                             </tr>
                         </tbody>
                     </table>

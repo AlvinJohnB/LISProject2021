@@ -3,6 +3,7 @@ import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/
 import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
 import logo from '../../images/stcamlogo.jpg'
+import lablogo from '../../images/lablogo.jpg'
 
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 
@@ -153,7 +154,12 @@ trCenterBold:{
 logo:{
   width: "55px",
   position: 'absolute',
-  left: "80px"
+  left: "40px"
+},
+lablogo:{
+  width: "55px",
+  position: 'absolute',
+  right: "40px",
 },
 signature:{
   fontFamily: 'arial',
@@ -169,14 +175,15 @@ signaturePatho:{
 const FullResults = (props) => {
   return(
   <Document>
-    <Page size="A4" orientation= "portrait" style={styles.page}>
+    <Page size="letter" orientation= "portrait" style={styles.page}>
       <View style={styles.wrap}>
         <View fixed={true} style={styles.header}>
           <View style={styles.companyHeader}>
             <Image src={logo} style={styles.logo} fixed={true}/>
+            <Image src={lablogo} style={styles.lablogo} fixed={true}/>
             <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
             <Text style={styles.companyHText}>Laboratory Department</Text>
-            <Text style={styles.contactText}>Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
+            <Text style={styles.contactText}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
             <Text style={[styles.companyHText, styles.marginTop]}>Laboratory Report</Text>
           </View>
           <View style={styles.patientHeader}>
@@ -205,7 +212,8 @@ const FullResults = (props) => {
                 <Text style={styles.resHText}>Unit</Text>
                 <Text style={styles.resHText}>Reference</Text>
             </View>
-            {props.data.Sectionorders[0].Sectionresults.map((result, index) => {
+           
+            {/* {props.data.Sectionorders[0].Sectionresults.map((result, index) => {
                 return(
                     <View key={index}>
                     {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false} style={styles.resTr}>
@@ -219,7 +227,7 @@ const FullResults = (props) => {
                     {result.Testslist.Referencevalue !== null && props.data.Patientlists[0].gender === "Female" && <Text style={styles.trCenter}>{result.Testslist.Referencevalue.Female}</Text>}
                 </View>}
                     </View>)
-            })}
+            })} */}
 
           </View>
           

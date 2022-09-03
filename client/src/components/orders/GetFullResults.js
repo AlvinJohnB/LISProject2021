@@ -2,8 +2,10 @@ import React from 'react'
 import { PDFDownloadLink } from '@react-pdf/renderer'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
-import '../laboratory/checkin/checkinmodal.css'
+import '../laboratory/checkin/checkinmodal.css' 
+import '../orders/orderdetails.css'
 import FullResults from '../results/FullResults'
+import FullResultsHalf from '../results/FullResultsHalf'
 
 function GetFullResults(props) {
     const [isLoading, setIsLoading] = useState(true);
@@ -34,15 +36,15 @@ function GetFullResults(props) {
                             <div className="checkin-modal-body">
                                <strong>Please select paper size</strong><br />
                                 
-                               {/* <PDFDownloadLink
-                                document={<ResultForm data={resultData[0]} />}
-                                fileName={`${props.detail.sectNumber}`}
+                               <PDFDownloadLink
+                                document={<FullResultsHalf data={resultData[0]} />}
+                                fileName={`Full Results ${props.forOrderID}`}
                                 className="size-btn"
                                 >
                                   {({ blob, url, loading, error }) =>
-                                    loading ? 'Loading...' : 'A5 (half)'
+                                    loading ? 'Loading...' : 'Half bond'
                                 }
-                                </PDFDownloadLink> */}
+                                </PDFDownloadLink>
     
                                 <PDFDownloadLink
                                 document={<FullResults data={resultData[0]}/>}
@@ -51,7 +53,7 @@ function GetFullResults(props) {
                                 data={resultData[0]}
                                 >
                                    {({ blob, url, loading, error }) =>
-                                    loading ? 'Loading...' : 'A4 (whole)'
+                                    loading ? 'Loading...' : 'Letter'
                                 }
                                 </PDFDownloadLink>
                             </div>

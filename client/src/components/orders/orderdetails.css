@@ -42,7 +42,7 @@
     background-color: rgb(6, 119, 15);
 }
 
-.archive:hover{
+.archive:hover{ 
     background-color: rgb(0, 94, 16);
     cursor: pointer;
 }
@@ -50,6 +50,15 @@
 .delete{
     background-color: rgb(255, 13, 13);
 }
+
+.generate{
+    background-color: rgb(34, 120, 250);
+}
+
+.generate:hover{
+    background-color: rgb(17, 54, 110);
+}
+
 .delete:hover{
     background-color: rgb(161, 1, 1);
     cursor: pointer;
@@ -67,6 +76,7 @@
     color: white;
     border: 1px solid black;
     border-radius: 2px;
+    text-align: center;
 }
 
 .size-btn:hover{
