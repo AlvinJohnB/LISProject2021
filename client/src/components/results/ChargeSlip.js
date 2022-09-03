@@ -196,15 +196,20 @@ const ChargeSlip = (props) => {
         </View>
 
         <View style={styles.resultBody}>
-          <Text fixed={true} style={styles.resultHeader}>PARTICULARS</Text>
+          <Text fixed={true} style={styles.resultHeader}></Text>
           
           <View style={styles.resTable}>
             
             <View style={styles.tableHeader} fixed={true}>
-                <Text style={styles.testNameHeader}>Section</Text>
+                <Text style={styles.testNameHeader}>PARTICULARS</Text>
                 <Text style={styles.resHText}></Text>
                 <Text style={styles.resHText}></Text>
                 <Text style={styles.resHText}>Cost</Text>
+            </View>
+      
+            <View style={styles.resTr}>
+                  {props.data.chemCost !== 0 && <Text>Chemistry</Text>}
+                  {props.data.chemCost !== 0 && <Text>{props.data.chemCost}</Text>}
             </View>
             {/* {props.data.Sectionorders[0].Sectionresults.map((result, index) => {
                 return(
