@@ -2,11 +2,14 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, useHistory } from 'react-router-dom';
+import { PDFDownloadLink } from '@react-pdf/renderer'
 
 import '../../components/ptregistration/ptreg.css'
 import './orderdetails.css'
 import DetailTr from './DetailTr'
 import GetFullResults from './GetFullResults';
+import ChargeSlip from '../results/ChargeSlip';
+
 
 
 function OrderDetails() {
@@ -89,6 +92,17 @@ function OrderDetails() {
                 <br />
                 <br />
                 <div className="divblock p-10">
+                {/*Generate Charge Slip*/}
+                <PDFDownloadLink
+                    document={<ChargeSlip data={orderDetails}/>}
+                    fileName={`CHARGE SLIP ${orderDetails.labNumber}`}
+                    className="size-btn"
+                    data={resultData[0]}
+                    >
+                        {({ blob, url, loading, error }) =>
+                        loading ? 'Loading...' : 'Generate Charge Slip'
+                    }
+                </PDFDownloadLink>
                 {/* RELEASE FULL RESULTS */}
                 <GetFullResults show={generateShow} setShow={setGenerateShow} forOrderID={orderDetails[0].labNumber} />
                 {/* {orderDetails[0].status === "RELEASED" && <button onClick={generateFullRx} className="form-botton"> Generate Full Results</button>} */}
