@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, useHistory } from 'react-router-dom';
 import { PDFDownloadLink } from '@react-pdf/renderer'
-
+import host from '../../config.json'
 import '../../components/ptregistration/ptreg.css'
 import './orderdetails.css' 
 import DetailTr from './DetailTr'
@@ -28,7 +28,7 @@ function OrderDetails() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/order/getorder/${labNumber}`, {
+        axios.get(`http://${host.ip}:3001/order/getorder/${labNumber}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             }
@@ -39,7 +39,7 @@ function OrderDetails() {
     },[labNumber])
 
     const onOrderDelete =  async () => {
-        await axios.post(`http://localhost:3001/order/labno/update`, {
+        await axios.post(`http://${host.ip}:3001/order/labno/update`, {
             labNumber: orderDetails[0].labNumber,
             status: "DELETED"
         })

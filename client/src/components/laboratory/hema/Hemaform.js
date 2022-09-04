@@ -11,6 +11,7 @@ import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import { useState, useEffect } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
+import host from '../../../config.json'
 
 
 function Hemaform() {
@@ -33,7 +34,7 @@ function Hemaform() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://localhost:3001/order/section/Hematology/${data.labNumber}`).then((response) => {
+        await axios.get(`http://${host.ip}:3001/order/section/Hematology/${data.labNumber}`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -44,7 +45,7 @@ function Hemaform() {
     }
  
     useEffect(() => {
-        axios.get(`http://localhost:3001/order/section/Hematology`).then((response) => {
+        axios.get(`http://${host.ip}:3001/order/section/Hematology`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })

@@ -199,6 +199,7 @@ const ChargeSlip = (props) => {
             <Image src={lablogo} style={styles.lablogo} fixed={true}/>
             <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
             <Text style={styles.companyHText}>Laboratory Department</Text>
+            <Text style={styles.contactText}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
             <Text style={styles.contactText}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
             <Text style={[styles.companyHText, styles.marginTop]}>Charge Slip</Text>
           </View>

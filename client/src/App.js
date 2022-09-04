@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import {BrowserRouter as Router, Route, Switch, Link} from 'react-router-dom';
-
+import host from './config.json'
 import Header from './components/Header';
 import Ptreg from './components/ptregistration/Ptreg';
 import Ptsearch from "./components/ptsearch/Ptsearch";
@@ -32,7 +32,7 @@ const App = () => {
   
 
 useEffect(() => {
-  axios.get("http://localhost:3001/auth/auth",{
+  axios.get(`http://${host.ip}:3001/auth/auth`,{
     headers:{
       accessToken: localStorage.getItem("accessToken"),
     }
