@@ -252,13 +252,11 @@ const FullResultsHalf = (props) => {
           <View style={styles.footerCol}>
             <Text style={styles.signature} fixed={true}>{props.data.Sectionorders[0].releasedBy}</Text>
             <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
-            <Text style={styles.footerText}></Text>
           </View>
 
           <View style={styles.footerCol1} wrap={false}>
           <Text style={styles.signaturePatho} fixed={true}>{props.data.Sectionorders[0].pathologist}</Text>
-          <Text style={styles.footerText}>CLINICAL AND ANATOMIC PATHOLOGIST</Text>
-          <Text style={styles.footerText}>License No.:98717</Text>
+          <Text style={styles.footerText}>PATHOLOGIST</Text>
           </View>
         </View>
     </Page>
