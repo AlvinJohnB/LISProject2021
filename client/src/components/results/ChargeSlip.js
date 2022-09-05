@@ -88,6 +88,7 @@ const styles = StyleSheet.create({
 // Create Document Component
 const ChargeSlip = (props) => {
   return(
+<<<<<<< HEAD
 <Document>
     <Page size="Letter" style={styles.body}>
       <View style={styles.header}>
@@ -113,6 +114,26 @@ const ChargeSlip = (props) => {
         </View>
         
           <View style={styles.chargeBody}>
+=======
+  <Document>
+    <Page size="A4" orientation= "portrait" style={styles.page}>
+      <View style={styles.wrap}>
+        <View fixed={true} style={styles.header}>
+          <View style={styles.companyHeader}>
+            <Image src={logo} style={styles.logo} fixed={true}/>
+            <Image src={lablogo} style={styles.lablogo} fixed={true}/>
+            <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
+            <Text style={styles.companyHText}>Laboratory Department</Text>
+            <Text style={styles.contactText}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
+            <Text style={[styles.companyHText, styles.marginTop]}>Charge Slip</Text>
+          </View>
+          <View style={styles.patientHeader}>
+            <View style={styles.pcol}>
+              <Text style={styles.patientInfoText}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>
+              <Text style={styles.patientInfoText}>Age/Gender: {props.data.Patientlists[0].age} / {props.data.Patientlists[0].gender}</Text>
+              <Text style={styles.patientInfoText}>Requesting Physician: {props.data.reqDr}</Text>
+            </View>
+>>>>>>> parent of 1f1078aa (DONE)
 
           {props.data.chemCost !== "0" &&
             <View style={styles.chargeSlip}>

@@ -4,7 +4,7 @@ import { useHistory, } from 'react-router-dom';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import NotLoggedInModal from '../NotLoggedInModal';
-import host from '../../config.json'
+
 function Results() {
     let history = useHistory();
 
@@ -19,7 +19,7 @@ function Results() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://${host.ip}:3001/order/getorder/${data.labNumber}`, {
+        await axios.get(`http://localhost:3001/order/getorder/${data.labNumber}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             }

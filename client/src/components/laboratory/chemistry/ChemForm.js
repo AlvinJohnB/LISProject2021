@@ -11,7 +11,6 @@ import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import { useState, useEffect } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
-import host from '../../../config.json'
 
 
 function ChemForm() {
@@ -34,7 +33,7 @@ function ChemForm() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://${host.ip}:3001/order/section/Chemistry/${data.labNumber}`).then((response) => {
+        await axios.get(`http://localhost:3001/order/section/Chemistry/${data.labNumber}`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -45,7 +44,7 @@ function ChemForm() {
     }
  
     useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/section/Chemistry`).then((response) => {
+        axios.get(`http://localhost:3001/order/section/Chemistry`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })

@@ -11,7 +11,6 @@ import CheckInTr from './checkin/CheckInTr';
 import CheckInModal from './checkin/CheckInModal';
 import NotLoggedInModal from '../NotLoggedInModal';
 import LabLoadingModal from '../LabLoadingModal';
-import host from '../../config.json'
 
 
 function LabClient() {
@@ -76,7 +75,7 @@ function LabClient() {
     })
     useEffect(() => {
 
-        axios.get(`http://${host.ip}:3001/order/forcheckin/Chemistry`).then((response) => {
+        axios.get(`http://localhost:3001/order/forcheckin/Chemistry`).then((response) => {
             setCheckInDetails(response.data);
             setSection("Chemistry");
             setIsLoading(false);
@@ -86,7 +85,7 @@ function LabClient() {
 
 
     useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/getorder/id/${orderid}/${section}`).then((response) => {
+        axios.get(`http://localhost:3001/order/getorder/id/${orderid}/${section}`).then((response) => {
             if(response.data.length === 1){
              setSelected(response.data);
              setIsLoading(false);
@@ -100,7 +99,7 @@ function LabClient() {
         const section = e.target.value;
         setSection(section);
 
-        axios.get(`http://${host.ip}:3001/order/forcheckin/${section}`).then((response) => {
+        axios.get(`http://localhost:3001/order/forcheckin/${section}`).then((response) => {
             setCheckInDetails(response.data);
         })
     }
@@ -133,7 +132,7 @@ function LabClient() {
 
     const onSubmit = async (data) => {
 
-        await axios.get(`http://${host.ip}:3001/order/forcheckin/Chemistry/${data.labNumber}`).then((response) => {
+        await axios.get(`http://localhost:3001/order/forcheckin/Chemistry/${data.labNumber}`).then((response) => {
             if(response.data.length === 0){
                 alert('No order found with that lab number!')
             }else{

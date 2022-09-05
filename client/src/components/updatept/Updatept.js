@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
-import host from '../../config.json'
+
 import '../../components/ptregistration/ptreg.css'
 import LoadingModal from '../LoadingModal';
 
@@ -19,12 +19,12 @@ const Updatept = () => {
     
     useEffect(() => {
 
-    axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
+    axios.get(`http://localhost:3001/patient/findpatientById/${pId}`).then((response) => {
         setUpdatePtData(response.data);
         setIsLoading(false);
     })
 
-    axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
+    axios.get(`http://localhost:3001/order/trx/prev/${pId}`).then((response) => {
         if(response.data.length < 1){
             setHasPrev(false);
         }else{
@@ -97,7 +97,7 @@ const Updatept = () => {
     const onSubmit = (data) => {
         setIsLoading(true);
         data.age = initialValues.age;
-        axios.post(`http://${host.ip}:3001/patient/updatept`, data,
+        axios.post("http://localhost:3001/patient/updatept", data,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken")

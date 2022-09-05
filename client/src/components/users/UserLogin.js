@@ -6,7 +6,6 @@ import { AuthContext } from '../../helpers/AuthContext';
 
 import logo from '../../images/stcamlogo.jpg'
 import './users.css'
-import host from '../../config.json'
 
 function UserLogin() {
     let history = useHistory();
@@ -18,7 +17,7 @@ function UserLogin() {
     const onSubmit = () => {
         const data = { username, password }
         
-        axios.post(`http://${host.ip}:3001/auth/login`, data).then((response) => {
+        axios.post("http://localhost:3001/auth/login", data).then((response) => {
 
             if(response.data.msg){
                 setMsg(response.data.msg);

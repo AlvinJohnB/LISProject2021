@@ -5,14 +5,13 @@ import './ptregistration/ptreg.css'
 import logo from '../images/stcamlogo.jpg'
 import {useHistory} from 'react-router-dom'
 import axios from 'axios';
-import host from '../config.json'
 
 function Header() {
   let history = useHistory();
     const {setAuthState, authState} = useContext(AuthContext);
 
     useEffect(() => {
-      axios.get(`http://${host.ip}:3001/auth/auth`,{
+      axios.get("http://localhost:3001/auth/auth",{
         headers:{
           accessToken: localStorage.getItem("accessToken"),
         }

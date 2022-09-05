@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import '../../components/ptregistration/ptreg.css'
 import './orderdetails.css'
 import PrevTrxTr from './PrevTrxTr'
-import host from '../../config.json'
+
 
 function PrevTrx() {
 
@@ -15,7 +15,7 @@ function PrevTrx() {
 
 
     useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
+        axios.get(`http://localhost:3001/order/trx/prev/${pId}`).then((response) => {
             setOrderDetails(response.data);
             setIsLoading(false);
         })

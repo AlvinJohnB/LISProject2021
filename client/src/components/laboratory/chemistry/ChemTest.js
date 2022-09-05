@@ -1,7 +1,6 @@
 import React from 'react'
 import axios from 'axios';
 import { useHistory } from 'react-router-dom';
-import host from '../../../config.json'
 
 function ChemTest({test, ptdata, status}) {
 
@@ -11,7 +10,7 @@ function ChemTest({test, ptdata, status}) {
         const result = e.target.value;
         const sResultID = test.id
         
-        await axios.post(`http://${host.ip}:3001/order/result/update/${sResultID}/${result}`,{},
+        await axios.post(`http://localhost:3001/order/result/update/${sResultID}/${result}`,{},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),

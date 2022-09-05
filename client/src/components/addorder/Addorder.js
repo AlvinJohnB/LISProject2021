@@ -5,7 +5,6 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Testrow from './Testrow';
 import { useParams, useHistory } from 'react-router-dom';
-import host from '../../config.json'
 
 
 import Addordermodal from './Addordermodal'
@@ -90,16 +89,16 @@ const Addorder = () => {
     },[totalFee, hemaFee, cmFee, seroFee, chemFee])
     
     useEffect(() => {
-        axios.get(`http://${host.ip}:3001/test`).then((response) => {
+        axios.get("http://localhost:3001/test").then((response) => {
             setTestData(response.data);
         })
 
-        axios.get(`http://${host.ip}:3001/order`).then((response) => {
+        axios.get("http://localhost:3001/order").then((response) => {
             setLastOrderIdData(response.data);
 
         })
 
-        axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
+        axios.get(`http://localhost:3001/patient/findpatientById/${pId}`).then((response) => {
             setPtData(response.data);
             if(response.data.idenno === "" || response.data.idenno === "N/A" || response.data.idenno === "NA" || response.data.idenno === "na" || response.data.idenno === "n/a"){
                 setIsDiscounted(false)
@@ -153,7 +152,7 @@ const Addorder = () => {
          alert("Please add test!")
      }else{
 
-        await axios.get(`http://${host.ip}:3001/order`).then((response) => {
+        await axios.get("http://localhost:3001/order").then((response) => {
             setLastOrderIdData(response.data);
             //Set Lab No 
             let year = new Date().getFullYear();
@@ -179,7 +178,7 @@ const Addorder = () => {
 
         //Check if sections are null
 
-        axios.post(`http://${host.ip}:3001/order/addorder`, data,
+        axios.post("http://localhost:3001/order/addorder", data,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken")
@@ -191,7 +190,7 @@ const Addorder = () => {
             }else{
 
                 if(cmTestsInput){
-                    axios.post(`http://${host.ip}:3001/order/addsord`,
+                    axios.post("http://localhost:3001/order/addsord",
                         {
                             section: "CM",
                             tests: cmTestsInput,
@@ -212,7 +211,7 @@ const Addorder = () => {
 
 
                 if(chemTestsInput){
-                    axios.post(`http://${host.ip}:3001/order/addsord`,
+                    axios.post("http://localhost:3001/order/addsord",
                     {
                         section: "Chemistry",
                         tests: chemTestsInput,
@@ -233,7 +232,7 @@ const Addorder = () => {
 
 
                 if(hemaTestsInput){
-                    axios.post(`http://${host.ip}:3001/order/addsord`,
+                    axios.post("http://localhost:3001/order/addsord",
                     {
                         section: "Hematology",
                         tests: hemaTestsInput,
@@ -254,7 +253,7 @@ const Addorder = () => {
 
 
                 if(seroTestsInput){
-                    axios.post(`http://${host.ip}:3001/order/addsord`,
+                    axios.post("http://localhost:3001/order/addsord",
                     {
                         section: "Serology",
                         tests: seroTestsInput,
@@ -275,7 +274,7 @@ const Addorder = () => {
 
 
                 if(microTestsInput){
-                    axios.post(`http://${host.ip}:3001/order/addsord`,
+                    axios.post("http://localhost:3001/order/addsord",
                     {
                         section: "Micro",
                         tests: microTestsInput,
@@ -295,7 +294,7 @@ const Addorder = () => {
                 }
 
 
-                axios.post(`http://${host.ip}:3001/order/cnxtion`,
+                axios.post("http://localhost:3001/order/cnxtion",
                     {
                         OrderId: lastOrderIdData.id+1,
                         PatientlistId: ptData.id

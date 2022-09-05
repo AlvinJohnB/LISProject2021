@@ -18,15 +18,13 @@ const styles = StyleSheet.create({
   },
 header:{
     width: 575.28,
-    height: 120,
-    marginBottom: "5px"
+    height: 100
   },
   wrap:{
     width: 575.28,
   },
 companyHeader:{
     width: 575.28,
-    marginBottom: "10px"
   },
   companyHText:{
     fontSize: '16px',
@@ -59,9 +57,9 @@ companyHeader:{
     paddingLeft: '10px',
   },
   resultHeader:{
-    fontFamily: 'Helvetica-Bold',
+    fontFamily: 'arialbd',
     fontSize: '11px',
-    fontWeight: 'bold',
+    fontWeight: "bold",
     width: 575.28
   },
   footer:{
@@ -99,8 +97,9 @@ companyHeader:{
     width: 555.28,
   },
   resHText:{
-    fontFamily: 'Helvetica-Bold',
+    fontFamily: 'arialbd',
     fontSize: '10px',
+    fontWeight: 'bold',
     width: 130,
     textAlign: 'center',
     borderBottom: '1px dotted black',
@@ -108,10 +107,10 @@ companyHeader:{
     padding: 5
   },
   testNameHeader:{
-    fontFamily: 'Helvetica-Bold',
+    fontFamily: 'arialbd',
     fontSize: '10px',
     fontWeight: 'bold',
-    width: 200,
+    width: 170,
     textAlign: 'center',
     borderBottom: '1px dotted black',
     borderTop: '1px dotted black',
@@ -126,8 +125,6 @@ companyHeader:{
     width: 560.28,
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: "2px",
-    marginBottom: "2px"
   },
    body:{
     paddingTop: 35,
@@ -136,19 +133,22 @@ companyHeader:{
 },
 testName:{
   fontSize: '10px',
+  fontWeight: 'bold',
   width: 170,
   padding: 2
 },
 trCenter:{
   fontSize: '10px',
+  fontWeight: 'bold',
   width: 130,
   padding: 2,
   textAlign: 'center',
 },
 trCenterBold:{
-  fontFamily: 'Helvetica-Bold',
-  fontSize: '11px',
-  width: 200,
+  fontFamily: 'arialbd',
+  fontSize: '10px',
+  fontWeight: 'bold',
+  width: 130,
   padding: 2,
   textAlign: 'center',
 },
@@ -169,9 +169,6 @@ signature:{
 signaturePatho:{
   fontFamily: 'arial',
   fontSize: '10px',
-},
-result:{
-  width: 300
 }
 });
 
@@ -187,7 +184,6 @@ const ResultForm = (props) => {
             <Image src={lablogo} style={styles.lablogo} fixed={true}/>
             <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
             <Text style={styles.companyHText}>Laboratory Department</Text>
-            <Text style={styles.contactText}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
             <Text style={styles.contactText}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
             <Text style={[styles.companyHText, styles.marginTop]}>Laboratory Report</Text>
           </View>
@@ -213,7 +209,7 @@ const ResultForm = (props) => {
             
             <View style={styles.tableHeader} fixed={true}>
                 <Text style={styles.testNameHeader}>Test Name</Text>
-                <Text style={[styles.resHText, styles.result]}>Result</Text>
+                <Text style={styles.resHText}>Result</Text>
                 <Text style={styles.resHText}>Unit</Text>
                 <Text style={styles.resHText}>Reference</Text>
             </View>
@@ -223,7 +219,7 @@ const ResultForm = (props) => {
                     {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false} style={styles.resTr}>
                      {result.Testslist.isPackage === true && <Text style={styles.trCenterBold}>{result.Testslist.testname}</Text>}
                      {result.Testslist.isPackage === false && <Text style={styles.testName}>{result.Testslist.testname}</Text>}
-                    <Text style={[styles.trCenter, styles.result]}>{result.result}</Text>
+                    <Text style={styles.trCenter}>{result.result}</Text>
                     {result.Testslist.isPackage === true && <Text style={styles.trCenter}></Text>}
                     {result.Testslist.isPackage === false && <Text style={styles.trCenter}>{result.Testslist.unit}</Text>}
                     {result.Testslist.Referencevalue == null &&  <Text style={styles.trCenter}></Text>}

@@ -4,7 +4,6 @@ import axios from 'axios';
 import { useHistory } from 'react-router-dom';
 import { useState } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
-import host from '../../../config.json'
 
 
 function CheckInModal(props) {
@@ -24,7 +23,7 @@ function CheckInModal(props) {
 
         if(props.selected[0].Sectionorders[0].status === "Sample Rejected - For Check-In"){
 
-            await axios.post(`http://${host.ip}:3001/order/updatesorder`, {
+            await axios.post("http://localhost:3001/order/updatesorder", {
                 status: "RUNNING",
                 sectNumber: props.selected[0].Sectionorders[0].sectNumber
             },
@@ -39,7 +38,7 @@ function CheckInModal(props) {
                 }
             })
         }else{
-            await axios.post(`http://${host.ip}:3001/order/updatesorder`, {
+            await axios.post("http://localhost:3001/order/updatesorder", {
             status: "RUNNING",
             sectNumber: props.selected[0].Sectionorders[0].sectNumber
         },
@@ -70,7 +69,7 @@ function CheckInModal(props) {
                 const test = ["LIPID","CHOLE","TRIG","HDL","LDL"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -85,7 +84,7 @@ function CheckInModal(props) {
                 const test = ["TPAG","TOTCHO","TALB","GLOB","ALBGL"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -100,7 +99,7 @@ function CheckInModal(props) {
                 const test = ["OGTT75","OGFBS","OG1HR","OG2ND"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -117,7 +116,7 @@ function CheckInModal(props) {
                 const test = ["URINAL","URINPHY","UCOLOR","UTRANS","UCHEM","UPH","USG","UCHON","UGLU","UWBC","UBLD","UROBIL", "UBILI", "UNIT", "UKET", "URINMIC", "UPUS", "UMRBC", "UECLS", "UMAM", "UMUC", "UMBAC", "UCASTS", "UCRYS", "UPARA", "UMOTH"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -132,7 +131,7 @@ function CheckInModal(props) {
                 const test = ["FECA","FPHYS","FCOL", "FCONSIS", "FMICRO", "FPUS", "FBLO","FECPARA"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -145,10 +144,10 @@ function CheckInModal(props) {
             }
             // Hema Profiles
             else if(expTests[i] === "CBCPLT"){
-                const test = ["CBCPLT","WBCCT","GRNCT","LYMPCT","MID","RBCCT","HGB","HCT","MCV","MCH","MCHC","PLTCT"]
+                const test = ["WBCCT","GRNCT","LYMPCT","MID","RBCCT","HGB","HCT","MCV","MCH","MCHC","PLTCT"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -163,7 +162,7 @@ function CheckInModal(props) {
                 const test = ["HGB","HCT"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -178,7 +177,7 @@ function CheckInModal(props) {
                 const test = ["PTINR","PT","CONT","PTACT","INR"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -194,7 +193,7 @@ function CheckInModal(props) {
                 const test = ["DNGBLT","DENGIGG", "DENGIGM"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -210,7 +209,7 @@ function CheckInModal(props) {
                 const test = ["BTYPE","ABO","RH"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -226,7 +225,7 @@ function CheckInModal(props) {
                 const test = ["CROSSM","REAB","RERH", "COMP", "PUR", "BLSER", "TUB", "BEXTR", "BEXP", "BLSRC", "MAJCX", "MINORCX"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -242,7 +241,7 @@ function CheckInModal(props) {
                 const test = ["ABOPC","ABPC","BLSER", "BEXTR", "BEXP", "BLSRC"]
                 setTimeout(async () => {
                     for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                             test: test[i],
                         },
                         {
@@ -256,7 +255,7 @@ function CheckInModal(props) {
 
 
             //MircroProfiles
-        else { await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+        else { await axios.post(`http://localhost:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
             test: expTests[i],
         },
         {
@@ -271,7 +270,7 @@ function CheckInModal(props) {
 
 
         
-        await axios.get(`http://${host.ip}:3001/order/forcheckin/${props.section}`).then((response) => {
+        await axios.get(`http://localhost:3001/order/forcheckin/${props.section}`).then((response) => {
             props.setCheckInDetails(response.data);
         })
         setTimeout(()=>{setIsLoading(false);}, 1000)

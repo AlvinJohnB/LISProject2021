@@ -1,6 +1,6 @@
 import React from 'react'
 import axios from 'axios';
-import host from '../../../config.json'
+
 import Header from '../../Header';
 import LabNav from '../LabNav';
 import ChemTr from '../chemistry/ChemTr';
@@ -33,7 +33,7 @@ function Cmform() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://${host.ip}:3001/order/section/Serology/${data.labNumber}`).then((response) => {
+        await axios.get(`http://localhost:3001/order/section/Serology/${data.labNumber}`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -44,7 +44,7 @@ function Cmform() {
     }
  
     useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/section/Serology`).then((response) => {
+        axios.get(`http://localhost:3001/order/section/Serology`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })

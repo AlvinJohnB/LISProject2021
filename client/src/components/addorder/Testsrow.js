@@ -1,4 +1,5 @@
 import React from 'react'
+import { number } from 'yup';
 
 import './modal.css'
 

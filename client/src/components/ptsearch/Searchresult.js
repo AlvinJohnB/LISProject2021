@@ -2,7 +2,7 @@ import React from 'react'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import { useParams, useHistory, Link } from 'react-router-dom';
-import host from '../../config.json'
+
 import ReactPaginate from 'react-paginate';
 import LoadingModal from '../LoadingModal';
 
@@ -15,7 +15,7 @@ const Searchresult = () => {
     
     useEffect(() => {
 
-    axios.get(`http://${host.ip}:3001/patient/findpatient/${param}`).then((response) => {
+    axios.get(`http://localhost:3001/patient/findpatient/${param}`).then((response) => {
 
         setResultData(response.data);
         setIsLoading(false);
