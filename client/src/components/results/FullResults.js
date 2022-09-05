@@ -249,16 +249,17 @@ const FullResults = (props) => {
       
       
         </View>
-         <View fixed={true} style={styles.footer}>
+        <View fixed={true} style={styles.footer}>
           <View style={styles.footerCol}>
-            {/* IMAGE HERE FOR RMT */}
             <Text style={styles.signature} fixed={true}>{props.data.Sectionorders[0].releasedBy}</Text>
             <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
+            <Text style={styles.footerText}></Text>
           </View>
 
-          <View style={styles.footerCol1}>
+          <View style={styles.footerCol1} wrap={false}>
           <Text style={styles.signaturePatho} fixed={true}>{props.data.Sectionorders[0].pathologist}</Text>
-          <Text style={styles.footerText}>PATHOLOGIST</Text>
+          <Text style={styles.footerText}>CLINICAL AND ANATOMIC PATHOLOGIST</Text>
+          <Text style={styles.footerText}>License No.:98717</Text>
           </View>
         </View>
     </Page>
