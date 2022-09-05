@@ -311,7 +311,7 @@ const Addorder = () => {
                     }
                 })
 
-                history.push('/orders')
+                history.push('/')
             
             }
         })
