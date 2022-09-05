@@ -10,280 +10,163 @@ Font.register({ family: 'arial', src: arial, fontStyle: 'normal', fontWeight: 'n
 
 // Create styles
 const styles = StyleSheet.create({
-  page: {
-    paddingTop: 15,
-    paddingBottom: 100,
-    paddingHorizontal: 35,
-    alignItems: 'center',
+  body: {
+    
   },
-header:{
-    width: 575.28,
-    marginTop: 50
+      header:{
+      margin: 10
+    },
+  companyHeader:{
+    margin: 25,
   },
-  wrap:{
-    width: 575.28,
+  compHeaderText:{
+    textAlign: 'center',
+    fontFamily: 'Helvetica',
+    fontSize: '20px'
   },
-companyHeader:{
-    width: 575.28,
-    marginBottom: 20
+  bold:{
+   fontFamily: 'Helvetica-Bold' 
   },
-  companyHText:{
-    fontSize: '18px',
+  compContacts:{
+    fontSize: '12px',
     textAlign: 'center'
   },
-  contactText:{
-    textAlign: 'center',
-    fontSize: '10px'
-  },
   marginTop:{
-    marginTop: 2,
-  },
-  patientHeader:{
-    flex: 1,
-    flexDirection: 'row',
-    width: 575.28,
-    paddingLeft: '10px',
-    justifyContent: 'center',
-    height: 100
-  },
-  pcol:{
-    width: 300,
-  },
-  pcol1:{
-    width: 200,
-  },
-  patientInfoText:{
-    fontSize: '14px',
-  },
-  resultBody:{
-    width: 575.28,
-    paddingLeft: '10px',
-  },
-  resultHeader:{
-    fontFamily: 'arialbd',
-    fontSize: '11px',
-    fontWeight: "bold",
-    width: 575.28
-  },
-  footer:{
-    width: 575.28,
-    flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    position: 'absolute',
-    bottom: 250,
-  },
-  footerCol:{
-    width: 200,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  footerCol1:{
-    width: 200,
-    height: 30,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  footerText:{
-    fontSize: '9px',
-    textAlign: 'center',
-    fontWeight: 'bold',
-  },
-  footerMessage:{
-    position: 'absolute',
-    fontSize: '9px',
-    textAlign: 'center',
-    fontWeight: 'bold',
-    bottom: 29,
-  },
-  resTable:{
-    width: 555.28,
-  },
-  resHText:{
-    fontFamily: 'Helvetica-Bold',
-    fontSize: '19px',
-    width: 130,
-    textAlign: 'center',
-    borderBottom: '1px dotted black',
-    borderTop: '1px dotted black',
-    padding: 5
-  },
-  testNameHeader:{
-    fontFamily: 'arialbd',
-    fontSize: '18px',
-    width: 300,
-    textAlign: 'center',
-    borderBottom: '1px dotted black',
-    borderTop: '1px dotted black',
-    padding: 5
-  },
-  tableHeader:{
-    width: 560.28,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginTop: 10
   },
-  resTr:{
-    width: 560.28,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+  date:{
+      textAlign: 'right',
+    marginBottom: 20
   },
-   body:{
-    paddingTop: 35,
-    paddingBottom: 65,
-    paddingHorizontal: 35,
-},
-testName:{
-  fontSize: '15px',
-  fontWeight: 'bold',
-  width: 300,
-  padding: 2,
-  textAlign: 'center'
-},
-trCenter:{
-  fontSize: '10px',
-  fontWeight: 'bold',
-  width: 130,
-  padding: 2,
-  textAlign: 'center',
-},
-trCenterBold:{
-  fontFamily: 'arialbd',
-  fontSize: '10px',
-  fontWeight: 'bold',
-  width: 130,
-  padding: 2,
-  textAlign: 'center',
-},
-logo:{
-  width: "60px",
-  position: 'absolute',
-  left: "40px",
-  bottom: "40px"
-},
-lablogo:{
-  width: "60px",
-  position: 'absolute',
-  right: "40px",
-  bottom: "40px"
-},
-signature:{
-  fontFamily: 'arial',
-  fontSize: '13px',
-},
-total:{
-  marginTop: 90,
-  fontFamily: 'Helvetica-Bold'
-},
-preparedBy:{
-  position: 'relative',
-  right: '80px',
-  bottom: '10px'
-},
-discount:{
-  fontSize: 11,
-  position: 'relative',
-  left: 120
-}
+  patientDetails:{
+    fontSize: '20px'
+  },
+  chargeSlipHeader:{
+    borderTop: '2px dotted black',
+    borderBottom: '2px dotted black',
+    marginTop: -15,
+    marginRight: 25,
+    marginLeft: 25,
+    marginBottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around'
+  },
+  chargeSlipTHead:{
+    fontSize: 25
+  },
+  chargeSlip:{
+    marginBottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  col:{
+    width: 200
+  },
+  chargeBody:{
+    borderBottom: '2px dotted black',
+    margin: 25
+  },
+  discount:{
+    fontSize: 15
+  },
+  footer:{
+    margin: 25
+  },
+  logo:{
+    width: 90,
+    position: 'absolute'
+  },
+  lablogo:{
+    width: 90,
+    position: 'absolute',
+    right: 0
+  }
 });
 
 // Create Document Component
 const ChargeSlip = (props) => {
   return(
-  <Document>
-    <Page size="A4" orientation= "portrait" style={styles.page}>
-      <View style={styles.wrap}>
-        <View fixed={true} style={styles.header}>
-          <View style={styles.companyHeader}>
-            <Image src={logo} style={styles.logo} fixed={true}/>
-            <Image src={lablogo} style={styles.lablogo} fixed={true}/>
-            <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
-            <Text style={styles.companyHText}>Laboratory Department</Text>
-            <Text style={styles.contactText}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
-            <Text style={styles.contactText}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
-            <Text style={[styles.companyHText, styles.marginTop]}>Charge Slip</Text>
-          </View>
-          <View style={styles.patientHeader}>
-            <View style={styles.pcol}>
-              <Text style={styles.patientInfoText}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>
-              <Text style={styles.patientInfoText}>Age/Gender: {props.data.Patientlists[0].age} / {props.data.Patientlists[0].gender}</Text>
-              <Text style={styles.patientInfoText}>Requesting Physician: {props.data.reqDr}</Text>
-            </View>
+<Document>
+    <Page size="Letter" style={styles.body}>
+      <View style={styles.header}>
+        <View style={styles.companyHeader}>
+          <Image style={styles.logo} src={logo} />
+          <Image style={styles.lablogo} src={lablogo} />
+          <Text style={[styles.compHeaderText, styles.bold]}>St. Camillus De Lellis General Hospital</Text>
+          <Text style={[styles.compHeaderText, styles.bold]}>Laboratory Department</Text>
+          <Text style={styles.compContacts}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
+          <Text style={styles.compContacts}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125 </Text>
+          <Text style={styles.compContacts}>e-mail: st.camillusdelellislab@yahoo.com</Text>
+          <Text style={[styles.compHeaderText, styles.bold, styles.marginTop]}>Charge Slip</Text>
+          <Text style={styles.date}>Date: {Moment(props.data.createdAt).format('MMMM DD, yyyy')}</Text>
+          <Text style={styles.patientDetails}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>
+          <Text style={styles.patientDetails}>Age/Gender: {props.data.Patientlists[0].age} / {props.data.Patientlists[0].gender}</Text>
+          <Text style={styles.patientDetails}>Patient Type/Room No: {props.data.ptType}</Text>
+          <Text style={styles.patientDetails}>Laboratory Number: {props.data.labNumber}</Text>
+          <Text style={styles.patientDetails}>Requesting Physician: {props.data.reqDr}</Text>
+        </View>
+        <View style={styles.chargeSlipHeader}>
+            <Text style={[styles.chargeSlipTHead,styles.bold, styles.col]}>PARTICULARS</Text>
+              <Text style={[styles.chargeSlipTHead,styles.bold]}>COST</Text>
+        </View>
+        
+          <View style={styles.chargeBody}>
 
-            <View style={styles.pcol1}>
-              <Text style={styles.patientInfoText}>Date: {Moment(props.data.createdAt).format('MMMM DD, yyyy')}</Text>
-              <Text style={styles.patientInfoText}>Paitent Type/Room: {props.data.ptType}</Text>
-              <Text style={styles.patientInfoText}>Laboratory Number: {props.data.labNumber}</Text>
+          {props.data.chemCost !== "0" &&
+            <View style={styles.chargeSlip}>
+                <Text style={[styles.patientDetails, styles.col]}>Chemistry</Text>
+                <Text style={styles.patientDetails}>PHP {props.data.chemCost}{props.data.isDiscounted === true && `**`}</Text>
             </View>
-          </View>
-        </View>
+          }
 
-        <View style={styles.resultBody}>
-          
-          <View style={styles.resTable}>
-            
-            <View style={styles.tableHeader} fixed={true}>
-                <Text style={styles.testNameHeader}>PARTICULARS</Text>
-                <Text style={styles.testNameHeader}>COST</Text>
+          {props.data.seroCost !== "0" &&
+            <View style={styles.chargeSlip}>
+                <Text style={[styles.patientDetails, styles.col]}>Serology</Text>
+                <Text style={styles.patientDetails}>PHP {props.data.seroCost}{props.data.isDiscounted === true && `**`}</Text>
             </View>
-            
-            {props.data.chemCost !== "0" &&
-                <View style={styles.resTr}>
-                <Text style={styles.testName}>Chemistry</Text>
-                <Text></Text>
-                <Text style={styles.testName}>PHP {props.data.chemCost}{props.data.isDiscounted === true && `**`}</Text>
-                <Text></Text>
-                </View>
-            }
-            {props.data.seroCost !== "0" &&
-                <View style={styles.resTr}>
-                <Text style={styles.testName}>Serology</Text>
-                <Text></Text>
-                <Text style={styles.testName}>PHP {props.data.seroCost}{props.data.isDiscounted === true && `**`}</Text>
-                <Text></Text>
-                </View>            
-            }
-            {props.data.hemaCost !== "0" &&
-                <View style={styles.resTr}>
-                <Text style={styles.testName}>Hematology</Text>
-                <Text></Text>
-                <Text style={styles.testName}>PHP {props.data.hemaCost}{props.data.isDiscounted === true && `**`}</Text>
-                <Text></Text>
-                </View>
-            }
-                
-            {props.data.cmCost !== "0" &&
-                <View style={styles.resTr}>
-                <Text style={styles.testName}>Clinical Microscopy</Text>
-             
-                <Text style={styles.testName}>PHP {props.data.cmCost}{props.data.isDiscounted === true && `**`}</Text>
-      
-                </View>
-            }
-                
-            
-          </View>
+          }
           
-        </View>
-        <View style={[styles.resTr, styles.total]}>
-          <Text style={styles.testName}>TOTAL COST</Text>
-          <Text style={styles.testName}>PHP {props.data.totalCost}{props.data.isDiscounted === true && `**`}</Text>
-         </View>
-         {props.data.isDiscounted === true && <Text style={styles.discount}>**Discount applied</Text>}
-      
-        </View>
-         <View fixed={true} style={styles.footer}>
-          <View style={styles.footerCol}>
-            <Text  style={[styles.preparedBy, styles.signature]}>Prepared by:</Text>
-            <Text style={styles.signature} fixed={true}>{props.data.encodedBy}</Text>
-          </View>
+          {props.data.hemaCost !== "0" &&
+            <View style={styles.chargeSlip}>
+                <Text style={[styles.patientDetails, styles.col]}>Hematology</Text>
+                <Text style={styles.patientDetails}>PHP {props.data.hemaCost}{props.data.isDiscounted === true && `**`}</Text>
+            </View>
+          }
+          {props.data.cmCost !== "0" &&
+            <View style={styles.chargeSlip}>
+                <Text style={[styles.patientDetails, styles.col]}>Clinical Microscopy</Text>
+                <Text style={styles.patientDetails}>PHP {props.data.cmCost}{props.data.isDiscounted === true && `**`}</Text>
+            </View>
+          }
 
-          <View style={styles.footerCol1} wrap={false}>
-          
-          </View>
         </View>
+        
+         <View style={styles.chargeSlip}>
+                <Text style={[styles.chargeSlipTHead, styles.col, styles.bold]}>TOTAL COST</Text>
+                <Text style={[styles.chargeSlipTHead, styles.bold]}>PHP {props.data.totalCost}{props.data.isDiscounted === true && `**`}</Text>
+          </View>
+          {props.data.isDiscounted === true &&
+        <View style={styles.chargeSlip}>
+                <Text style={[styles.discount, styles.col, styles.bold]}>**discount applied</Text>
+                <Text style={[styles.chargeSlipTHead, styles.bold]}></Text>
+          </View>}
+        
+        
+         <View style={styles.footer}>
+              <View>
+                    <Text style={[styles.patientDetails, styles.col, styles.bold]}>Prepared By:</Text>
+                    <Text style={[styles.chargeSlipTHead, styles.bold]}></Text>
+              </View>
+              <View>
+                    <Text style={[styles.patientDetails, styles.bold]}>Alvin John E. Begana, RMT</Text>
+                    <Text style={[styles.chargeSlipTHead, styles.bold]}></Text>
+              </View>
+        </View>
+        
+      </View>
     </Page>
-      
   </Document>
 )
 };
