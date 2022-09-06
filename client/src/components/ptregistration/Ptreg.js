@@ -16,8 +16,8 @@ const Ptreg = () => {
     const [patientLastId, setPatientLastId] = useState(0);
     const [patientAge, setPatientAge] = useState(0);
 
-    useEffect( () => {
-      axios.get(`http://${host.ip}:3001/patient`).then((response) => {
+    useEffect(async () => {
+      await axios.get(`http://${host.ip}:3001/patient`).then((response) => {
         setPatientLastId(response.data)
       });
     }, []);

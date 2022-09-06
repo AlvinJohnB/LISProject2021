@@ -39,8 +39,8 @@ function Orders() {
     })
 
 
-    useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/getorders`).then((response) => {
+    useEffect(async () => {
+        await axios.get(`http://${host.ip}:3001/order/getorders`).then((response) => {
             setOrders(response.data);
             setIsLoading(false);
         })

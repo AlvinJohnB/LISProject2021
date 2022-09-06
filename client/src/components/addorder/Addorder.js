@@ -89,29 +89,22 @@ const Addorder = () => {
         calculateCost(cmFee, "cm");
     },[totalFee, hemaFee, cmFee, seroFee, chemFee])
     
-    useEffect(() => {
-        axios.get(`http://${host.ip}:3001/test`).then((response) => {
+    useEffect( async () => {
+        await axios.get(`http://${host.ip}:3001/test`).then((response) => {
             setTestData(response.data);
         })
 
-        axios.get(`http://${host.ip}:3001/order`).then((response) => {
+        await axios.get(`http://${host.ip}:3001/order`).then((response) => {
             setLastOrderIdData(response.data);
 
         })
 
-        axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
+        await axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
             setPtData(response.data);
             if(response.data.idenno === "" || response.data.idenno === "N/A" || response.data.idenno === "NA" || response.data.idenno === "na" || response.data.idenno === "n/a"){
                 setIsDiscounted(false)
             }
-
-            const timer = async  (time) => {
-                await setTimeout(time) 
-                setIsLoading(false);
-            }
-
-            timer(2000)
-            
+            setIsLoading(false);
         })
     }, [pId])
 
@@ -186,7 +179,7 @@ const Addorder = () => {
 
         //Check if sections are null
 
-        axios.post(`http://${host.ip}:3001/order/addorder`, data,
+        await axios.post(`http://${host.ip}:3001/order/addorder`, data,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken")

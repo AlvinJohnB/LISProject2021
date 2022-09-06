@@ -16,10 +16,10 @@ import host from '../../../config.json'
     let history = useHistory();
 
 
-    useEffect(()=>{
+    useEffect(async ()=>{
       if(prevResultData || prevResultData == null){
         setIsLoading(false);
-        axios.post(`http://${host.ip}:3001/auth/pathofetch`).then((response) => {
+        await axios.post(`http://${host.ip}:3001/auth/pathofetch`).then((response) => {
             setPatho(response.data);
         })
       }
@@ -75,7 +75,7 @@ import host from '../../../config.json'
         })
 
         //Rerender Data
-        axios.get(`http://${host.ip}:3001/order/section/Chemistry`).then((response) => {
+        await axios.get(`http://${host.ip}:3001/order/section/Chemistry`).then((response) => {
             setSectionData(response.data);
         })
 

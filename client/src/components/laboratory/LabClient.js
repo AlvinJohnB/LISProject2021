@@ -74,9 +74,9 @@ function LabClient() {
         labNumber: Yup.string().required("This field is required!"),
 
     })
-    useEffect(() => {
+    useEffect(async () => {
 
-        axios.get(`http://${host.ip}:3001/order/forcheckin/Chemistry`).then((response) => {
+        await axios.get(`http://${host.ip}:3001/order/forcheckin/Chemistry`).then((response) => {
             setCheckInDetails(response.data);
             setSection("Chemistry");
             setIsLoading(false);
@@ -85,8 +85,8 @@ function LabClient() {
     }, [])
 
 
-    useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/getorder/id/${orderid}/${section}`).then((response) => {
+    useEffect(async () => {
+        await axios.get(`http://${host.ip}:3001/order/getorder/id/${orderid}/${section}`).then((response) => {
             if(response.data.length === 1){
              setSelected(response.data);
              setIsLoading(false);

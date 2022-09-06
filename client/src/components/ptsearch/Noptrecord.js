@@ -19,9 +19,9 @@ const Noptrecord = () => {
     firstname: Yup.string()
   })
 
-  const onSubmit = (data) => {
+  const onSubmit = async (data) => {
 
-    axios.post(`http://${host.ip}:3001/patient/findpatient`, data).then((response) => {
+    await axios.post(`http://${host.ip}:3001/patient/findpatient`, data).then((response) => {
     console.log(response.data.length);
     if(response.data.length <= 0){
       console.log("No patient found");

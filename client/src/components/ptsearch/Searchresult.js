@@ -13,9 +13,9 @@ const Searchresult = () => {
     let { param } = useParams();
     let history = useHistory();
     
-    useEffect(() => {
+    useEffect( async () => {
 
-    axios.get(`http://${host.ip}:3001/patient/findpatient/${param}`).then((response) => {
+    await axios.get(`http://${host.ip}:3001/patient/findpatient/${param}`).then((response) => {
 
         setResultData(response.data);
         setIsLoading(false);

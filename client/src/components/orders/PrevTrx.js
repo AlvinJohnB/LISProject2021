@@ -14,8 +14,8 @@ function PrevTrx() {
     let { pId } = useParams();
 
 
-    useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
+    useEffect(async () => {
+        await axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
             setOrderDetails(response.data);
             setIsLoading(false);
         })

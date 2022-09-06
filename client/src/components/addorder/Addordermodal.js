@@ -41,7 +41,7 @@ const Addordermodal = (props) => {
                 </div>
                 <div className="modal-body">
                     <div className="tablewrapper">
-                    <input className="form-input" autoComplete="off" id="myInput" type="text" name="searchInput" placeholder="Type testcode..." onChange={testFilter}/>
+                    <input className="form-input" autoFocus={true} autoComplete="off" id="myInput" type="text" name="searchInput" placeholder="Type testcode..." onChange={testFilter}/>
                         <table className="testtable">
                         <tbody>
                             <tr className="tableheader">

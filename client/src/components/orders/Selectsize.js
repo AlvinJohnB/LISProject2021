@@ -10,8 +10,8 @@ function Selectsize(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [resultData, setResultData] = useState([])
 
-    useEffect(()=> {
-            axios.get(`http://${host.ip}:3001/order/results/${props.forOrderID}/${props.section}`).then((response) => {
+    useEffect(async ()=> {
+            await axios.get(`http://${host.ip}:3001/order/results/${props.forOrderID}/${props.section}`).then((response) => {
             setResultData(response.data)
             setIsLoading(false)
         })

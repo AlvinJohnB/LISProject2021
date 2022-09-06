@@ -15,10 +15,10 @@ function UserLogin() {
     const[msg, setMsg] = useState("");
     const {setAuthState} = useContext(AuthContext);
 
-    const onSubmit = () => {
+    const onSubmit = async () => {
         const data = { username, password }
         
-        axios.post(`http://${host.ip}:3001/auth/login`, data).then((response) => {
+        await axios.post(`http://${host.ip}:3001/auth/login`, data).then((response) => {
 
             if(response.data.msg){
                 setMsg(response.data.msg);

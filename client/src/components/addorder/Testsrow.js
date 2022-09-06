@@ -53,8 +53,8 @@ const Testsrow = ({setCmFee, cmFee, setHemaFee, hemaFee, setSeroFee, seroFee, to
 
     return (
         <tr className="tbcontent">
-            <td className="width-1">{testcode}</td>
-            <td className="width-2">{testname}</td>
+            <td className="width-1" onClick={handleClick}>{testcode}</td>
+            <td className="width-2" onClick={handleClick}>{testname}</td>
             <td className="width-1" onClick={handleClick}>Select</td>
         </tr>
     )

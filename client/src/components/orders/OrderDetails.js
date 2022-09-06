@@ -27,8 +27,8 @@ function OrderDetails() {
     }
 
 
-    useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/getorder/${labNumber}`, {
+    useEffect(async () => {
+        await axios.get(`http://${host.ip}:3001/order/getorder/${labNumber}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             }

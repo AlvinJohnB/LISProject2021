@@ -11,8 +11,8 @@ function Header() {
   let history = useHistory();
     const {setAuthState, authState} = useContext(AuthContext);
 
-    useEffect(() => {
-      axios.get(`http://${host.ip}:3001/auth/auth`,{
+    useEffect( async () => {
+      await axios.get(`http://${host.ip}:3001/auth/auth`,{
         headers:{
           accessToken: localStorage.getItem("accessToken"),
         }

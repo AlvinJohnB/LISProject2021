@@ -43,8 +43,8 @@ function Cmform() {
         setShow(false);
     }
  
-    useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/section/CM`).then((response) => {
+    useEffect(async() => {
+        await axios.get(`http://${host.ip}:3001/order/section/CM`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })

@@ -17,14 +17,14 @@ const Updatept = () => {
 
     let { pId } = useParams();
     
-    useEffect(() => {
+    useEffect(async () => {
 
-    axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
+    await axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
         setUpdatePtData(response.data);
         setIsLoading(false);
     })
 
-    axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
+    await axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
         if(response.data.length < 1){
             setHasPrev(false);
         }else{
@@ -94,10 +94,10 @@ const Updatept = () => {
         history.push(`/porders/${pId}`)
     }
 
-    const onSubmit = (data) => {
+    const onSubmit = async (data) => {
         setIsLoading(true);
         data.age = initialValues.age;
-        axios.post(`http://${host.ip}:3001/patient/updatept`, data,
+        await axios.post(`http://${host.ip}:3001/patient/updatept`, data,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken")
