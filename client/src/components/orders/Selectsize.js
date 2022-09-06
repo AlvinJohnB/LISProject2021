@@ -5,13 +5,13 @@ import ResultFormA4 from '../results/ResultFormA4'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import '../laboratory/checkin/checkinmodal.css'
-
+import host from '../../config.json'
 function Selectsize(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [resultData, setResultData] = useState([])
 
     useEffect(()=> {
-            axios.get(`http://localhost:3001/order/results/${props.forOrderID}/${props.section}`).then((response) => {
+            axios.get(`http://${host.ip}:3001/order/results/${props.forOrderID}/${props.section}`).then((response) => {
             setResultData(response.data)
             setIsLoading(false)
         })
@@ -34,14 +34,13 @@ function Selectsize(props) {
                         </div>
                             <div className="checkin-modal-body">
                                <strong>Please select paper size</strong><br />
-                                
                                <PDFDownloadLink
                                 document={<ResultForm data={resultData[0]} />}
                                 fileName={`${props.detail.sectNumber}`}
                                 className="size-btn"
                                 >
                                   {({ blob, url, loading, error }) =>
-                                    loading ? 'Loading...' : 'A5 (half)'
+                                    loading ? 'Loading...' : 'Half bond'
                                 }
                                 </PDFDownloadLink>
     
@@ -52,7 +51,7 @@ function Selectsize(props) {
                                 data={resultData[0]}
                                 >
                                    {({ blob, url, loading, error }) =>
-                                    loading ? 'Loading...' : 'A4 (whole)'
+                                    loading ? 'Loading...' : 'Letter'
                                 }
                                 </PDFDownloadLink>
                             </div>

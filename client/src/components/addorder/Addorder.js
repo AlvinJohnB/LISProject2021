@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import axios from 'axios';
 import Testrow from './Testrow';
 import { useParams, useHistory } from 'react-router-dom';
+import host from '../../config.json'
 
 
 import Addordermodal from './Addordermodal'
@@ -33,25 +34,78 @@ const Addorder = () => {
     const [seroTestsInput, setSeroTestsInput] = useState("")
     const [microTests, setMicroTests] = useState([])
     const [microTestsInput, setMicroTestsInput] = useState("")
+ 
+    //FOR CHARGE SLIP
+    const [totalFee, setTotalFee] = useState([])
+    const [chemFee, setChemFee] = useState([])
+    const [seroFee, setSeroFee] = useState([])
+    const [cmFee, setCmFee] = useState([])
+    const [hemaFee, setHemaFee] = useState([])
+
+    const [chemTotalFee, setChemTotalFee] = useState(0);
+    const [totalCost, setTotalCost] = useState(0);
+    const [hemaTotalCost, setHemaTotalCost] = useState(0);
+    const [seroTotalCost, setSeroTotalCost] = useState(0);
+    const [cmTotalCost, setCmTotalCost] = useState(0);
+
+    const [isDiscounted, setIsDiscounted] = useState(true);
 
     let { pId } = useParams();
     let history = useHistory();
 
+    const calculateCost = (costArray, section) => {
+        let total = 0;
+        let price = 0;
+
+        for(let i=0; i < costArray.length; i++){
+                total = parseInt(costArray[i]) + total
+            }
+
+        if(isDiscounted === true){
+            let discount = total * 0.2
+            price = total - discount
+        }else{
+            price = total
+        }
+        if(section === "total"){
+            setTotalCost(price);
+        }else if(section === "chem"){
+            setChemTotalFee(price);
+        }else if(section === "cm"){
+            setCmTotalCost(price);
+        }else if(section === "hema"){
+            setHemaTotalCost(price)
+        }else if(section === "sero"){
+            setSeroTotalCost(price)
+        }
+    }
+
+
+    useEffect(()=>{
+        calculateCost(totalFee, "total");
+        calculateCost(chemFee, "chem");
+        calculateCost(hemaFee, "hema");
+        calculateCost(seroFee, "sero");
+        calculateCost(cmFee, "cm");
+    },[totalFee, hemaFee, cmFee, seroFee, chemFee])
+    
     useEffect(() => {
-        axios.get("http://localhost:3001/test").then((response) => {
+        axios.get(`http://${host.ip}:3001/test`).then((response) => {
             setTestData(response.data);
         })
 
-        axios.get("http://localhost:3001/order").then((response) => {
+        axios.get(`http://${host.ip}:3001/order`).then((response) => {
             setLastOrderIdData(response.data);
 
         })
 
-        axios.get(`http://localhost:3001/patient/findpatientById/${pId}`).then((response) => {
+        axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
             setPtData(response.data);
+            if(response.data.idenno === "" || response.data.idenno === "N/A" || response.data.idenno === "NA" || response.data.idenno === "na" || response.data.idenno === "n/a"){
+                setIsDiscounted(false)
+            }
             setIsLoading(false);
         })
-
     }, [pId])
 
     useEffect(() => {
@@ -99,7 +153,7 @@ const Addorder = () => {
          alert("Please add test!")
      }else{
 
-        await axios.get("http://localhost:3001/order").then((response) => {
+        await axios.get(`http://${host.ip}:3001/order`).then((response) => {
             setLastOrderIdData(response.data);
             //Set Lab No 
             let year = new Date().getFullYear();
@@ -115,10 +169,17 @@ const Addorder = () => {
         setIsLoading(true);
         data.forPtId = ptData.id;
         data.testsRequested = labTestInput;
+        // ADD COSTS HERE
+        data.totalCost = totalCost;
+        data.chemCost = chemTotalFee;
+        data.seroCost = seroTotalCost;
+        data.hemaCost = hemaTotalCost;
+        data.cmCost = cmTotalCost;
+        data.isDiscounted = isDiscounted
 
         //Check if sections are null
 
-        axios.post("http://localhost:3001/order/addorder", data,
+        axios.post(`http://${host.ip}:3001/order/addorder`, data,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken")
@@ -130,7 +191,7 @@ const Addorder = () => {
             }else{
 
                 if(cmTestsInput){
-                    axios.post("http://localhost:3001/order/addsord",
+                    axios.post(`http://${host.ip}:3001/order/addsord`,
                         {
                             section: "CM",
                             tests: cmTestsInput,
@@ -151,7 +212,7 @@ const Addorder = () => {
 
 
                 if(chemTestsInput){
-                    axios.post("http://localhost:3001/order/addsord",
+                    axios.post(`http://${host.ip}:3001/order/addsord`,
                     {
                         section: "Chemistry",
                         tests: chemTestsInput,
@@ -172,7 +233,7 @@ const Addorder = () => {
 
 
                 if(hemaTestsInput){
-                    axios.post("http://localhost:3001/order/addsord",
+                    axios.post(`http://${host.ip}:3001/order/addsord`,
                     {
                         section: "Hematology",
                         tests: hemaTestsInput,
@@ -193,7 +254,7 @@ const Addorder = () => {
 
 
                 if(seroTestsInput){
-                    axios.post("http://localhost:3001/order/addsord",
+                    axios.post(`http://${host.ip}:3001/order/addsord`,
                     {
                         section: "Serology",
                         tests: seroTestsInput,
@@ -214,7 +275,7 @@ const Addorder = () => {
 
 
                 if(microTestsInput){
-                    axios.post("http://localhost:3001/order/addsord",
+                    axios.post(`http://${host.ip}:3001/order/addsord`,
                     {
                         section: "Micro",
                         tests: microTestsInput,
@@ -234,7 +295,7 @@ const Addorder = () => {
                 }
 
 
-                axios.post("http://localhost:3001/order/cnxtion",
+                axios.post(`http://${host.ip}:3001/order/cnxtion`,
                     {
                         OrderId: lastOrderIdData.id+1,
                         PatientlistId: ptData.id
@@ -407,6 +468,7 @@ const Addorder = () => {
                         <tbody>
                             <tr className="header">
                                 <td>Requested Test/s</td>
+                                <td>Regular Unit Cost</td>
                                 <td>Action</td>
                             </tr>
                             {tests.map((test) => {
@@ -428,12 +490,29 @@ const Addorder = () => {
                                         chemTests={chemTests}
                                         seroTests={seroTests}
                                         microTests={microTests}
+
+                                        setTotalFee={setTotalFee}
+                                        setChemFee={setChemFee}
+                                        totalFee={totalFee}
+                                        chemFee={chemFee}
+
+                                        setHemaFee={setHemaFee}
+                                        hemaFee={hemaFee}
+
+                                        setSeroFee={setSeroFee}
+                                        seroFee={seroFee}
+
+                                        setCmFee={setCmFee}
+                                        cmFee={cmFee}
+
+                                        totalCost={totalCost}
+                                        setTotalCost={setTotalCost}
                                     />
                                 )
                             })}
                             <tr>
                                 <td className="select" onClick={showModal}>Click here to add test</td>
-                                <td></td>
+                                <td><strong>{isDiscounted === true && `Discounted`} Total: PHP {totalCost}</strong></td>
                             </tr>
                         </tbody>
                     </table>
@@ -455,6 +534,26 @@ const Addorder = () => {
                         microTests={microTests}
                         setMicroTests={setMicroTests}
                         setChemTests={setChemTests}
+
+                        setTotalFee={setTotalFee}
+                        setChemFee={setChemFee}
+                        totalFee={totalFee}
+                        chemFee={chemFee}
+
+                        setHemaFee={setHemaFee}
+                        hemaFee={hemaFee}
+
+                        setSeroFee={setSeroFee}
+                        seroFee={seroFee}
+
+                        setCmFee={setCmFee}
+                        cmFee={cmFee}
+
+                        totalCost={totalCost}
+                        setTotalCost={setTotalCost}
+
+                        
+
                     />
 
                 </Form>

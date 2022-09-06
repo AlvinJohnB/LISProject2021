@@ -3,7 +3,7 @@ import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
 import { useHistory, } from 'react-router-dom';
-
+import host from '../../config.json'
 import '../ptregistration/ptreg.css';
 
 const Noptrecord = () => {
@@ -21,7 +21,7 @@ const Noptrecord = () => {
 
   const onSubmit = (data) => {
 
-    axios.post('http://localhost:3001/patient/findpatient', data).then((response) => {
+    axios.post(`http://${host.ip}:3001/patient/findpatient`, data).then((response) => {
     console.log(response.data.length);
     if(response.data.length <= 0){
       console.log("No patient found");

@@ -74,6 +74,25 @@ const Addordermodal = (props) => {
                                                             microTests={props.microTests}
                                                             setMicroTests={props.setMicroTests}
                                                             setChemTests={props.setChemTests}
+
+                                                            setTotalFee={props.setTotalFee}
+                                                            setChemFee={props.setChemFee}
+                                                            totalFee={props.totalFee}
+                                                            chemFee={props.chemFee}
+
+                                                            setSeroFee={props.setSeroFee}
+                                                            seroFee={props.seroFee}
+
+                                                            setCmFee={props.setCmFee}
+                                                            cmFee={props.cmFee}
+
+                                                            setHemaFee={props.setHemaFee}
+                                                            hemaFee={props.hemaFee}
+
+                                                            totalCost={props.totalCost}
+                                                            setTotalCost={props.setTotalCost}
+
+                                                            
                                                         />
                                                     )
                                                 })}

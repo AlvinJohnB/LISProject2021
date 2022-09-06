@@ -5,6 +5,7 @@ import { useState, useEffect } from 'react'
 import ChemTest from './ChemTest'
 import { useHistory } from 'react-router-dom';
 import PrevResultModal from './PrevResultModal';
+import host from '../../../config.json'
 
     function ChemResultmodal ({setSectionData, showPrevResModal, setShowPrevResModal, setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, show, closeModal, resultFormData, sectionResultArray} ) {
     
@@ -18,7 +19,7 @@ import PrevResultModal from './PrevResultModal';
     useEffect(()=>{
       if(prevResultData || prevResultData == null){
         setIsLoading(false);
-        axios.post(`http://localhost:3001/auth/pathofetch`).then((response) => {
+        axios.post(`http://${host.ip}:3001/auth/pathofetch`).then((response) => {
             setPatho(response.data);
         })
       }
@@ -35,7 +36,7 @@ import PrevResultModal from './PrevResultModal';
         }else{
             const sectOrderID = resultFormData[0].Sectionorders[0].id;
 
-        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RELEASED`, {pathologist: pathoSelected} ,
+        await axios.post(`http://${host.ip}:3001/order/result/release/${sectOrderID}/RELEASED`, {pathologist: pathoSelected} ,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -52,19 +53,19 @@ import PrevResultModal from './PrevResultModal';
         // RE RENDER DATA
         
 
-        await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
+        await axios.get(`http://${host.ip}:3001/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
         })
 
         //CHECK IF ALL TESTS COMPLETED
-        await axios.post(`http://localhost:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
+        await axios.post(`http://${host.ip}:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
         })
         }
     }
 
     const undoCheckIn = async () => {
-        await axios.post(`http://localhost:3001/order/updatesorder`, {
+        await axios.post(`http://${host.ip}:3001/order/updatesorder`, {
             sectNumber: resultFormData[0].Sectionorders[0].sectNumber,
             status: "Sample Rejected - For Check-In"
         }, {
@@ -74,7 +75,7 @@ import PrevResultModal from './PrevResultModal';
         })
 
         //Rerender Data
-        axios.get(`http://localhost:3001/order/section/Chemistry`).then((response) => {
+        axios.get(`http://${host.ip}:3001/order/section/Chemistry`).then((response) => {
             setSectionData(response.data);
         })
 
@@ -85,7 +86,7 @@ import PrevResultModal from './PrevResultModal';
         setPathoSelected("invalid")
         const sectOrderID = resultFormData[0].Sectionorders[0].id
 
-        await axios.post(`http://localhost:3001/order/result/release/${sectOrderID}/RUNNING`, {pathologist: null},
+        await axios.post(`http://${host.ip}:3001/order/result/release/${sectOrderID}/RUNNING`, {pathologist: null},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -101,13 +102,13 @@ import PrevResultModal from './PrevResultModal';
 
         // RE RENDER DATA
 
-        await axios.get(`http://localhost:3001/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
+        await axios.get(`http://${host.ip}:3001/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
         })
 
         //CHECK IF ALL TESTS COMPLETED
-        await axios.post(`http://localhost:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
+        await axios.post(`http://${host.ip}:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
 
         })
     }

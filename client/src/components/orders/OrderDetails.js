@@ -2,21 +2,33 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import { useParams, useHistory } from 'react-router-dom';
-
+import { PDFDownloadLink } from '@react-pdf/renderer'
+import host from '../../config.json'
 import '../../components/ptregistration/ptreg.css'
-import './orderdetails.css'
+import './orderdetails.css' 
 import DetailTr from './DetailTr'
+import GetFullResults from './GetFullResults';
+import ChargeSlip from '../results/ChargeSlip';
+
+
 
 
 function OrderDetails() {
     const [isLoading, setIsLoading] = useState(true)
     const [orderDetails, setOrderDetails] = useState({})
+
+    const [generateShow, setGenerateShow] = useState(false)
+
     let { labNumber } = useParams();
     let history = useHistory();
 
+    const generateFullRx = () => {
+        setGenerateShow(true)
+    }
+
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/order/getorder/${labNumber}`, {
+        axios.get(`http://${host.ip}:3001/order/getorder/${labNumber}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             }
@@ -27,7 +39,7 @@ function OrderDetails() {
     },[labNumber])
 
     const onOrderDelete =  async () => {
-        await axios.post(`http://localhost:3001/order/labno/update`, {
+        await axios.post(`http://${host.ip}:3001/order/labno/update`, {
             labNumber: orderDetails[0].labNumber,
             status: "DELETED"
         })
@@ -47,6 +59,7 @@ function OrderDetails() {
         <div className="labwrapper-orderdeats">
         <h1 className="labcontentheader-orderdeats">&nbsp; Order Details</h1>
             <div className="labdiv">
+                
                 <div className="labdivcontent p-10">
                     <h4 className="center">Lab Number {orderDetails[0].labNumber} </h4>
                     </div>
@@ -85,6 +98,21 @@ function OrderDetails() {
                 <br />
                 <br />
                 <div className="divblock p-10">
+                {/*Generate Charge Slip*/}
+                
+                <PDFDownloadLink
+                    document={<ChargeSlip data={orderDetails[0]}/>}
+                    fileName={`CHARGE SLIP ${orderDetails[0].labNumber}`}
+                    className="btn generate"
+                    data={orderDetails[0]}
+                    >
+                        {({ blob, url, loading, error }) =>
+                        loading ? 'Loading...' : 'Generate Charge Slip'
+                    }
+                </PDFDownloadLink>
+                {/* RELEASE FULL RESULTS */}
+                <GetFullResults show={generateShow} setShow={setGenerateShow} forOrderID={orderDetails[0].labNumber} />
+                {orderDetails[0].status === "RELEASED" && <button onClick={generateFullRx}  className="btn generate"> Generate Full Results</button>}
                 {orderDetails[0].status !== "RELEASED" && <button onClick={onOrderDelete} className="btn delete">Delete/Archive</button>}
                 </div><br />
             </div>

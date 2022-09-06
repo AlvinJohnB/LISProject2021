@@ -23,6 +23,30 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        totalCost: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        hemaCost: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        cmCost: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        chemCost: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        seroCost: {
+            type: DataTypes.STRING,
+            allowNull: false,
+        },
+        isDiscounted: {
+            type: DataTypes.BOOLEAN,
+            allowNull: false,
+        },
         status: {
             type: DataTypes.STRING,
             allowNull: false,

@@ -3,6 +3,7 @@ import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/
 import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
 import logo from '../../images/stcamlogo.jpg'
+import lablogo from '../../images/lablogo.jpg'
 
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 
@@ -109,7 +110,7 @@ companyHeader:{
     fontFamily: 'Helvetica-Bold',
     fontSize: '10px',
     fontWeight: 'bold',
-    width: 170,
+    width: 200,
     textAlign: 'center',
     borderBottom: '1px dotted black',
     borderTop: '1px dotted black',
@@ -146,14 +147,19 @@ trCenter:{
 trCenterBold:{
   fontFamily: 'Helvetica-Bold',
   fontSize: '11px',
-  width: 130,
+  width: 200,
   padding: 2,
   textAlign: 'center',
 },
 logo:{
   width: "55px",
   position: 'absolute',
-  left: "80px"
+  left: "40px"
+},
+lablogo:{
+  width: "55px",
+  position: 'absolute',
+  right: "40px",
 },
 signature:{
   fontFamily: 'arial',
@@ -162,6 +168,9 @@ signature:{
 signaturePatho:{
   fontFamily: 'arial',
   fontSize: '10px',
+},
+result:{
+  width: 300
 }
 });
 
@@ -169,14 +178,16 @@ signaturePatho:{
 const ResultFormA4 = (props) => {
   return(
   <Document>
-    <Page size="A4" orientation= "portrait" style={styles.page}>
+    <Page size="LETTER" orientation= "portrait" style={styles.page}>
       <View style={styles.wrap}>
         <View fixed={true} style={styles.header}>
           <View style={styles.companyHeader}>
             <Image src={logo} style={styles.logo} fixed={true}/>
+            <Image src={lablogo} style={styles.lablogo} fixed={true}/>
             <Text style={styles.companyHText}>St. Camillus De Lellis General Hospital</Text>
             <Text style={styles.companyHText}>Laboratory Department</Text>
-            <Text style={styles.contactText}>Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
+            <Text style={styles.contactText}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
+            <Text style={styles.contactText}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125 | e-mail: st.camillusdelellislab@yahoo.com</Text>
             <Text style={[styles.companyHText, styles.marginTop]}>Laboratory Report</Text>
           </View>
           <View style={styles.patientHeader}>
@@ -195,13 +206,13 @@ const ResultFormA4 = (props) => {
         </View>
 
         <View style={styles.resultBody}>
-          <Text fixed={true} style={styles.resultHeader}>Section: {props.data.Sectionorders[0].section}</Text>
+          <Text fixed={true} style={styles.resultHeader}>Section: {props.data.Sectionorders[0].section === "CM" ? `Clinical Microscopy` : props.data.Sectionorders[0].section}</Text>
           
           <View style={styles.resTable}>
             
             <View style={styles.tableHeader} fixed={true}>
                 <Text style={styles.testNameHeader}>Test Name</Text>
-                <Text style={styles.resHText}>Result</Text>
+                <Text style={[styles.resHText, styles.result]}>Result</Text>
                 <Text style={styles.resHText}>Unit</Text>
                 <Text style={styles.resHText}>Reference</Text>
             </View>
@@ -211,7 +222,7 @@ const ResultFormA4 = (props) => {
                     {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false} style={styles.resTr}>
                      {result.Testslist.isPackage === true && <Text style={styles.trCenterBold}>{result.Testslist.testname}</Text>}
                      {result.Testslist.isPackage === false && <Text style={styles.testName}>{result.Testslist.testname}</Text>}
-                    <Text style={styles.trCenter}>{result.result}</Text>
+                    <Text style={[styles.trCenter, styles.result]}>{result.result}</Text>
                     {result.Testslist.isPackage === true && <Text style={styles.trCenter}></Text>}
                     {result.Testslist.isPackage === false && <Text style={styles.trCenter}>{result.Testslist.unit}</Text>}
                     {result.Testslist.Referencevalue == null &&  <Text style={styles.trCenter}></Text>}
@@ -230,15 +241,17 @@ const ResultFormA4 = (props) => {
       
         </View>
          <View fixed={true} style={styles.footer}>
-          <View style={styles.footerCol}>
+         <View style={styles.footerCol}>
             {/* IMAGE HERE FOR RMT */}
             <Text style={styles.signature} fixed={true}>{props.data.Sectionorders[0].releasedBy}</Text>
             <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
+            <Text style={styles.footerText}>License No.: ______</Text>
           </View>
 
           <View style={styles.footerCol1}>
           <Text style={styles.signaturePatho} fixed={true}>{props.data.Sectionorders[0].pathologist}</Text>
-          <Text style={styles.footerText}>PATHOLOGIST</Text>
+          <Text style={styles.footerText}>ANATOMIC AND CLINICAL PATHOLOGIST</Text>
+          <Text style={styles.footerText}>License No.: 98717</Text>
           </View>
         </View>
     </Page>

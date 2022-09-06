@@ -9,6 +9,7 @@ import LoadingModal from '../LoadingModal'
 import { useState } from 'react'
 import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
+import host from '../../config.json'
 
 function Orders() {
 
@@ -39,7 +40,7 @@ function Orders() {
 
 
     useEffect(() => {
-        axios.get(`http://localhost:3001/order/getorders`).then((response) => {
+        axios.get(`http://${host.ip}:3001/order/getorders`).then((response) => {
             setOrders(response.data);
             setIsLoading(false);
         })
@@ -48,7 +49,7 @@ function Orders() {
     const onSubmit = async (data) => {
         setIsLoading(true)
 
-        await axios.post(`http://localhost:3001/order/filter`, data).then((response) => {
+        await axios.post(`http://${host.ip}:3001/order/filter`, data).then((response) => {
             if(response.data.length === 0){
                 alert('Lab number not found!')
                 setIsLoading(false);

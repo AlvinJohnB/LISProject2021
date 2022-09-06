@@ -8,6 +8,7 @@ import NotLoggedInModal from '../NotLoggedInModal';
 
 import './ptreg.css';
 import LoadingModal from '../LoadingModal';
+import host from '../../config.json'
 
 const Ptreg = () => {
     let history = useHistory();
@@ -16,7 +17,7 @@ const Ptreg = () => {
     const [patientAge, setPatientAge] = useState(0);
 
     useEffect( () => {
-      axios.get("http://localhost:3001/patient").then((response) => {
+      axios.get(`http://${host.ip}:3001/patient`).then((response) => {
         setPatientLastId(response.data)
       });
     }, []);
@@ -89,7 +90,7 @@ const Ptreg = () => {
 
     const onSubmit = async (data) => {
         setIsLoading(true);
-        await axios.get("http://localhost:3001/patient").then((response) => {
+        await axios.get(`http://${host.ip}:3001/patient`).then((response) => {
             setPatientLastId(response.data)
             const branch = "CAMILLUS-";
             data.branchid = `${branch}${response.data.id+1}`;
@@ -97,7 +98,7 @@ const Ptreg = () => {
 
         data.age = patientAge;
 
-        axios.post("http://localhost:3001/patient/addpatient", data,
+        axios.post(`http://${host.ip}:3001/patient/addpatient`, data,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -227,7 +228,7 @@ const Ptreg = () => {
                     </div>
                     <div className="form-group">
                         <div className="form-content">
-                        <label className="form-content" htmlFor="idenno">Identification Card No. (SC, PWD, etc.)</label>
+                        <label className="form-content" htmlFor="idenno">Discount Identification Card No. (SC, PWD, etc.)</label>
                         <Field 
                             autoComplete="off"
                             id="form-field"

@@ -5,7 +5,7 @@ import axios from 'axios';
 import { useHistory, } from 'react-router-dom';
 import NotLoggedInModal from '../NotLoggedInModal';
 import '../ptregistration/ptreg.css';
-
+import host from '../../config.json'
 const Ptsearch = () => {
 
   const history = useHistory();
@@ -21,7 +21,7 @@ const Ptsearch = () => {
 
   const onSubmit = async (data) => {
 
-    await axios.post('http://localhost:3001/patient/findpatient', data).then((response) => {
+    await axios.post(`http://${host.ip}:3001/patient/findpatient`, data).then((response) => {
     
     if(response.data.length <= 0){
       console.log("No patient found");
