@@ -104,7 +104,14 @@ const Addorder = () => {
             if(response.data.idenno === "" || response.data.idenno === "N/A" || response.data.idenno === "NA" || response.data.idenno === "na" || response.data.idenno === "n/a"){
                 setIsDiscounted(false)
             }
-            setIsLoading(false);
+
+            const timer = async  (time) => {
+                await setTimeout(time) 
+                setIsLoading(false);
+            }
+
+            timer(2000)
+            
         })
     }, [pId])
 
