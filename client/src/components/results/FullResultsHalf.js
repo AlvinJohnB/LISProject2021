@@ -1,5 +1,5 @@
 import React from 'react'
-import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
+import { Page, Image, Text, View, Document, StyleSheet } from '@react-pdf/renderer';
 import Moment from 'moment'
 import logo from '../../images/stcamlogo.jpg'
 import lablogo from '../../images/lablogo.jpg'
