@@ -19,11 +19,11 @@ const styles = StyleSheet.create({
         marginTop: 15
       },
       companyText:{
-        fontSize: 20,
+        fontSize: 18,
         fontFamily: 'Helvetica-Bold'
       },
       companyContacts:{
-        fontSize: 11
+        fontSize: 10
       },
       patientHeader:{
         display: 'flex',
@@ -39,10 +39,10 @@ const styles = StyleSheet.create({
         width: 200
       },
       patientInfo:{
-        fontSize: '12px'
+        fontSize: '11px'
       },
       footerText:{
-        fontSize: '12px',
+        fontSize: '10px',
         textAlign: 'center',
       }
       ,
@@ -64,14 +64,14 @@ const styles = StyleSheet.create({
         justifyContent: 'space-around',
         padding: 5,
         fontFamily: 'Helvetica-Bold',
-        fontSize: '13px'
+        fontSize: '12px'
       },
       
        resultBody:{
         display: 'flex',
         flexDirection: 'row',
         justifyContent: 'space-around',
-         fontSize: '12px'
+         fontSize: '10px'
       },
       testName: {
         width: 175,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
       },
       sectiontext:{
         fontFamily: 'Helvetica-Bold',
-        fontSize: '12px'
+        fontSize: '11px'
       },
     });
 
