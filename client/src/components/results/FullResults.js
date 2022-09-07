@@ -9,91 +9,103 @@ Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight
 
 // Create styles
 const styles = StyleSheet.create({
-    body: {
-        paddingTop: 35,
-        paddingBottom: 100,
-        paddingHorizontal: 35,
-      },
-      header:{
-        textAlign: 'center',
-        marginTop: 15
-      },
-      companyText:{
-        fontSize: 18,
-        fontFamily: 'Helvetica-Bold'
-      },
-      companyContacts:{
-        fontSize: 10
-      },
-      patientHeader:{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        marginTop: 10
-      },
-      column:{
-        width: 300,
-        marginRight: 20
-      },
-      column1:{
-        width: 200
-      },
-      patientInfo:{
-        fontSize: '11px'
-      },
-      footerText:{
-        fontSize: '10px',
-        textAlign: 'center',
-      }
-      ,
-      footer:{
-        position: 'absolute',
-        bottom: 30,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'center',
-      },
-      
-      resultHeader:{
-        borderTop: '1px dotted black',
-        borderBottom: '1px dotted black',
-        marginTop: 15,
-        marginBottom: 10,
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-        padding: 5,
-        fontFamily: 'Helvetica-Bold',
-        fontSize: '12px'
-      },
-      
-       resultBody:{
-        display: 'flex',
-        flexDirection: 'row',
-        justifyContent: 'space-around',
-         fontSize: '10px'
-      },
-      testName: {
-        width: 175,
-        paddingLeft: 15
-      },
-      resultText:{
-        width: 215,
-        textAlign: 'center',
-      },
-      unitText:{
-        width: 75,
-        textAlign: 'center'
-    },
-      referenceText:{
-        width: 75,
-        textAlign: 'center'
-      },
-      sectiontext:{
-        fontFamily: 'Helvetica-Bold',
-        fontSize: '11px'
-      },
-    });
+  body: {
+    paddingTop: 35,
+    paddingBottom: 100,
+    paddingHorizontal: 35,
+  },
+  header:{
+    textAlign: 'center',
+    marginTop: 15
+  },
+  companyText:{
+    fontSize: 18,
+    fontFamily: 'Helvetica-Bold'
+  },
+  companyContacts:{
+    fontSize: 10
+  },
+  patientHeader:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginTop: 10
+  },
+  column:{
+    width: 300,
+    marginRight: 20
+  },
+  column1:{
+    width: 200
+  },
+  patientInfo:{
+    fontSize: '11px'
+  },
+  footerText:{
+    fontSize: '11px',
+    textAlign: 'center',
+  }
+  ,
+  footer:{
+    position: 'absolute',
+    bottom: 30,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  
+  resultHeader:{
+    borderTop: '1px dotted black',
+    borderBottom: '1px dotted black',
+    marginTop: 15,
+    marginBottom: 10,
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 5,
+    fontFamily: 'Helvetica-Bold',
+    fontSize: '12px'
+  },
+  
+   resultBody:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+     fontSize: '11px'
+  },
+  testName: {
+    width: 175,
+    paddingLeft: 15
+  },
+  resultText:{
+    width: 215,
+    textAlign: 'center',
+  },
+  unitText:{
+    width: 75,
+    textAlign: 'center'
+},
+  referenceText:{
+    width: 75,
+    textAlign: 'center'
+  },
+  sectiontext:{
+    fontFamily: 'Helvetica-Bold',
+    fontSize: '12px'
+  },
+logo:{
+  width: "70px",
+  position: 'absolute',
+  left: "10px",
+  bottom: "40px"
+},
+lablogo:{
+    width: "70px",
+    position: 'absolute',
+    right: "10px",
+  	bottom: "40px"
+},
+});
 
 // Create Document Component
 const FullResults = (props) => {
@@ -135,7 +147,7 @@ const FullResults = (props) => {
       
 
          
-         {/* {props.data.Sectionorders.map((section, key) => {
+         {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
 
@@ -157,7 +169,7 @@ const FullResults = (props) => {
                 })}
                 </View>
             )
-         })} */}
+         })}
          
      
       
