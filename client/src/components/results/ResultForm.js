@@ -12,19 +12,18 @@ Font.register({ family: 'arial', src: arial, fontStyle: 'normal', fontWeight: 'n
 const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
-    paddingBottom: 460,
+    paddingBottom: 450,
     paddingHorizontal: 35,
   },
   header:{
     textAlign: 'center',
-    marginTop: 15
   },
   companyText:{
-    fontSize: 18,
+    fontSize: 13,
     fontFamily: 'Helvetica-Bold'
   },
   companyContacts:{
-    fontSize: 10
+    fontSize: 8
   },
   patientHeader:{
     display: 'flex',
@@ -65,14 +64,14 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 5,
     fontFamily: 'Helvetica-Bold',
-    fontSize: '12px'
+    fontSize: '11px'
   },
   
    resultBody:{
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '10px'
+     fontSize: '11px'
   },
   testName: {
     width: 175,
@@ -87,13 +86,28 @@ const styles = StyleSheet.create({
     textAlign: 'center'
 },
   referenceText:{
-    width: 75,
+    width: 90,
     textAlign: 'center'
   },
   sectiontext:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px'
+    fontSize: '11px',
   },
+logo:{
+  width: "55px",
+  position: 'absolute',
+  left: "10px",
+  bottom: "5px"
+},
+lablogo:{
+    width: "55px",
+    position: 'absolute',
+    right: "10px",
+  	bottom: "5px"
+},
+caps:{
+  textTransform: "uppercase"
+}
 });
 
 // Create Document Component
@@ -138,8 +152,19 @@ const ResultForm = (props) => {
             return(
                 <View key={key}>
 
-                    <Text style={styles.sectiontext}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
-                {section.Sectionresults.map((result, index) => {
+                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                    {section.Sectionresults.map((result, index) => {
+                      return(
+                        <View key={index}>
+                          {result.result === "!" || result.result === null ? <View></View> : 
+                            <View>
+                              {result.Testslist.isPackage === true && <Text style={styles.sectiontext}>{result.Testslist.testname}</Text>}
+                              {result.Testslist.isPackage === false && (<View style={styles.resultBody}><Text style={styles.testName}>{result.Testslist.testname}</Text><Text style={styles.resultText}>{result.result}</Text><Text style={styles.unitText}>{result.Testslist.unit}</Text><Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text></View>)}
+                            </View>}
+                        </View>
+                      )
+                    })}
+                {/* {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
                             {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
@@ -153,7 +178,7 @@ const ResultForm = (props) => {
                             </View>}
                         </View>
                     )
-                })}
+                })} */}
                 </View>
             )
          })}
