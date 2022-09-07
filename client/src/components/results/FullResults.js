@@ -113,15 +113,15 @@ const FullResults = (props) => {
       
       <View style={styles.patientHeader} fixed={true}>
         <View style={styles.column}>
-          <Text style={styles.patientInfo}>Patient Name: </Text>
-          <Text style={styles.patientInfo}>Age/Gender: </Text>
-          <Text style={styles.patientInfo}>Requesting Physician: </Text>
+          <Text style={styles.patientInfo}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>
+          <Text style={styles.patientInfo}>Age/Gender: {props.data.Patientlists[0].age} / {props.data.Patientlists[0].gender}</Text>
+          <Text style={styles.patientInfo}>Requesting Physician: {props.data.reqDr}</Text>
         </View>
         
         <View style={styles.column1}>
-          <Text style={styles.patientInfo}>Date:</Text>
-          <Text style={styles.patientInfo}>Patient Type/Room No.: </Text>
-          <Text style={styles.patientInfo}>Laboratory Number: </Text>
+          <Text style={styles.patientInfo}>Date: {Moment(props.data.createdAt).format('MMMM DD, yyyy')}</Text>
+          <Text style={styles.patientInfo}>Patient Type/Room No.: {props.data.ptType}</Text>
+          <Text style={styles.patientInfo}>Laboratory Number: {props.data.labNumber}</Text>
         </View>
       </View>
       

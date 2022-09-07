@@ -41,9 +41,9 @@ const Quixote = () => (
 
           <View style={styles.resultBody}>
               <Text style={styles.testName}>Fasting Blood Sugar</Text>
-              <Text style={styles.resultText}>NO INTESTINAL PARASITES SEEN</Text>
+              <Text style={styles.resultText}>80</Text>
               <Text style={styles.unitText}>mg/dL</Text>
-              <Text style={styles.referenceText}>NEGATIVE</Text>
+              <Text style={styles.referenceText}>70-120</Text>
           </View>
 
           <View>
