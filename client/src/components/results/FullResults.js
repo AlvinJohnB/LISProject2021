@@ -139,7 +139,7 @@ const FullResults = (props) => {
             return(
                 <View key={key}>
 
-                    <Text style={styles.sectiontext}>{section.section === "CM" ? `CLINICAL MICROSCOPY` : toUppercase(section.section)}</Text>
+                    <Text style={styles.sectiontext}>{section.section === "CM" ? `CLINICAL MICROSCOPY` : section.section}</Text>
                 {/* {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
