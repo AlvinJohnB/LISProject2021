@@ -2,7 +2,9 @@ const Quixote = () => (
   <Document>
     <Page size="Letter" style={styles.body}>
       <View style={styles.header} fixed>
-          <Text style={styles.companyText}>St. Camillus De Lellis General Hospital</Text>
+        <Image src={logo} style={styles.logo}/>
+        <Image src={lablogo} style={styles.lablogo}/>
+        <Text style={styles.companyText}>St. Camillus De Lellis General Hospital</Text>
         <Text style={styles.companyContacts}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
         <Text style={styles.companyContacts}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
         <Text style={styles.companyText}>Laboratory Report</Text>   
@@ -156,6 +158,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica-Bold',
     fontSize: '12px'
   },
+logo:{
+  width: "70px",
+  position: 'absolute',
+  left: "10px",
+  bottom: "40px"
+},
+lablogo:{
+    width: "70px",
+    position: 'absolute',
+    right: "10px",
+  	bottom: "40px"
+},
 });
 
 ReactPDF.render(<Quixote />);

@@ -102,14 +102,16 @@ const FullResults = (props) => {
   return(
     <Document>
     <Page size="Letter" style={styles.body}>
-      <View style={styles.header} fixed>
-          <Text style={styles.companyText}>St. Camillus De Lellis General Hospital</Text>
+    <View style={styles.header} fixed={true}>
+        <Image src={logo} style={styles.logo}/>
+        <Image src={lablogo} style={styles.lablogo}/>
+        <Text style={styles.companyText}>St. Camillus De Lellis General Hospital</Text>
         <Text style={styles.companyContacts}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
         <Text style={styles.companyContacts}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
         <Text style={styles.companyText}>Laboratory Report</Text>   
-      </View>
+    </View>
       
-      <View style={styles.patientHeader} fixed>
+      <View style={styles.patientHeader} fixed={true}>
         <View style={styles.column}>
           <Text style={styles.patientInfo}>Patient Name: </Text>
           <Text style={styles.patientInfo}>Age/Gender: </Text>
@@ -124,39 +126,47 @@ const FullResults = (props) => {
       </View>
       
       
-      <View style={styles.resultHeader} fixed>
+      <View style={styles.resultHeader} fixed={true}>
           <Text style={styles.testName}>Test Name</Text>
           <Text style={styles.resultText}>Result</Text>
           <Text style={styles.unitText}>Unit</Text>
          <Text style={styles.referenceText}>Reference</Text>
       </View>
       
-  
-         
-         
-            <View>
-              <Text style={styles.sectiontext}>CHEMISTRY</Text>
-          </View>
 
-          <View style={styles.resultBody}>
-              <Text style={styles.testName}>Fasting Blood Sugar</Text>
-              <Text style={styles.resultText}>NO INTESTINAL PARASITES SEEN</Text>
-              <Text style={styles.unitText}>mg/dL</Text>
-              <Text style={styles.referenceText}>NEGATIVE</Text>
-          </View>
+         
+         {props.data.Sectionorders.map((section, key) => {
+            return(
+                <View key={key}>
 
-          <View>
-              <Text style={styles.sectiontext}>Lipid Profile</Text>
-          </View>
+                    <Text style={styles.sectiontext}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                {section.Sectionresults.map((result, index) => {
+                    return(
+                        <View key={index}>
+                            {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
+                            {result.Testslist.isPackage === true && <View> <Text style={styles.sectiontext}>{result.Testslist.testname}</Text></View>}
+                            {result.Testslist.isPackage === false && <View style={styles.resultBody}>
+                                                                        <Text style={styles.testName}>{result.Testslist.testname}</Text>
+                                                                        <Text style={styles.resultText}>{result.result}</Text>
+                                                                        <Text style={styles.unitText}>{result.Testslist.unit}</Text>
+                                                                        <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
+                                                                    </View>}
+                            </View>}
+                        </View>
+                    )
+                })}
+                </View>
+            )
+         })}
          
      
       
       
       
       
-      <View style={styles.footer} fixed>
+      <View style={styles.footer} fixed={true}>
         <View style={styles.column}>
-          <Text style={styles.footerText}>Name</Text>
+          <Text style={styles.footerText}>{props.data.Sectionorders[0].releasedBy}</Text>
           <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
           <Text style={styles.footerText}>License No.: _____</Text>
         </View>
