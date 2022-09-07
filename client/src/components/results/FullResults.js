@@ -172,7 +172,7 @@ const FullResults = (props) => {
         </View>
         
         <View style={styles.column}>
-          <Text style={styles.footerText}>Modesty A. Leaño, MD, FSPS</Text>
+          <Text style={styles.footerText}>{props.data.Sectionorders[0].pathologist}</Text>
           <Text style={styles.footerText}>ANATOMIC AND CLINICAL PATHOLOGIST</Text>
           <Text style={styles.footerText}>License No: 98717</Text>
         </View>
