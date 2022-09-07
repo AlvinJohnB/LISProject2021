@@ -41,13 +41,13 @@ const styles = StyleSheet.create({
     fontSize: '11px'
   },
   footerText:{
-    fontSize: '10px',
+    fontSize: '11px',
     textAlign: 'center',
   }
   ,
   footer:{
     position: 'absolute',
-    bottom: 400,
+    bottom: 30,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'center',
@@ -70,7 +70,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '10px'
+     fontSize: '11px'
   },
   testName: {
     width: 175,
@@ -90,8 +90,20 @@ const styles = StyleSheet.create({
   },
   sectiontext:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px'
+    fontSize: '12px'
   },
+logo:{
+  width: "70px",
+  position: 'absolute',
+  left: "10px",
+  bottom: "40px"
+},
+lablogo:{
+    width: "70px",
+    position: 'absolute',
+    right: "10px",
+  	bottom: "40px"
+},
 });
 
 // Create Document Component
@@ -132,7 +144,7 @@ const FullResultsHalf = (props) => {
       
 
          
-         {props.data.Sectionorders.map((section, key) => {
+         {/* {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
 
@@ -154,7 +166,7 @@ const FullResultsHalf = (props) => {
                 })}
                 </View>
             )
-         })}
+         })} */}
          
      
       

@@ -109,8 +109,6 @@ lablogo:{
 
 // Create Document Component
 const FullResults = (props) => {
-
-  
   return(
     <Document>
     <Page size="Letter" style={styles.body}>
@@ -147,7 +145,7 @@ const FullResults = (props) => {
       
 
          
-         {props.data.Sectionorders.map((section, key) => {
+         {/* {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
 
@@ -169,7 +167,7 @@ const FullResults = (props) => {
                 })}
                 </View>
             )
-         })}
+         })} */}
          
      
       
