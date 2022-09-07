@@ -139,8 +139,8 @@ const FullResults = (props) => {
             return(
                 <View key={key}>
 
-                    <Text style={styles.sectiontext}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
-                {section.Sectionresults.map((result, index) => {
+                    <Text style={styles.sectiontext}>{section.section === "CM" ? `CLINICAL MICROSCOPY` : toUppercase(section.section)}</Text>
+                {/* {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
                             {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
@@ -154,7 +154,7 @@ const FullResults = (props) => {
                             </View>}
                         </View>
                     )
-                })}
+                })} */}
                 </View>
             )
          })}
