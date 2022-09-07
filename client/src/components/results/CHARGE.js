@@ -11,12 +11,12 @@ const Quixote = () => (
           <Text style={styles.compContacts}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125 </Text>
           <Text style={styles.compContacts}>e-mail: st.camillusdelellislab@yahoo.com</Text>
           <Text style={[styles.compHeaderText, styles.bold, styles.marginTop]}>Charge Slip</Text>
-          <Text style={styles.date}>Date: {Moment(props.data.createdAt).format('MMMM DD, yyyy')}</Text>
-          <Text style={styles.patientDetails}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>
-          <Text style={styles.patientDetails}>Age/Gender: {props.data.Patientlists[0].age} / {props.data.Patientlists[0].gender}</Text>
-          <Text style={styles.patientDetails}>Patient Type/Room No: {props.data.ptType}</Text>
-          <Text style={styles.patientDetails}>Laboratory Number: {props.data.labNumber}</Text>
-          <Text style={styles.patientDetails}>Requesting Physician: {props.data.reqDr}</Text>
+          <Text style={styles.date}>Date: </Text>
+          <Text style={styles.patientDetails}>Patient Name: </Text>
+          <Text style={styles.patientDetails}>Age/Gender: </Text>
+          <Text style={styles.patientDetails}>Patient Type/Room No: </Text>
+          <Text style={styles.patientDetails}>Laboratory Number: </Text>
+          <Text style={styles.patientDetails}>Requesting Physician: </Text>
         </View>
         <View style={styles.chargeSlipHeader}>
             <Text style={[styles.chargeSlipTHead,styles.bold, styles.col]}>PARTICULARS</Text>
@@ -28,41 +28,41 @@ const Quixote = () => (
           {props.data.chemCost !== "0" &&
             <View style={styles.chargeSlip}>
                 <Text style={[styles.patientDetails, styles.col]}>Chemistry</Text>
-                <Text style={styles.patientDetails}>PHP {props.data.chemCost}{props.data.isDiscounted === true && `**`}</Text>
+                <Text style={styles.patientDetails}>PHP </Text>
             </View>
           }
 
-          {props.data.seroCost !== "0" &&
+       
             <View style={styles.chargeSlip}>
                 <Text style={[styles.patientDetails, styles.col]}>Serology</Text>
-                <Text style={styles.patientDetails}>PHP {props.data.seroCost}{props.data.isDiscounted === true && `**`}</Text>
+                <Text style={styles.patientDetails}>PHP </Text>
             </View>
-          }
           
-          {props.data.hemaCost !== "0" &&
+          
+   
             <View style={styles.chargeSlip}>
                 <Text style={[styles.patientDetails, styles.col]}>Hematology</Text>
-                <Text style={styles.patientDetails}>PHP {props.data.hemaCost}{props.data.isDiscounted === true && `**`}</Text>
+                <Text style={styles.patientDetails}>PHP </Text>
             </View>
-          }
-          {props.data.cmCost !== "0" &&
+          
+        
             <View style={styles.chargeSlip}>
                 <Text style={[styles.patientDetails, styles.col]}>Clinical Microscopy</Text>
-                <Text style={styles.patientDetails}>PHP {props.data.cmCost}{props.data.isDiscounted === true && `**`}</Text>
+                <Text style={styles.patientDetails}>PHP </Text>
             </View>
-          }
+          
 
         </View>
         
          <View style={styles.chargeSlip}>
                 <Text style={[styles.chargeSlipTHead, styles.col, styles.bold]}>TOTAL COST</Text>
-                <Text style={[styles.chargeSlipTHead, styles.bold]}>PHP {props.data.totalCost}{props.data.isDiscounted === true && `**`}</Text>
+                <Text style={[styles.chargeSlipTHead, styles.bold]}>PHP</Text>
           </View>
-          {props.data.isDiscounted === true &&
+      
         <View style={styles.chargeSlip}>
                 <Text style={[styles.discount, styles.col, styles.bold]}>**discount applied</Text>
                 <Text style={[styles.chargeSlipTHead, styles.bold]}></Text>
-          </View>}
+          </View>
         
         
          <View style={styles.footer}>

@@ -199,7 +199,7 @@ const ResultFormA4 = (props) => {
 
             <View style={styles.pcol1}>
               <Text style={styles.patientInfoText}>Date: {Moment(props.data.createdAt).format('MMMM DD, yyyy')}</Text>
-              <Text style={styles.patientInfoText}>Paitent Type/Room: {props.data.ptType}</Text>
+              <Text style={styles.patientInfoText}>Patient Type/Room: {props.data.ptType}</Text>
               <Text style={styles.patientInfoText}>Laboratory Number: {props.data.labNumber}</Text>
             </View>
           </View>
