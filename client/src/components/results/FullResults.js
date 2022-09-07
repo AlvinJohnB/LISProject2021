@@ -145,11 +145,10 @@ const FullResults = (props) => {
       
 
          
-         {/* {props.data.Sectionorders.map((section, key) => {
+         {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
-
-                    <Text style={styles.sectiontext}>{section.section === "CM" ? `CLINICAL MICROSCOPY` : section.section}</Text>
+                    <Text style={styles.sectiontext}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
                 {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
@@ -167,7 +166,7 @@ const FullResults = (props) => {
                 })}
                 </View>
             )
-         })} */}
+         })}
          
      
       
