@@ -106,6 +106,9 @@ lablogo:{
 },
 caps:{
   textTransform: "uppercase"
+},
+marginBot:{
+  marginBottom: 10
 }
 });
 
@@ -150,7 +153,7 @@ const FullResults = (props) => {
          {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
-                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                    <Text style={[styles.sectiontext, styles.caps, styles.marginBot]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
                 {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
