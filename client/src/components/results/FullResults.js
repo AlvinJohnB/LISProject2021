@@ -108,7 +108,8 @@ caps:{
   textTransform: "uppercase"
 },
 marginBot:{
-  marginBottom: 10
+  marginBottom: 5,
+  marginTop: 5
 }
 });
 
