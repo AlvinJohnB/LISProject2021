@@ -206,6 +206,22 @@ function CheckInModal(props) {
                 }, 500)
             }
 
+            else if(expTests[i] === "TYPHI"){
+                const test = ["TYPHI","TYPHIGG", "TYPHIGM"]
+                setTimeout(async () => {
+                    for(let i=0; i<test.length; i++){
+                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                            test: test[i],
+                        },
+                        {
+                            headers: {
+                                accessToken: localStorage.getItem("accessToken")
+                            }
+                        })  
+                    }
+                }, 500)
+            }
+
             else if(expTests[i] === "BTYPE"){
                 const test = ["BTYPE","ABO","RH"]
                 setTimeout(async () => {
