@@ -305,6 +305,24 @@ router.get("/resultform/:labnumber/:section", async (req, res) => {
 })
 
 //Get results
+router.get("/results/:orderID/:sections", async (req, res) => {
+    const orderID = req.params.orderID;
+    const sections = req.params.sections;
+    const section = sections.split(",")
+
+    const data = await  Orders.findAll(
+        {
+            where: {id: orderID},
+            include:[
+                {model: Patientlist},
+                {model: Sectionorders, where:{section: section}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
+            ]
+        }
+    )
+    res.json(data);
+})
+
+//Get results
 router.get("/results/:orderID/:section", async (req, res) => {
     const orderID = req.params.orderID;
     const section = req.params.section;
