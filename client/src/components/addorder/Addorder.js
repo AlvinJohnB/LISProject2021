@@ -196,7 +196,8 @@ const Addorder = () => {
                             section: "CM",
                             tests: cmTestsInput,
                             forOrderID: lastOrderIdData.id+1,
-                            sectNumber: `(CM)-${labNumberInput}`
+                            sectNumber: `(CM)-${labNumberInput}`,
+                            order: 1
                         },
                     {
                         headers: {
@@ -217,7 +218,8 @@ const Addorder = () => {
                         section: "Chemistry",
                         tests: chemTestsInput,
                         forOrderID: lastOrderIdData.id+1,
-                        sectNumber: `(CHEM)-${labNumberInput}`
+                        sectNumber: `(CHEM)-${labNumberInput}`,
+                        order: 3
                     },
                 {
                     headers: {
@@ -238,7 +240,8 @@ const Addorder = () => {
                         section: "Hematology",
                         tests: hemaTestsInput,
                         forOrderID: lastOrderIdData.id+1,
-                        sectNumber: `(HEMA)-${labNumberInput}`
+                        sectNumber: `(HEMA)-${labNumberInput}`,
+                        order: 2
                     },
                 {
                     headers: {
@@ -259,7 +262,8 @@ const Addorder = () => {
                         section: "Serology",
                         tests: seroTestsInput,
                         forOrderID: lastOrderIdData.id+1,
-                        sectNumber: `(SERO)-${labNumberInput}`
+                        sectNumber: `(SERO)-${labNumberInput}`,
+                        order: 4
                     },
                 {
                     headers: {

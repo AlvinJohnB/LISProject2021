@@ -32,6 +32,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        order:{
+            type: DataTypes.INTEGER,
+            allowNull: true,
+        },
     })
 
     return Sectionorders;
