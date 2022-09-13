@@ -315,7 +315,7 @@ router.get("/results/:orderID/:sections", async (req, res) => {
             where: {id: orderID},
             include:[
                 {model: Patientlist},
-                {model: Sectionorders, where:{section: section}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
+                {model: Sectionorders, where:{section: {[Op.is]:section}}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
             ]
         }
     )
