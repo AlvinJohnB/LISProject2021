@@ -252,6 +252,7 @@ router.post("/form/result/create/:secreqID", validateToken, async (req, res) => 
     res.send();
 });
 
+
 //SectionData
 router.get("/section/:section", async (req, res) => {
     const section = req.params.section;
@@ -297,7 +298,10 @@ router.get("/resultform/:labnumber/:section", async (req, res) => {
             where: {labNumber: labnumber},
             include:[
                 {model: Patientlist},
-                {model: Sectionorders, where:{section: section}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
+                {model: Sectionorders, 
+                    where:{section: section},
+                    order: [['order', 'ASC']],
+                    include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
             ]
         }
     )
@@ -314,7 +318,10 @@ router.get("/results/:orderID/:section", async (req, res) => {
             where: {id: orderID},
             include:[
                 {model: Patientlist},
-                {model: Sectionorders, where:{section: section}, include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
+                {model: Sectionorders, 
+                    where:{section: section},
+                    order: [['order', 'ASC']], 
+                    include:[{model: Sectionresults, include: [{model: Testslist, include:[{model: Referencevalues}]}]}]},
             ]
         }
     )
