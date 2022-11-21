@@ -112,6 +112,22 @@ function CheckInModal(props) {
                 }, 500)
             }
 
+            else if(expTests[i] === "ABG"){
+                const test = ["ABG","BPH","PO2","PCO2", "HCO3", "SATO2", "BX", "BEECF"]
+                setTimeout(async () => {
+                    for(let i=0; i<test.length; i++){
+                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                            test: test[i],
+                        },
+                        {
+                            headers: {
+                                accessToken: localStorage.getItem("accessToken")
+                            }
+                        })  
+                    }
+                }, 500)
+            }
+
             // CM Profiles
             else if(expTests[i] === "URINAL"){
                 const test = ["URINAL","URINPHY","UCOLOR","UTRANS","UCHEM","UPH","USG","UCHON","UGLU","UWBC","UBLD","UROBIL", "UBILI", "UNIT", "UKET", "URINMIC", "UPUS", "UMRBC", "UECLS", "UMAM", "UMUC", "UMBAC", "UCASTS", "UCRYS", "UPARA", "UMOTH"]
