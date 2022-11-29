@@ -67,7 +67,6 @@ function CheckInModal(props) {
                 //declare profile checkinloop
                 const profileCheckIn = async (test) => {
                         for(let i=0; i<test.length; i++){
-                            console.log(`${test[i]} has been checked in`)
                             await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                                 test: test[i],
                             },
@@ -145,7 +144,6 @@ function CheckInModal(props) {
                     
                     //IF NOT PROFILE
                     else{
-                        console.log(`${expTests[i]} has been checked in`)
                         await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
                         test: expTests[i],
                         },
