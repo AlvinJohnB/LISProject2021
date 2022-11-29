@@ -59,256 +59,119 @@ function CheckInModal(props) {
         const etests = props.selected[0].Sectionorders[0].tests;
         const expTests = etests.split(" ");
         expTests.pop();
+       
 
-        for (let i = 0; i < expTests.length; i++){
-
-            console.log(`${expTests[i]} checked in`);
-
-        // IF PROFILE
-        // Chemistry Profiles
-            if(expTests[i] === "LIPID"){
-                const test = ["LIPID","CHOLE","TRIG","HDL","LDL"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
+        // declare func to be looped 
+            const checkInTest = async (i) => {                 
+                
+                //declare profile checkinloop
+                const profileCheckIn = async (test) => {
+                        for(let i=0; i<test.length; i++){
+                            console.log(`${test[i]} has been checked in`)
+                            await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                                test: test[i],
+                            },
+                            {
+                                headers: {
+                                    accessToken: localStorage.getItem("accessToken")
+                                }
+                            })
+                        }
+                }
+                setTimeout( async ()=> {
+                    // IF PROFLE
+                    //CHEMISTRY PROFILES
+                    if(expTests[i] === "LIPID"){
+                        const test = ["LIPID","CHOLE","TRIG","HDL","LDL"]
+                        profileCheckIn(test, i);                     
                     }
-                }, 500)
-            }
-            else if(expTests[i] === "TPAG"){
-                const test = ["TPAG","TOTCHO","TALB","GLOB","ALBGL"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
+                    else if(expTests[i] === "TPAG"){
+                        const test = ["TPAG","TOTCHO","TALB","GLOB","ALBGL"]
+                        profileCheckIn(test, i);  
+                    }    
+                    else if(expTests[i] === "OGTT75"){
+                        const test = ["OGTT75","OGFBS","OG1HR","OG2ND"]
+                        profileCheckIn(test, i);  
+                    }  
+                    else if(expTests[i] === "ABG"){
+                        const test = ["ABG","BPH","PO2","PCO2", "HCO3", "SATO2", "BX", "BEECF"]
+                        profileCheckIn(test, i);  
                     }
-                }, 500)
-            }
-            else if(expTests[i] === "OGTT75"){
-                const test = ["OGTT75","OGFBS","OG1HR","OG2ND"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-
-            else if(expTests[i] === "ABG"){
-                const test = ["ABG","BPH","PO2","PCO2", "HCO3", "SATO2", "BX", "BEECF"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-
-            // CM Profiles
-            else if(expTests[i] === "URINAL"){
-                const test = ["URINAL","URINPHY","UCOLOR","UTRANS","UCHEM","UPH","USG","UCHON","UGLU","UWBC","UBLD","UROBIL", "UBILI", "UNIT", "UKET", "URINMIC", "UPUS", "UMRBC", "UECLS", "UMAM", "UMUC", "UMBAC", "UCASTS", "UCRYS", "UPARA", "UMOTH"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-            else if(expTests[i] === "FECA"){
-                const test = ["FECA","FPHYS","FCOL", "FCONSIS", "FMICRO", "FPUS", "FBLO","FECPARA"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 1500)
-            }
-            // Hema Profiles
-            else if(expTests[i] === "CBCPLT"){
-                const test = ["CBCPLT","WBCCT","GRNCT","LYMPCT","MID","RBCCT","HGB","HCT","MCV","MCH","MCHC","PLTCT"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-            else if(expTests[i] === "Hgb/Hct"){
-                const test = ["HGB","HCT"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-            else if(expTests[i] === "PTINR"){
-                const test = ["PTINR","PT","CONT","PTACT","INR"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-            // Sero Profiles
-            else if(expTests[i] === "DNGBLT"){
-                const test = ["DNGBLT","DENGIGG", "DENGIGM"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-
-            else if(expTests[i] === "TYPHI"){
-                const test = ["TYPHI","TYPHIGG", "TYPHIGM"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-
-            else if(expTests[i] === "BTYPE"){
-                const test = ["BTYPE","ABO","RH"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-
-            else if(expTests[i] === "CROSSM"){
-                const test = ["CROSSM","REAB","RERH", "COMP", "PUR", "BLSER", "TUB", "BEXTR", "BEXP", "BLSRC", "MAJCX", "MINORCX"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-
-            else if(expTests[i] === "ABOPC"){
-                const test = ["ABOPC","ABPC","BLSER", "BEXTR", "BEXP", "BLSRC"]
-                setTimeout(async () => {
-                    for(let i=0; i<test.length; i++){
-                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-                            test: test[i],
-                        },
-                        {
-                            headers: {
-                                accessToken: localStorage.getItem("accessToken")
-                            }
-                        })  
-                    }
-                }, 500)
-            }
-
-
-            //MircroProfiles
-        else { await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
-            test: expTests[i],
-        },
-        {
-            headers: {
-                accessToken: localStorage.getItem("accessToken")
-            }
-        })}
-
-        }
-        }
-
-
-
         
-        await axios.get(`http://${host.ip}:3001/order/forcheckin/${props.section}`).then((response) => {
-            props.setCheckInDetails(response.data);
-        })
-        setTimeout(()=>{setIsLoading(false);}, 1000)
-        setIsLoading(false);
+                    // CM Profiles
+                    else if(expTests[i] === "URINAL"){
+                        const test = ["URINAL","URINPHY","UCOLOR","UTRANS","UCHEM","UPH","USG","UCHON","UGLU","UWBC","UBLD","UROBIL", "UBILI", "UNIT", "UKET", "URINMIC", "UPUS", "UMRBC", "UECLS", "UMAM", "UMUC", "UMBAC", "UCASTS", "UCRYS", "UPARA", "UMOTH"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "FECA"){
+                        const test = ["FECA","FPHYS","FCOL", "FCONSIS", "FMICRO", "FPUS", "FBLO","FECPARA"]
+                        profileCheckIn(test, i);  
+                    }
+                    // Hema Profiles
+                    else if(expTests[i] === "CBCPLT"){
+                        const test = ["CBCPLT","WBCCT","GRNCT","LYMPCT","MID","RBCCT","HGB","HCT","MCV","MCH","MCHC","PLTCT"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "Hgb/Hct"){
+                        const test = ["HGB","HCT"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "PTINR"){
+                        const test = ["PTINR","PT","CONT","PTACT","INR"]
+                        profileCheckIn(test, i);  
+                    }
+                    // Sero Profiles
+                    else if(expTests[i] === "DNGBLT"){
+                        const test = ["DNGBLT","DENGIGG", "DENGIGM"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "TYPHI"){
+                        const test = ["TYPHI","TYPHIGG", "TYPHIGM"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "BTYPE"){
+                        const test = ["BTYPE","ABO","RH"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "CROSSM"){
+                        const test = ["CROSSM","REAB","RERH", "COMP", "PUR", "BLSER", "TUB", "BEXTR", "BEXP", "BLSRC", "MAJCX", "MINORCX"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "ABOPC"){
+                        const test = ["ABOPC","ABPC","BLSER", "BEXTR", "BEXP", "BLSRC"]
+                        profileCheckIn(test, i);  
+                    }
+                
+                    
+                    //IF NOT PROFILE
+                    else{
+                        console.log(`${expTests[i]} has been checked in`)
+                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        test: expTests[i],
+                        },
+                        {
+                            headers: {
+                                accessToken: localStorage.getItem("accessToken")
+                            }
+                        })
+                }
 
+                    await axios.get(`http://${host.ip}:3001/order/forcheckin/${props.section}`).then((response) => {
+                    props.setCheckInDetails(response.data);
+                    })
+                    
+
+                }, 1500 * i)
+
+                    
+            }
+
+            for (let i = 0; i < expTests.length; i++){
+                checkInTest(i);
+                setTimeout(()=> { setIsLoading(false); }, 1500 * expTests.length)
+            }
+
+        }
     }
 
     if(!props.show){
