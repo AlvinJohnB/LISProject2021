@@ -37,7 +37,7 @@ function UserLogin() {
                 <div className="login-form">
                     <img src={logo} alt="logo" className="stcamlogo"/>
                     <h3>Laboratory Information System Login</h3>
-                    <form>
+                    <form method='post'>
                         
                     <p className="errormsg">{msg}</p>
                         <label >Username:</label><br />
