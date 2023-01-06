@@ -5,7 +5,6 @@ import { useHistory } from 'react-router-dom';
 import { AuthContext } from '../../helpers/AuthContext';
 
 import logo from '../../images/stcamlogo.jpg'
-import './users.css'
 import host from '../../config.json'
 
 function UserLogin() {
@@ -15,7 +14,8 @@ function UserLogin() {
     const[msg, setMsg] = useState("");
     const {setAuthState} = useContext(AuthContext);
 
-    const onSubmit = async () => {
+    const onSubmit = async (e) => {
+        e.preventDefault()
         const data = { username, password }
         
         await axios.post(`http://${host.ip}:3001/auth/login`, data).then((response) => {
@@ -32,31 +32,35 @@ function UserLogin() {
         })
     }
     return (
-        <div className="login-form-wrapper">
-            <div className="form-wrapper">
-                <div className="login-form">
-                    <img src={logo} alt="logo" className="stcamlogo"/>
-                    <h3>Laboratory Information System Login</h3>
-                    <form method='post'>
-                        
-                    <p className="errormsg">{msg}</p>
-                        <label >Username:</label><br />
+        <div className="container">
+            <div className="row justify-content-center">
+                <div className="col col-md-4 bg-white mt-5 p-4 rounded border border-dark d-flex flex-column justify-content-center">
+                    <img src={logo} alt="logo" className="w-30 m-auto"/>
+                    <h4 className = "text-center">Laboratory Information System Login</h4>
+
+                    <form onSubmit={onSubmit}>
+                    {msg && <div className='alert alert-danger text-center p-1 mb-1'>{msg}</div>}
+                        <label for="username" >Username:</label><br />
                         <input 
                             type="text" 
                             id="form-field"
+                            name="username"
+                            className='form-control mb-0'
                             placeholder="Username"
                             onChange={(event) => setUsername(event.target.value)}
                         />
-                        <br />
-                        <label>Password:</label><br />
+                        <label for="password">Password:</label><br />
                         <input 
                             type="password" 
                             id="form-field"
+                            name="password"
+                            className="form-control"
                             placeholder="Password"
                             onChange={(event) => setPassword(event.target.value)}
                         />
                         <br />
-                        <input onClick={onSubmit} className="login-form-botton" type="button" value="Login" />
+                        
+                        <input onClick={onSubmit} className="btn btn-success col-sm-12" type="submit" value="Login" />
                     </form>
                     
                 </div>

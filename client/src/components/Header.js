@@ -35,10 +35,10 @@ function Header() {
       history.push('/login');
     }
     return (
-      <header>
+      <header className='bg-white d-flex p-2 border rounded-top justify-content-between'> 
         <div><img src={logo} alt="Logo" width="75px" /><br />St. Camillus de Lellis General Hospital</div>
-        <div className="userDiv">
-        {authState.status === true && <p>Welcome, {authState.name}. <p className="logOut" onClick={logOut}>Log-out?</p></p>}
+        <div className="text-end">
+        {authState.status === true && <p>Welcome, {authState.name}. <br /><strong><a href="#" className="logOut" onClick={logOut}>Log-out?</a></strong></p>}
         {authState.status === false && <p>Welcome! Please log-in!</p>}</div>
       </header>
     )

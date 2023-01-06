@@ -9,11 +9,6 @@
     margin: 0px;
 }
 
-.tablewrapper {
-    display: block;
-    margin: auto;
-    width: 80%;
-}
 
 label {
     font-size: 0.9rem;
@@ -28,81 +23,11 @@ hr{
     margin-bottom: 5px;
 }
 
-.form-group{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 5px;
-}
-
-
-#form-field{
-    text-align: center;
-    width: 100%;
-    height: 1.5rem;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    border: 1px solid black;
-}
-
-#form-field-address{
-    text-align: center;
-    width: 150%;
-    height: 1.5rem;
-    background-color: transparent;
-    color: rgb(0, 0, 0);
-    border: 1px solid black;
-}
-.form-content select{
-    width:100%;
-    background-color: transparent;
-    height: 1.5rem;
-    color: black;
-    border: 1px solid black;
-    text-align: center;
-    margin-top: 7px;
-}
-
-.form-botton{
-    color: white;
-    background-color: rgb(6, 119, 15);
-    width: 100px;
-    padding: 5px;
-    border-radius: 10px;
-    margin-top: 20px;
-    margin-left: 10px;
-    border: 1px solid black;
-}
-
-.form-botton:hover{
-    color: rgb(0, 0, 0);
-    background-color: rgb(0, 94, 16);
-    cursor: pointer;
-}
-
-.form-group input:focus{
-    font-weight: bold;
-}
 
 span{
     font-size: 0.7rem;
     color: red;
     position: absolute;
-}
-
-.error{
-    font-size: 0.8 rem;
-    color: red;
-    font-weight: bold;
-}
-
-.table{
-    border-collapse: collapse;
-    border: 1px solid black;
-    padding: 5px;
-    text-align: center;
-    margin-top: 20px;
-    width: 100%;
 }
 
 .ordertable{
@@ -112,24 +37,6 @@ span{
 }
 
 
-tr.header{
-    background-color: rgb(6, 119, 15);
-    color: white;
-    font-weight: bold;
-}
-
-tr.tbcontent:hover{
-    background-color: rgb(135, 228, 151);
-    font-style: italic;
-    cursor: pointer;
-}
-
-.tablefooter{
-    display: block;
-    font-weight: bold;
-    font-size: 0.6rem;
-    margin-top: 5px;
-}
 
 .width50{
     width: 80%;
@@ -138,18 +45,4 @@ tr.tbcontent:hover{
 
 .widthauto{
     width: auto;
-}
-
-header{
-    background-color: white;
-    padding: 15px;
-}
-
-.logOut{
-    font-weight: bold;
-    cursor: pointer;
-}
-
-.userDiv{
-    text-align: right;
 }
