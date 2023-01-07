@@ -121,140 +121,142 @@ const Updatept = () => {
         )
     }
     return (
-        <div className="ptregwrapper">
-        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-            <Form>
+        <div className="container">
+            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                <Form>
 
-            <h1>Update Patient Information</h1>
-            <hr />
-            <h4>Personal Information</h4>
-            <div className="form-group">
-                <div className="form-content">
-                   <label htmlFor="branchid" className="form-content">Patient ID:</label>
-                   <ErrorMessage name="branchid" component="span" /> 
-
-                   <Field 
-                        name="branchid"
-                        id="form-field"
-                        type="text"
-                        value={initialValues.branchid}
-                        disabled={true}
-                   />
-                </div>
-            </div>
-            <div className="form-group">
-            
-                <div className="form-content">
-                    <label className="form-content" htmlFor="lastname">Lastname:</label> 
-                    <Field 
-                        autoComplete="off"
-                        id="form-field"
-                        name="lastname"
-                        placeholder="Lastname"
-                    />
-                    <ErrorMessage name="lastname" component="span" />
-                    
-                </div>
-
-                <div className="form-content">
-                    <label className="form-content" htmlFor="firstname">First name:</label>
-                    <Field 
-                        autoComplete="off"
-                        id="form-field"
-                        name="firstname"
-                        placeholder="First name"
-                    />
-                    <ErrorMessage name="firstname" component="span" />
-                </div>
-
-                <div className="form-content">
-                    <label className="form-content" htmlFor="middlename">Middle name:</label>
-                    <Field 
-                        autoComplete="off"
-                        id="form-field"
-                        name="middlename"
-                        placeholder="Middle name"
-                    />
-                     <ErrorMessage name="middlename" component="span" />
-                </div>
-            </div>
-
-            <div className="form-group">
-
-                <div className="form-content">
-                    <label className="form-content" htmlFor="gender">Gender:</label>
-                    <Field id="form-field" as="select" name="gender">
-                        <option  value="invalid">Select gender</option>
-                        <option  value="Male">Male</option>
-                        <option  value="Female">Female</option>
-                    </Field><br />
-                    <ErrorMessage name="gender" component="span" />
-                </div>
-
-                <div className="form-content">
-                    <label className="form-content" htmlFor="bday">Birthdate:</label>
-                    <Field 
-                    id="form-field"
-                    type="date"
-                    onBlur={getAge}
-                    name="bday" />
-                    <ErrorMessage name="bday" component="span" />
-                </div>
-
-                <div className="form-content">
-                    <label className="form-content" name="age">Age:</label>
-                    <Field id="form-field" name="age" type="number" value={updatePtData.age} disabled={true} />
-                </div>
-            </div>
-            <br /><h4>Contact and other information</h4>
-                <div className="form-group">
-
-                    <div className="form-content addressdiv">
-                    <label className="form-content" htmlFor="address">Address:</label>
-                    <Field 
-                        autoComplete="off"
-                        name="address"
-                        id="form-field"
-                        type="text"
-                        placeholder="Address"
-                    />
-                     <ErrorMessage name="address" component="span" />
+                <h3>Update Patient Information</h3>
+                
+                <div className="row mb-3">
+                    <div className="col-md-4">
+                       <label htmlFor="branchid">Patient ID:</label>
+                       <ErrorMessage name="branchid" component="span" /> 
+                       <Field 
+                            name="branchid"
+                            id="form-field"
+                            type="text"
+                            className="form-control"
+                            value={initialValues.branchid}
+                            disabled={true}
+                       />
                     </div>
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="phone">Phone Number:</label>
+                </div>
+                <strong>Personal Information</strong>
+                <div className="row mb-2">
+                    <div className="col-md-4">
+                        <label htmlFor="lastname">Lastname:</label> 
                         <Field 
                             autoComplete="off"
                             id="form-field"
-                            name="phone"
-                            type="tel"
-                            placeholder="Phone number"
+                            name="lastname"
+                            placeholder="Lastname"
+                            className="form-control"
                         />
-                         <ErrorMessage name="phone" component="span" />
+                        <ErrorMessage name="lastname" component="span" />
+                        
                     </div>
-                    
+
+                    <div className="col-md-4">
+                        <label htmlFor="firstname">First name:</label>
+                        <Field 
+                            autoComplete="off"
+                            id="form-field"
+                            name="firstname"
+                            placeholder="First name"
+                            className="form-control"
+                        />
+                        <ErrorMessage name="firstname" component="span" />
+                    </div>
+
+                    <div className="col-md-4">
+                        <label htmlFor="middlename">Middle name:</label>
+                        <Field 
+                            autoComplete="off"
+                            id="form-field"
+                            name="middlename"
+                            placeholder="Middle name"
+                            className="form-control"
+                        />
+                         <ErrorMessage name="middlename" component="span" />
+                    </div>
                 </div>
-                <div className="form-group">
-                    <div className="form-content">
-                    <label className="form-content" htmlFor="idenno">Identification Card No. (SC, PWD, etc.)</label>
-                    <Field 
+
+                <div className="row mb-2">
+
+                    <div className="col-md-4">
+                        <label htmlFor="bday">Birthdate:</label>
+                        <Field 
                         autoComplete="off"
                         id="form-field"
-                        name="idenno"
-                        placeholder="ID Number"
-                    />
+                        type="date"
+                        className="form-control"
+                        onBlur={getAge}
+                        name="bday" />
+                        <ErrorMessage name="bday" component="span" />
+                    </div>
+
+                    <div className="col-md-2">
+                        <label name="age">Age:</label>
+                        <Field id="form-field" className="form-control" name="age" type="number" disabled={true}/>
+                    </div>
+
+                    <div className="col-md-2">
+                        <label htmlFor="gender">Gender:</label>
+                        <Field id="form-field" as="select" className="form-select" name="gender">
+                            <option  value="invalid">Select gender</option>
+                            <option  value="Male">Male</option>
+                            <option  value="Female">Female</option>
+                        </Field>
+                        <ErrorMessage name="gender" component="span" />
                     </div>
                 </div>
+                <strong>Contact and other information</strong>
+                    <div className="row mb-2">
+                        <div className="col-md-4">
+                            <label htmlFor="address">Address:</label>
+                            <Field 
+                                autoComplete="off"
+                                name="address"
+                                id="form-field"
+                                className="form-control"
+                                type="text"
+                                placeholder="Address"
+                            />
+                            <ErrorMessage name="address" component="span" />
+                        </div>
 
-                <div className="form-group">
-                    <button className="form-content form-botton widthauto" type="submit">Update / Proceed</button>
-                    {hasPrev === true && <button className="form-content form-botton widthauto filter" onClick={onPrevTrans} type="button">Show Previous Transactions</button>}
-                </div>
-                
+                        <div className="col-md-4">
+                            <label htmlFor="phone">Phone Number:</label>
+                            <Field 
+                                autoComplete="off"
+                                id="form-field"
+                                name="phone"
+                                type="tel"
+                                placeholder="Phone number"
+                                className="form-control"
+                            />
+                             <ErrorMessage name="phone" component="span" />
+                        </div>
+                        
+                    </div>
+                    <div className="row">
+                        <div className="col-md-4">
+                        <label htmlFor="idenno">Discount Identification Card No. (SC, PWD, etc.)</label>
+                        <Field 
+                            autoComplete="off"
+                            id="form-field"
+                            name="idenno"
+                            className="form-control"
+                            placeholder="ID Number"
+                        />
+                        </div>
+                    </div>
 
-            </Form>
-        </Formik>
-
-        </div>
+                    <button className="btn btn-success col-md-2 my-3" type="submit">Submit</button>
+                    {hasPrev === true && <button className="btn btn-primary col-md-3 my-3" onClick={onPrevTrans} type="button"><small>Show Previous Transactions</small></button>}
+                </Form>
+            </Formik>
+    </div>
     )
 }
 

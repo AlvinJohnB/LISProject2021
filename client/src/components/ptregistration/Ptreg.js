@@ -6,7 +6,6 @@ import { useEffect, useState } from 'react';
 import { useHistory } from 'react-router-dom';
 import NotLoggedInModal from '../NotLoggedInModal';
 
-import './ptreg.css';
 import LoadingModal from '../LoadingModal';
 import host from '../../config.json'
 
@@ -113,133 +112,139 @@ const Ptreg = () => {
         })
     }
     return (
-    <div className="ptregwrapper">
+    <div className="container">
         <NotLoggedInModal />
             <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
                 <Form>
 
-                <h1>Patient Registration</h1>
-                <hr />
-                <h4>Personal Information</h4>
-                <div className="form-group">
-                    <div className="form-content">
-                       <label htmlFor="branchid" className="form-content">Patient ID:</label>
+                <h3>Patient Registration</h3>
+                
+                <div className="row mb-3">
+                    <div className="col-md-4">
+                       <label htmlFor="branchid">Patient ID:</label>
                        <ErrorMessage name="branchid" component="span" /> 
                        <Field 
                             name="branchid"
                             id="form-field"
                             type="text"
+                            className="form-control"
                             value={ptId}
                             disabled={true}
                        />
                     </div>
                 </div>
-                <div className="form-group">
-                
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="lastname">Lastname:</label> 
+                <strong>Personal Information</strong>
+                <div className="row mb-2">
+                    <div className="col-md-4">
+                        <label htmlFor="lastname">Lastname:</label> 
                         <Field 
                             autoComplete="off"
                             id="form-field"
                             name="lastname"
                             placeholder="Lastname"
-                        /><br />
+                            className="form-control"
+                        />
                         <ErrorMessage name="lastname" component="span" />
                         
                     </div>
 
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="firstname">First name:</label>
+                    <div className="col-md-4">
+                        <label htmlFor="firstname">First name:</label>
                         <Field 
                             autoComplete="off"
                             id="form-field"
                             name="firstname"
                             placeholder="First name"
-                        /><br />
+                            className="form-control"
+                        />
                         <ErrorMessage name="firstname" component="span" />
                     </div>
 
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="middlename">Middle name:</label>
+                    <div className="col-md-4">
+                        <label htmlFor="middlename">Middle name:</label>
                         <Field 
                             autoComplete="off"
                             id="form-field"
                             name="middlename"
                             placeholder="Middle name"
-                        /><br />
+                            className="form-control"
+                        />
                          <ErrorMessage name="middlename" component="span" />
                     </div>
                 </div>
 
-                <div className="form-group">
+                <div className="row mb-2">
 
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="gender">Gender:</label>
-                        <Field id="form-field" as="select" name="gender">
-                            <option  value="invalid">Select gender</option>
-                            <option  value="Male">Male</option>
-                            <option  value="Female">Female</option>
-                        </Field><br />
-                        <ErrorMessage name="gender" component="span" />
-                    </div>
-
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="bday">Birthdate:</label>
+                    <div className="col-md-4">
+                        <label htmlFor="bday">Birthdate:</label>
                         <Field 
                         autoComplete="off"
                         id="form-field"
                         type="date"
+                        className="form-control"
                         onBlur={getAge}
-                        name="bday" /><br />
+                        name="bday" />
                         <ErrorMessage name="bday" component="span" />
                     </div>
 
-                    <div className="form-content">
-                        <label className="form-content" name="age">Age:</label>
-                        <Field id="form-field" name="age" type="number" value={patientAge} disabled={true}/>
+                    <div className="col-md-2">
+                        <label name="age">Age:</label>
+                        <Field id="form-field" className="form-control" name="age" type="number" value={patientAge} disabled={true}/>
+                    </div>
+
+                    <div className="col-md-2">
+                        <label htmlFor="gender">Gender:</label>
+                        <Field id="form-field" as="select" className="form-select" name="gender">
+                            <option  value="invalid">Select gender</option>
+                            <option  value="Male">Male</option>
+                            <option  value="Female">Female</option>
+                        </Field>
+                        <ErrorMessage name="gender" component="span" />
                     </div>
                 </div>
-                <br /><h4>Contact and other information</h4>
-                    <div className="form-group">
-
-                        <div className="form-content addressdiv">
-                        <label className="form-content" htmlFor="address">Address:</label>
-                        <Field 
-                            autoComplete="off"
-                            name="address"
-                            id="form-field"
-                            type="text"
-                            placeholder="Address"
-                        /><br />
-                         <ErrorMessage name="address" component="span" />
+                <strong>Contact and other information</strong>
+                    <div className="row mb-2">
+                        <div className="col-md-4">
+                            <label htmlFor="address">Address:</label>
+                            <Field 
+                                autoComplete="off"
+                                name="address"
+                                id="form-field"
+                                className="form-control"
+                                type="text"
+                                placeholder="Address"
+                            />
+                            <ErrorMessage name="address" component="span" />
                         </div>
-                        <div className="form-content">
-                            <label className="form-content" htmlFor="phone">Phone Number:</label>
+
+                        <div className="col-md-4">
+                            <label htmlFor="phone">Phone Number:</label>
                             <Field 
                                 autoComplete="off"
                                 id="form-field"
                                 name="phone"
                                 type="tel"
                                 placeholder="Phone number"
-                            /><br />
+                                className="form-control"
+                            />
                              <ErrorMessage name="phone" component="span" />
                         </div>
                         
                     </div>
-                    <div className="form-group">
-                        <div className="form-content">
-                        <label className="form-content" htmlFor="idenno">Discount Identification Card No. (SC, PWD, etc.)</label>
+                    <div className="row">
+                        <div className="col-md-4">
+                        <label htmlFor="idenno">Discount Identification Card No. (SC, PWD, etc.)</label>
                         <Field 
                             autoComplete="off"
                             id="form-field"
                             name="idenno"
+                            className="form-control"
                             placeholder="ID Number"
                         />
                         </div>
                     </div>
 
-                    <button className="form-content form-botton" type="submit">Submit</button>
-
+                    <button className="btn btn-success col-md-2 my-3" type="submit">Submit</button>
                 </Form>
             </Formik>
     </div>

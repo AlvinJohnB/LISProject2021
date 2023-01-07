@@ -30,57 +30,22 @@ footer {
   justify-content: flex-end;
 }
 
+tr.patient-table:hover{
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.modal-test{
+  width: 70vw;
+}
 /* Dont Delete Anything above this line */
 
 
 
 
 
-
-
-nav.lab{
-  background-color: rgb(10, 105, 194);
-  color: azure;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 2px;
-}
-
-nav.lab ul:hover {
-  background-color: rgb(64, 142, 216);
-  border-radius: 2px;
-}
-
-.content {
-  padding: 10px;
-  color: red;
-}
-
-.addressdiv{
-  width: 30%;
-}
-
-
-.ptregwrapper {
-  display: flex;
-  padding: 10px;
-  margin-bottom: 10px;
-  flex-direction: column;
-}
-
-
 .ordertable{
   border-collapse: collapse;
   width: 100%;
   padding: auto;
-}
-
-.width50{
-  width: 80%;
-  margin: auto;
-}
-
-.widthauto{
-  width: auto;
 }

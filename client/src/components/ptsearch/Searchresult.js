@@ -36,7 +36,7 @@ const Searchresult = (props) => {
         history.push(`/updatept/${pId}`)
     }
     const displayOrders = resultData.slice(pagesVisited, pagesVisited + orderPerPage).map((value) => {
-        return (<tr className="tbcontent" key={value.id}>
+        return (<tr className="patient-table" key={value.id}>
         <td onClick={onSelect} id={value.branchid}>{value.lastname}, {value.firstname} {value.middlename}</td>
         <td onClick={onSelect} id={value.branchid}>{value.age}</td>
         <td onClick={onSelect} id={value.branchid}>{value.gender}</td>
@@ -56,9 +56,9 @@ const Searchresult = (props) => {
         <div className="container">
             <p>Patient Search result/s:</p>
             <div className="container">
-            <table className="table table-sm">
+            <table className="table table-hover">
                 <tbody>
-                    <tr className='table-light'>
+                    <tr className='table-success'>
                         <th>Name</th>
                         <th>Age</th>
                         <th>Gender</th>

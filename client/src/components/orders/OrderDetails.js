@@ -56,32 +56,22 @@ function OrderDetails() {
     }
 
     return (
-        <div className="labwrapper-orderdeats">
-        <h1 className="labcontentheader-orderdeats">&nbsp; Order Details</h1>
-            <div className="labdiv">
-                
-                <div className="labdivcontent p-10">
-                    <h4 className="center">Lab Number {orderDetails[0].labNumber} </h4>
-                    </div>
-                    <br />
-                    <div className="divblock p-10">
+        <div className="container">
+            <h4> Order Details</h4>                
+                    <h6 className="center">Lab Number {orderDetails[0].labNumber} </h6>
                     <strong>Name:</strong> <p className="orderdetail">{orderDetails[0].Patientlists[0].lastname}, {orderDetails[0].Patientlists[0].firstname} {orderDetails[0].Patientlists[0].middlename}</p>
-                    </div>
+                    
 
-                    <div className="divblock p-10">
                     <strong>Age/Gender:</strong> <p className="orderdetail">{orderDetails[0].Patientlists[0].age}/{orderDetails[0].Patientlists[0].gender}</p>
-                    </div>
+                    
 
-                    <div className="divblock p-10">
                     <strong>Requesting Physician:</strong> <p className="orderdetail">{orderDetails[0].reqDr}</p>
-                    </div>
-                <div className="divblock p-10">
+                    
                     <strong>Test/s Status:</strong>
-                </div>
-                <div className="divblock p-10">
-                <table className="detailtable">
+                
+                <table className="table  table-sm">
                     <tbody>
-                        <tr className="header">
+                        <tr className="table-secondary">
                             <th>Section LabNumber</th>
                             <th>Status</th>
                             <th>Action</th>
@@ -93,17 +83,12 @@ function OrderDetails() {
                         })}
                     </tbody>
                 </table>
-
-                </div>
-                <br />
-                <br />
-                <div className="divblock p-10">
                 {/*Generate Charge Slip*/}
                 
                 <PDFDownloadLink
                     document={<ChargeSlip data={orderDetails[0]}/>}
                     fileName={`CHARGE SLIP ${orderDetails[0].labNumber}`}
-                    className="btn generate"
+                    className="btn btn-primary"
                     data={orderDetails[0]}
                     >
                         {({ blob, url, loading, error }) =>
@@ -112,10 +97,10 @@ function OrderDetails() {
                 </PDFDownloadLink>
                 {/* RELEASE FULL RESULTS */}
                 <GetFullResults show={generateShow} setShow={setGenerateShow} forOrderID={orderDetails[0].labNumber} />
-                {orderDetails[0].status === "RELEASED" && <button onClick={generateFullRx}  className="btn generate"> Generate Full Results</button>}
-                {orderDetails[0].status !== "RELEASED" && <button onClick={onOrderDelete} className="btn delete">Delete/Archive</button>}
-                </div><br />
-            </div>
+                {orderDetails[0].status === "RELEASED" && <button onClick={generateFullRx}  className="btn btn-success"> Generate Full Results</button>}
+                {orderDetails[0].status !== "RELEASED" && <button onClick={onOrderDelete} className="btn btn-danger">Delete/Archive</button>}
+                
+            
         </div>
     )
 }

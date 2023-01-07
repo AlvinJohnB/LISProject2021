@@ -356,82 +356,82 @@ const Addorder = () => {
     }
 
     return (
-         <div className="ptregwrapper">
+         <div className="container">
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                 <Form>
-                    <h1>Add Patient Order</h1>
-                    <hr />
-                    <h4>Patient Information Information</h4>
-                    <div className="form-group">
-                        <div className="form-content">
-                        <label className="form-content">Patient ID:</label>
-                        <input type="text" id="form-field" value={ptData.branchid} disabled={true} />
+                    <h3>Add Patient Order</h3>
+                    <strong>Patient Information Information</strong>
+                    <div className="row">
+                        <div className="col-md-4">
+                        <label>Patient ID:</label>
+                        <input type="text" className='form-control' id="form-field" value={ptData.branchid} disabled={true} />
                     </div>
                 </div>
                 
-                <div className="form-group">
+                <div className="row">
                 
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="lastname">Lastname:</label> 
+                    <div className="col-md-4">
+                        <label htmlFor="lastname">Lastname:</label> 
 
-                        <input type="text" id="form-field" value={ptData.lastname} disabled />
+                        <input type="text" className='form-control' id="form-field" value={ptData.lastname} disabled />
                         
                     </div>
 
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="firstname">First name:</label>
+                    <div className="col-md-4">
+                        <label htmlFor="firstname">First name:</label>
                         
-                    <input type="text" id="form-field" value={ptData.firstname} disabled/>
+                    <input type="text" className='form-control' id="form-field" value={ptData.firstname} disabled/>
                         
                     </div>
 
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="middlename">Middle name:</label>
+                    <div className="col-md-4">
+                        <label htmlFor="middlename">Middle name:</label>
                         
-                        <input type="text" id="form-field" value={ptData.middlename} disabled />
+                        <input type="text" className='form-control' id="form-field" value={ptData.middlename} disabled />
                     </div>
                 </div>
 
-                <div className="form-group">
+                <div className="row mb-4">
 
-                    <div className="form-content">
-                        <label className="form-content" htmlFor="gender">Gender:</label>
-                        <input type="text" id="form-field" value={ptData.gender} disabled/>
+                    <div className="col-md-2">
+                        <label htmlFor="gender">Gender:</label>
+                        <input type="text" id="form-field" className='form-select' value={ptData.gender} disabled/>
                     </div>
 
-                    <div className="form-content">
-                        <label className="form-content" name="age">Age:</label>
+                    <div className="col-md-2">
+                        <label name="age">Age:</label>
                         
-                        <input type="text" id="form-field" value={ptData.age} disabled/>
+                        <input type="text" className='form-control' id="form-field" value={ptData.age} disabled/>
                         
                     </div>
                     
                 </div>
                 
-                <br /><h4>Request Information</h4>
-                    <div className="form-group">
-
-                        <div className="form-content addressdiv">
-                        <label className="form-content" htmlFor="reqDr">Requesting Physician:</label>
+                <strong>Request Information</strong>
+                    <div className="row">
+                        <div className="col-md-4">
+                        <label htmlFor="reqDr">Requesting Physician:</label>
                         <Field 
                             name="reqDr"
                             id="form-field"
                             type="text"
                             placeholder="Requesting Physician"
                             autoComplete="off"
+                            className='form-control'
                         />
                         <ErrorMessage name="reqDr" component="span" />
 
                         </div>
 
-                        <div className="form-content addressdiv">
-                        <label className="form-content" htmlFor="reqDr">Patient Type:</label>
+                        <div className="col-md-4">
+                        <label htmlFor="reqDr">Patient Type:</label>
                         <Field 
                             name="ptType"
                             id="form-field"
                             type="text"
                             placeholder="OPD / Room No."
                             autoComplete="off"
+                            className='form-control'
                         />
                         <ErrorMessage name="ptType" component="span" />
 
@@ -464,60 +464,66 @@ const Addorder = () => {
                     </div>
                     
                     <br />
-                    <table className="table width50">
-                        <tbody>
-                            <tr className="header">
-                                <td>Requested Test/s</td>
-                                <td>Regular Unit Cost</td>
-                                <td>Action</td>
-                            </tr>
-                            {tests.map((test) => {
-                                return (
-                                    <Testrow
-                                        setTests={setTests}
-                                        tests={tests}
-                                        key={test.index}
-                                        test={test}
-                                        submitHandler={submitHandler}
-                                        setLabTestInput={setLabTestInput}
-                                        setHemaTests={setHemaTests}
-                                        setCmTests={setCmTests}
-                                        setChemTests={setChemTests}
-                                        setSeroTests={setSeroTests}
-                                        setMicroTests={setMicroTests}
-                                        hemaTests={hemaTests}
-                                        cmTests={cmTests}
-                                        chemTests={chemTests}
-                                        seroTests={seroTests}
-                                        microTests={microTests}
+                    <div className='d-flex justify-content-center'>
+                        <div className='col-md-11'>
+                            <table className="table">
+                            <tbody>
+                                <tr className="table-success">
+                                    <td><strong>Requested Test/s</strong></td>
+                                    <td><strong>Regular Unit Cost</strong></td>
+                                    <td><strong>Action</strong></td>
+                                </tr>
+                                {tests.map((test) => {
+                                    return (
+                                        <Testrow
+                                            setTests={setTests}
+                                            tests={tests}
+                                            key={test.index}
+                                            test={test}
+                                            submitHandler={submitHandler}
+                                            setLabTestInput={setLabTestInput}
+                                            setHemaTests={setHemaTests}
+                                            setCmTests={setCmTests}
+                                            setChemTests={setChemTests}
+                                            setSeroTests={setSeroTests}
+                                            setMicroTests={setMicroTests}
+                                            hemaTests={hemaTests}
+                                            cmTests={cmTests}
+                                            chemTests={chemTests}
+                                            seroTests={seroTests}
+                                            microTests={microTests}
 
-                                        setTotalFee={setTotalFee}
-                                        setChemFee={setChemFee}
-                                        totalFee={totalFee}
-                                        chemFee={chemFee}
+                                            setTotalFee={setTotalFee}
+                                            setChemFee={setChemFee}
+                                            totalFee={totalFee}
+                                            chemFee={chemFee}
 
-                                        setHemaFee={setHemaFee}
-                                        hemaFee={hemaFee}
+                                            setHemaFee={setHemaFee}
+                                            hemaFee={hemaFee}
 
-                                        setSeroFee={setSeroFee}
-                                        seroFee={seroFee}
+                                            setSeroFee={setSeroFee}
+                                            seroFee={seroFee}
 
-                                        setCmFee={setCmFee}
-                                        cmFee={cmFee}
+                                            setCmFee={setCmFee}
+                                            cmFee={cmFee}
 
-                                        totalCost={totalCost}
-                                        setTotalCost={setTotalCost}
-                                    />
-                                )
-                            })}
-                            <tr>
-                                <td className="select" onClick={showModal}>Click here to add test</td>
-                                <td><strong>{isDiscounted === true && `Discounted`} Total: PHP {totalCost}</strong></td>
-                            </tr>
-                        </tbody>
-                    </table>
+                                            totalCost={totalCost}
+                                            setTotalCost={setTotalCost}
+                                        />
+                                    )
+                                })}
+                                <tr>
+                                    <td className="select" onClick={showModal}>Click here to add test</td>
+                                    <td><strong>{isDiscounted === true && `Discounted`} Total: PHP {totalCost}</strong></td>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
 
-                    <button className="form-content form-botton" type="submit">Submit</button>
+                    <button className="btn btn-success col-md-2 mb-2" type="submit">Add order</button>
                     <Addordermodal 
                         show={show}
                         tests={testData}
@@ -551,9 +557,6 @@ const Addorder = () => {
 
                         totalCost={totalCost}
                         setTotalCost={setTotalCost}
-
-                        
-
                     />
 
                 </Form>

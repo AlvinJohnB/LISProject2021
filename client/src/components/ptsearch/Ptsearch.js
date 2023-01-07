@@ -5,7 +5,6 @@ import axios from 'axios';
 import { useHistory, } from 'react-router-dom';
 import NotLoggedInModal from '../NotLoggedInModal';
 import Searchresult from './Searchresult';
-import '../ptregistration/ptreg.css';
 import host from '../../config.json'
 import { useState } from 'react'
 
