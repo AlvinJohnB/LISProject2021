@@ -19,7 +19,7 @@ function ChemTr({ setPrevResultData, details, setShow, setResultFormData, setSec
     }
 
     return (
-        <tr className="lab tbcontent">
+        <tr className="patient-table">
                 <td>{details.labNumber}</td>
                 <td>{details.Patientlists[0].lastname}, {details.Patientlists[0].firstname} {details.Patientlists[0].middlename}</td>
                 <td>{details.Sectionorders[0].tests}</td>

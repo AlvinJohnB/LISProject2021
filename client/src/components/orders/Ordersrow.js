@@ -12,7 +12,7 @@ function Ordersrow(props) {
 
     }
     return (
-        <tr className="tbcontent order">
+        <tr className='patient-table'>
             <td>{props.order.labNumber}</td>
             <td>{props.order.Patientlists[0].lastname}, {props.order.Patientlists[0].firstname} {props.order.Patientlists[0].middlename}</td>
             <td>{props.order.testsRequested}</td>

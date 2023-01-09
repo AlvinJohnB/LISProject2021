@@ -4,11 +4,18 @@ import * as Yup from 'yup';
 import axios from 'axios';
 import { useHistory, } from 'react-router-dom';
 import NotLoggedInModal from '../NotLoggedInModal';
-import '../ptregistration/ptreg.css';
+import Searchresult from './Searchresult';
 import host from '../../config.json'
+import { useState } from 'react'
+
+
 const Ptsearch = () => {
 
+  const [isPatientNotFound, setIsPatientNotFound] = useState(false)
+  const [patientSearchInfo, setPatientSearchInfo] = useState({})
+  const [isSearchSuccess, setSearchSuccess] = useState(false)
   const history = useHistory();
+
   const initialValues ={
     lastname: "",
     firstname:""
@@ -24,13 +31,19 @@ const Ptsearch = () => {
     await axios.post(`http://${host.ip}:3001/patient/findpatient`, data).then((response) => {
     
     if(response.data.length <= 0){
-      console.log("No patient found");
-      history.push('/noptfound');
+      setIsPatientNotFound(true);
+      setSearchSuccess(false)
 
     } else {
       let lname = data.lastname
       let fname = data.firstname
-      history.push(`/searchresults/${lname},${fname}`)
+      setIsPatientNotFound(false);
+      setPatientSearchInfo({
+        lastname: data.lastname,
+        firstname: data.firstname
+      })
+      setSearchSuccess(true)
+      // history.push(`/searchresults/${lname},${fname}`)
     }
     })
 
@@ -39,39 +52,48 @@ const Ptsearch = () => {
 
 
   return (
-    <div className="ptregwrapper">
+    <div className="container">
       <NotLoggedInModal />
       <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
         <Form>
-          <h1>Patient Search</h1>
-          <hr />
-          <h4>Enter Patient Information:</h4>
-          <div className="form-group">
-            <div className="form-content">
-              <label className="form-content" htmlFor="lastname">Lastname:</label>
-              <Field
-                autoComplete="off"
-                type="text"
-                name="lastname"
-                id="form-field"
-                placeholder="Enter last name"
-              /><br />
-              <ErrorMessage name="lastname" component="span"/>
-            </div>
-            <div className="form-content">
+          <h3>Patient Search</h3>
+          {isPatientNotFound && <div className='alert alert-danger text-center p-1 mb-1'>No patient data found</div>}
+          <strong>Enter Patient Information</strong>
+         
+            <div className="row">
+              <div className='col-md-3'>
+                  <label htmlFor="lastname">Lastname:</label>
+                  <Field
+                      autoComplete="off"
+                      type="text"
+                      name="lastname"
+                      id="form-field"
+                      className="form-control"
+                      placeholder="Enter last name"
+                    />
+                    <ErrorMessage name="lastname" component="span"/>
+              </div>
+
+              <div className="col-md-3">
               <label className="form-content" htmlFor="firstname">First name:</label>
               <Field
                 autoComplete="off"
                 type="text"
                 name="firstname"
+                className="form-control"
                 id="form-field"
                 placeholder="Enter first name"
               />
             </div>
-          </div>
-          <button className="form-content form-botton" type="submit">Submit</button>
+              
+            </div>
+            
+          <button className="btn btn-success col-md-2 mt-4 mb-4" type="submit">Search Patient</button>
+          
         </Form>
       </Formik>
+
+      {isSearchSuccess && <Searchresult patient={patientSearchInfo}/>}
     </div>
   );
 }

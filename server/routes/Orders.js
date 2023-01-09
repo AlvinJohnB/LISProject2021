@@ -361,12 +361,14 @@ router.post("/result/release/:sectionOrderID/:status",validateToken, async (req,
     const sectionOrderID = req.params.sectionOrderID;
     const status = req.params.status;
     const pathologist = req.body.pathologist
+    const performedBy = req.body.performedBy
     const name = req.user.name
 
     await Sectionorders.update({
         status: status,
         pathologist: pathologist,
-        releasedBy: name
+        releasedBy: name,
+        performedBy: performedBy
     }, {
         where: {
             id: sectionOrderID

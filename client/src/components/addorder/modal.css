@@ -1,5 +1,5 @@
 
-.modal{
+.testmodal{
     position: fixed;
     left: 0;
     right: 0;
@@ -13,10 +13,10 @@
 
 .modal-wrapper{
     background-color: white;
-    width: 800px;
+    width: 60vw;
 }
 
-.modal-footer{
+.modal-foot{
     padding: 10px;
 }
 

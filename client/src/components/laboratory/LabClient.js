@@ -5,7 +5,7 @@ import ReactPaginate from 'react-paginate';
 import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import './lab.css'
-import Header from '../Header';
+import Header from '../Header'; 
 import LabNav from './LabNav';
 import CheckInTr from './checkin/CheckInTr';
 import CheckInModal from './checkin/CheckInModal';
@@ -152,81 +152,73 @@ function LabClient() {
     }
 
     return (
-        <div className="wrapper">
+        <div className="container mt-5">
             <NotLoggedInModal />
             <Header />
             <LabNav />
-              <section>
-              <div className="ptregwrapper">
-
-                <div className="labwrapper">
-
-                        <h1 className="labcontentheader">Specimen Check-in</h1>
-
-                        
-                        <div className="labdiv">
-                            <div className="labdivcontent">
-                                <div className="form-group space">
-                                    <div className="form-content">
-                                        <div className="form-content">
-                                            <label className="filter-label">Section:</label><br />
-
-                                            <select id="form-field" onChange={sectionHandler}>
-                                                <option value="Chemistry">Chemistry</option>
-                                                <option value="Hematology">Hematology</option>
-                                                <option value="CM">Clinical Microscopy</option>
-                                                <option value="Serology">Serology</option>
-                                            </select>
-                                        </div>
-                                        
-                                        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                                            <Form  className="margin-0">
-                                                <label className = "filter-label">Filter:</label>
-                                                <Field 
-                                                        name="labNumber"
-                                                        id="form-field"
-                                                        type="text"
-                                                        placeholder = "Enter lab no..."
-                                                />
-                                                <button className="form-botton filter" type="submit">Search</button>
-                                            </Form>
-                                        </Formik>
-                                        
-                                    </div>
+            <section>
+                <div className="bg-light p-3">
+                    <h3>Specimen Check-in</h3>
+                        <div className="row mb-3">
+                            <div className="col-md-4 d-flex">
+                                <div className="d-flex">
+                                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                                        <Form>
+                                            <label>Filter:</label>
+                                            <Field 
+                                                    name="labNumber"
+                                                    id="form-field"
+                                                    type="text"
+                                                    placeholder = "Enter lab no..."
+                                                    className="form-control mx=3"
+                                            />
+                                        <button className="btn btn-primary col-md-4" type="submit">Search</button>
+                                        </Form>
+                                    </Formik>
                                 </div>
-                                <br />
-                                <table className="tablelab">
-                                    <tbody>
-                                        <tr className="labheader">
-                                            <th>LabNumber</th>
-                                            <th>Client Name</th>
-                                            <th>Test/s</th>
-                                            <th>Action</th>
-                                        </tr>
-                                        {displayOrders}
-                                    </tbody>
-                                </table>
+                                <div className="ms-3">
+                                    <label>Section:</label><br />
 
+                                    <select className="form-select" id="form-field" onChange={sectionHandler}>
+                                        <option value="Chemistry">Chemistry</option>
+                                        <option value="Hematology">Hematology</option>
+                                        <option value="CM">Clinical Microscopy</option>
+                                        <option value="Serology">Serology</option>
+                                    </select>
+                                </div>
                             </div>
-                            <br />
-                                {pageCount > 1 &&
-                                    <ReactPaginate
-                                    previousLabel = {"<"}
-                                    nextLabel = {">"}
-                                    pageCount = {pageCount}
-                                    onPageChange={changePage}
-                                    containerClassName={"pagination-bttns"}
-                                    previousLinkClassName={"prevBttn"}
-                                    nextLinkClassName={"nextbtn"}
-                                    disabledClassName={"pgnte-disabled"}
-                                    activeClassName={"pgninate-active"}
-                                />
-                                }
                         </div>
+                                       
+                        <table className="table table-hover mb-3">
+                            <tbody>
+                                <tr className="table-primary">
+                                    <th>LabNumber</th>
+                                    <th>Client Name</th>
+                                    <th>Test/s</th>
+                                    <th>Action</th>
+                                </tr>
+                                {displayOrders}
+                            </tbody>
+                        </table>
+
+                                    
                         
+                        {pageCount > 1 &&
+                            <ReactPaginate
+                            previousLabel = {"<"}
+                            nextLabel = {">"}
+                            pageCount = {pageCount}
+                            onPageChange={changePage}
+                            containerClassName={"pagination-bttns"}
+                            previousLinkClassName={"prevBttn"}
+                            nextLinkClassName={"nextbtn"}
+                            disabledClassName={"pgnte-disabled"}
+                            activeClassName={"pgninate-active"}
+                        />
+                        }       
                 </div>
-             </div>
-             <CheckInModal
+
+                <CheckInModal
                 show={show}
                 showModal={showModal}
                 closeModal={closeModal}
@@ -235,8 +227,8 @@ function LabClient() {
                 section={section}
                 setCheckInDetails={setCheckInDetails}
                 />
-             </section>
-              <footer>Laboratory Information System by AlvinJohnB</footer>
+        </section>
+        <footer className="p-1 mb-5 rounded-bottom">Laboratory Information System by AlvinJohnB</footer>
         </div>
     )
 }

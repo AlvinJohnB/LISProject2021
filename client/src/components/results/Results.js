@@ -37,38 +37,35 @@ function Results() {
     }
  
     return (
-            <div className="labwrapper">
+            <div className="container">
                 <NotLoggedInModal />
-                <h1 className="labcontentheader-results">&nbsp; Results</h1>
+                <h3>Results</h3>
                 
-                <div className="labdiv">
-                    <div className="labdivcontent">
-                        <div className="block">
-                            <div>
-                                <h4>Enter Laboratory Number:</h4>
-                            </div>
-                            <div>
-                            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                                <Form className="margin-0">
-                                <div className="form-content labdiv-flex-block">
-                                    <Field 
-                                        name="labNumber"
-                                        autoComplete="off"
-                                        id="form-field"
-                                        type="text"
-                                        placeholder="Enter lab no..."
-                                        className="mr-10"
-                                    />
-                                    <button className="form-content form-botton margin-0" type="submit">Submit</button>
-                                </div><ErrorMessage name="labNumber" component="span" /><br />
-                                    
-                                </Form>
-                            </Formik>
-                            </div>
-                        </div>
+                            
+                <strong>Enter Laboratory Number:</strong>
+                            
 
-                    </div>
+                <div className='row'>
+                    <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                        <Form className="margin-0">
+                        <div className="col-md-3 d-flex">
+                            <Field 
+                                name="labNumber"
+                                autoComplete="off"
+                                id="form-field"
+                                type="text"
+                                placeholder="Enter lab no..."
+                                className="col-md-4 form-control"
+                            />
+                            <button className="btn btn-success my-auto mx-2 col-md-3" type="submit">Submit</button>
+                        </div><ErrorMessage name="labNumber" component="span" /><br />
+                        </Form>
+                    </Formik>
                 </div>
+                        
+
+                    
+                
             </div>
     )
 }

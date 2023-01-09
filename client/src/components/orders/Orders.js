@@ -74,30 +74,30 @@ function Orders() {
     }
 
     return (
-        <div className="labwrapper">
-            <h1 className="labcontentheader-results">&nbsp; Orders</h1>
-            <div className="labdiv">
-                <div className="labdivcontent">
-                <div className="form-content">
+        <div className="container">
+            <h3> Orders</h3>
+            <div className='row'>
+                <div className='col-md-3 mb-5'>
                     <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                        <Form  className="margin-0">
-                            <label className="form-content filter-label">Search lab number:</label>
-                            <Field 
-                                    name="labNumber"
-                                    id="form-field"
-                                    type="text"
-                                    placeholder = "Enter lab no..."
-                                    className="margin-0"
-                            />
-                            <button className="form-botton" type="submit">Search</button>
-                        </Form> 
+                            <Form>
+                                <label>Search lab number:</label>
+                                <div className='d-flex'>
+                                    <Field 
+                                            name="labNumber"
+                                            id="form-field"
+                                            type="text"
+                                            placeholder = "Enter lab no..."
+                                            className="form-control col-md-3"
+                                    />
+                                    <button className="btn btn-success my-auto mx-1" type="submit">Search</button>
+                                </div>
+                            </Form> 
                     </Formik>
                 </div>
-                <br />
-
-                    <table className="tablelab" id="ordertable">
+            </div>
+                    <table className="table table-hover">
                         <tbody className="table-orders">
-                            <tr className="header">
+                            <tr className="table-secondary">
                                 <th>Lab Number</th>
                                 <th>Patient Name</th>
                                 <th>Test/s Requested</th>
@@ -122,9 +122,9 @@ function Orders() {
                         activeClassName={"orders-pgninate-active"}
                     />}
 
-                </div>
+                
 
-            </div>
+            
             <NotLoggedInModal /> 
         </div>
     )

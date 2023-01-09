@@ -6,7 +6,7 @@ import host from '../../config.json'
 import ReactPaginate from 'react-paginate';
 import LoadingModal from '../LoadingModal';
 
-const Searchresult = () => {
+const Searchresult = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [resultData, setResultData] = useState([])
 
@@ -15,13 +15,12 @@ const Searchresult = () => {
     
     useEffect( async () => {
 
-    await axios.get(`http://${host.ip}:3001/patient/findpatient/${param}`).then((response) => {
-
+    await axios.get(`http://${host.ip}:3001/patient/findpatient/${props.patient.lastname},${props.patient.firstname},`).then((response) => {
         setResultData(response.data);
         setIsLoading(false);
     })
 
-    },[param])
+    },[props.patient])
 
     const [pageNumber, setPageNumber] = useState(0);
     const orderPerPage = 10;
@@ -37,15 +36,13 @@ const Searchresult = () => {
         history.push(`/updatept/${pId}`)
     }
     const displayOrders = resultData.slice(pagesVisited, pagesVisited + orderPerPage).map((value) => {
-        return (<tr className="tbcontent" key={value.id}>
+        return (<tr className="patient-table" key={value.id}>
         <td onClick={onSelect} id={value.branchid}>{value.lastname}, {value.firstname} {value.middlename}</td>
         <td onClick={onSelect} id={value.branchid}>{value.age}</td>
         <td onClick={onSelect} id={value.branchid}>{value.gender}</td>
         <td onClick={onSelect} id={value.branchid}>{value.bday}</td>
     </tr>)
     })
-
- 
 
     if(isLoading){
         return (
@@ -56,17 +53,16 @@ const Searchresult = () => {
     }
 
     return (
-        <div className="ptregwrapper">
-            <h3>Patient Search result/s:</h3>
-            <hr />
-            <div className="tablewrapper">
-            <table className="table">
+        <div className="container">
+            <p>Patient Search result/s:</p>
+            <div className="container">
+            <table className="table table-hover">
                 <tbody>
-                    <tr className="header">
-                        <td>Name</td>
-                        <td>Age</td>
-                        <td>Gender</td>
-                        <td>Birthday</td>
+                    <tr className='table-success'>
+                        <th>Name</th>
+                        <th>Age</th>
+                        <th>Gender</th>
+                        <th>Birthday</th>
                     </tr>
                     {displayOrders}
                 </tbody>
@@ -84,7 +80,6 @@ const Searchresult = () => {
                         disabledClassName={"orders-pgnte-disabled"}
                         activeClassName={"orders-pgninate-active"}
                     />}
-            <p className="tablefooter"><Link to="/ptsearch">Back to Patient Search</Link></p>
             </div>
             
         </div>

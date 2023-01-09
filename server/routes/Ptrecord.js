@@ -46,7 +46,6 @@ router.post("/addpatient", validateToken, async (req, res) => {
 
 router.post("/findpatient", async (req, res) => {
     const ptdata = req.body;
-    console.log(ptdata);
 
     // IF FNAME ONLY
     if(ptdata.lastname === ''){

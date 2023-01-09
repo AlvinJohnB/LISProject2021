@@ -33,18 +33,18 @@ const Addordermodal = (props) => {
     }
 
     return (
-        <div className ="modal">
-            <div className="modal-wrapper">
+        <div className ="testmodal">
+            <div className="modal-wrapper rounded">
                 <div className="modal-header">
                     <div><strong>Search Tests:</strong>
                     </div>
                 </div>
                 <div className="modal-body">
                     <div className="tablewrapper">
-                    <input className="form-input" autoFocus={true} autoComplete="off" id="myInput" type="text" name="searchInput" placeholder="Type testcode..." onChange={testFilter}/>
-                        <table className="testtable">
+                    <input className="form-control col-sm-2" autoFocus={true} autoComplete="off" id="myInput" type="text" name="searchInput" placeholder="Type testcode..." onChange={testFilter}/>
+                        <table className="testtable table table-borderless">
                         <tbody>
-                            <tr className="tableheader">
+                            <tr className="tableheader table-success">
                                 <td className="width-1">Test code</td>
                                 <td className="width-2">Test name</td>
                                 <td className="width-1">Action</td>
@@ -105,8 +105,8 @@ const Addordermodal = (props) => {
                     </table>
                     </div>
                 </div>
-                <div className="modal-footer">
-                    <input className="closeButton" type="button" value="Close" onClick={props.close} />
+                <div className="modal-foot mt-1 col-md-2">
+                    <input className="btn btn-danger" type="button" value="Close" onClick={props.close} />
                 </div>
             </div>
         </div>

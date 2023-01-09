@@ -43,8 +43,8 @@ function Cmform() {
         setShow(false);
     }
  
-    useEffect(async() => {
-        await axios.get(`http://${host.ip}:3001/order/section/CM`).then((response) => {
+    useEffect(() => {
+        axios.get(`http://${host.ip}:3001/order/section/CM`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -80,84 +80,80 @@ function Cmform() {
     }
 
     return (
-        <div className="wrapper">
+        <div className="container mt-5">
         <NotLoggedInModal />
         <Header />
         <LabNav />
-          <section>
-          <div className="ptregwrapper">
-            <div className="labwrapper">
-                <h1 className="labcontentheader">&nbsp; Clinical Microsopy</h1>
-                
-                <div className="labdiv">
-                    <div className="labdivcontent">
-                        <div className="labdiv-flex-block">
+        <section>
+            <div className="bg-light p-3">
 
-                        <div className="form-content">
-                            <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
-                                <Form  className="margin-0">
-                                    <label className = "filter-label">Filter:</label>
-                                    <Field 
-                                            name="labNumber"
-                                            id="form-field"
-                                            type="text"
-                                            placeholder = "Enter lab no..."
-                                    />
-                                    <button className="form-botton filter" type="submit">Search</button>
-                                </Form>
-                            </Formik>
-                        </div>
-                            
-                        </div>
+                <h3>Clinical Microscopy</h3>
 
-                        <br /> 
-                        <table className="tablelab">
-                            <tbody>
-                                <tr className="labheader">
-                                    <th>LabNumber</th>
-                                    <th>Client Name</th>
-                                    <th>Test/s</th>
-                                    <th>Action</th>
-                                </tr>
-                                {displayOrders}
-                                {pageCount > 1 &&                     
-                        <ReactPaginate
-                        previousLabel = {"<"}
-                        nextLabel = {">"}
-                        pageCount = {pageCount}
-                        onPageChange={changePage}
-                        containerClassName={"orders-pagination-bttns"}
-                        previousLinkClassName={"orders-prevBttn"}
-                        nextLinkClassName={"orders-nextbtn"}
-                        disabledClassName={"orders-pgnte-disabled"}
-                        activeClassName={"orders-pgninate-active"}
-                    />}
 
-                            </tbody>
-                        </table>
-
-                    </div>
-
-                    <ChemResultmodal
-                        show={show}
-                        closeModal={closeModal}
-                        resultFormData={resultFormData}
-                        sectionResultArray={sectionResultArray}
-                        setSectionResultArray={setSectionResultArray}
-                        setResultFormData={setResultFormData}
-                        prevResultData={prevResultData}
-                        setPrevResultData={setPrevResultData}
-                        showPrevResModal = {showPrevResModal}
-                        setShowPrevResModal = {setShowPrevResModal}
-                        setSectionData={setSectionData}
-                    />
-                    
+                <div className="row mb-3">
+                    <div className="col-md-3">
+                        <Formik initialValues={initialValues} onSubmit={onSubmit} validationSchema={validationSchema}>
+                            <Form>
+                                <label>Filter:</label>
+                                <Field 
+                                        name="labNumber"
+                                        id="form-field"
+                                        type="text"
+                                        placeholder = "Enter lab no..."
+                                        className="form-control"
+                                />
+                                <button className="btn btn-primary col-md-4" type="submit">Search</button>
+                            </Form>
+                        </Formik>
+                    </div>                
                 </div>
-            </div>
-              
-         </div>
-         </section>
-          <footer>Laboratory Information System by Bregs</footer>
+
+                                       
+                <table className="table table-hover">
+                    <tbody>
+                        <tr className="table-primary">
+                            <th>LabNumber</th>
+                            <th>Client Name</th>
+                            <th>Test/s</th>
+                            <th>Action</th>
+                        </tr>
+                        {displayOrders}
+                        {pageCount > 1 &&                     
+                <ReactPaginate
+                previousLabel = {"<"}
+                nextLabel = {">"}
+                pageCount = {pageCount}
+                onPageChange={changePage}
+                containerClassName={"orders-pagination-bttns"}
+                previousLinkClassName={"orders-prevBttn"}
+                nextLinkClassName={"orders-nextbtn"}
+                disabledClassName={"orders-pgnte-disabled"}
+                activeClassName={"orders-pgninate-active"}
+            />}
+
+                    </tbody>
+                </table>
+
+                                  
+
+                <ChemResultmodal
+                    show={show}
+                    closeModal={closeModal}
+                    resultFormData={resultFormData}
+                    sectionResultArray={sectionResultArray}
+                    setSectionResultArray={setSectionResultArray}
+                    setResultFormData={setResultFormData}
+                    prevResultData={prevResultData}
+                    setPrevResultData={setPrevResultData}
+                    showPrevResModal = {showPrevResModal}
+                    setShowPrevResModal = {setShowPrevResModal}
+                    setSectionData={setSectionData}
+                />
+                    
+               
+            </div>      
+        </section>
+        <footer className="p-1 mb-5 rounded-bottom">Laboratory Information System by Bregs</footer>
     </div>
     )
 }
