@@ -1,8 +1,7 @@
 # Laboratory Information System
 
 This is a Laboratory Information System that is being used for Medical Laboratories to store patient data specially laboratory results.
-
-This is a React-based CRUD application that uses MySQL Database.
+This is a React-based CRUD application that uses Node.js (Express.js and Sequelize to connect to a MySQL Database.)
 
 ## Features:
 * Add Patient
