@@ -3,6 +3,11 @@ nav ul:hover {
   border-radius: 2px;
 }
 
+nav ul.lab:hover {
+  background-color: #2b65d1;
+  border-radius: 2px;
+}
+
 nav a:hover{
   color: white;
 }

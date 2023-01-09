@@ -7,7 +7,7 @@ function checkInTr({details, setShow, setOrderID}) {
         setOrderID(details.Sectionorders[0].forOrderID);
     }
     return (
-        <tr className="tbcontent lab rform">
+        <tr className="patient-table">
                 <td>{details.labNumber}</td>
                 <td>{details.Patientlists[0].lastname}, {details.Patientlists[0].firstname} {details.Patientlists[0].middlename}</td>
                 <td>{details.Sectionorders[0].tests}</td>
