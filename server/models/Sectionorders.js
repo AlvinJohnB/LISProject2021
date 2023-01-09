@@ -32,7 +32,17 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        performedBy:{
+            type: DataTypes.STRING,
+            allowNull: true,
+        }
     })
 
+    sequelize.sync({alter: true}).then(() => {
+
+    }).catch((err) => {
+        console.log(err)
+    })
+    
     return Sectionorders;
 }

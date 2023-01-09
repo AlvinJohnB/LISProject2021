@@ -51,5 +51,10 @@ router.post('/pathofetch', async (req, res) => {
     res.json(pathos);
 })
 
+router.post('/fetchperformer', async (req, res) => {
+    const performer = await Users.findAll({where: {position: ["Performer", "RMT"]}});
+    res.json(performer)
+})
+
 
 module.exports = router

@@ -11,7 +11,9 @@ import host from '../../../config.json'
     
     const [isLoading, setIsLoading] = useState(true);
     const [patholist, setPatho] = useState();
+    const [performerList, setPerformerList] = useState();
     const [pathoSelected, setPathoSelected] = useState("invalid");
+    const [performer, setPerformer] = useState();
 
     let history = useHistory();
 
@@ -21,6 +23,9 @@ import host from '../../../config.json'
         setIsLoading(false);
         await axios.post(`http://${host.ip}:3001/auth/pathofetch`).then((response) => {
             setPatho(response.data);
+        })
+        await axios.post(`http://${host.ip}:3001/auth/fetchperformer`).then((response) => {
+            setPerformerList(response.data);
         })
       }
 
@@ -36,7 +41,7 @@ import host from '../../../config.json'
         }else{
             const sectOrderID = resultFormData[0].Sectionorders[0].id;
 
-        await axios.post(`http://${host.ip}:3001/order/result/release/${sectOrderID}/RELEASED`, {pathologist: pathoSelected} ,
+        await axios.post(`http://${host.ip}:3001/order/result/release/${sectOrderID}/RELEASED`, {pathologist: pathoSelected, performedBy: performer},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -117,6 +122,10 @@ import host from '../../../config.json'
         setPathoSelected(e.target.value)
     }
 
+    const performerSet = (e) => {
+        setPerformer(e.target.value)
+    }
+
     
 
     if(!show){
@@ -176,25 +185,49 @@ import host from '../../../config.json'
                                         </table>
                                     </div>
                                 </div>
-                                <div className="col-md-2 mt-2">
-                                        <label>Pathologist:</label>
-                                            <br />
-                                        {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
-                                            <select  id="form-field" disabled={true}>
-                                            <option>{resultFormData[0].Sectionorders[0].pathologist}</option>
-                                            </select>
-                                        }
-                                        {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
-                                            <select  id="form-field" className="form-select" onChange={onSelectChange}>
-                                            <option value="invalid">Select...</option>
-                                            {patholist.map((patho, index) => {
-                                                
-                                                return(
-                                                    <option key={index} value={patho.name}>{patho.name}</option>
-                                                )
-                                            })}
-                                            </select>
-                                        }
+                                <div className="d-flex">
+                                
+                                    <div className="col-md-2 mt-2 me-3">
+                                            <strong>Pathologist:</strong>
+                                                <br />
+                                            {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
+                                                <select  id="form-field" className="form-select" disabled={true}>
+                                                <option>{resultFormData[0].Sectionorders[0].pathologist}</option>
+                                                </select>
+                                            }
+                                            {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
+                                                <select  id="form-field" className="form-select" onChange={onSelectChange}>
+                                                <option value="invalid">Select...</option>
+                                                {patholist.map((patho, index) => {
+                                                    
+                                                    return(
+                                                        <option key={index} value={patho.name}>{patho.name}</option>
+                                                    )
+                                                })}
+                                                </select>
+                                            }
+                                    </div>
+
+                                    <div className="col-md-2 mt-2">
+                                            <strong>Performed by:</strong>
+                                                <br />
+                                            {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
+                                                <select  id="form-field" disabled={true} className="form-select">
+                                                <option>{resultFormData[0].Sectionorders[0].performedBy}</option>
+                                                </select>
+                                            }
+                                            {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
+                                                <select  id="form-field" className="form-select" onChange={performerSet}>
+                                                <option value="invalid">Select...</option>
+                                                {performerList.map((performer, index) => {
+                                                    
+                                                    return(
+                                                        <option key={index} value={performer.name}>{performer.name}</option>
+                                                    )
+                                                })}
+                                                </select>
+                                            }
+                                    </div>
                                 </div>
 
                                 </div>
