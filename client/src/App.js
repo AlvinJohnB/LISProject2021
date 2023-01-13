@@ -26,6 +26,7 @@ import ResultFormA4 from './components/results/ResultFormA4';
 import Cmform from './components/laboratory/cm/CmForm';
 import Seroform from './components/laboratory/sero/Seroform';
 
+
 const App = () => {
 
   const [authState, setAuthState] = useState({name: "", username: "", id: 0, status: false});

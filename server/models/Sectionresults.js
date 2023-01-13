@@ -18,6 +18,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        sectionOrder:{
+            type:DataTypes.INTEGER,
+            allowNull: true
+        }
     }, {timestamps: false})
 
     Sectionresults.associate = (models) => {

@@ -1,7 +1,7 @@
 import React from 'react'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { useParams, useHistory, Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import host from '../../config.json'
 import ReactPaginate from 'react-paginate';
 import LoadingModal from '../LoadingModal';
@@ -10,7 +10,6 @@ const Searchresult = (props) => {
     const [isLoading, setIsLoading] = useState(true);
     const [resultData, setResultData] = useState([])
 
-    let { param } = useParams();
     let history = useHistory();
     
     useEffect( async () => {

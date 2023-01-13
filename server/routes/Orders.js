@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Users, Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
+const { Users, Package, Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -215,42 +215,76 @@ router.post("/cnxtion", validateToken, async (req, res) => {
 
 });
 
-// RESULTS
-router.post("/form/result/create/:secreqID", validateToken, async (req, res) => {
-    const secreqID = req.params.secreqID;
-    const test = req.body.test;
+// RESULT CREATE ON CHECKIN
+router.post("/form-create/:sectionID", validateToken, async (req, res) => {
+    const secreqID = req.params.sectionID;
+    const tests = req.body.tests
 
-    //Get TestlistId
-    const TestslistId = await Testslist.findOne({
-        where: {testcode: test}
-    })
+    const expTests = tests.split(" ");
+    expTests.pop();
 
-    await Sectionresults.create({
-        test: test,
-        TestslistId: TestslistId.id,
-        isQuali: TestslistId.isQuali,
-        options: TestslistId.options
-    });
+    const updateDb = () => {
+        let sectionorder, result
 
-    const lastRxData = await Sectionresults.findOne({
-        order: [
-            ['id', 'DESC']
-        ]
-    });
-
-    if(lastRxData == null){
-        await Sectionorderlist.create({
-            SectionresultId: 1,
-            SectionorderId: secreqID,
-        });
-    }else{
-        await Sectionorderlist.create({
-            SectionresultId: lastRxData.id,
-            SectionorderId: secreqID,
-        });    
+        Sectionorders.findOne({where: {id: secreqID}})
+            .then((data)=>{
+                sectionorder = data
+                return Sectionresults.findAll({where: {sectionOrder: secreqID}})
+                    .then((data)=>{
+                        result = data
+                        sectionorder.addSectionresults(result)
+                    })
+       })
     }
+
+    
+    for(const test of expTests){
+
+        await Testslist.findOne({ where: {testcode: test}})
+            .then((testList) => {
+                // IF PACKAGE
+                if(testList.isPackage === true){
+                    return Package.findOne({ where: {package: testList.testcode}})
+                        .then((res) => {
+                        let test = res.tests.split(",")
+                        
+                        for(const item of test){
+                            Testslist.findOne({where: {testcode: item}})
+                                .then((test)=>{
+                                    let packageArray = []
+
+                                    packageArray.push({
+                                        test: test.testcode ,
+                                        TestslistId: test.id, 
+                                        isQuali: test.isQuali,
+                                        options: test.options,
+                                        sectionOrder: secreqID
+                                    })
+                                    Sectionresults.bulkCreate(packageArray).then(()=>{}).catch((err)=>{console.log(err)})
+                            })
+                        }
+                        
+
+                    }).catch((err)=> {console.log(err)})
+
+                }else{
+                    return Sectionresults.create({
+                                test: testList.testcode,
+                                TestslistId: testList.id,
+                                isQuali: testList.isQuali,
+                                options: testList.options,
+                                sectionOrder: secreqID
+                            }).then(()=>{
+            
+                    }).catch((err)=>{console.log(err)});
+                }
+        })
+
+    }
+
+    updateDb();
     res.send();
-});
+})
 
 //SectionData
 router.get("/section/:section", async (req, res) => {
