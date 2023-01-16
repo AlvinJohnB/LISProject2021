@@ -13,8 +13,6 @@ function Ordersrow(props) {
         history.push(`/order/${props.order.labNumber}`)
     }
 
-    const progess = 100
-
     return (
         <tr className='patient-table'>
             <td className="text-center">{props.order.labNumber}</td>

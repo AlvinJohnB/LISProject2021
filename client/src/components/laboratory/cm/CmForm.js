@@ -11,9 +11,15 @@ import {Formik, Form, Field} from 'formik';
 import * as Yup from 'yup';
 import { useState, useEffect } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
-
+import background from '../../../images/background.jpg'
 
 function Cmform() {
+
+    const bgStyle = {
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
+        height: '100vh'
+      }
 
     const [sectionData, setSectionData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
@@ -80,7 +86,8 @@ function Cmform() {
     }
 
     return (
-        <div className="container mt-5">
+        <div style={bgStyle}>
+        <div className="container pt-5">
         <NotLoggedInModal />
         <Header />
         <LabNav />
@@ -155,6 +162,7 @@ function Cmform() {
             </div>      
         </section>
         <footer className="p-1 mb-5 rounded-bottom">Laboratory Information System by Bregs</footer>
+    </div>
     </div>
     )
 }
