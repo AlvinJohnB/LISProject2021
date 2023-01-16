@@ -7,13 +7,12 @@ import Searchresult from './Searchresult';
 import host from '../../config.json'
 import { useState } from 'react'
 
-
 const Ptsearch = () => {
 
   const [isPatientNotFound, setIsPatientNotFound] = useState(false)
   const [patientSearchInfo, setPatientSearchInfo] = useState({})
   const [isSearchSuccess, setSearchSuccess] = useState(false)
- 
+
 
   const initialValues ={
     lastname: "",
@@ -89,6 +88,8 @@ const Ptsearch = () => {
           
         </Form>
       </Formik>
+
+
 
       {isSearchSuccess && <Searchresult patient={patientSearchInfo}/>}
     </div>
