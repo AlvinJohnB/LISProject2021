@@ -19,8 +19,6 @@ function CheckInModal(props) {
         )
     }
     const onAccept = async () => {
-        setIsLoading(false)
-        props.setShow(false);
         // IF REJECTED
         if(props.selected[0].Sectionorders[0].status === "Sample Rejected - For Check-In"){
 
@@ -38,6 +36,8 @@ function CheckInModal(props) {
                     alert("You are not logged in, please log in!");
                     history.push("/login");
                 }
+                setIsLoading(false)
+                props.setShow(false);
 
             })
 
@@ -73,6 +73,9 @@ function CheckInModal(props) {
                     alert("You are not logged in, please log in!");
                     history.push("/login");
                 }
+                setIsLoading(false)
+                props.setShow(false);
+
             })
         }
 

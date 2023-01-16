@@ -61,7 +61,6 @@ router.get("/getorders", async (req, res) => {
     const orders = await Orders.findAll(
         {
             where: {
-                status: "PENDING",
                 createdAt: {
                     [Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
                 }
@@ -233,6 +232,7 @@ router.post("/form-create/:sectionID", validateToken, async (req, res) => {
                     .then((data)=>{
                         result = data
                         sectionorder.addSectionresults(result)
+                        console.log(data)
                     })
        })
     }
@@ -281,8 +281,8 @@ router.post("/form-create/:sectionID", validateToken, async (req, res) => {
         })
 
     }
-
-    updateDb();
+    setTimeout(updateDb, 2000)
+    
     res.send();
 })
 
@@ -466,22 +466,21 @@ router.post("/check/:labNumber", async (req, res) => {
         done = 0
     }else{
         done = queryTwo.Sectionorders.length
-    }
 
-    if(done / secorders == 1){
-        await Orders.update({
-            status: "RELEASED"
-        }, {where: {
-            labNumber: labNumber
-        }})
-        res.send();
-    }else{
-        await Orders.update({
-            status: "PENDING"
-        }, {where: {
-            labNumber: labNumber
-        }})
-        res.send();
+        if(done / secorders == 1){
+            await Orders.update({ status: "RELEASED"}, {where: { labNumber: labNumber }}).then(()=>{
+                Orders.update({progress: 100}, {where: {labNumber:labNumber}})
+            })
+            res.send();
+        }else{
+            let progress = Math.round((done/secorders)*100)
+            console.log(`Progress is, ${progress}`)
+            await Orders.update({status: "PENDING" }, {where: { labNumber: labNumber }}).then(()=>{
+                Orders.update({progress: progress}, {where: {labNumber:labNumber}})
+            })
+            res.send();
+        }
+
     }
 })
 

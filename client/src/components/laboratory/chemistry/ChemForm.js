@@ -139,6 +139,7 @@ function ChemForm() {
 
                 <ChemResultmodal
                     show={show}
+                    setShow={setShow}
                     closeModal={closeModal}
                     resultFormData={resultFormData}
                     sectionResultArray={sectionResultArray}

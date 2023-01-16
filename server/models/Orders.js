@@ -51,6 +51,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "PENDING",
+        },progress:{
+            type: DataTypes.INTEGER,
+            allowNull:false,
+            defaultValue: 0
         }
     })
     Orders.associate = (models) => {

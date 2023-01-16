@@ -8,6 +8,8 @@ import FullResults from '../results/FullResults'
 import FullResultsHalf from '../results/FullResultsHalf'
 import host from '../../config.json'
 
+import Modal from 'react-bootstrap/Modal'
+
 function GetFullResults(props) {
     const [isLoading, setIsLoading] = useState(true);
     const [resultData, setResultData] = useState([])
@@ -28,41 +30,44 @@ function GetFullResults(props) {
             return(<div>Loading</div>)
         }else{
             return (
-                <div className="checkin-modal">
-                    <div className="login-modal-wrapper">
-                        <div className="loading-modal-header">
-                            <div><strong>&nbsp;</strong></div>
-                            <div className="checkin-closebtn" onClick={()=>{props.setShow(false)}}>X</div>
-                        </div>
-                            <div className="checkin-modal-body">
-                               <strong>Please select paper size</strong><br />
-                                
-                               <PDFDownloadLink
-                                document={<FullResultsHalf data={resultData[0]} />}
-                                fileName={`Full Results ${props.forOrderID}`}
-                                className="size-btn"
-                                >
-                                  {({ blob, url, loading, error }) =>
-                                    loading ? 'Loading...' : 'Half bond'
-                                }
-                                </PDFDownloadLink>
-    
-                                <PDFDownloadLink
-                                document={<FullResults data={resultData[0]}/>}
-                                fileName={`Full Results ${props.forOrderID}`}
-                                className="size-btn"
-                                data={resultData[0]}
-                                >
-                                   {({ blob, url, loading, error }) =>
-                                    loading ? 'Loading...' : 'Letter'
-                                }
-                                </PDFDownloadLink>
-                            </div>
-                        <div className="checkin-modal-footer">
-                            
-                        </div>
+               <Modal
+                show={props.show}
+                onHide={()=>{props.setShow(false)}}
+                backdrop="static"
+                keyboard={false}
+                centered
+                >
+                <Modal.Header className="bg-success" closeButton>
+                <Modal.Title></Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <div className="d-flex flex-column align-items-center">
+                        <strong>Please select paper size</strong><br />
+                        <PDFDownloadLink
+                            document={<FullResultsHalf data={resultData[0]} />}
+                            fileName={`Full Results ${props.forOrderID}`}
+                            className="btn btn-success col-md-5"
+                            >
+                                {({ blob, url, loading, error }) =>
+                                loading ? 'Loading...' : 'Half bond'
+                            }
+                            </PDFDownloadLink>
+
+                            <PDFDownloadLink
+                            document={<FullResults data={resultData[0]}/>}
+                            fileName={`Full Results ${props.forOrderID}`}
+                            className="btn btn-success col-md-5"
+                            data={resultData[0]}
+                            >
+                                {({ blob, url, loading, error }) =>
+                                loading ? 'Loading...' : 'Letter'
+                            }
+                            </PDFDownloadLink>
                     </div>
-                </div>
+                </Modal.Body>
+                <Modal.Footer>
+                </Modal.Footer>
+                </Modal>
             )
         }
 
