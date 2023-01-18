@@ -39,7 +39,6 @@ const Ptsearch = () => {
         firstname: data.firstname
       })
       setSearchSuccess(true)
-      // history.push(`/searchresults/${lname},${fname}`)
     }
     })
 

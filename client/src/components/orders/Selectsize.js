@@ -8,6 +8,7 @@ import '../laboratory/checkin/checkinmodal.css'
 import host from '../../config.json'
 
 import Modal from 'react-bootstrap/Modal'
+import LoadingModal from '../LoadingModal'
 
 function Selectsize(props) {
 
@@ -27,7 +28,7 @@ function Selectsize(props) {
 
     }else{
         if(isLoading === true){
-            return(<div>Loading</div>)
+            return(<div><LoadingModal /></div>)
         }else{
             return (
                 <Modal
