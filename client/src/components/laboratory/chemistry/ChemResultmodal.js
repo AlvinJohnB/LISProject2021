@@ -7,10 +7,6 @@ import { useHistory } from 'react-router-dom';
 import PrevResultModal from './PrevResultModal';
 import host from '../../../config.json'
 import Modal from 'react-bootstrap/Modal'
-
-import { PDFDownloadLink } from '@react-pdf/renderer'
-import ResultForm from '../../results/ResultForm'
-import ResultFormA4 from '../../results/ResultFormA4'
 import LabLoadingModal from '../../LabLoadingModal';
 import Selectsize from '../../orders/Selectsize';
 
@@ -171,7 +167,7 @@ import Selectsize from '../../orders/Selectsize';
             </Modal.Header>
             <Modal.Body>
                 <div className="container-fluid">
-                    <div classname="row">
+                    <div className="row">
                         <div>
                             {resultFormData[0].Sectionorders[0].status === "RELEASED" && <h2 className="red">Released</h2>}
                             <p>

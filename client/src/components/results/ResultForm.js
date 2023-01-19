@@ -5,8 +5,14 @@ import arialbd from '../../fonts/arialbd.ttf'
 import arial from '../../fonts/arial.ttf'
 import logo from '../../images/stcamlogo.jpg'
 import lablogo from '../../images/lablogo.jpg'
+import { useState, useEffect } from 'react'
+import axios from 'axios'
+import host from '../../config.json'
+
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 Font.register({ family: 'arial', src: arial, fontStyle: 'normal', fontWeight: 'normal' });
+
+
 
 // Create styles
 const styles = StyleSheet.create({
@@ -107,11 +113,33 @@ lablogo:{
 },
 caps:{
   textTransform: "uppercase"
+},
+
+footerBlock:{
+  alignItems: 'center',
+  margin: 1
+}
+,
+footerContainer:{
+  display: 'flex',
+  flexDirection:'row',
+  justifyContent: 'space-around',
+  width: 602
 }
 });
 
 // Create Document Component
 const ResultForm = (props) => {
+
+  const [pathoInfo, setPathoInfo] = useState({})
+
+  useEffect(()=>{
+     axios.get(`http://${host.ip}:3001/auth/info/${props.data.Sectionorders[0].pathologist}`).then((response) => {
+        setPathoInfo(response.data)
+        })
+  },[])
+
+
   return(
     <Document>
     <Page size="Letter" style={styles.body}>
@@ -164,21 +192,6 @@ const ResultForm = (props) => {
                         </View>
                       )
                     })}
-                {/* {section.Sectionresults.map((result, index) => {
-                    return(
-                        <View key={index}>
-                            {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
-                            {result.Testslist.isPackage === true && <View> <Text style={styles.sectiontext}>{result.Testslist.testname}</Text></View>}
-                            {result.Testslist.isPackage === false && <View style={styles.resultBody}>
-                                                                        <Text style={styles.testName}>{result.Testslist.testname}</Text>
-                                                                        <Text style={styles.resultText}>{result.result}</Text>
-                                                                        <Text style={styles.unitText}>{result.Testslist.unit}</Text>
-                                                                        <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
-                                                                    </View>}
-                            </View>}
-                        </View>
-                    )
-                })} */}
                 </View>
             )
          })}
@@ -187,19 +200,34 @@ const ResultForm = (props) => {
       
       
       
-      
       <View style={styles.footer} fixed={true}>
-        <View style={styles.column}>
-          <Text style={styles.footerText}>{props.data.Sectionorders[0].releasedBy}</Text>
-          <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
-          <Text style={styles.footerText}>License No.: _____</Text>
+
+        <View style={styles.footerContainer}>
+
+              { props.data.Sectionorders[0].performedBy !== props.data.Sectionorders[0].releasedBy && 
+                <View style={styles.footerBlock}>
+                <Text style={styles.footerText}>{props.data.Sectionorders[0].performedBy}</Text>
+                <Text style={styles.footerText}>PERFORMER</Text>
+                <Text style={[styles.footerText, styles.caps]}>{props.data.Sectionorders[0].section}</Text>
+              </View>
+              }
+
+
+              <View style={styles.footerBlock}>
+                <Text style={styles.footerText}>{props.data.Sectionorders[0].releasedBy}</Text>
+                <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
+                <Text style={styles.footerText}>License No.: _____</Text>
+              </View>
+              
+              <View style={styles.footerBlock}>
+                <Text style={styles.footerText}>{props.data.Sectionorders[0].pathologist}</Text>
+                <Text style={[styles.footerText, styles.caps]}>{pathoInfo.title}</Text>
+                <Text style={styles.footerText}>License No: {pathoInfo.licenseNo}</Text>
+              </View>
+
         </View>
-        
-        <View style={styles.column}>
-          <Text style={styles.footerText}>{props.data.Sectionorders[0].pathologist}</Text>
-          <Text style={styles.footerText}>ANATOMIC AND CLINICAL PATHOLOGIST</Text>
-          <Text style={styles.footerText}>License No: 98717</Text>
-        </View>
+
+
       </View>
       
     </Page>
