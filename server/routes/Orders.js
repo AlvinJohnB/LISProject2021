@@ -63,6 +63,9 @@ router.get("/getorders", async (req, res) => {
             where: {
                 createdAt: {
                     [Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
+                },
+                status:{
+                    [Op.not]: "DELETED"
                 }
             },
             order: [
@@ -215,73 +218,70 @@ router.post("/cnxtion", validateToken, async (req, res) => {
 });
 
 // RESULT CREATE ON CHECKIN
-router.post("/form-create/:sectionID", validateToken, async (req, res) => {
+router.post("/form-create/:sectionID", validateToken , async (req, res) => {
     const secreqID = req.params.sectionID;
     const tests = req.body.tests
 
     const expTests = tests.split(" ");
     expTests.pop();
 
-    const updateDb = () => {
+    
+    const entryLoop = async () => {
         let sectionorder, result
 
-        Sectionorders.findOne({where: {id: secreqID}})
+        for(const test of expTests){
+            const testsList = await Testslist.findOne({where: {testcode: test}})
+
+            //Check If Package
+            if(testsList.isPackage === true){
+
+                // Find in Package Model
+                const package = await Package.findOne({ where: {package: testsList.testcode}})
+
+                //Split tests
+                const tests = package.tests.split(",");
+
+                // Loop through tests -- Find details on testsList tables
+                for(const item of tests){
+                    const detail = await Testslist.findOne({where: {testcode: item}})
+
+                    // Create Database entry on every test
+                    let data = {
+                        test: detail.testcode ,
+                        TestslistId: detail.id, 
+                        isQuali: detail.isQuali,
+                        options: detail.options,
+                        sectionOrder: secreqID
+                    }
+
+                    await Sectionresults.create(data)
+                    
+                    await new Promise(resolve => (setTimeout(resolve, 500)))
+                }
+                
+            }
+            await new Promise(resolve => (setTimeout(resolve, 1000)))
+        }
+
+
+
+        // Make association
+
+        await Sectionorders.findOne({where: {id: secreqID}})
             .then((data)=>{
                 sectionorder = data
                 return Sectionresults.findAll({where: {sectionOrder: secreqID}})
                     .then((data)=>{
                         result = data
                         sectionorder.addSectionresults(result)
-                        console.log(data)
+      
                     })
        })
+
     }
 
+    entryLoop().then(()=>{console.log(`CheckIn Done`)})
     
-    for(const test of expTests){
-
-        await Testslist.findOne({ where: {testcode: test}})
-            .then((testList) => {
-                // IF PACKAGE
-                if(testList.isPackage === true){
-                    return Package.findOne({ where: {package: testList.testcode}})
-                        .then((res) => {
-                        let test = res.tests.split(",")
-                        
-                        for(const item of test){
-                            Testslist.findOne({where: {testcode: item}})
-                                .then((test)=>{
-                                    let packageArray = []
-
-                                    packageArray.push({
-                                        test: test.testcode ,
-                                        TestslistId: test.id, 
-                                        isQuali: test.isQuali,
-                                        options: test.options,
-                                        sectionOrder: secreqID
-                                    })
-                                    Sectionresults.bulkCreate(packageArray).then(()=>{}).catch((err)=>{console.log(err)})
-                            })
-                        }
-                        
-
-                    }).catch((err)=> {console.log(err)})
-
-                }else{
-                    return Sectionresults.create({
-                                test: testList.testcode,
-                                TestslistId: testList.id,
-                                isQuali: testList.isQuali,
-                                options: testList.options,
-                                sectionOrder: secreqID
-                            }).then(()=>{
-            
-                    }).catch((err)=>{console.log(err)});
-                }
-        })
-
-    }
-    setTimeout(updateDb, 2000)
     
     res.send();
 })
