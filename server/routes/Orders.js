@@ -259,6 +259,18 @@ router.post("/form-create/:sectionID", validateToken , async (req, res) => {
                     await new Promise(resolve => (setTimeout(resolve, 500)))
                 }
                 
+            }else{
+                const detail = await Testslist.findOne({where: {testcode: test}})
+                
+                let data = {
+                    test: detail.testcode ,
+                    TestslistId: detail.id, 
+                    isQuali: detail.isQuali,
+                    options: detail.options,
+                    sectionOrder: secreqID
+                }
+                await Sectionresults.create(data)
+
             }
             await new Promise(resolve => (setTimeout(resolve, 1000)))
         }
