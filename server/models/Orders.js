@@ -65,7 +65,8 @@ module.exports = (sequelize, DataTypes) => {
     Orders.associate = (models) => {
         Orders.hasMany(models.Sectionorders, {
         onDelete: "cascade",
-        foreignKey: "forOrderID"
+        foreignKey: "forOrderID",
+        constraint: false,
     })
     }
     return Orders;

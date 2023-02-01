@@ -25,7 +25,7 @@ function DetailTr({detail}) {
             <td>{detail.sectNumber}</td>
             <td>{detail.status}</td>
             <td>
-                  <Selectsize show={modalShow} setShow={setModalShow} detail={detail} forOrderID={detail.forOrderID} section={detail.section}/>
+                  <Selectsize show={modalShow} patho={detail.pathologist} setShow={setModalShow} detail={detail} forOrderID={detail.forOrderID} section={detail.section}/>
                 {detail.status === "RELEASED" && <button className="btn btn-success" onClick={onGenerate}>Generate Report</button>}
     
                 {detail.status !== "RELEASED"  && <button className="btn btn-danger" disabled={true} onClick={onGenerate}>Generate Report</button>}

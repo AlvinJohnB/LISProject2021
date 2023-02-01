@@ -13,9 +13,9 @@ import LoadingModal from '../LoadingModal'
 function Selectsize(props) {
 
     const [isLoading, setIsLoading] = useState(true);
-    const [resultData, setResultData] = useState([])
+    const [resultData, setResultData] = useState([]);
 
-   
+
     useEffect(async ()=> {
             await axios.get(`http://${host.ip}:3001/order/results/${props.forOrderID}/${props.section}`).then((response) => {
             setResultData(response.data)

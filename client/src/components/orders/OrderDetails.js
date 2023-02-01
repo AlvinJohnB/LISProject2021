@@ -33,7 +33,7 @@ function OrderDetails() {
                 accessToken: localStorage.getItem("accessToken"),
             }
         }).then((response) => {
-            setOrderDetails(response.data);
+            setOrderDetails(response.data); 
             setIsLoading(false);
         })
     },[labNumber])
