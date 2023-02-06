@@ -385,21 +385,107 @@ router.get("/fullresults/:orderID", async (req, res) => {
 
 
 //Update Result
-router.post("/result/update/:sectionResultID/:result", validateToken, async (req, res) => {
+router.post("/result/update/:sectionResultID/:result/:gender", validateToken, async (req, res) => {
     const sectionResultID = req.params.sectionResultID;
     const result = req.params.result;
+    const gender = req.params.gender
     const username = req.user.username;
+    let isQuali = false;
+
+    // Find Test
+    const sectionRes = await Sectionresults.findOne({where:{id: sectionResultID}})
+
+    //Is Quali or Quanti?
+    if(sectionRes.isQuali == true){
+        // Get Ref Value
+        const ref = await Referencevalues.findOne({where: {test: sectionRes.test}})
+
+        const refLogic = (reference) => {
+            if(result == reference){
+                Sectionresults.update({
+                    flag: "N/A"
+                }, {
+                    where: {
+                        id: sectionResultID
+                    }
+                })
+            }else{
+                Sectionresults.update({
+                    flag: "Abnormal"
+                }, {
+                    where: {
+                        id: sectionResultID
+                    }
+                })
+            }
+        }
+
+         if(gender == "Male"){
+                // Check if result is Abnormal
+                refLogic(ref.Male)
+            }else{
+                refLogic(ref.Female)
+            }
+
+    }else{
+
+
+        // Find RefValue
+        const RefValue = await Referencevalues.findOne({where: {test:sectionRes.test}}).then((res)=>{
+            if(gender == "Male"){
+                return res.Male
+            }else{
+                return res.Female
+            }
+        })
+
+        let refArray = RefValue.split("-")
+
+        if(parseInt(result) > parseInt(refArray[0]) && parseInt(result) < parseInt(refArray[1])){
+            await Sectionresults.update({
+                flag: "N/A"
+            }, {
+                where: {
+                    id: sectionResultID
+                }
+            })
+        }
+        
+        // Decreased Logic
+        if(parseInt(result) < parseInt(refArray[0])){
+            await Sectionresults.update({
+                flag: "Decreased"
+            }, {
+                where: {
+                    id: sectionResultID
+                }
+            })
+        }
+        //Increased Logic
+        if(parseInt(result) > parseInt(refArray[1])){
+            await Sectionresults.update({
+                flag: "Increased"
+            }, {
+                where: {
+                    id: sectionResultID
+                }
+            })
+        }
+
+
+    }
 
     await Sectionresults.update({
         result: result,
-        releasedBy: username
+        releasedBy: username 
     }, {
         where: {
             id: sectionResultID
         }
     })
-
     res.json({msg: "Record Saved"});
+
+
 })
 
 //Release Rx

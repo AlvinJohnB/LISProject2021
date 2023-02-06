@@ -83,7 +83,7 @@ const Ptsearch = () => {
               
             </div>
             
-          <button className="btn btn-success col-md-2 mt-4 mb-4" type="submit">Search Patient</button>
+          <button className="btn btn-success col-md-2 mt-4 mb-4" type="submit">Search Patient </button>
           
         </Form>
       </Formik>

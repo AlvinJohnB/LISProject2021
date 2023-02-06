@@ -11,7 +11,7 @@ function ChemTest({test, ptdata, status}) {
         const result = e.target.value;
         const sResultID = test.id
         
-        await axios.post(`http://${host.ip}:3001/order/result/update/${sResultID}/${result}`,{},
+        await axios.post(`http://${host.ip}:3001/order/result/update/${sResultID}/${result}/${ptdata.gender}`,{},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -22,7 +22,7 @@ function ChemTest({test, ptdata, status}) {
                 history.push('/login');
             }
         }).catch((err) => {
-            console.log("Result not updated");
+            console.log("Error");
         })
     }
 

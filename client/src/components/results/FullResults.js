@@ -190,7 +190,10 @@ const FullResults = (props) => {
                             {result.Testslist.isPackage === true && (<Text style={styles.sectiontext}>{result.Testslist.testname}</Text>)}
                             {result.Testslist.isPackage === false && (<View style={styles.resultBody}>
                                                                         <Text style={styles.testName}>{result.Testslist.testname}</Text>
+                                                                        
+                                                                        {/* DO SOMETHING HERE, RESULT */}
                                                                         <Text style={styles.resultText}>{result.result}</Text>
+
                                                                         <Text style={styles.unitText}>{result.Testslist.unit}</Text>
                                                                         <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
                                                                     </View>)}
