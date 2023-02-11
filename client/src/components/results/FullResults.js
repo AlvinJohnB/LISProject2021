@@ -4,8 +4,7 @@ import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
 import logo from '../../images/stcamlogo.jpg'
 import lablogo from '../../images/lablogo.jpg'
-import increased from '../../images/arrowup.png'
-import decreased from '../../images/arrowdown.png'
+
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import host from '../../config.json'
@@ -98,20 +97,11 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica-Bold',
     fontSize: '10px',
   },
-  abnormal:{
-    fontFamily: 'Helvetica-Bold',
-  },
 logo:{
   width: "55px",
   position: 'absolute',
   left: "10px",
   bottom: "5px"
-},
-flag:{
-  width: '55px',
-},
-contentCenter:{
-  justifyContent: 'center'
 },
 lablogo:{
     width: "55px",
@@ -137,7 +127,7 @@ footerContainer:{
   flexDirection:'row',
   justifyContent: 'space-around',
   width: 602
-},
+}
 });
 
 // Create Document Component
@@ -145,8 +135,8 @@ const FullResults = (props) => {
 
   const [pathoInfo, setPathoInfo] = useState({id: 1, username: "DocTin", password: 'Patho1', name: 'Modesty A. Leano, MD, FPSP', pathologist: 'Pathologist', title: 'ANATOMIC AND CLINICAL PATHOLOGIST', licenseNo: '98717'})
 
-  useEffect(  ()=>{
-      axios.get(`http://${host.ip}:3001/auth/info/${props.data.Sectionorders[0].pathologist}`).then((response) => {
+  useEffect(()=>{
+     axios.get(`http://${host.ip}:3001/auth/info/${props.data.Sectionorders[0].pathologist}`).then((response) => {
         setPathoInfo(response.data)
         })
   },[])
@@ -202,12 +192,7 @@ const FullResults = (props) => {
                                                                         <Text style={styles.testName}>{result.Testslist.testname}</Text>
                                                                         
                                                                         {/* DO SOMETHING HERE, RESULT */}
-                                                                        {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}</Text> : (
-
-                                                                          <Text style={[styles.resultText, styles.contentCenter, styles.abnormal]}> {result.result}{result.flag === "Increased" ?  <Image src={increased} style={styles.flag}/> : result.flag === "Abnormal" ? `` : <Image src={decreased} style={styles.flag}/>} </Text>
-
-                                                                          )}
-                                                                       
+                                                                        <Text style={styles.resultText}>{result.result}</Text>
 
                                                                         <Text style={styles.unitText}>{result.Testslist.unit}</Text>
                                                                         <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
