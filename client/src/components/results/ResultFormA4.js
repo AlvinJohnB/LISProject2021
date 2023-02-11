@@ -4,7 +4,8 @@ import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
 import logo from '../../images/stcamlogo.jpg'
 import lablogo from '../../images/lablogo.jpg'
-
+import increased from '../../images/arrowup.png'
+import decreased from '../../images/arrowdown.png'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import host from '../../config.json'
@@ -16,18 +17,18 @@ Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight
 const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
-    paddingBottom: 100,
+    paddingBottom: 80,
     paddingHorizontal: 35,
   },
   header:{
     textAlign: 'center',
   },
   companyText:{
-    fontSize: 14,
+    fontSize: 12,
     fontFamily: 'Helvetica-Bold'
   },
   companyContacts:{
-    fontSize: 9
+    fontSize: 8
   },
   patientHeader:{
     display: 'flex',
@@ -43,10 +44,10 @@ const styles = StyleSheet.create({
     width: 200
   },
   patientInfo:{
-    fontSize: '11px'
+    fontSize: '10px'
   },
   footerText:{
-    fontSize: '10px',
+    fontSize: '9px',
     textAlign: 'center',
   }
   ,
@@ -61,8 +62,8 @@ const styles = StyleSheet.create({
   resultHeader:{
     borderTop: '1px dotted black',
     borderBottom: '1px dotted black',
-    marginTop: 15,
-    marginBottom: 10,
+    marginTop: 5,
+    marginBottom: 5,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
@@ -75,7 +76,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '11px'
+     fontSize: '9px'
   },
   testName: {
     width: 175,
@@ -95,13 +96,22 @@ const styles = StyleSheet.create({
   },
   sectiontext:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px',
+    fontSize: '10px',
+  },
+  abnormal:{
+    fontFamily: 'Helvetica-Bold',
   },
 logo:{
   width: "55px",
   position: 'absolute',
   left: "10px",
   bottom: "5px"
+},
+flag:{
+  width: '55px',
+},
+contentCenter:{
+  justifyContent: 'center'
 },
 lablogo:{
     width: "55px",
@@ -112,6 +122,11 @@ lablogo:{
 caps:{
   textTransform: "uppercase"
 },
+marginBot:{
+  marginBottom: 5,
+  marginTop: 5
+},
+
 footerBlock:{
   alignItems: 'center',
   margin: 1
@@ -122,7 +137,7 @@ footerContainer:{
   flexDirection:'row',
   justifyContent: 'space-around',
   width: 602
-}
+},
 });
 
 // Create Document Component
@@ -174,10 +189,10 @@ const ResultFormA4 = (props) => {
       
 
          
-         {props.data.Sectionorders.map((section, key) => {
+      {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
-                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                    <Text style={[styles.sectiontext, styles.caps, styles.marginBot]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
                 {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
@@ -185,7 +200,15 @@ const ResultFormA4 = (props) => {
                             {result.Testslist.isPackage === true && (<Text style={styles.sectiontext}>{result.Testslist.testname}</Text>)}
                             {result.Testslist.isPackage === false && (<View style={styles.resultBody}>
                                                                         <Text style={styles.testName}>{result.Testslist.testname}</Text>
-                                                                        <Text style={styles.resultText}>{result.result}</Text>
+                                                                        
+                                                                        {/* DO SOMETHING HERE, RESULT */}
+                                                                        {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}</Text> : (
+
+                                                                          <Text style={[styles.resultText, styles.contentCenter, styles.abnormal]}> {result.result}{result.flag === "Increased" ?  <Image src={increased} style={styles.flag}/> : result.flag === "Abnormal" ? `` : <Image src={decreased} style={styles.flag}/>} </Text>
+
+                                                                          )}
+                                                                       
+
                                                                         <Text style={styles.unitText}>{result.Testslist.unit}</Text>
                                                                         <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
                                                                     </View>)}

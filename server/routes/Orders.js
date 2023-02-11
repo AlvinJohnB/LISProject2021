@@ -390,7 +390,7 @@ router.post("/result/update/:sectionResultID/:result/:gender", validateToken, as
     const result = req.params.result;
     const gender = req.params.gender
     const username = req.user.username;
-    let isQuali = false;
+    
 
     // Find Test
     const sectionRes = await Sectionresults.findOne({where:{id: sectionResultID}})
@@ -433,15 +433,15 @@ router.post("/result/update/:sectionResultID/:result/:gender", validateToken, as
         // Find RefValue
         const RefValue = await Referencevalues.findOne({where: {test:sectionRes.test}}).then((res)=>{
             if(gender == "Male"){
-                return res.Male
+                return res.mref
             }else{
-                return res.Female
+                return res.fref
             }
         })
 
         let refArray = RefValue.split("-")
-
-        if(parseInt(result) > parseInt(refArray[0]) && parseInt(result) < parseInt(refArray[1])){
+        
+        if(parseFloat(result) > parseInt(refArray[0]) && parseFloat(result) < parseFloat(refArray[1])){
             await Sectionresults.update({
                 flag: "N/A"
             }, {
@@ -452,7 +452,7 @@ router.post("/result/update/:sectionResultID/:result/:gender", validateToken, as
         }
         
         // Decreased Logic
-        if(parseInt(result) < parseInt(refArray[0])){
+        if(parseFloat(result) < parseFloat(refArray[0])){
             await Sectionresults.update({
                 flag: "Decreased"
             }, {
@@ -462,7 +462,7 @@ router.post("/result/update/:sectionResultID/:result/:gender", validateToken, as
             })
         }
         //Increased Logic
-        if(parseInt(result) > parseInt(refArray[1])){
+        if(parseFloat(result) > parseFloat(refArray[1])){
             await Sectionresults.update({
                 flag: "Increased"
             }, {
