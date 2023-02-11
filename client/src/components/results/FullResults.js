@@ -2,7 +2,7 @@ import React from 'react'
 import { Page, Image, Text, View, Document, StyleSheet, Font } from '@react-pdf/renderer';
 import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
-import logo from '../../images/stcamlogo.jpg'
+import logo from '../../../src/images/stcamlogo.jpg'
 import lablogo from '../../images/lablogo.jpg'
 import increased from '../../images/arrowup.png'
 import decreased from '../../images/arrowdown.png'
