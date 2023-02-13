@@ -205,7 +205,7 @@ const ResultFormA4 = (props) => {
                                                                         {/* DO SOMETHING HERE, RESULT */}
                                                                         {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}<Image src={blank} style={styles.flag}/></Text> : (
 
-                                                                          <Text style={[styles.resultText, styles.contentCenter, styles.abnormal]}> {result.result}{result.flag === "Increased" ?  <Image src={increased} style={styles.flag}/> : result.flag === "Abnormal" ? `` : <Image src={decreased} style={styles.flag}/>} </Text>
+                                                                          <Text style={[styles.resultText, styles.contentCenter, styles.abnormal]}> {result.result}{result.flag === "Increased" ?  <Image src={increased} style={styles.flag}/> : result.flag === "Abnormal" ? <Image src={blank} style={styles.flag}/> : <Image src={decreased} style={styles.flag}/>} </Text>
 
                                                                           )}
                                                                        
