@@ -4,7 +4,7 @@ import { useState } from 'react'
 import LoadingModal from '../LoadingModal'
 import Selectsize from './Selectsize'
 
-function DetailTr({detail}) {
+function DetailTr({detail, includePrev, setPrevModalShow, prevResDetails, PrevResData}) {
 
     const [isLoading] = useState(false)
     const [modalShow, setModalShow] = useState(false)
@@ -25,8 +25,8 @@ function DetailTr({detail}) {
             <td>{detail.sectNumber}</td>
             <td>{detail.status}</td>
             <td>
-                  <Selectsize show={modalShow} patho={detail.pathologist} setShow={setModalShow} detail={detail} forOrderID={detail.forOrderID} section={detail.section}/>
-                {detail.status === "RELEASED" && <button className="btn btn-success" onClick={onGenerate}>Generate Report</button>}
+                  <Selectsize PrevResData={PrevResData} includePrev={includePrev} prevResDetails={prevResDetails}  show={modalShow} patho={detail.pathologist} setShow={setModalShow} detail={detail} forOrderID={detail.forOrderID} section={detail.section}/>
+                {detail.status === "RELEASED" && <button className="btn btn-success" onClick={() => { onGenerate(); setPrevModalShow(true)}}>Generate Report</button>}
     
                 {detail.status !== "RELEASED"  && <button className="btn btn-danger" disabled={true} onClick={onGenerate}>Generate Report</button>}
             </td>

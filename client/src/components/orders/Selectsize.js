@@ -45,7 +45,7 @@ function Selectsize(props) {
                     <div className="d-flex flex-column align-items-center">
                         <strong>Please select paper size</strong><br />
                         <PDFDownloadLink
-                        document={<ResultForm data={resultData[0]} />}
+                        document={<ResultForm data={resultData[0]} includePrev={props.includePrev} prevResDetails={props.prevResDetails} PrevResData={props.PrevResData} />}
                         fileName={`${props.detail.sectNumber}`}
                         className="btn btn-success col-md-5"
                         >
@@ -55,7 +55,7 @@ function Selectsize(props) {
                         </PDFDownloadLink>
 
                         <PDFDownloadLink
-                        document={<ResultFormA4 data={resultData[0]}/>}
+                        document={<ResultFormA4 data={resultData[0]} includePrev={props.includePrev} prevResDetails={props.prevResDetails} PrevResData={props.PrevResData}/>}
                         fileName={`${props.detail.sectNumber}`}
                         className="btn btn-success col-md-5"
                         data={resultData[0]}

@@ -5,9 +5,6 @@ import arialbd from '../../fonts/arialbd.ttf'
 import arial from '../../fonts/arial.ttf'
 import logo from '../../images/stcamlogo.jpg'
 import lablogo from '../../images/lablogo.jpg'
-import increased from '../../images/arrowup.png'
-import decreased from '../../images/arrowdown.png'
-import blank from '../../images/blank.png'
 import { useState, useEffect } from 'react'
 import axios from 'axios'
 import host from '../../config.json'
@@ -186,7 +183,9 @@ const ResultForm = (props) => {
       
       <View style={styles.resultHeader} fixed={true}>
           <Text style={styles.testName}>Test Name</Text>
-          <Text style={styles.resultText}>Result<Image src={blank} style={styles.flag}/></Text>
+          {/* Do Something here Prev Res */}
+          {props.includePrev === true ? <Text style={[styles.prevResText, styles.prevRes]}>Previous Result {Moment(props.prevResDetails.updatedAt).format('MMMM DD, yyyy')}</Text> : null}
+          <Text style={styles.resultText}>Result</Text>
           <Text style={styles.unitText}>Unit</Text>
          <Text style={styles.referenceText}>Reference</Text>
       </View>
@@ -205,10 +204,22 @@ const ResultForm = (props) => {
                             {result.Testslist.isPackage === false && (<View style={styles.resultBody}>
                                                                         <Text style={styles.testName}>{result.Testslist.testname}</Text>
                                                                         
-                                                                        {/* DO SOMETHING HERE, RESULT */}
-                                                                        {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}<Image src={blank} style={styles.flag}/></Text> : (
+                                                                        {/* Do something here, Prev res */}
+                                                                        {props.includePrev === true ?
+                                                                          <Text style={styles.prevResText}>
+                                                                          {props.PrevResData.map((pres) => {
+                                                                            return(
+                                                                              result.Testslist.testcode === pres.test ? pres.result : null
+                                                                            )
+                                                                          })}
+                                                                        </Text>
+                                                                          : null}
+                                                                        
 
-                                                                          <Text style={[styles.resultText, styles.contentCenter, styles.abnormal]}> {result.result}{result.flag === "Increased" ?  <Image src={increased} style={styles.flag}/> : result.flag === "Abnormal" ? <Image src={blank} style={styles.flag}/> : <Image src={decreased} style={styles.flag}/>} </Text>
+                                                                        {/* DO SOMETHING HERE, RESULT */}
+                                                                        {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}</Text> : (
+
+                                                                          <Text style={[styles.resultText, styles.contentCenter, styles.abnormal]}>{result.result}</Text>
 
                                                                           )}
                                                                        
@@ -228,6 +239,7 @@ const ResultForm = (props) => {
       
       
       
+      
       <View style={styles.footer} fixed={true}>
 
         <View style={styles.footerContainer}>
@@ -236,7 +248,6 @@ const ResultForm = (props) => {
                 <View style={styles.footerBlock}>
                 <Text style={styles.footerText}>{props.data.Sectionorders[0].performedBy}</Text>
                 <Text style={styles.footerText}>PERFORMER</Text>
-                <Text style={[styles.footerText, styles.caps]}>{props.data.Sectionorders[0].section}</Text>
               </View>
               }
 

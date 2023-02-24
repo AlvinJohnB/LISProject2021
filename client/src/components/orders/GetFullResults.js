@@ -11,6 +11,7 @@ import host from '../../config.json'
 import Modal from 'react-bootstrap/Modal'
 
 function GetFullResults(props) {
+
     const [isLoading, setIsLoading] = useState(true);
     const [resultData, setResultData] = useState([])
 
@@ -44,7 +45,7 @@ function GetFullResults(props) {
                     <div className="d-flex flex-column align-items-center">
                         <strong>Please select paper size</strong><br />
                         <PDFDownloadLink
-                            document={<FullResultsHalf data={resultData[0]} />}
+                            document={<FullResultsHalf data={resultData[0]} includePrev={props.includePrev} prevResDetails={props.prevResDetails} PrevResData={props.PrevResData}/>}
                             fileName={`Full Results ${props.forOrderID}`}
                             className="btn btn-success col-md-5"
                             >
@@ -54,7 +55,7 @@ function GetFullResults(props) {
                             </PDFDownloadLink>
 
                             <PDFDownloadLink
-                            document={<FullResults data={resultData[0]}/>}
+                            document={<FullResults data={resultData[0]} includePrev={props.includePrev} prevResDetails={props.prevResDetails} PrevResData={props.PrevResData} />}
                             fileName={`Full Results ${props.forOrderID}`}
                             className="btn btn-success col-md-5"
                             data={resultData[0]}

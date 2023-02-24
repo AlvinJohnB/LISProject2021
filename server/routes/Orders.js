@@ -583,6 +583,21 @@ router.post("/check/:labNumber", async (req, res) => {
 })
 
 //Previous result
+router.get("/result/previous/:ptID", async (req, res) => {
+    const id = req.params.ptID;
+
+    const presult = await Orders.findAll({
+        order: [
+            ['updatedAt', 'DESC']
+        ],
+        where:{ forPtId: id },
+        limit: 2,
+        include:[
+            {model: Sectionorders, where:{status: "RELEASED"}, include: [{model: Sectionresults}]}]
+    })
+    res.json(presult);
+})
+
 router.get("/result/previous/:ptID/:section", async (req, res) => {
     const id = req.params.ptID;
     const section = req.params.section;
@@ -599,7 +614,7 @@ router.get("/result/previous/:ptID/:section", async (req, res) => {
     })
     res.json(presult);
 })
-module.exports = router
+
 
 //Find order by ID
 router.get("/results/findByID/:section/:orderID", async (req, res) => {
@@ -614,3 +629,5 @@ router.get("/results/findByID/:section/:orderID", async (req, res) => {
     })
     res.json(result);
 })
+
+module.exports = router
