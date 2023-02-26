@@ -223,7 +223,7 @@ const ResultFormA4 = (props) => {
                                                                         {/* DO SOMETHING HERE, RESULT */}
                                                                         {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}</Text> : (
 
-                                                                          <Text style={[styles.resultText, styles.contentCenter, styles.abnormal]}>{result.result}</Text>
+                                                                          <Text style={[styles.resultText, styles.contentCenter]}>{result.result}</Text>
 
                                                                           )}
                                                                        

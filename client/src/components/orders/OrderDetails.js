@@ -56,26 +56,15 @@ function OrderDetails() {
             
             axios.get(`http://${host.ip}:3001/order/result/previous/${response.data[0].Patientlists[0].id}`).then((response) => {
             
-            // Logic here, filter json from date of release of current result to 5 days backward
+            // Logic here, filter json from date of relase of current
             const presults = response.data
             const resDate = new Date(dataSet[0].createdAt)
-            
-            // const backTrackDate = new Date(dataSet[0].updatedAt)
-            // backTrackDate.setDate(backTrackDate.getDate() - 5)
-
+        
             const filteredResults = presults.filter((result) => {
                 const resultDate = new Date(result.createdAt)
                 return resultDate < resDate
             })
-            // console.log(presults)
-            // console.log(presDate)
-            // console.log(backTrackDate)
-            console.log(filteredResults)
-
-            // setTest(filteredResults)
-            // console.log(test)
-
-            // change if statement
+        
             if(filteredResults.length >= 1){
                 setHasPrev(true)
 
@@ -114,6 +103,8 @@ function OrderDetails() {
             }else{
                 setHasPrev(false)
             }
+
+
             setIsLoading(false)
              })
 

@@ -21,7 +21,7 @@ function PrintPrevResult(props) {
                 centered
                 >
                 <Modal.Header className="bg-success" closeButton>
-                <Modal.Title>Previous Results Found</Modal.Title>
+                <Modal.Title>Previous transaction found</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <div className="d-flex flex-column align-items-center align-text-center">
