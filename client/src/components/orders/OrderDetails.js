@@ -24,6 +24,7 @@ function OrderDetails() {
     const [prevResDetails, setPrevResDetails] = useState({})
     const [hasPrev, setHasPrev] = useState(false)
     const [includePrev, setIncludePrev] = useState(false)
+   
     
 
     let { labNumber } = useParams();
@@ -51,18 +52,42 @@ function OrderDetails() {
             }
         }).then((response) => {
             setOrderDetails(response.data); 
-
+            const dataSet = response.data
+            
             axios.get(`http://${host.ip}:3001/order/result/previous/${response.data[0].Patientlists[0].id}`).then((response) => {
             
-            if(response.data.length > 1){
+            // Logic here, filter json from date of release of current result to 5 days backward
+            const presults = response.data
+            const resDate = new Date(dataSet[0].createdAt)
+            
+            // const backTrackDate = new Date(dataSet[0].updatedAt)
+            // backTrackDate.setDate(backTrackDate.getDate() - 5)
+
+            const filteredResults = presults.filter((result) => {
+                const resultDate = new Date(result.createdAt)
+                return resultDate < resDate
+            })
+            // console.log(presults)
+            // console.log(presDate)
+            // console.log(backTrackDate)
+            console.log(filteredResults)
+
+            // setTest(filteredResults)
+            // console.log(test)
+
+            // change if statement
+            if(filteredResults.length >= 1){
                 setHasPrev(true)
-                setPrevResDetails(response.data[1])
+
+                // Previous Data here
+
+                setPrevResDetails(filteredResults[0])
                 let chemResData = {}
                 let hemaResData = {}
                 let cmResData = {}
                 let seroResData = {}
 
-                const data = response.data[1].Sectionorders
+                const data = filteredResults[0].Sectionorders
       
                 const chemData = data.filter((item) => item.section === "Chemistry")
                 const hemaData = data.filter((item) => item.section === "Hematology")
@@ -136,11 +161,12 @@ function OrderDetails() {
                         </tr>
                         {orderDetails[0].Sectionorders.map((detail, index) => {
                             return (
-                                <DetailTr prevResDetails={prevResDetails} PrevResData={PrevResData} setPrevModalShow={setPrevModalShow} includePrev={includePrev} detail={detail} key={index} />
+                                <DetailTr hasPrev={hasPrev} prevResDetails={prevResDetails} PrevResData={PrevResData} setPrevModalShow={setPrevModalShow} includePrev={includePrev} detail={detail} key={index} />
                                 )
                         })}
                     </tbody>
                 </table>
+
                 {/*Generate Charge Slip*/}
                 
                 <PDFDownloadLink

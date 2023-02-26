@@ -591,7 +591,7 @@ router.get("/result/previous/:ptID", async (req, res) => {
             ['updatedAt', 'DESC']
         ],
         where:{ forPtId: id },
-        limit: 2,
+        limit: 5,
         include:[
             {model: Sectionorders, where:{status: "RELEASED"}, include: [{model: Sectionresults}]}]
     })

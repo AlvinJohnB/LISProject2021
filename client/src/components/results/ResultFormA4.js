@@ -136,6 +136,13 @@ footerContainer:{
   justifyContent: 'space-around',
   width: 602
 },
+prevResText:{
+  width: 90,
+  textAlign: 'center',
+},
+prevRes:{
+  fontSize: 8
+}
 });
 
 // Create Document Component
