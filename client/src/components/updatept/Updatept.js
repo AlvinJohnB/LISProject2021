@@ -61,6 +61,12 @@ const Updatept = () => {
         var agem = month - bdayArray[1];
         var aged = day - bdayArray[2];
 
+        if(agem === 0){
+            if(aged < 0){
+                agey = agey -1
+            }
+        }
+        
         if(agem < 0){
             agey = agey -1
             agem = agem + 12

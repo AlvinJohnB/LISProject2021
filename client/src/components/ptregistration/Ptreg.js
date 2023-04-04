@@ -43,6 +43,13 @@ const Ptreg = () => {
         var agey = year - bdayArray[0];
         var agem = month - bdayArray[1];
         var aged = day - bdayArray[2];
+        
+        //if same month
+        if(agem === 0){
+            if(aged < 0){
+                agey = agey -1
+            }
+        }
 
         if(agem < 0){
             agey = agey -1
