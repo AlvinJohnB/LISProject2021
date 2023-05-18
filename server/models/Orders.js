@@ -17,7 +17,6 @@ module.exports = (sequelize, DataTypes) => {
         labNumber: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
         },
         ptType: {
             type: DataTypes.STRING,
@@ -56,6 +55,7 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "PENDING",
+
         },progress:{
             type: DataTypes.INTEGER,
             allowNull:false,

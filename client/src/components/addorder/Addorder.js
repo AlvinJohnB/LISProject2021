@@ -169,6 +169,8 @@ const Addorder = () => {
         setIsLoading(true);
         data.forPtId = ptData.id;
         data.testsRequested = labTestInput;
+
+
         // ADD COSTS HERE
         data.totalCost = totalCost;
         data.chemCost = chemTotalFee;
