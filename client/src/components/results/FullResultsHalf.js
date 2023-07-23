@@ -40,10 +40,10 @@ const styles = StyleSheet.create({
     width: 200
   },
   patientInfo:{
-    fontSize: '11px'
+    fontSize: '10px'
   },
   footerText:{
-    fontSize: '10px',
+    fontSize: '9px',
     textAlign: 'center',
   }
   ,
@@ -56,8 +56,8 @@ const styles = StyleSheet.create({
   },
   
   resultHeader:{
-    borderTop: '1px dotted black',
-    borderBottom: '1px dotted black',
+    borderTop: '1px solid black',
+    borderBottom: '1px solid black',
     marginTop: 15,
     marginBottom: 10,
     display: 'flex',
@@ -65,14 +65,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 5,
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px'
+    fontSize: '9px'
   },
   
    resultBody:{
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '11px'
+     fontSize: '9px',
+     borderBottom: '1px dotted black',
+  },
+  sectionBody:{
+    borderBottom: '1px dotted black',
   },
   testName: {
     width: 175,
@@ -92,7 +96,7 @@ const styles = StyleSheet.create({
   },
   sectiontext:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px',
+    fontSize: '8px',
   },
 logo:{
   width: "55px",
@@ -119,7 +123,11 @@ footerContainer:{
   flexDirection:'row',
   justifyContent: 'space-around',
   width: 602
-}
+},
+comment:{
+  fontFamily: 'Helvetica',
+  fontSize: '8px',
+},
 });
 
 // Create Document Component
@@ -169,22 +177,46 @@ const FullResultsHalf = (props) => {
       
 
          
-         {props.data.Sectionorders.map((section, key) => {
+      {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
-
-                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
-                    {section.Sectionresults.map((result, index) => {
-                      return(
+                    <Text style={[styles.sectiontext, styles.caps, styles.marginBot, styles.sectionBody]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                {section.Sectionresults.map((result, index) => {
+                    return(
                         <View key={index}>
-                          {result.result === "!" || result.result === null ? <View></View> : 
-                            <View>
-                              {result.Testslist.isPackage === true && <Text style={styles.sectiontext}>{result.Testslist.testname}</Text>}
-                              {result.Testslist.isPackage === false && (<View style={styles.resultBody}><Text style={styles.testName}>{result.Testslist.testname}</Text><Text style={styles.resultText}>{result.result}</Text><Text style={styles.unitText}>{result.Testslist.unit}</Text><Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text></View>)}
+                            {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
+                            {result.Testslist.isPackage === true && (<Text style={styles.sectiontext}>{result.Testslist.testname}</Text>)}
+                            {result.Testslist.isPackage === false && (<View style={styles.resultBody}>
+                                                                        <Text style={styles.testName}>{result.Testslist.testname}</Text>
+                                                                        <Text style={styles.resultText}>{result.result}</Text>
+                                                                        <Text style={styles.unitText}>{result.Testslist.unit}</Text>
+                                                                        <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
+                                                                    </View>)}
                             </View>}
                         </View>
+                    )
+                })}
+
+              {section.Sectionresults.map((comment, index) =>{
+                      return(
+                        <View key={index}>
+                          {comment.test === "SACRATI" ? 
+                            <View>
+                                <Text style={styles.comment}>Comment/s:</Text>
+                                <Text style={styles.comment}>Limitation: Specimen with alkaline pH, elevated pus, menstrual blood, or vaginal discharge may cause high albumin result. Diagnosis should not be based on a single test method or test result.</Text>
+                                <Text style={styles.comment}> </Text>   
+                                <Text style={styles.comment}>Clinical Determination:</Text>   
+                                <Text style={styles.comment}>No Microalbumin: 0-29</Text>    
+                                <Text style={styles.comment}>Clinical Microalbuminuria: 30-300</Text>  
+                                <Text style={styles.comment}>Macroalbuminuria: greater than 300 </Text> 
+                            </View> 
+                          : null}
+                        </View>
                       )
-                    })}
+                })}
+
+
+
 
                 </View>
             )

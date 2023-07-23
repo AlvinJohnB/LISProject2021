@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
     width: 200
   },
   patientInfo:{
-    fontSize: '11px'
+    fontSize: '10px'
   },
   footerText:{
-    fontSize: '10px',
+    fontSize: '9px',
     textAlign: 'center',
   }
   ,
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
   },
   
   resultHeader:{
-    borderTop: '1px dotted black',
-    borderBottom: '1px dotted black',
+    borderTop: '1px solid black',
+    borderBottom: '1px solid black',
     marginTop: 15,
     marginBottom: 10,
     display: 'flex',
@@ -70,14 +70,18 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 5,
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px'
+    fontSize: '9px'
   },
   
    resultBody:{
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '11px'
+     fontSize: '9px',
+     borderBottom: '1px dotted black',
+  },
+  sectionBody:{
+    borderBottom: '1px dotted black',
   },
   testName: {
     width: 175,
@@ -97,7 +101,7 @@ const styles = StyleSheet.create({
   },
   sectiontext:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px',
+    fontSize: '8px',
   },
 logo:{
   width: "55px",
@@ -114,7 +118,6 @@ lablogo:{
 caps:{
   textTransform: "uppercase"
 },
-
 footerBlock:{
   alignItems: 'center',
   margin: 1
@@ -125,7 +128,11 @@ footerContainer:{
   flexDirection:'row',
   justifyContent: 'space-around',
   width: 602
-}
+},
+comment:{
+  fontFamily: 'Helvetica',
+  fontSize: '8px',
+},
 });
 
 // Create Document Component
@@ -180,7 +187,7 @@ const ResultForm = (props) => {
             return(
                 <View key={key}>
 
-                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                    <Text style={[styles.sectiontext, styles.caps, styles.sectionBody]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
                     {section.Sectionresults.map((result, index) => {
                       return(
                         <View key={index}>
@@ -192,6 +199,25 @@ const ResultForm = (props) => {
                         </View>
                       )
                     })}
+
+                  {section.Sectionresults.map((comment, index) =>{
+                                      return(
+                                        <View key={index}>
+                                          {comment.test === "SACRATI" ? 
+                                            <View>
+                                                <Text style={styles.comment}>Comment/s:</Text>
+                                                <Text style={styles.comment}>Limitation: Specimen with alkaline pH, elevated pus, menstrual blood, or vaginal discharge may cause high albumin result. Diagnosis should not be based on a single test method or test result.</Text>
+                                                <Text style={styles.comment}> </Text>   
+                                                <Text style={styles.comment}>Clinical Determination:</Text>   
+                                                <Text style={styles.comment}>No Microalbumin: 0-29</Text>    
+                                                <Text style={styles.comment}>Clinical Microalbuminuria: 30-300</Text>  
+                                                <Text style={styles.comment}>Macroalbuminuria: greater than 300 </Text> 
+                                            </View> 
+                                          : null}
+                                        </View>
+                                      )
+                    })}
+                                  
                 </View>
             )
          })}
