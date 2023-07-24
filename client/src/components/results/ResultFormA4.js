@@ -184,13 +184,13 @@ const ResultFormA4 = (props) => {
             return(
 
                 <View key={key}>
-                    <Text style={[styles.sectiontext, styles.caps, styles.sectionBody]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
                 
                 {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
                             {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
-                            {result.Testslist.isPackage === true && (<Text style={styles.sectiontext}>{result.Testslist.testname}</Text>)}
+                            {result.Testslist.isPackage === true && (<Text style={[styles.sectiontext, styles.sectionBody]}>{result.Testslist.testname}</Text>)}
                             {result.Testslist.isPackage === false && (<View style={styles.resultBody}>
                                                                         <Text style={styles.testName}>{result.Testslist.testname}</Text>
                                                                         <Text style={styles.resultText}>{result.result}</Text>
