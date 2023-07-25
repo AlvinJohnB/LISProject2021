@@ -102,6 +102,7 @@ router.get("/findpatient/:name", async (req, res) => {
         lastname: dataArray[0],
         firstname: dataArray[1]
     }
+    console.log(ptdata);
 
     // IF FNAME ONLY
     if(ptdata.lastname === ''){

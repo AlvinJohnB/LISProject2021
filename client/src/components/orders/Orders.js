@@ -98,12 +98,11 @@ function Orders() {
                     <table className="table table-hover">
                         <tbody className="table-orders">
                             <tr className="table-secondary">
-                                <th className="text-center">Lab Number</th>
-                                <th className="text-center">Patient Name</th>
-                                <th className="text-center">Test/s Requested</th>
-                                <th className="text-center">Progress</th>
-                                <th className="text-center">Date Encoded</th>
-                                <th className="text-center">Action</th>
+                                <th>Lab Number</th>
+                                <th>Patient Name</th>
+                                <th>Test/s Requested</th>
+                                <th>Date Encoded</th>
+                                <th>Action</th>
                             </tr>
 
                            {displayOrders}

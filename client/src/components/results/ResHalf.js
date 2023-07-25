@@ -63,27 +63,17 @@ const Quixote = () => (
       
       
       <View style={styles.footer} fixed>
-        
-        <View style={styles.footerContainer}>
-              <View style={styles.footerBlock}>
-              <Text style={styles.footerText}>Name</Text>
-              <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
-              <Text style={styles.footerText}>License No.: _____</Text>
-            </View>
-
-            <View style={styles.footerBlock}>
-              <Text style={styles.footerText}>Modesty A. Leaño, MD, FSPS</Text>
-              <Text style={styles.footerText}>ANATOMIC AND CLINICAL PATHOLOGIST</Text>
-              <Text style={styles.footerText}>License No: 98717</Text>
-            </View>
-              
-               <View style={styles.footerBlock}>
-              <Text style={styles.footerText}>Modesty A. Leaño, MD, FSPS</Text>
-              <Text style={styles.footerText}>ANATOMIC AND CLINICAL PATHOLOGIST</Text>
-              <Text style={styles.footerText}>License No: 98717</Text>
-            </View>
+        <View style={styles.column}>
+          <Text style={styles.footerText}>Name</Text>
+          <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
+          <Text style={styles.footerText}>License No.: _____</Text>
         </View>
         
+        <View style={styles.column}>
+          <Text style={styles.footerText}>Modesty A. Leaño, MD, FSPS</Text>
+          <Text style={styles.footerText}>ANATOMIC AND CLINICAL PATHOLOGIST</Text>
+          <Text style={styles.footerText}>License No: 98717</Text>
+        </View>
       </View>
       
     </Page>
@@ -133,7 +123,7 @@ const styles = StyleSheet.create({
     bottom: 400,
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'flex-end',
+    justifyContent: 'center',
   },
   
   resultHeader:{
@@ -175,17 +165,6 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica-Bold',
     fontSize: '11px'
   },
-  footerBlock:{
-    alignItems: 'center',
-    margin: 1
-  }
-  ,
-  footerContainer:{
-    display: 'flex',
-    flexDirection:'row',
-    justifyContent: 'space-around',
-    width: 602
-  }
 });
 
 ReactPDF.render(<Quixote />);
