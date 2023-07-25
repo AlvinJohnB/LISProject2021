@@ -12,9 +12,15 @@ import * as Yup from 'yup';
 import { useState, useEffect } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
 import host from '../../../config.json'
-
+import background from '../../../images/background.jpg'
 
 function ChemForm() {
+
+    const bgStyle = {
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
+        height: '100vh'
+      }
 
     const [sectionData, setSectionData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
@@ -81,7 +87,8 @@ function ChemForm() {
     }
 
     return (
-        <div className="container mt-5">
+        <div style={bgStyle}>
+        <div className="container pt-5">
         <NotLoggedInModal />
         <Header />
         <LabNav />
@@ -139,6 +146,7 @@ function ChemForm() {
 
                 <ChemResultmodal
                     show={show}
+                    setShow={setShow}
                     closeModal={closeModal}
                     resultFormData={resultFormData}
                     sectionResultArray={sectionResultArray}
@@ -155,6 +163,7 @@ function ChemForm() {
             </div>      
         </section>
         <footer className="p-1 mb-5 rounded-bottom">Laboratory Information System by Bregs</footer>
+    </div>
     </div>
     )
 }
