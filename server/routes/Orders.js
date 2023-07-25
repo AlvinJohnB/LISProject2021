@@ -385,11 +385,12 @@ router.get("/fullresults/:orderID", async (req, res) => {
 
 
 //Update Result
-router.post("/result/update/:sectionResultID/:result", validateToken, async (req, res) => {
+router.post("/result/update/:sectionResultID", validateToken, async (req, res) => {
+    
     const sectionResultID = req.params.sectionResultID;
-    const result = req.params.result;
+    // const result = req.params.result;
+    const result = req.body.result;
     const username = req.user.username;
-
     await Sectionresults.update({
         result: result,
         releasedBy: username

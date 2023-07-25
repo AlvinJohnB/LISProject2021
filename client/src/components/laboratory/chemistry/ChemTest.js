@@ -1,29 +1,35 @@
 import React from 'react'
 import axios from 'axios';
-import { useHistory } from 'react-router-dom';
+import { useHistory} from 'react-router-dom';
 import host from '../../../config.json'
 
 function ChemTest({test, ptdata, status}) {
-
     let history = useHistory();
-
     const saveResult = async (e) => {
-        const result = e.target.value;
-        const sResultID = test.id
+        let result = String(e.target.value)
+        console.log(result)
+        let sResultID = test.id
+
+        if(result === "") {
+            console.log("No result entered")
+        }else{
+            await axios.post(`http://${host.ip}:3001/order/result/update/${sResultID}`, {result: result},
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken"),
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert("You are not logged in. Please log-in!");
+                        history.push('/login');
+                    }
+                }).catch((err) => {
+                    console.log("Error: Result not updated, please try again.");
+                    console.log(err)
+                })
+
+        }
         
-        await axios.post(`http://${host.ip}:3001/order/result/update/${sResultID}/${result}`,{},
-        {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-            }
-        }).then((response) => {
-            if(response.data.error){
-                alert("You are not logged in. Please log-in!");
-                history.push('/login');
-            }
-        }).catch((err) => {
-            console.log("Result not updated");
-        })
     }
 
 
