@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
   companyText:{
-    fontSize: 12,
+    fontSize: 11,
     fontFamily: 'Helvetica-Bold'
   },
   companyContacts:{
@@ -45,10 +45,10 @@ const styles = StyleSheet.create({
     width: 200
   },
   patientInfo:{
-    fontSize: '10px'
+    fontSize: '9px'
   },
   footerText:{
-    fontSize: '9px',
+    fontSize: '8px',
     textAlign: 'center',
   }
   ,
@@ -61,8 +61,8 @@ const styles = StyleSheet.create({
   },
   
   resultHeader:{
-    borderTop: '1px dotted black',
-    borderBottom: '1px dotted black',
+    borderTop: '1px solid black',
+    borderBottom: '1px solid black',
     marginTop: 5,
     marginBottom: 5,
     display: 'flex',
@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '9px'
+     fontSize: '8px'
   },
   testName: {
     width: 175,
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
   },
   sectiontext:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '10px',
+    fontSize: '9px',
   },
   abnormal:{
     fontFamily: 'Helvetica-Bold',
@@ -145,6 +145,13 @@ prevResText:{
 },
 prevRes:{
   fontSize: 8
+},
+comment:{
+  fontSize: 7
+},
+borderBot:
+{
+  borderBottom: '1px dotted black'
 }
 });
 
@@ -207,8 +214,8 @@ const ResultForm = (props) => {
                     return(
                         <View key={index}>
                             {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
-                            {result.Testslist.isPackage === true && (<Text style={styles.sectiontext}>{result.Testslist.testname}</Text>)}
-                            {result.Testslist.isPackage === false && (<View style={styles.resultBody}>
+                            {result.Testslist.isPackage === true && (<Text style={[styles.sectiontext, styles.borderBot]}>{result.Testslist.testname}</Text>)}
+                            {result.Testslist.isPackage === false && (<View style={[styles.resultBody, styles.borderBot]}>
                                                                         <Text style={styles.testName}>{result.Testslist.testname}</Text>
                                                                         
                                                                         {/* Do something here, Prev res */}
@@ -238,6 +245,25 @@ const ResultForm = (props) => {
                         </View>
                     )
                 })}
+
+                {section.Sectionresults.map((comment, index) =>{
+                  return(
+                    <View key={index}>
+                      {comment.test === "SACRATI" ? 
+                        <View>
+                            <Text style={styles.comment}>Comment/s:</Text>
+                            <Text style={styles.comment}>Limitation: Specimen with alkaline pH, elevated pus, menstrual blood, or vaginal discharge may cause high albumin result. Diagnosis should not be based on a single test method or test result.</Text>
+                            <Text style={styles.comment}> </Text>   
+                            <Text style={styles.comment}>Clinical Determination:</Text>   
+                            <Text style={styles.comment}>No Microalbumin: 0-29</Text>    
+                            <Text style={styles.comment}>Clinical Microalbuminuria: 30-300</Text>  
+                            <Text style={styles.comment}>Macroalbuminuria: greater than 300 </Text> 
+                        </View> 
+                      : null}
+                    </View>
+                  )
+                  })}
+                
                 </View>
             )
          })}

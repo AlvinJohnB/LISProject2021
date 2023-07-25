@@ -385,10 +385,12 @@ router.get("/fullresults/:orderID", async (req, res) => {
 
 
 //Update Result
-router.post("/result/update/:sectionResultID/:result/:gender", validateToken, async (req, res) => {
+router.post("/result/update/:sectionResultID", validateToken, async (req, res) => {
     const sectionResultID = req.params.sectionResultID;
-    const result = req.params.result;
-    const gender = req.params.gender
+    // const result = req.params.result;
+    // const gender = req.params.gender;
+    const result = req.body.result;
+    const gender = req.body.gender;
     const username = req.user.username;
     
 
