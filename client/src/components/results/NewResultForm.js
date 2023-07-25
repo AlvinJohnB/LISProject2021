@@ -2,6 +2,8 @@ const Quixote = () => (
   <Document>
     <Page size="Letter" style={styles.body}>
       <View style={styles.header} fixed>
+        <Image src={logo} style={styles.logo}/>
+        <Image src={lablogo} style={styles.lablogo}/>
         <Text style={styles.companyText}>St. Camillus De Lellis General Hospital</Text>
         <Text style={styles.companyContacts}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
         <Text style={styles.companyContacts}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
@@ -33,7 +35,7 @@ const Quixote = () => (
   
          
          
-          <View style={styles.sectionBody}>
+            <View>
               <Text style={styles.sectiontext}>CHEMISTRY</Text>
           </View>
 
@@ -44,18 +46,10 @@ const Quixote = () => (
               <Text style={styles.referenceText}>70-120</Text>
           </View>
 
-          <View style={styles.sectionBody}>
+          <View>
               <Text style={styles.sectiontext}>Lipid Profile</Text>
           </View>
-          <View>
-              <Text style={styles.sectiontext}>Comment:</Text>
-              <Text style={styles.sectiontext}>*Limitation: Specimen with alkaline pH, elevated pus, menstrual blood, or vaginal discharge may cause high albumin result.Diagnosis should not be based on a single test method or test result.</Text>
-      		  <Text style={styles.sectiontext}> </Text>   
-             <Text style={styles.sectiontext}>*Clinical Determination:</Text>   
-              <Text style={styles.sectiontext}>No Microalbumin: 0-29</Text>    
-              <Text style={styles.sectiontext}>Clinical Microalbuminuria: 30-300</Text>  
-              <Text style={styles.sectiontext}>Macroalbuminuria: greater than 300 </Text>        
-         </View>
+         
      
       
       
@@ -87,13 +81,14 @@ const styles = StyleSheet.create({
   },
   header:{
     textAlign: 'center',
+    marginTop: 15
   },
   companyText:{
-    fontSize: 14,
+    fontSize: 18,
     fontFamily: 'Helvetica-Bold'
   },
   companyContacts:{
-    fontSize: 9
+    fontSize: 10
   },
   patientHeader:{
     display: 'flex',
@@ -112,7 +107,7 @@ const styles = StyleSheet.create({
     fontSize: '11px'
   },
   footerText:{
-    fontSize: '10px',
+    fontSize: '11px',
     textAlign: 'center',
   }
   ,
@@ -125,8 +120,8 @@ const styles = StyleSheet.create({
   },
   
   resultHeader:{
-    borderTop: '1px solid black',
-    borderBottom: '1px solid black',
+    borderTop: '1px dotted black',
+    borderBottom: '1px dotted black',
     marginTop: 15,
     marginBottom: 10,
     display: 'flex',
@@ -134,20 +129,15 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 5,
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px'
+    fontSize: '12px'
   },
   
    resultBody:{
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '11px',
-     borderBottom: '1px dotted black',
+     fontSize: '11px'
   },
-  sectionBody:{
-    borderBottom: '1px dotted black',
-  }
-  ,
   testName: {
     width: 175,
     paddingLeft: 15
@@ -161,44 +151,25 @@ const styles = StyleSheet.create({
     textAlign: 'center'
 },
   referenceText:{
-    width: 90,
+    width: 75,
     textAlign: 'center'
   },
   sectiontext:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px',
+    fontSize: '12px'
   },
 logo:{
-  width: "55px",
+  width: "70px",
   position: 'absolute',
   left: "10px",
-  bottom: "5px"
+  bottom: "40px"
 },
 lablogo:{
-    width: "55px",
+    width: "70px",
     position: 'absolute',
     right: "10px",
-  	bottom: "5px"
+  	bottom: "40px"
 },
-caps:{
-  textTransform: "uppercase"
-},
-marginBot:{
-  marginBottom: 5,
-  marginTop: 5
-},
-
-footerBlock:{
-  alignItems: 'center',
-  margin: 1
-}
-,
-footerContainer:{
-  display: 'flex',
-  flexDirection:'row',
-  justifyContent: 'space-around',
-  width: 602
-}
 });
 
 ReactPDF.render(<Quixote />);
