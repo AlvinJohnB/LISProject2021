@@ -61,27 +61,23 @@ const styles = StyleSheet.create({
   },
   
   resultHeader:{
-    borderTop: '1px solid black',
-    borderBottom: '1px solid black',
-    marginTop: 15,
-    marginBottom: 10,
+    borderTop: '1px dotted black',
+    borderBottom: '1px dotted black',
+    marginTop: 5,
+    marginBottom: 5,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 5,
     fontFamily: 'Helvetica-Bold',
-    fontSize: '9px'
+    fontSize: '11px'
   },
   
    resultBody:{
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '9px',
-     borderBottom: '1px dotted black',
-  },
-  sectionBody:{
-    borderBottom: '1px dotted black',
+     fontSize: '9px'
   },
   testName: {
     width: 175,
@@ -105,7 +101,6 @@ const styles = StyleSheet.create({
   },
   abnormal:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '8px',
   },
 logo:{
   width: "55px",
@@ -150,11 +145,7 @@ prevResText:{
 },
 prevRes:{
   fontSize: 8
-},
-comment:{
-  fontFamily: 'Helvetica',
-  fontSize: '8px',
-},
+}
 });
 
 // Create Document Component
