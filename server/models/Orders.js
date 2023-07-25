@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
         labNumber: {
             type: DataTypes.STRING,
             allowNull: false,
+            unique: true,
         },
         ptType: {
             type: DataTypes.STRING,
@@ -24,28 +25,23 @@ module.exports = (sequelize, DataTypes) => {
         },
         totalCost: {
             type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: 0
+            allowNull: false,
         },
         hemaCost: {
             type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: 0
+            allowNull: false,
         },
         cmCost: {
             type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: 0
+            allowNull: false,
         },
         chemCost: {
             type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: 0
+            allowNull: false,
         },
         seroCost: {
             type: DataTypes.STRING,
-            allowNull: true,
-            defaultValue: 0
+            allowNull: false,
         },
         isDiscounted: {
             type: DataTypes.BOOLEAN,
@@ -55,18 +51,12 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
             defaultValue: "PENDING",
-
-        },progress:{
-            type: DataTypes.INTEGER,
-            allowNull:false,
-            defaultValue: 0
         }
     })
     Orders.associate = (models) => {
         Orders.hasMany(models.Sectionorders, {
         onDelete: "cascade",
-        foreignKey: "forOrderID",
-        constraint: false,
+        foreignKey: "forOrderID"
     })
     }
     return Orders;

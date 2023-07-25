@@ -19,9 +19,9 @@ function CheckInModal(props) {
         )
     }
     const onAccept = async () => {
+        setIsLoading(true);
         props.setShow(false);
-        setIsLoading(true)
-        // IF REJECTED
+
         if(props.selected[0].Sectionorders[0].status === "Sample Rejected - For Check-In"){
 
             await axios.post(`http://${host.ip}:3001/order/updatesorder`, {
@@ -33,56 +33,143 @@ function CheckInModal(props) {
                     accessToken: localStorage.getItem("accessToken")
                 }
             }).then((response) => {
-
                 if(response.data.error){
                     alert("You are not logged in, please log in!");
                     history.push("/login");
                 }
-                setIsLoading(false)
-                props.setShow(false);
-
             })
-
         }else{
-
             await axios.post(`http://${host.ip}:3001/order/updatesorder`, {
-                status: "RUNNING",
-                sectNumber: props.selected[0].Sectionorders[0].sectNumber
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
-                }
-            }).then((response) => {
-                if(response.data.error){
-                    alert("You are not logged in, please log in!");
-                    history.push("/login");
-                }
-            })
-        
-        const tests = props.selected[0].Sectionorders[0].tests;
-
-
-        await axios.post(`http://${host.ip}:3001/order/form-create/${props.selected[0].Sectionorders[0].id}`, {
-                tests: tests,
-            },
-            {
-                headers: {
-                    accessToken: localStorage.getItem("accessToken")
-                }
-            }).then((res) => {
-                if(res.data.error){
-                    alert("You are not logged in, please log in!");
-                    history.push("/login");
-                }
-                setTimeout(setIsLoading(false), 2000)
-                
-            })
-        }
-
-        await axios.get(`http://${host.ip}:3001/order/forcheckin/${props.section}`).then((response) => {
-            props.setCheckInDetails(response.data);
+            status: "RUNNING",
+            sectNumber: props.selected[0].Sectionorders[0].sectNumber
+        },
+        {
+            headers: {
+                accessToken: localStorage.getItem("accessToken")
+            }
+        }).then((response) => {
+            if(response.data.error){
+                alert("You are not logged in, please log in!");
+                history.push("/login");
+            }
         })
+
+        // create result form
+        
+        const etests = props.selected[0].Sectionorders[0].tests;
+        const expTests = etests.split(" ");
+        expTests.pop();
+       
+
+        // declare func to be looped 
+            const checkInTest = async (i) => {                 
+                
+                //declare profile checkinloop
+                const profileCheckIn = async (test) => {
+                        for(let i=0; i<test.length; i++){
+                            await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                                test: test[i],
+                            },
+                            {
+                                headers: {
+                                    accessToken: localStorage.getItem("accessToken")
+                                }
+                            })
+                        }
+                }
+                setTimeout( async ()=> {
+                    // IF PROFLE
+                    //CHEMISTRY PROFILES
+                    if(expTests[i] === "LIPID"){
+                        const test = ["LIPID","CHOLE","TRIG","HDL","LDL"]
+                        profileCheckIn(test, i);                     
+                    }
+                    else if(expTests[i] === "TPAG"){
+                        const test = ["TPAG","TOTCHO","TALB","GLOB","ALBGL"]
+                        profileCheckIn(test, i);  
+                    }    
+                    else if(expTests[i] === "OGTT75"){
+                        const test = ["OGTT75","OGFBS","OG1HR","OG2ND"]
+                        profileCheckIn(test, i);  
+                    }  
+                    else if(expTests[i] === "ABG"){
+                        const test = ["ABG","BPH","PO2","PCO2", "HCO3", "SATO2", "BX", "BEECF"]
+                        profileCheckIn(test, i);  
+                    }
+        
+                    // CM Profiles
+                    else if(expTests[i] === "URINAL"){
+                        const test = ["URINAL","URINPHY","UCOLOR","UTRANS","UCHEM","UPH","USG","UCHON","UGLU","UWBC","UBLD","UROBIL", "UBILI", "UNIT", "UKET", "URINMIC", "UPUS", "UMRBC", "UECLS", "UMAM", "UMUC", "UMBAC", "UCASTS", "UCRYS", "UPARA", "UMOTH"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "FECA"){
+                        const test = ["FECA","FPHYS","FCOL", "FCONSIS", "FMICRO", "FPUS", "FBLO","FECPARA"]
+                        profileCheckIn(test, i);  
+                    }
+                    // Hema Profiles
+                    else if(expTests[i] === "CBCPLT"){
+                        const test = ["CBCPLT","WBCCT","GRNCT","LYMPCT","MID","RBCCT","HGB","HCT","MCV","MCH","MCHC","PLTCT"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "Hgb/Hct"){
+                        const test = ["HGB","HCT"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "PTINR"){
+                        const test = ["PTINR","PT","CONT","PTACT","INR"]
+                        profileCheckIn(test, i);  
+                    }
+                    // Sero Profiles
+                    else if(expTests[i] === "DNGBLT"){
+                        const test = ["DNGBLT","DENGIGG", "DENGIGM"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "TYPHI"){
+                        const test = ["TYPHI","TYPHIGG", "TYPHIGM"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "BTYPE"){
+                        const test = ["BTYPE","ABO","RH"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "CROSSM"){
+                        const test = ["CROSSM","REAB","RERH", "COMP", "PUR", "BLSER", "TUB", "BEXTR", "BEXP", "BLSRC", "MAJCX", "MINORCX"]
+                        profileCheckIn(test, i);  
+                    }
+                    else if(expTests[i] === "ABOPC"){
+                        const test = ["ABOPC","ABPC","BLSER", "BEXTR", "BEXP", "BLSRC"]
+                        profileCheckIn(test, i);  
+                    }
+                
+                    
+                    //IF NOT PROFILE
+                    else{
+                        await axios.post(`http://${host.ip}:3001/order/form/result/create/${props.selected[0].Sectionorders[0].id}`, {
+                        test: expTests[i],
+                        },
+                        {
+                            headers: {
+                                accessToken: localStorage.getItem("accessToken")
+                            }
+                        })
+                }
+
+                    await axios.get(`http://${host.ip}:3001/order/forcheckin/${props.section}`).then((response) => {
+                    props.setCheckInDetails(response.data);
+                    })
+                    
+
+                }, 1500 * i)
+
+                    
+            }
+
+            for (let i = 0; i < expTests.length; i++){
+                checkInTest(i);
+                setTimeout(()=> { setIsLoading(false); }, 1500 * expTests.length)
+            }
+
+        }
     }
 
     if(!props.show){
