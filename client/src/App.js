@@ -17,21 +17,14 @@ import ChemForm from './components/laboratory/chemistry/ChemForm';
 import Hemaform from './components/laboratory/hema/Hemaform';
 import Results from './components/results/Results';
 import PrevTrx from './components/orders/PrevTrx';
+
+
 import { AuthContext } from './helpers/AuthContext';
 import { useState, useEffect } from 'react'
 import axios from 'axios';
 import ResultFormA4 from './components/results/ResultFormA4';
 import Cmform from './components/laboratory/cm/CmForm';
 import Seroform from './components/laboratory/sero/Seroform';
-
-import 'bootstrap/dist/css/bootstrap.min.css';
-import background from '../src/images/background.jpg'
-
-const bgStyle = {
-  backgroundImage: `url(${background})`,
-  backgroundSize: 'cover',
-  height: '100vh'
-}
 
 const App = () => {
 
@@ -69,34 +62,32 @@ useEffect(() => {
             <Route path="/laboratory/sero" exact component={Seroform} />
             <Route path="/login" exact component={UserLogin} />
             <Route path="/register" exact component={UserReg} />
-            <div style={bgStyle}>
-              <div className="container pt-5">
-                <Header />
-                <nav className='bg-success bg-gradient d-flex p-1 position-sticky'>
-                  <li className='d-flex align-items-center'>
-                      <ul><Link to="/ptsearch">Patient Search</Link></ul>
-                      <ul><Link to="/registerpatient">Patient Registration</Link></ul>
-                      <ul><Link to="/orders">Orders</Link></ul>
-                      <ul><Link to="/laboratory">Laboratory</Link></ul>
-                      <ul><Link to="/results">Results</Link></ul>
-                  </li>
-                </nav>
-                <section className='bg-light p-1'>
-                  <Route path="/" exact component={Ptsearch} />
-                  <Route path="/ptsearch" component={Ptsearch} />
-                  <Route path="/registerpatient" component={Ptreg} />
-                  <Route path="/searchresults/:param" component={Searchresult}/>
-                  <Route path="/updatept/:pId" component={Updatept}/>
-                  <Route path="/porders/:pId" component={PrevTrx}/>
-                  <Route path="/addorder/for:pId" component={Addorder}/>
-                  <Route path="/orders" component={Orders}/>
-                  <Route path="/order/:labNumber" component={OrderDetails}/>
-                  <Route path="/results/" component={Results}/>
-                  <Route path="/resultform/" component={ResultFormA4}/>
-                </section>
-                <footer className='p-1 mb-5 rounded-bottom'>Laboratory Information System by AlvinJohnB</footer>
-                
-              </div>
+            <div className="container mt-5">
+              <Header />
+              <nav className='bg-success bg-gradient d-flex p-1 position-sticky'>
+                <li className='d-flex align-items-center'>
+                    <ul><Link to="/ptsearch">Patient Search</Link></ul>
+                    <ul><Link to="/registerpatient">Patient Registration</Link></ul>
+                    <ul><Link to="/orders">Orders</Link></ul>
+                    <ul><Link to="/laboratory">Laboratory</Link></ul>
+                    <ul><Link to="/results">Results</Link></ul>
+                </li>
+              </nav>
+              <section className='bg-light p-1'>
+                <Route path="/" exact component={Ptsearch} />
+                <Route path="/ptsearch" component={Ptsearch} />
+                <Route path="/registerpatient" component={Ptreg} />
+                <Route path="/searchresults/:param" component={Searchresult}/>
+                <Route path="/updatept/:pId" component={Updatept}/>
+                <Route path="/porders/:pId" component={PrevTrx}/>
+                <Route path="/addorder/for:pId" component={Addorder}/>
+                <Route path="/orders" component={Orders}/>
+                <Route path="/order/:labNumber" component={OrderDetails}/>
+                <Route path="/results/" component={Results}/>
+                <Route path="/resultform/" component={ResultFormA4}/>
+              </section>
+              <footer className='p-1 mb-5 rounded-bottom'>Laboratory Information System by AlvinJohnB</footer>
+              
             </div>
           </Switch>
       </Router>

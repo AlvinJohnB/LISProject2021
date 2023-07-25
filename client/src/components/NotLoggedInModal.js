@@ -3,8 +3,6 @@ import '../components/laboratory/checkin/checkinmodal.css'
 import { useHistory } from 'react-router-dom';
 import { useContext } from 'react';
 import { AuthContext } from '../helpers/AuthContext';
-
-import Modal from 'react-bootstrap/Modal';
  
 function NotLoggedInModal() {
     const { authState } = useContext(AuthContext);
@@ -16,24 +14,20 @@ function NotLoggedInModal() {
 
     }else{
         return (
-            <Modal
-            show={true}
-            backdrop="static"
-            keyboard={false}
-            centered
-          >
-            <Modal.Header className="bg-success">
-              <Modal.Title></Modal.Title>
-            </Modal.Header>
-            <Modal.Body className="d-flex flex-column align-items-center">
-              <strong>You are not logged in!</strong>
-              <p>Press the button to redirect to the log-in page.</p>
-              <input type="button" className="btn btn-success" value="Log-in" onClick={()=>{history.push('/login')}} />
-            </Modal.Body>
-            <Modal.Footer>
-     
-            </Modal.Footer>
-          </Modal>
+            <div className="checkin-modal">
+                <div className="login-modal-wrapper">
+                    <div className="login-modal-header">
+                        <div><strong>&nbsp;</strong></div>
+                    </div>
+                        <div className="checkin-modal-body">
+                           <strong>You are not logged-in!</strong><br />
+                           <p className="tablefooter">Please press the button to go to log-in window.</p>
+                        </div>
+                    <div className="checkin-modal-footer">
+                            <input type="button" className="checkin-btn reject" value="Log-in" onClick={()=>{history.push('/login')}} />
+                    </div>
+                </div>
+            </div>
         )
 
     }
