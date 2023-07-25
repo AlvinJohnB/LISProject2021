@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Users, Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
+const { Users, Package, Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -61,9 +61,11 @@ router.get("/getorders", async (req, res) => {
     const orders = await Orders.findAll(
         {
             where: {
-                status: "PENDING",
                 createdAt: {
                     [Op.between]: [new Date(year, month, 1, 0, 0, 0, 0), new Date()]
+                },
+                status:{
+                    [Op.not]: "DELETED"
                 }
             },
             order: [
@@ -215,42 +217,86 @@ router.post("/cnxtion", validateToken, async (req, res) => {
 
 });
 
-// RESULTS
-router.post("/form/result/create/:secreqID", validateToken, async (req, res) => {
-    const secreqID = req.params.secreqID;
-    const test = req.body.test;
+// RESULT CREATE ON CHECKIN
+router.post("/form-create/:sectionID", validateToken , async (req, res) => {
+    const secreqID = req.params.sectionID;
+    const tests = req.body.tests
 
-    //Get TestlistId
-    const TestslistId = await Testslist.findOne({
-        where: {testcode: test}
-    })
+    const expTests = tests.split(" ");
+    expTests.pop();
 
-    await Sectionresults.create({
-        test: test,
-        TestslistId: TestslistId.id,
-        isQuali: TestslistId.isQuali,
-        options: TestslistId.options
-    });
+    
+    const entryLoop = async () => {
+        let sectionorder, result
 
-    const lastRxData = await Sectionresults.findOne({
-        order: [
-            ['id', 'DESC']
-        ]
-    });
+        for(const test of expTests){
+            const testsList = await Testslist.findOne({where: {testcode: test}})
 
-    if(lastRxData == null){
-        await Sectionorderlist.create({
-            SectionresultId: 1,
-            SectionorderId: secreqID,
-        });
-    }else{
-        await Sectionorderlist.create({
-            SectionresultId: lastRxData.id,
-            SectionorderId: secreqID,
-        });    
+            //Check If Package
+            if(testsList.isPackage === true){
+
+                // Find in Package Model
+                const package = await Package.findOne({ where: {package: testsList.testcode}})
+
+                //Split tests
+                const tests = package.tests.split(",");
+
+                // Loop through tests -- Find details on testsList tables
+                for(const item of tests){
+                    const detail = await Testslist.findOne({where: {testcode: item}})
+
+                    // Create Database entry on every test
+                    let data = {
+                        test: detail.testcode ,
+                        TestslistId: detail.id, 
+                        isQuali: detail.isQuali,
+                        options: detail.options,
+                        sectionOrder: secreqID
+                    }
+
+                    await Sectionresults.create(data)
+                    
+                    await new Promise(resolve => (setTimeout(resolve, 500)))
+                }
+                
+            }else{
+                const detail = await Testslist.findOne({where: {testcode: test}})
+                
+                let data = {
+                    test: detail.testcode ,
+                    TestslistId: detail.id, 
+                    isQuali: detail.isQuali,
+                    options: detail.options,
+                    sectionOrder: secreqID
+                }
+                await Sectionresults.create(data)
+
+            }
+            await new Promise(resolve => (setTimeout(resolve, 1000)))
+        }
+
+
+
+        // Make association
+
+        await Sectionorders.findOne({where: {id: secreqID}})
+            .then((data)=>{
+                sectionorder = data
+                return Sectionresults.findAll({where: {sectionOrder: secreqID}})
+                    .then((data)=>{
+                        result = data
+                        sectionorder.addSectionresults(result)
+      
+                    })
+       })
+
     }
+
+    entryLoop().then(()=>{console.log(`CheckIn Done`)})
+    
+    
     res.send();
-});
+})
 
 //SectionData
 router.get("/section/:section", async (req, res) => {
@@ -339,21 +385,109 @@ router.get("/fullresults/:orderID", async (req, res) => {
 
 
 //Update Result
-router.post("/result/update/:sectionResultID/:result", validateToken, async (req, res) => {
+router.post("/result/update/:sectionResultID", validateToken, async (req, res) => {
     const sectionResultID = req.params.sectionResultID;
-    const result = req.params.result;
+    // const result = req.params.result;
+    // const gender = req.params.gender;
+    const result = req.body.result;
+    const gender = req.body.gender;
     const username = req.user.username;
+    
+
+    // Find Test
+    const sectionRes = await Sectionresults.findOne({where:{id: sectionResultID}})
+
+    //Is Quali or Quanti?
+    if(sectionRes.isQuali == true){
+        // Get Ref Value
+        const ref = await Referencevalues.findOne({where: {test: sectionRes.test}})
+
+        const refLogic = (reference) => {
+            if(result == reference){
+                Sectionresults.update({
+                    flag: "N/A"
+                }, {
+                    where: {
+                        id: sectionResultID
+                    }
+                })
+            }else{
+                Sectionresults.update({
+                    flag: "Abnormal"
+                }, {
+                    where: {
+                        id: sectionResultID
+                    }
+                })
+            }
+        }
+
+         if(gender == "Male"){
+                // Check if result is Abnormal
+                refLogic(ref.Male)
+            }else{
+                refLogic(ref.Female)
+            }
+
+    }else{
+
+
+        // Find RefValue
+        const RefValue = await Referencevalues.findOne({where: {test:sectionRes.test}}).then((res)=>{
+            if(gender == "Male"){
+                return res.mref
+            }else{
+                return res.fref
+            }
+        })
+
+        let refArray = RefValue.split("-")
+        
+        if(parseFloat(result) > parseInt(refArray[0]) && parseFloat(result) < parseFloat(refArray[1])){
+            await Sectionresults.update({
+                flag: "N/A"
+            }, {
+                where: {
+                    id: sectionResultID
+                }
+            })
+        }
+        
+        // Decreased Logic
+        if(parseFloat(result) < parseFloat(refArray[0])){
+            await Sectionresults.update({
+                flag: "Decreased"
+            }, {
+                where: {
+                    id: sectionResultID
+                }
+            })
+        }
+        //Increased Logic
+        if(parseFloat(result) > parseFloat(refArray[1])){
+            await Sectionresults.update({
+                flag: "Increased"
+            }, {
+                where: {
+                    id: sectionResultID
+                }
+            })
+        }
+
+
+    }
 
     await Sectionresults.update({
         result: result,
-        releasedBy: username
+        releasedBy: username 
     }, {
         where: {
             id: sectionResultID
         }
     })
-
     res.json({msg: "Record Saved"});
+
+
 })
 
 //Release Rx
@@ -432,26 +566,40 @@ router.post("/check/:labNumber", async (req, res) => {
         done = 0
     }else{
         done = queryTwo.Sectionorders.length
-    }
 
-    if(done / secorders == 1){
-        await Orders.update({
-            status: "RELEASED"
-        }, {where: {
-            labNumber: labNumber
-        }})
-        res.send();
-    }else{
-        await Orders.update({
-            status: "PENDING"
-        }, {where: {
-            labNumber: labNumber
-        }})
-        res.send();
+        if(done / secorders == 1){
+            await Orders.update({ status: "RELEASED"}, {where: { labNumber: labNumber }}).then(()=>{
+                Orders.update({progress: 100}, {where: {labNumber:labNumber}})
+            })
+            res.send();
+        }else{
+            let progress = Math.round((done/secorders)*100)
+            console.log(`Progress is, ${progress}`)
+            await Orders.update({status: "PENDING" }, {where: { labNumber: labNumber }}).then(()=>{
+                Orders.update({progress: progress}, {where: {labNumber:labNumber}})
+            })
+            res.send();
+        }
+
     }
 })
 
 //Previous result
+router.get("/result/previous/:ptID", async (req, res) => {
+    const id = req.params.ptID;
+
+    const presult = await Orders.findAll({
+        order: [
+            ['updatedAt', 'DESC']
+        ],
+        where:{ forPtId: id },
+        limit: 5,
+        include:[
+            {model: Sectionorders, where:{status: "RELEASED"}, include: [{model: Sectionresults}]}]
+    })
+    res.json(presult);
+})
+
 router.get("/result/previous/:ptID/:section", async (req, res) => {
     const id = req.params.ptID;
     const section = req.params.section;
@@ -468,7 +616,7 @@ router.get("/result/previous/:ptID/:section", async (req, res) => {
     })
     res.json(presult);
 })
-module.exports = router
+
 
 //Find order by ID
 router.get("/results/findByID/:section/:orderID", async (req, res) => {
@@ -483,3 +631,5 @@ router.get("/results/findByID/:section/:orderID", async (req, res) => {
     })
     res.json(result);
 })
+
+module.exports = router

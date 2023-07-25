@@ -18,6 +18,15 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        flag:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: "N/A",
+        },
+        sectionOrder:{
+            type:DataTypes.INTEGER,
+            allowNull: true
+        }
     }, {timestamps: false})
 
     Sectionresults.associate = (models) => {
@@ -26,7 +35,7 @@ module.exports = (sequelize, DataTypes) => {
             constraint: false,
         })
 
-        
+
     }
     return Sectionresults;
 }
