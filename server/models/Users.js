@@ -17,6 +17,16 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: false,
         },
+        licenseNo:{
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: "N/A",
+        },
+        title:{
+            type: DataTypes.STRING,
+            allowNull: false,
+            defaultValue: "N/A"
+        }
     }, {timestamps: false})
 
     return Users;
