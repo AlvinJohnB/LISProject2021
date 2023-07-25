@@ -55,23 +55,27 @@ const styles = StyleSheet.create({
   },
   
   resultHeader:{
-    borderTop: '1px dotted black',
-    borderBottom: '1px dotted black',
-    marginTop: 5,
-    marginBottom: 5,
+    borderTop: '1px solid black',
+    borderBottom: '1px solid black',
+    marginTop: 15,
+    marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 5,
     fontFamily: 'Helvetica-Bold',
-    fontSize: '11px'
+    fontSize: '9px'
   },
   
    resultBody:{
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '9px'
+    fontSize: '9px',
+    borderBottom: '1px dotted black',
+  },
+  sectionBody:{
+    borderBottom: '1px dotted black',
   },
   testName: {
     width: 175,
@@ -95,6 +99,7 @@ const styles = StyleSheet.create({
   },
   abnormal:{
     fontFamily: 'Helvetica-Bold',
+    fontSize: '8px',
   },
 logo:{
   width: "55px",
@@ -139,7 +144,11 @@ prevResText:{
 },
 prevRes:{
   fontSize: 8
-}
+},
+comment:{
+  fontFamily: 'Helvetica',
+  fontSize: '8px',
+},
 });
 
 // Create Document Component
@@ -194,7 +203,7 @@ const FullResultsHalf = (props) => {
       {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
-                    <Text style={[styles.sectiontext, styles.caps, styles.marginBot]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
                 {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
@@ -230,6 +239,28 @@ const FullResultsHalf = (props) => {
                         </View>
                     )
                 })}
+
+              {section.Sectionresults.map((comment, index) =>{
+                      return(
+                        <View key={index}>
+                          {comment.test === "SACRATI" ? 
+                            <View>
+                                <Text style={styles.comment}>Comment/s:</Text>
+                                <Text style={styles.comment}>Limitation: Specimen with alkaline pH, elevated pus, menstrual blood, or vaginal discharge may cause high albumin result. Diagnosis should not be based on a single test method or test result.</Text>
+                                <Text style={styles.comment}> </Text>   
+                                <Text style={styles.comment}>Clinical Determination:</Text>   
+                                <Text style={styles.comment}>No Microalbumin: 0-29</Text>    
+                                <Text style={styles.comment}>Clinical Microalbuminuria: 30-300</Text>  
+                                <Text style={styles.comment}>Macroalbuminuria: greater than 300 </Text> 
+                            </View> 
+                          : null}
+                        </View>
+                      )
+                })}
+
+
+
+
                 </View>
             )
          })}
