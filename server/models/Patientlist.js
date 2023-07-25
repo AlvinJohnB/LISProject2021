@@ -3,7 +3,6 @@ module.exports = (sequelize, DataTypes) => {
     const Patientlist = sequelize.define("Patientlist", {
         branchid:{
             type: DataTypes.STRING,
-            unique: true,
         },
         lastname: {
             type: DataTypes.STRING,
