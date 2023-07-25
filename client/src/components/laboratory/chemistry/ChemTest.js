@@ -10,20 +10,26 @@ function ChemTest({test, ptdata, status}) {
     const saveResult = async (e) => {
         const result = e.target.value;
         const sResultID = test.id
+        console.log(result)
+        if(result === ""){
+            console.log("No result entered");
+        }else{
+            await axios.post(`http://${host.ip}:3001/order/result/update/${sResultID}`,{result: result, gender: ptdata.gender},
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                }
+            }).then((response) => {
+                console.log(`Result saved: Entered ${result} for ResId ${sResultID}`);
+                if(response.data.error){
+                    alert("You are not logged in. Please log-in!");
+                    history.push('/login');
+                }
+            }).catch((err) => {
+                console.log("Error in saving result");
+            })
+        }
         
-        await axios.post(`http://${host.ip}:3001/order/result/update/${sResultID}/${result}`,{},
-        {
-            headers: {
-                accessToken: localStorage.getItem("accessToken"),
-            }
-        }).then((response) => {
-            if(response.data.error){
-                alert("You are not logged in. Please log-in!");
-                history.push('/login');
-            }
-        }).catch((err) => {
-            console.log("Result not updated");
-        })
     }
 
 

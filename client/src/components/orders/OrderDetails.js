@@ -9,6 +9,7 @@ import './orderdetails.css'
 import DetailTr from './DetailTr'
 import GetFullResults from './GetFullResults';
 import ChargeSlip from '../results/ChargeSlip';
+import PrintPrevModal from './PrintPrevModal';
 
 
 
@@ -16,8 +17,15 @@ import ChargeSlip from '../results/ChargeSlip';
 function OrderDetails() {
     const [isLoading, setIsLoading] = useState(true)
     const [orderDetails, setOrderDetails] = useState({})
-
     const [generateShow, setGenerateShow] = useState(false)
+    const [prevModalShow, setPrevModalShow] = useState(false)
+
+    const [PrevResData, setPrevResData] = useState([])
+    const [prevResDetails, setPrevResDetails] = useState({})
+    const [hasPrev, setHasPrev] = useState(false)
+    const [includePrev, setIncludePrev] = useState(false)
+   
+    
 
     let { labNumber } = useParams();
     let history = useHistory();
@@ -26,6 +34,16 @@ function OrderDetails() {
         setGenerateShow(true)
     }
 
+    const ModalPrevShow = () => {
+        if(hasPrev === true){
+            setPrevModalShow(true)
+        }else{
+            setGenerateShow(true)
+        }
+    }
+
+    // Prev Modal Handler
+
 
     useEffect(async () => {
         await axios.get(`http://${host.ip}:3001/order/getorder/${labNumber}`, {
@@ -33,8 +51,64 @@ function OrderDetails() {
                 accessToken: localStorage.getItem("accessToken"),
             }
         }).then((response) => {
-            setOrderDetails(response.data);
-            setIsLoading(false);
+            setOrderDetails(response.data); 
+            const dataSet = response.data
+            
+            axios.get(`http://${host.ip}:3001/order/result/previous/${response.data[0].Patientlists[0].id}`).then((response) => {
+            
+            // Logic here, filter json from date of relase of current
+            const presults = response.data
+            const resDate = new Date(dataSet[0].createdAt)
+        
+            const filteredResults = presults.filter((result) => {
+                const resultDate = new Date(result.createdAt)
+                return resultDate < resDate
+            })
+        
+            if(filteredResults.length >= 1){
+                setHasPrev(true)
+
+                // Previous Data here
+
+                setPrevResDetails(filteredResults[0])
+                let chemResData = {}
+                let hemaResData = {}
+                let cmResData = {}
+                let seroResData = {}
+
+                const data = filteredResults[0].Sectionorders
+      
+                const chemData = data.filter((item) => item.section === "Chemistry")
+                const hemaData = data.filter((item) => item.section === "Hematology")
+                const cmData = data.filter((item) => item.section === "CM")
+                const seroData = data.filter((item) => item.section === "Serology")
+      
+              
+      
+                if(chemData.length !== 0){
+                  chemResData = chemData[0].Sectionresults
+                }
+                if(hemaData.length !== 0){
+                  hemaResData = hemaData[0].Sectionresults
+                }
+                if(cmData.length !== 0){
+                  cmResData = cmData[0].Sectionresults
+                }
+                if(seroData.length !== 0){
+                  seroResData = seroData[0].Sectionresults
+                }
+                
+                const merge = [].concat(chemResData, hemaResData, cmResData, seroResData)
+                setPrevResData(merge)
+            }else{
+                setHasPrev(false)
+            }
+
+
+            setIsLoading(false)
+             })
+
+           
         })
     },[labNumber])
 
@@ -78,11 +152,12 @@ function OrderDetails() {
                         </tr>
                         {orderDetails[0].Sectionorders.map((detail, index) => {
                             return (
-                                <DetailTr detail={detail} key={index} />
+                                <DetailTr hasPrev={hasPrev} prevResDetails={prevResDetails} PrevResData={PrevResData} setPrevModalShow={setPrevModalShow} includePrev={includePrev} detail={detail} key={index} />
                                 )
                         })}
                     </tbody>
                 </table>
+
                 {/*Generate Charge Slip*/}
                 
                 <PDFDownloadLink
@@ -96,8 +171,11 @@ function OrderDetails() {
                     }
                 </PDFDownloadLink>
                 {/* RELEASE FULL RESULTS */}
-                <GetFullResults show={generateShow} setShow={setGenerateShow} forOrderID={orderDetails[0].labNumber} />
-                {orderDetails[0].status === "RELEASED" && <button onClick={generateFullRx}  className="btn btn-success"> Generate Full Results</button>}
+                <GetFullResults includePrev={includePrev} prevResDetails={prevResDetails} PrevResData={PrevResData} show={generateShow} setShow={setGenerateShow} forOrderID={orderDetails[0].labNumber} />
+                
+                <PrintPrevModal generateFullRx={generateFullRx} setIncludePrev={setIncludePrev} setShow={setPrevModalShow} show={prevModalShow} />
+                
+                {orderDetails[0].status === "RELEASED" && <button onClick={()=>{generateFullRx(); ModalPrevShow()}}  className="btn btn-success"> Generate Full Results</button>}
                 {orderDetails[0].status !== "RELEASED" && <button onClick={onOrderDelete} className="btn btn-danger">Delete/Archive</button>}
                 
             

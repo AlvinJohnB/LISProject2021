@@ -12,9 +12,15 @@ import CheckInModal from './checkin/CheckInModal';
 import NotLoggedInModal from '../NotLoggedInModal';
 import LabLoadingModal from '../LabLoadingModal';
 import host from '../../config.json'
-
+import background from '../../images/background.jpg'
 
 function LabClient() {
+
+    const bgStyle = {
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
+        height: '100vh'
+      }
 
     const [isLoading, setIsLoading] = useState(true);
     const [checkInDetails, setCheckInDetails] = useState([]);
@@ -152,7 +158,8 @@ function LabClient() {
     }
 
     return (
-        <div className="container mt-5">
+        <div style={bgStyle}>
+        <div className="container pt-5">
             <NotLoggedInModal />
             <Header />
             <LabNav />
@@ -229,6 +236,7 @@ function LabClient() {
                 />
         </section>
         <footer className="p-1 mb-5 rounded-bottom">Laboratory Information System by AlvinJohnB</footer>
+        </div>
         </div>
     )
 }
