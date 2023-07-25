@@ -169,6 +169,8 @@ const Addorder = () => {
         setIsLoading(true);
         data.forPtId = ptData.id;
         data.testsRequested = labTestInput;
+
+
         // ADD COSTS HERE
         data.totalCost = totalCost;
         data.chemCost = chemTotalFee;
@@ -524,8 +526,12 @@ const Addorder = () => {
                     
 
                     <button className="btn btn-success col-md-2 mb-2" type="submit">Add order</button>
+
+                    {/* modal  */}
+
                     <Addordermodal 
                         show={show}
+                        setShow={setShow}
                         tests={testData}
                         close={closeModal}
                         testlist={tests}
