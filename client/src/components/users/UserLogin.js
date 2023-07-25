@@ -40,7 +40,7 @@ function UserLogin() {
 
                     <form onSubmit={onSubmit}>
                     {msg && <div className='alert alert-danger text-center p-1 mb-1'>{msg}</div>}
-                        <label for="username" >Username:</label><br />
+                        <label htmlFor="username" >Username:</label><br />
                         <input 
                             type="text" 
                             id="form-field"
@@ -49,7 +49,7 @@ function UserLogin() {
                             placeholder="Username"
                             onChange={(event) => setUsername(event.target.value)}
                         />
-                        <label for="password">Password:</label><br />
+                        <label htmlFor="password">Password:</label><br />
                         <input 
                             type="password" 
                             id="form-field"

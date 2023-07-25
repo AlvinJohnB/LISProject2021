@@ -7,12 +7,20 @@ module.exports = (sequelize, DataTypes) => {
         },
         Male:{
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
         Female:{
             type: DataTypes.STRING,
-            allowNull: false,
+            allowNull: true,
         },
+        mref:{
+            type: DataTypes.STRING,
+            allowNull: true
+        },
+        fref:{
+            type: DataTypes.STRING,
+            allowNull: true
+        }
     }, {timestamps: false})
 
     return Referencevalues;

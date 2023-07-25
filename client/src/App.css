@@ -43,8 +43,11 @@ tr.patient-table:hover{
 .modal-test{
   width: 70vw;
 }
-/* Dont Delete Anything above this line */
 
+.bg-image{
+  background-image: url(../src/images/lablogo.jpg);
+}
+/* Dont Delete Anything above this line */
 
 
 

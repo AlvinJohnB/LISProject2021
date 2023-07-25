@@ -3,6 +3,7 @@ import React from 'react'
 
 import './modal.css'
 import Testsrow from './Testsrow';
+import Modal from 'react-bootstrap/Modal'
 
 const Addordermodal = (props) => {
 
@@ -32,15 +33,25 @@ const Addordermodal = (props) => {
         }
     }
 
+    const handleClose = () => {
+        props.setShow(false)
+    }
+
     return (
-        <div className ="testmodal">
-            <div className="modal-wrapper rounded">
-                <div className="modal-header">
-                    <div><strong>Search Tests:</strong>
-                    </div>
-                </div>
-                <div className="modal-body">
-                    <div className="tablewrapper">
+        <Modal
+        show={props.show}
+        onHide={handleClose}
+        backdrop="static"
+        keyboard={false}
+        size="lg"
+        centered
+      >
+        <Modal.Header closeButton>
+          <Modal.Title>Select Test</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+
+        <div className="tablewrapper">
                     <input className="form-control col-sm-2" autoFocus={true} autoComplete="off" id="myInput" type="text" name="searchInput" placeholder="Type testcode..." onChange={testFilter}/>
                         <table className="testtable table table-borderless">
                         <tbody>
@@ -104,12 +115,24 @@ const Addordermodal = (props) => {
                         </tbody>
                     </table>
                     </div>
-                </div>
-                <div className="modal-foot mt-1 col-md-2">
-                    <input className="btn btn-danger" type="button" value="Close" onClick={props.close} />
-                </div>
-            </div>
-        </div>
+            
+        </Modal.Body>
+        <Modal.Footer>
+        </Modal.Footer>
+      </Modal>
+        // <div className ="testmodal">
+        //     <div className="modal-wrapper rounded">
+        //         <div className="modal-header">
+        //             <div><strong>Search Tests:</strong>
+        //             </div>
+        //         </div>
+        //         <div className="modal-body">
+        //         </div>
+        //         <div className="modal-foot mt-1 col-md-2">
+        //             <input className="btn btn-danger" type="button" value="Close" onClick={props.close} />
+        //         </div>
+        //     </div>
+        // </div>
     )
 }
 
