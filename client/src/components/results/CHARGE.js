@@ -10,7 +10,7 @@ const Quixote = () => (
           <Text style={styles.compContacts}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
           <Text style={styles.compContacts}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125 </Text>
           <Text style={styles.compContacts}>e-mail: st.camillusdelellislab@yahoo.com</Text>
-          <Text style={[styles.compHeaderText, styles.bold, styles.marginTop]}>CHARGE SLIP</Text>
+          <Text style={[styles.compHeaderText, styles.bold, styles.marginTop]}>Charge Slip</Text>
           <Text style={styles.date}>Date: </Text>
           <Text style={styles.patientDetails}>Patient Name: </Text>
           <Text style={styles.patientDetails}>Age/Gender: </Text>

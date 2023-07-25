@@ -13,7 +13,6 @@ const Updatept = () => {
     const [updatePtData, setUpdatePtData] = useState({})
     const [isLoading, setIsLoading] = useState(true)
     const [hasPrev, setHasPrev] = useState(false);
-    const [ptAge, setPtAge] = useState(0);
     const history = useHistory();
 
     let { pId } = useParams();
@@ -22,37 +21,7 @@ const Updatept = () => {
 
     await axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
         setUpdatePtData(response.data);
-
-        //calculate age from bday response
-        // Extract bday from response
-        let birthday = response.data.bday;
-        let bdayArray = birthday.split("-");
-        
-        let year = new Date().getFullYear();
-        let month = new Date().getMonth()+1;
-        let day = new Date().getDate();
-        
-        let agey = year - bdayArray[0];
-        let agem = month - bdayArray[1];
-        let aged = day - bdayArray[2];
-
-        if(agem === 0){
-            if(aged < 0){
-                agey = agey -1
-            }
-        }
-        
-        if(agem < 0){
-            agey = agey -1
-            agem = agem + 12
-        }
-
-        if(aged<0){
-            agem = agem-1
-            aged = aged+31
-        }
-
-        setPtAge(agey);
+        setIsLoading(false);
     })
 
     await axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
@@ -62,9 +31,6 @@ const Updatept = () => {
             setHasPrev(true);
         }    
     })
-
-    
-    setIsLoading(false);
 
     },[pId])
     
@@ -95,12 +61,6 @@ const Updatept = () => {
         var agem = month - bdayArray[1];
         var aged = day - bdayArray[2];
 
-        if(agem === 0){
-            if(aged < 0){
-                agey = agey -1
-            }
-        }
-        
         if(agem < 0){
             agey = agey -1
             agem = agem + 12
@@ -111,8 +71,7 @@ const Updatept = () => {
             aged = aged+31
         }
         setUpdatePtData({age: agey});
-        setPtAge(agey);
-        console.log(ptAge);
+
     }
     
 
@@ -137,7 +96,7 @@ const Updatept = () => {
 
     const onSubmit = async (data) => {
         setIsLoading(true);
-        data.age = ptAge;
+        data.age = initialValues.age;
         await axios.post(`http://${host.ip}:3001/patient/updatept`, data,
         {
             headers: {
@@ -238,7 +197,7 @@ const Updatept = () => {
 
                     <div className="col-md-2">
                         <label name="age">Age:</label>
-                        <Field id="form-field" className="form-control" value={ptAge} name="age" type="number" disabled={true}/>
+                        <Field id="form-field" className="form-control" name="age" type="number" disabled={true}/>
                     </div>
 
                     <div className="col-md-2">

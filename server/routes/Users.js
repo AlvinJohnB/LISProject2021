@@ -56,11 +56,5 @@ router.post('/fetchperformer', async (req, res) => {
     res.json(performer)
 })
 
-router.get('/info/:name', async (req, res) => {
-    let name = req.params.name
-    const user = await Users.findOne({ where: {name: name} });
-    res.json(user)
-})
-
 
 module.exports = router
