@@ -2,17 +2,19 @@ import React from 'react';
 import {Formik, Form, Field, ErrorMessage} from 'formik';
 import * as Yup from 'yup';
 import axios from 'axios';
+import { useHistory, } from 'react-router-dom';
 import NotLoggedInModal from '../NotLoggedInModal';
 import Searchresult from './Searchresult';
 import host from '../../config.json'
 import { useState } from 'react'
+
 
 const Ptsearch = () => {
 
   const [isPatientNotFound, setIsPatientNotFound] = useState(false)
   const [patientSearchInfo, setPatientSearchInfo] = useState({})
   const [isSearchSuccess, setSearchSuccess] = useState(false)
-
+  const history = useHistory();
 
   const initialValues ={
     lastname: "",
@@ -33,12 +35,15 @@ const Ptsearch = () => {
       setSearchSuccess(false)
 
     } else {
+      let lname = data.lastname
+      let fname = data.firstname
       setIsPatientNotFound(false);
       setPatientSearchInfo({
         lastname: data.lastname,
         firstname: data.firstname
       })
       setSearchSuccess(true)
+      // history.push(`/searchresults/${lname},${fname}`)
     }
     })
 
@@ -83,12 +88,10 @@ const Ptsearch = () => {
               
             </div>
             
-          <button className="btn btn-success col-md-2 mt-4 mb-4" type="submit">Search Patient </button>
+          <button className="btn btn-success col-md-2 mt-4 mb-4" type="submit">Search Patient</button>
           
         </Form>
       </Formik>
-
-
 
       {isSearchSuccess && <Searchresult patient={patientSearchInfo}/>}
     </div>

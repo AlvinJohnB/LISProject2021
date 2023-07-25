@@ -4,10 +4,6 @@ import Moment from 'moment'
 import arialbd from '../../fonts/arialbd.ttf'
 import logo from '../../images/stcamlogo.jpg'
 import lablogo from '../../images/lablogo.jpg'
-import { useState, useEffect } from 'react'
-import axios from 'axios'
-import host from '../../config.json'
-
 
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 
@@ -15,24 +11,24 @@ Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight
 const styles = StyleSheet.create({
   body: {
     paddingTop: 35,
-    paddingBottom: 80,
+    paddingBottom: 100,
     paddingHorizontal: 35,
   },
   header:{
     textAlign: 'center',
   },
   companyText:{
-    fontSize: 11,
+    fontSize: 14,
     fontFamily: 'Helvetica-Bold'
   },
   companyContacts:{
-    fontSize: 8
+    fontSize: 9
   },
   patientHeader:{
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-    marginTop: 9
+    marginTop: 10
   },
   column:{
     width: 300,
@@ -42,10 +38,10 @@ const styles = StyleSheet.create({
     width: 200
   },
   patientInfo:{
-    fontSize: '9px'
+    fontSize: '11px'
   },
   footerText:{
-    fontSize: '8px',
+    fontSize: '10px',
     textAlign: 'center',
   }
   ,
@@ -58,23 +54,23 @@ const styles = StyleSheet.create({
   },
   
   resultHeader:{
-    borderTop: '1px solid black',
-    borderBottom: '1px solid black',
-    marginTop: 5,
-    marginBottom: 5,
+    borderTop: '1px dotted black',
+    borderBottom: '1px dotted black',
+    marginTop: 15,
+    marginBottom: 10,
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
     padding: 5,
     fontFamily: 'Helvetica-Bold',
-    fontSize: '10px'
+    fontSize: '11px'
   },
   
    resultBody:{
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'space-around',
-     fontSize: '9px'
+     fontSize: '11px'
   },
   testName: {
     width: 175,
@@ -94,22 +90,13 @@ const styles = StyleSheet.create({
   },
   sectiontext:{
     fontFamily: 'Helvetica-Bold',
-    fontSize: '9px',
-  },
-  abnormal:{
-    fontFamily: 'Helvetica-Bold',
+    fontSize: '11px',
   },
 logo:{
   width: "55px",
   position: 'absolute',
   left: "10px",
   bottom: "5px"
-},
-flag:{
-  width: '55px',
-},
-contentCenter:{
-  justifyContent: 'center'
 },
 lablogo:{
     width: "55px",
@@ -119,51 +106,11 @@ lablogo:{
 },
 caps:{
   textTransform: "uppercase"
-},
-marginBot:{
-  marginBottom: 5,
-  marginTop: 5
-},
-
-footerBlock:{
-  alignItems: 'center',
-  margin: 1
-}
-,
-footerContainer:{
-  display: 'flex',
-  flexDirection:'row',
-  justifyContent: 'space-around',
-  width: 602
-},
-prevResText:{
-  width: 90,
-  textAlign: 'center',
-},
-prevRes:{
-  fontSize: 9
-},
-comment:{
-  fontSize: 8
-},
-borderBot:{
-  borderBottom: '1px dotted black'
 }
 });
 
 // Create Document Component
 const ResultFormA4 = (props) => {
-
-  const [pathoInfo, setPathoInfo] = useState({id: 1, username: "DocTin", password: 'Patho1', name: 'Modesty A. Leano, MD, FPSP', pathologist: 'Pathologist', title: 'ANATOMIC AND CLINICAL PATHOLOGIST', licenseNo: '98717'})
-
-  useEffect(()=>{
-     axios.get(`http://${host.ip}:3001/auth/info/${props.data.Sectionorders[0].pathologist}`).then((response) => {
-        setPathoInfo(response.data)
-        })
-  },[])
-
-
-
   return(
     <Document>
     <Page size="Letter" style={styles.body}>
@@ -193,8 +140,6 @@ const ResultFormA4 = (props) => {
       
       <View style={styles.resultHeader} fixed={true}>
           <Text style={styles.testName}>Test Name</Text>
-          {/* Do Something here Prev Res */}
-          {props.includePrev === true ? <Text style={[styles.prevResText, styles.prevRes]}>Previous Result {Moment(props.prevResDetails.updatedAt).format('MMMM DD, yyyy')}</Text> : null}
           <Text style={styles.resultText}>Result</Text>
           <Text style={styles.unitText}>Unit</Text>
          <Text style={styles.referenceText}>Reference</Text>
@@ -202,38 +147,18 @@ const ResultFormA4 = (props) => {
       
 
          
-      {props.data.Sectionorders.map((section, key) => {
+         {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
-                    <Text style={[styles.sectiontext, styles.caps, styles.marginBot]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
                 {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
                             {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
-                            {result.Testslist.isPackage === true && (<Text style={[styles.sectiontext, styles.borderBot]}>{result.Testslist.testname}</Text>)}
-                            {result.Testslist.isPackage === false && (<View style={[styles.resultBody, styles.borderBot]}>
+                            {result.Testslist.isPackage === true && (<Text style={styles.sectiontext}>{result.Testslist.testname}</Text>)}
+                            {result.Testslist.isPackage === false && (<View style={styles.resultBody}>
                                                                         <Text style={styles.testName}>{result.Testslist.testname}</Text>
-                                                                        
-                                                                        {/* Do something here, Prev res */}
-                                                                        {props.includePrev === true ?
-                                                                          <Text style={styles.prevResText}>
-                                                                          {props.PrevResData.map((pres) => {
-                                                                            return(
-                                                                              result.Testslist.testcode === pres.test ? pres.result : null
-                                                                            )
-                                                                          })}
-                                                                        </Text>
-                                                                          : null}
-                                                                        
-
-                                                                        {/* DO SOMETHING HERE, RESULT */}
-                                                                        {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}</Text> : (
-
-                                                                          <Text style={[styles.resultText, styles.contentCenter]}>{result.result}</Text>
-
-                                                                          )}
-                                                                       
-
+                                                                        <Text style={styles.resultText}>{result.result}</Text>
                                                                         <Text style={styles.unitText}>{result.Testslist.unit}</Text>
                                                                         <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
                                                                     </View>)}
@@ -241,26 +166,6 @@ const ResultFormA4 = (props) => {
                         </View>
                     )
                 })}
-
-                {section.Sectionresults.map((comment, index) =>{
-                    return(
-                      <View key={index}>
-                        {comment.test === "SACRATI" ? 
-                          <View>
-                              <Text style={styles.comment}>Comment/s:</Text>
-                              <Text style={styles.comment}>Limitation: Specimen with alkaline pH, elevated pus, menstrual blood, or vaginal discharge may cause high albumin result. Diagnosis should not be based on a single test method or test result.</Text>
-                              <Text style={styles.comment}> </Text>   
-                              <Text style={styles.comment}>Clinical Determination:</Text>   
-                              <Text style={styles.comment}>No Microalbumin: 0-29</Text>    
-                              <Text style={styles.comment}>Clinical Microalbuminuria: 30-300</Text>  
-                              <Text style={styles.comment}>Macroalbuminuria: greater than 300 </Text> 
-                          </View> 
-                        : null}
-                      </View>
-                    )
-                    })}
-
-                    
                 </View>
             )
          })}
@@ -271,32 +176,17 @@ const ResultFormA4 = (props) => {
       
       
       <View style={styles.footer} fixed={true}>
-
-        <View style={styles.footerContainer}>
-
-              {props.data.Sectionorders[0].performedBy === props.data.Sectionorders[0].releasedBy ? null : 
-              <View style={styles.footerBlock}>
-                  <Text style={styles.footerText}>{props.data.Sectionorders[0].performedBy}</Text>
-                  <Text style={styles.footerText}>PERFORMER</Text>
-              </View>
-              }
-
-
-              <View style={styles.footerBlock}>
-                <Text style={styles.footerText}>{props.data.Sectionorders[0].releasedBy}</Text>
-                <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
-                <Text style={styles.footerText}>License No.: _____</Text>
-              </View>
-              
-              <View style={styles.footerBlock}>
-                <Text style={styles.footerText}>{props.data.Sectionorders[0].pathologist}</Text>
-                <Text style={[styles.footerText, styles.caps]}>{pathoInfo.title}</Text>
-                <Text style={styles.footerText}>License No: {pathoInfo.licenseNo}</Text>
-              </View>
-
+        <View style={styles.column}>
+          <Text style={styles.footerText}>{props.data.Sectionorders[0].releasedBy}</Text>
+          <Text style={styles.footerText}>REGISTERED MEDICAL TECHNOLOGIST</Text>
+          <Text style={styles.footerText}>License No.: _____</Text>
         </View>
-
-
+        
+        <View style={styles.column}>
+          <Text style={styles.footerText}>{props.data.Sectionorders[0].pathologist}</Text>
+          <Text style={styles.footerText}>ANATOMIC AND CLINICAL PATHOLOGIST</Text>
+          <Text style={styles.footerText}>License No: 98717</Text>
+        </View>
       </View>
       
     </Page>

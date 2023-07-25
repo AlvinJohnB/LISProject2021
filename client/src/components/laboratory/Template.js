@@ -39,6 +39,16 @@ function ChemForm() {
                                     <th>Test/s</th>
                                     <th>Action</th>
                                 </tr>
+                                {/* {checkInDetails.map((details) => {
+                                return(
+                                    <CheckInTr 
+                                        details={details} 
+                                        key={details.id}
+                                        setShow={setShow} 
+                                        setOrderID={setOrderID}
+                                    />
+                                )
+                            })} */}
 
                             </tbody>
                         </table>
