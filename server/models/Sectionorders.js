@@ -38,7 +38,7 @@ module.exports = (sequelize, DataTypes) => {
         }
     })
 
-    sequelize.sync({alter: true}).then(() => {
+    sequelize.sync({alter: true, force: false}).then(() => {
 
     }).catch((err) => {
         console.log(err)

@@ -1,6 +1,8 @@
 module.exports = (sequelize, DataTypes) => {
 
-    const Sectionorderlist = sequelize.define("Sectionorderlist", {}, {timestamps: false} )
+    const Sectionorderlist = sequelize.define("Sectionorderlist", {
+        
+    }, {timestamps: false} )
 
     Sectionorderlist.associate = (models) => {
 
