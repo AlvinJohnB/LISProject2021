@@ -176,17 +176,19 @@ const ResultFormA4 = (props) => {
         <Text style={styles.companyText}>Laboratory Report</Text>   
     </View>
       
-      <View style={styles.patientHeader} fixed={true}>
+    <View style={styles.patientHeader} fixed={true}>
         <View style={styles.column}>
           <Text style={styles.patientInfo}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>
           <Text style={styles.patientInfo}>Age/Gender: {props.data.Patientlists[0].age} / {props.data.Patientlists[0].gender}</Text>
           <Text style={styles.patientInfo}>Requesting Physician: {props.data.reqDr}</Text>
+          <Text style={styles.patientInfo}>Date Requested: {Moment(props.data.createdAt).format('MMMM DD, yyyy hh:mm a')}</Text>
         </View>
         
         <View style={styles.column1}>
-          <Text style={styles.patientInfo}>Date: {Moment(props.data.createdAt).format('MMMM DD, yyyy')}</Text>
+          <Text style={styles.patientInfo}>Date: {Moment(Date.now()).format('MMMM DD, yyyy')}</Text>
           <Text style={styles.patientInfo}>Patient Type/Room No.: {props.data.ptType}</Text>
           <Text style={styles.patientInfo}>Laboratory Number: {props.data.labNumber}</Text>
+          <Text style={styles.patientInfo}>Date Released: {Moment(props.data.updatedAt).format('MMMM DD, yyyy hh:mm a')}</Text>
         </View>
       </View>
       
