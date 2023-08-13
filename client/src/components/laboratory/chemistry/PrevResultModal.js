@@ -43,7 +43,7 @@ function PrevResultModal({showPrevResModal, setShowPrevResModal, prevResultData}
                 <GetFullResults show={showSize} setShow={setShowSize} forOrderID={order.labNumber} />
             }
 
-            <table className="tablelab">
+            <table className="tablelab mobresform">
                 <tbody>
                     <tr className="labheader">
                         <th>Test</th>

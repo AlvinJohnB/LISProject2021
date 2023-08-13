@@ -95,14 +95,14 @@ function Orders() {
                     </Formik>
                 </div>
             </div>
-                    <table className="table table-hover">
+                    <table className="mobtable table table-hover">
                         <tbody className="table-orders">
                             <tr className="table-secondary">
                                 <th className="text-center">Lab Number</th>
                                 <th className="text-center">Patient Name</th>
                                 <th className="text-center">Test/s Requested</th>
-                                <th className="text-center">Progress</th>
-                                <th className="text-center">Date Encoded</th>
+                                <th className="mob text-center">Progress</th>
+                                <th className="mob text-center">Date Encoded</th>
                                 <th className="text-center">Action</th>
                             </tr>
 

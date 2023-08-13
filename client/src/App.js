@@ -23,7 +23,6 @@ import axios from 'axios';
 import ResultFormA4 from './components/results/ResultFormA4';
 import Cmform from './components/laboratory/cm/CmForm';
 import Seroform from './components/laboratory/sero/Seroform';
-
 import 'bootstrap/dist/css/bootstrap.min.css';
 import background from '../src/images/background.jpg'
 
@@ -71,16 +70,17 @@ useEffect(() => {
             <Route path="/login" exact component={UserLogin} />
             <Route path="/register" exact component={UserReg} />
             <div style={bgStyle}>
+              
               <div className="container pt-5">
                 <Header />
-                <nav className='bg-success bg-gradient d-flex p-1 position-sticky'>
-                  <li className='d-flex align-items-center'>
-                      <ul><Link to="/ptsearch">Patient Search</Link></ul>
-                      <ul><Link to="/registerpatient">Patient Registration</Link></ul>
-                      <ul><Link to="/orders">Orders</Link></ul>
-                      <ul><Link to="/laboratory">Laboratory</Link></ul>
-                      <ul><Link to="/results">Results</Link></ul>
-                  </li>
+                <nav className='bg-success position-sticky'>
+                  <ul className='d-flex'>
+                      <li><Link to="/ptsearch">Patient Search</Link></li>
+                      <li><Link to="/registerpatient">Patient Registration</Link></li>
+                      <li><Link to="/orders">Orders</Link></li>
+                      <li><Link to="/laboratory">Laboratory</Link></li>
+                      <li><Link to="/results">Results</Link></li>
+                  </ul>
                 </nav>
                 <section className='bg-light p-1'>
                   <Route path="/" exact component={Ptsearch} />

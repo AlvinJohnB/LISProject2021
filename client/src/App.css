@@ -1,9 +1,9 @@
-nav ul:hover {
-  background-color: #198754;
+nav li:hover {
+  background-color: #095315;
   border-radius: 2px;
 }
 
-nav ul.lab:hover {
+nav li.lab:hover {
   background-color: #2b65d1;
   border-radius: 2px;
 }
@@ -12,20 +12,19 @@ nav a:hover{
   color: white;
 }
 
-
 nav a{
   text-decoration: none;
   color: azure;
 }
 
-nav ul {
-  display: flex;
-  align-items: center;
-  margin: 10px;
-  margin-left: 0px;
-  height: 100%;
-  padding-left: 10px;
-  padding-right: 10px;
+nav ul{
+  flex-wrap: wrap;
+  margin-bottom: 0px
+}
+
+nav li{
+  list-style: none;
+  padding: 10px;
 }
 
 footer {
@@ -60,6 +59,20 @@ tr.patient-table:hover{
   padding: auto;
 }
 
-.vh-100{
-  height: 100vh;
+.fwrap{
+  flex-wrap: wrap;
 }
+
+/* Orders */
+@media (max-width: 768px) {
+  .mob{
+    display: none;
+  }
+  .mobtable{
+    font-size: 10px;
+  }
+  .mobresform{
+    font-size: 12px;
+  }
+}
+

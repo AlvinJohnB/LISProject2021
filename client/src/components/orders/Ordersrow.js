@@ -18,8 +18,8 @@ function Ordersrow(props) {
             <td className="text-center">{props.order.labNumber}</td>
             <td className="text-center">{props.order.Patientlists[0].lastname}, {props.order.Patientlists[0].firstname} {props.order.Patientlists[0].middlename}</td>
             <td><small>{props.order.testsRequested}</small></td>
-            <td className="col-md-2 text-center align-center">{props.order.progress === 100 ? <ProgressBar striped variant="success" max={100} now={100} label={`100%`} /> : <ProgressBar animated max={100} now={props.order.progress} label={`${props.order.progress}%`} /> }</td>
-            <td className="text-center">{Moment(props.order.createdAt).format('MMMM DD, yyyy')}</td>
+            <td className="mob col-md-2 text-center align-center">{props.order.progress === 100 ? <ProgressBar striped variant="success" max={100} now={100} label={`100%`} /> : <ProgressBar animated max={100} now={props.order.progress} label={`${props.order.progress}%`} /> }</td>
+            <td className="mob text-center">{Moment(props.order.createdAt).format('MMMM DD, yyyy')}</td>
             <td className="text-center" onClick={onSelect}>Select</td>
         </tr>
     )

@@ -37,7 +37,7 @@ function ChemTest({test, ptdata, status}) {
         return (
 
             <tr className="rform-header">
-                <td colSpan={4}><strong>{test.Testslist.testname}</strong></td>
+                <td className='mobresform' colSpan={4}><strong>{test.Testslist.testname}</strong></td>
             </tr>
 
         )
@@ -47,7 +47,7 @@ function ChemTest({test, ptdata, status}) {
                 const options = test.options.split(',');
                 return (
                     <tr className="rform">
-                        <td >{test.Testslist.testname}</td>
+                        <td className='mobresform'>{test.Testslist.testname}</td>
                         {status === "RUNNING" && 
                             <td>
                                 <select onChange={saveResult}>
@@ -64,18 +64,18 @@ function ChemTest({test, ptdata, status}) {
                                 </select>
                             </td>}
                         {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
-                        <td>{test.Testslist.unit}</td>
-                        <td>{test.Testslist.Referencevalue.Male}</td>
+                        <td className='mobresform'>{test.Testslist.unit}</td>
+                        <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
                     </tr>
             )        
             }else{
                 return(
                 <tr className="rform">
-                    <td >{test.Testslist.testname}</td>
+                    <td className='mobresform'>{test.Testslist.testname}</td>
                     {status === "RUNNING" && test.isQuali === false && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
                     {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
-                    <td>{test.Testslist.unit}</td>
-                    <td>{test.Testslist.Referencevalue.Male}</td>
+                    <td className='mobresform'>{test.Testslist.unit}</td>
+                    <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
                 </tr>                    
                 )
             }
@@ -84,7 +84,7 @@ function ChemTest({test, ptdata, status}) {
                 const options = test.options.split(',');
                 return (
                     <tr className="rform">
-                        <td >{test.Testslist.testname}</td>
+                        <td className='mobresform'>{test.Testslist.testname}</td>
                         {status === "RUNNING" && 
                             <td>
                                 <select onChange={saveResult}>
@@ -95,18 +95,18 @@ function ChemTest({test, ptdata, status}) {
                                 </select>
                             </td>}
                         {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
-                        <td>{test.Testslist.unit}</td>
-                        <td>{test.Testslist.Referencevalue.Male}</td>
+                        <td className='mobresform'>{test.Testslist.unit}</td>
+                        <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
                     </tr>
             )        
             }else{
                 return(
                 <tr className="rform">
-                    <td >{test.Testslist.testname}</td>
+                    <td className='mobresform'>{test.Testslist.testname}</td>
                     {status === "RUNNING" && test.isQuali === false && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
                     {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
-                    <td>{test.Testslist.unit}</td>
-                    <td>{test.Testslist.Referencevalue.Male}</td>
+                    <td className='mobresform'>{test.Testslist.unit}</td>
+                    <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
                 </tr>                    
                 )
             }

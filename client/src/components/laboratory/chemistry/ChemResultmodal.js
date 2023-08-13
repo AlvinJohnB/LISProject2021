@@ -168,7 +168,7 @@ import Selectsize from '../../orders/Selectsize';
             <Modal.Body>
                 <div className="container-fluid">
                     <div className="row">
-                        <div>
+                        <div className='mobresform'>
                             {resultFormData[0].Sectionorders[0].status === "RELEASED" && <h2 className="red">Released</h2>}
                             <p>
                                 <strong>Patient Name:</strong> {resultFormData[0].Patientlists[0].lastname}, {resultFormData[0].Patientlists[0].firstname} {resultFormData[0].Patientlists[0].middlename}<br />
@@ -185,7 +185,7 @@ import Selectsize from '../../orders/Selectsize';
                                 <br />
                                 <table className="table">
                                     <tbody>
-                                        <tr className="labheader">
+                                        <tr className="labheader mobresform">
                                             <th>Test</th>
                                             <th>Result</th>
                                             <th>Unit</th>
@@ -204,7 +204,7 @@ import Selectsize from '../../orders/Selectsize';
                         <div className="d-flex">
                         
                             <div className="col-md-2 mt-2 me-3">
-                                    <strong>Pathologist:</strong>
+                                    <strong className='mobresform'>Pathologist:</strong>
                                         <br />
                                     {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
                                         <select  id="form-field" className="form-select" disabled={true}>
@@ -225,7 +225,7 @@ import Selectsize from '../../orders/Selectsize';
                             </div>
 
                             <div className="col-md-2 mt-2">
-                                    <strong>Performed by:</strong>
+                                    <strong className='mobresform'>Performed by:</strong>
                                         <br />
                                     {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
                                         <select  id="form-field" disabled={true} className="form-select">
