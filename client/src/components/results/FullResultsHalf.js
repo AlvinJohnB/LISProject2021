@@ -166,9 +166,9 @@ const FullResultsHalf = (props) => {
     <View style={styles.header} fixed={true}>
         <Image src={logo} style={styles.logo}/>
         <Image src={lablogo} style={styles.lablogo}/>
-        <Text style={styles.companyText}>St. Camillus De Lellis General Hospital</Text>
-        <Text style={styles.companyContacts}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
-        <Text style={styles.companyContacts}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com</Text>
+        <Text style={styles.companyText}>{host.companyname}</Text>
+        <Text style={styles.companyContacts}>{host.companyAddress}</Text>
+        <Text style={styles.companyContacts}>{host.companyContact}</Text>
         <Text style={styles.companyText}>Laboratory Report</Text>   
     </View>
       
