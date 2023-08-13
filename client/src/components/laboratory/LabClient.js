@@ -18,8 +18,9 @@ function LabClient() {
 
     const bgStyle = {
         backgroundImage: `url(${background})`,
-        backgroundSize: 'cover',
-        height: '100vh'
+        backgroundSize: 'cover',        
+        height: '100vh',
+        overflow: 'auto'
       }
 
     const [isLoading, setIsLoading] = useState(true);
@@ -235,7 +236,7 @@ function LabClient() {
                 setCheckInDetails={setCheckInDetails}
                 />
         </section>
-        <footer className="p-1 mb-5 rounded-bottom">Laboratory Information System by AlvinJohnB</footer>
+        <footer className="p-1 mb-5 rounded-bottom">{host.version}</footer>
         </div>
         </div>
     )

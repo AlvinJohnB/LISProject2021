@@ -1,3 +1,5 @@
 {
-    "ip": "localhost"
+    "ip": "localhost",
+    "branch":"St. Camillus de Lellis General Hospital Laboratory",
+    "version":"Laboratory Information System v2.3.1 | AlvinJohnB | 082023"
 }

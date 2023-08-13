@@ -6,6 +6,7 @@ import { AuthContext } from '../../helpers/AuthContext';
 
 import logo from '../../images/stcamlogo.jpg'
 import host from '../../config.json'
+import background from '../../images/background.jpg'
 
 function UserLogin() {
     let history = useHistory();
@@ -13,6 +14,13 @@ function UserLogin() {
     const[password, setPassword] = useState("");
     const[msg, setMsg] = useState("");
     const {setAuthState} = useContext(AuthContext);
+
+    const bgStyle = {
+        backgroundImage: `url(${background})`,
+        backgroundSize: 'cover',
+        height: '100vh',
+        overflow: 'auto'
+      }
 
     const onSubmit = async (e) => {
         e.preventDefault()
@@ -32,6 +40,7 @@ function UserLogin() {
         })
     }
     return (
+        <div style={bgStyle}>
         <div className="container">
             <div className="row justify-content-center">
                 <div className="col col-md-4 bg-white mt-5 p-4 rounded border border-dark d-flex flex-column justify-content-center">
@@ -65,6 +74,7 @@ function UserLogin() {
                     
                 </div>
             </div>
+        </div>
         </div>
     )
 }

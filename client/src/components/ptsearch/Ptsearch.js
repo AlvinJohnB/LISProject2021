@@ -6,6 +6,7 @@ import NotLoggedInModal from '../NotLoggedInModal';
 import Searchresult from './Searchresult';
 import host from '../../config.json'
 import { useState } from 'react'
+import '../../App.css'
 
 const Ptsearch = () => {
 

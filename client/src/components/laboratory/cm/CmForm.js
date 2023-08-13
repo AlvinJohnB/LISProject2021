@@ -18,7 +18,8 @@ function Cmform() {
     const bgStyle = {
         backgroundImage: `url(${background})`,
         backgroundSize: 'cover',
-        height: '100vh'
+        height: '100vh',
+        overflow: 'auto'
       }
 
     const [sectionData, setSectionData] = useState([])
@@ -161,7 +162,7 @@ function Cmform() {
                
             </div>      
         </section>
-        <footer className="p-1 mb-5 rounded-bottom">Laboratory Information System by Bregs</footer>
+        <footer className="p-1 mb-5 rounded-bottom">{host.version}</footer>
     </div>
     </div>
     )
