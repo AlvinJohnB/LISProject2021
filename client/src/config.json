@@ -1,3 +1,13 @@
 {
-    "ip": "localhost"
+    "ip": "localhost",
+    "branch":"St. Camillus de Lellis General Hospital Laboratory",
+    "version":"Laboratory Information System v2.3.1 | AlvinJohnB | 082023",
+    "branchcode":"CAM",
+
+    "companyname":"St. Camillus De Lellis General Hospital",
+    "companyAddress":"Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City",
+    "companyContact":"Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com",
+    "companyEmail":"e-mail: st.camillusdelellislab@yahoo.com",
+    "companyContacts":"Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125",
+    "department":"Laboratory Department"
 }

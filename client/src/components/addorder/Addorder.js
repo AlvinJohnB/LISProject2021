@@ -140,7 +140,7 @@ const Addorder = () => {
         let year = new Date().getFullYear();
         let month = new Date().getMonth();
 
-        const branchcode = "CAM";
+        const branchcode = `${host.branchcode}`;
         let id = lastOrderIdData.id+1;
 
         let concatLabNo = `${branchcode}-${year}-${month+1}-${id}`

@@ -112,8 +112,8 @@ function Orders() {
                     <br />
                     {pageCount > 1 &&                     
                         <ReactPaginate
-                        previousLabel = {"<"}
-                        nextLabel = {">"}
+                        previousLabel = {"Prev"}
+                        nextLabel = {"Next"}
                         pageCount = {pageCount}
                         onPageChange={changePage}
                         containerClassName={"orders-pagination-bttns"}

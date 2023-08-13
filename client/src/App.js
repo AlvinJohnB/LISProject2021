@@ -29,8 +29,9 @@ import background from '../src/images/background.jpg'
 
 const bgStyle = {
   backgroundImage: `url(${background})`,
-  backgroundSize: 'cover',
-  height: '100vh'
+  backgroundSize: 'auto',
+  height: '100vh',
+  overflow: 'auto'
 }
 
 const App = () => {
@@ -94,7 +95,7 @@ useEffect(() => {
                   <Route path="/results/" component={Results}/>
                   <Route path="/resultform/" component={ResultFormA4}/>
                 </section>
-                <footer className='p-1 mb-5 rounded-bottom'>Laboratory Information System by AlvinJohnB</footer>
+                <footer className='p-1 mb-5 rounded-bottom'>{host.version}</footer>
                 
               </div>
             </div>

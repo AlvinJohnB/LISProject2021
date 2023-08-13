@@ -5,6 +5,7 @@ import arialbd from '../../fonts/arialbd.ttf'
 import arial from '../../fonts/arial.ttf'
 import logo from '../../images/stcamlogo.jpg'
 import lablogo from '../../images/lablogo.jpg'
+import company from '../../config.json'
 Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight: 'bold' });
 Font.register({ family: 'arial', src: arial, fontStyle: 'normal', fontWeight: 'normal' });
 
@@ -94,11 +95,11 @@ const ChargeSlip = (props) => {
         <View style={styles.companyHeader}>
           <Image style={styles.logo} src={logo} />
           <Image style={styles.lablogo} src={lablogo} />
-          <Text style={[styles.compHeaderText, styles.bold]}>St. Camillus De Lellis General Hospital</Text>
-          <Text style={[styles.compHeaderText, styles.bold]}>Laboratory Department</Text>
-          <Text style={styles.compContacts}>Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City</Text>
-          <Text style={styles.compContacts}>Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125 </Text>
-          <Text style={styles.compContacts}>e-mail: st.camillusdelellislab@yahoo.com</Text>
+          <Text style={[styles.compHeaderText, styles.bold]}>{company.companyname}</Text>
+          <Text style={[styles.compHeaderText, styles.bold]}>{company.department}</Text>
+          <Text style={styles.compContacts}>{company.companyAddress}</Text>
+          <Text style={styles.compContacts}>{company.companyContacts}</Text>
+          <Text style={styles.compContacts}>{company.companyEmail}</Text>
           <Text style={[styles.compHeaderText, styles.bold, styles.marginTop]}>CHARGE SLIP</Text>
           <Text style={styles.date}>Date: {Moment(props.data.createdAt).format('MMMM DD, yyyy')}</Text>
           <Text style={styles.patientDetails}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>

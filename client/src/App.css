@@ -35,6 +35,10 @@ footer {
   justify-content: flex-end;
 }
 
+.patient-table{
+  font-size: 13px;
+}
+
 tr.patient-table:hover{
   cursor: pointer;
   font-weight: bold;
@@ -50,10 +54,12 @@ tr.patient-table:hover{
 /* Dont Delete Anything above this line */
 
 
-
-
 .ordertable{
   border-collapse: collapse;
   width: 100%;
   padding: auto;
+}
+
+.vh-100{
+  height: 100vh;
 }
