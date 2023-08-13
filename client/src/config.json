@@ -1,5 +1,6 @@
 {
     "ip": "localhost",
     "branch":"St. Camillus de Lellis General Hospital Laboratory",
-    "version":"Laboratory Information System v2.3.1 | AlvinJohnB | 082023"
+    "version":"Laboratory Information System v2.3.1 | AlvinJohnB | 082023",
+    "branchcode":"CAM"
 }
