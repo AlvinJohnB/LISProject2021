@@ -23,6 +23,11 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: true,
             defaultValue: "N/A",
         },
+        comment:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: "!"
+        },  
         sectionOrder:{
             type:DataTypes.INTEGER,
             allowNull: true

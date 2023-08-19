@@ -41,17 +41,24 @@ const Addorder = () => {
     const [seroFee, setSeroFee] = useState([])
     const [cmFee, setCmFee] = useState([])
     const [hemaFee, setHemaFee] = useState([])
-
     const [chemTotalFee, setChemTotalFee] = useState(0);
     const [totalCost, setTotalCost] = useState(0);
     const [hemaTotalCost, setHemaTotalCost] = useState(0);
     const [seroTotalCost, setSeroTotalCost] = useState(0);
     const [cmTotalCost, setCmTotalCost] = useState(0);
-
     const [isDiscounted, setIsDiscounted] = useState(true);
+
+    //FOR REMARKS
+    const [remarks, setRemarks] = useState("");
 
     let { pId } = useParams();
     let history = useHistory();
+
+    //REMARKS
+    const updateRemarks = (e) => {
+        let remark = e.target.value
+        setRemarks(remark)
+    }
 
     const calculateCost = (costArray, section) => {
         let total = 0;
@@ -296,11 +303,28 @@ const Addorder = () => {
                 })
                 }
 
-
+                //ORDER to PatientList BACK-END LOGIC
                 axios.post(`http://${host.ip}:3001/order/cnxtion`,
                     {
                         OrderId: lastOrderIdData.id+1,
                         PatientlistId: ptData.id
+                    },
+                {
+                    headers: {
+                        accessToken: localStorage.getItem("accessToken")
+                    }
+                }).then((response) => {
+                    if(response.data.error){
+                        alert('You are not logged in, please log-in!');
+                        history.push('/login');
+                    }
+                })
+
+                //REMARKS BACKEND LOGIC
+                axios.post(`http://${host.ip}:3001/order/remarks-add`,
+                    {
+                        orderID: lastOrderIdData.id+1,
+                        note: remarks
                     },
                 {
                     headers: {
@@ -362,7 +386,7 @@ const Addorder = () => {
             <Formik initialValues={initialValues} validationSchema={validationSchema} onSubmit={onSubmit}>
                 <Form>
                     <h3>Add Patient Order</h3>
-                    <strong>Patient Information Information</strong>
+                    <strong>Patient Information</strong>
                     <div className="row">
                         <div className="col-md-4">
                         <label>Patient ID:</label>
@@ -463,6 +487,13 @@ const Addorder = () => {
                             />
                         </div>
                         
+                    </div>
+
+                <strong>Remarks:</strong>
+                    <div className='row'>
+                        <div className='col-md-4'>
+                            <textarea onBlur={updateRemarks} placeholder='Input Remarks if any. (Last Meal, Diagnosis, etc)' type='text' className='form-control'></textarea>
+                        </div>
                     </div>
                     
                     <br />

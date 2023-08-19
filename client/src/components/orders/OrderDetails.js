@@ -10,6 +10,10 @@ import DetailTr from './DetailTr'
 import GetFullResults from './GetFullResults';
 import ChargeSlip from '../results/ChargeSlip';
 import PrintPrevModal from './PrintPrevModal';
+import Ordernotes from './Ordernotes';
+import AddnotesModal from './AddnotesModal';
+import Deletenotes from './Deletenotes';
+import Moment from 'moment'
 
 
 
@@ -17,6 +21,7 @@ import PrintPrevModal from './PrintPrevModal';
 function OrderDetails() {
     const [isLoading, setIsLoading] = useState(true)
     const [orderDetails, setOrderDetails] = useState({})
+    
     const [generateShow, setGenerateShow] = useState(false)
     const [prevModalShow, setPrevModalShow] = useState(false)
 
@@ -24,6 +29,12 @@ function OrderDetails() {
     const [prevResDetails, setPrevResDetails] = useState({})
     const [hasPrev, setHasPrev] = useState(false)
     const [includePrev, setIncludePrev] = useState(false)
+
+    //REMARKS
+    const [orderNotes, setOrderNotes ] = useState()
+    const [addNotesModal, setAddNotesModal] = useState(false)
+    const [deleteNotesModal, setDeleteNotesModal] = useState(false)
+    const [noteIDforDelete, setNoteIDForDelete] = useState()
    
     
 
@@ -42,18 +53,21 @@ function OrderDetails() {
         }
     }
 
+
     // Prev Modal Handler
 
 
     useEffect(async () => {
+        
+        
         await axios.get(`http://${host.ip}:3001/order/getorder/${labNumber}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             }
         }).then((response) => {
             setOrderDetails(response.data); 
-            const dataSet = response.data
             
+            const dataSet = response.data
             axios.get(`http://${host.ip}:3001/order/result/previous/${response.data[0].Patientlists[0].id}`).then((response) => {
             
             // Logic here, filter json from date of relase of current
@@ -104,13 +118,19 @@ function OrderDetails() {
                 setHasPrev(false)
             }
 
-
-            setIsLoading(false)
              })
-
+            //  console.log(response.data)
+             // FETCH REMARKS
+            axios.get(`http://${host.ip}:3001/order/remarks-fetch/${response.data[0].id}`).then((response) => 
+            {
+                setOrderNotes(response.data)
+                setIsLoading(false)
+            })
+           
            
         })
-    },[labNumber])
+    },[labNumber, addNotesModal])
+
 
     const onOrderDelete =  async () => {
         await axios.post(`http://${host.ip}:3001/order/labno/update`, {
@@ -128,6 +148,8 @@ function OrderDetails() {
             </div>
         )
     }
+
+    
 
     return (
         <div className="container">
@@ -157,6 +179,25 @@ function OrderDetails() {
                         })}
                     </tbody>
                 </table>
+
+                <table className="table  table-sm">
+                    <tbody>
+                        <tr className="table-secondary">
+                            <th>Date <p className='noteAdd' onClick={()=>{setAddNotesModal(true)}}>click here to add note</p></th>
+                            <th className='col-md-6'>Detail</th>
+                            <th>Username</th>
+                            
+                        </tr>
+                        
+                        {orderNotes.map((note, index) => {
+                            return (
+                                <Ordernotes setNoteIDForDelete={setNoteIDForDelete} setDeleteNotesModal={setDeleteNotesModal} key={index} note={note} orderNotes={orderNotes} setOrderNotes={setOrderNotes} />
+                                )
+                        })}
+                    </tbody>
+                </table>
+                <AddnotesModal setOrderNotes={setOrderNotes} orderID={orderDetails[0].id} show={addNotesModal} setShow={setAddNotesModal}/>
+                <Deletenotes orderNotes={orderNotes} noteIDforDelete={noteIDforDelete} setOrderNotes={setOrderNotes} orderID={orderDetails[0].id} show={deleteNotesModal} setShow={setDeleteNotesModal}/>
 
                 {/*Generate Charge Slip*/}
                 

@@ -32,6 +32,11 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        sectionComment:{
+            type: DataTypes.STRING,
+            allowNull: true,
+            defaultValue: "!",
+        },
         performedBy:{
             type: DataTypes.STRING,
             allowNull: true,

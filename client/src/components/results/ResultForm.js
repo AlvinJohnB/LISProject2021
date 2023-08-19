@@ -146,13 +146,28 @@ prevResText:{
 prevRes:{
   fontSize: 8
 },
+borderBot:
+{
+  borderBottom: '1px dotted gray'
+},
 comment:{
-  fontSize: 7
+  fontSize: 7,
+  fontFamily: 'Helvetica-Bold'
 },
 borderBot:
 {
-  borderBottom: '1px dotted black'
-}
+  borderBottom: '1px dotted gray'
+},
+
+sideComment:{
+  display: 'block',
+  paddingLeft: 15
+},
+
+sectionComment:{
+  display: 'block',
+  paddingLeft: 0
+},
 });
 
 // Create Document Component
@@ -216,57 +231,76 @@ const ResultForm = (props) => {
                 {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>
-                            {result.result === "!" || result.result === null ?  <View></View> : <View wrap={false}>
-                            {result.Testslist.isPackage === true && (<Text style={[styles.sectiontext, styles.borderBot]}>{result.Testslist.testname}</Text>)}
-                            {result.Testslist.isPackage === false && (<View style={[styles.resultBody, styles.borderBot]}>
-                                                                        <Text style={styles.testName}>{result.Testslist.testname}</Text>
-                                                                        
-                                                                        {/* Do something here, Prev res */}
-                                                                        {props.includePrev === true ?
-                                                                          <Text style={styles.prevResText}>
-                                                                          {props.PrevResData.map((pres) => {
-                                                                            return(
-                                                                              result.Testslist.testcode === pres.test ? pres.result : null
-                                                                            )
-                                                                          })}
-                                                                        </Text>
-                                                                          : null}
-                                                                        
+                            {result.result === "!" || result.result === null ?  <View></View> : 
+                            
+                            <View wrap={false}>
+                                
+                                {result.Testslist.isPackage === true && (<Text style={[styles.sectiontext, styles.borderBot]}>{result.Testslist.testname}</Text>)}
 
-                                                                        {/* DO SOMETHING HERE, RESULT */}
-                                                                        {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}</Text> : (
+                                {result.Testslist.isPackage === false && (<View style={result.comment === "!" ? [[styles.resultBody, styles.borderBot]] : [styles.resultBody]}>
+                                        <Text style={styles.testName}>{result.Testslist.testname}</Text>
 
-                                                                          <Text style={[styles.resultText, styles.contentCenter]}>{result.result}</Text>
+                                        {/* Do something here, Prev res */}
+                                        {props.includePrev === true ?
+                                          <Text style={styles.prevResText}>
+                                          {props.PrevResData.map((pres) => {
+                                            return(
+                                              result.Testslist.testcode === pres.test ? pres.result : null
+                                            )
+                                          })}
+                                        </Text>
+                                          : null}
+                                        
 
-                                                                          )}
-                                                                       
+                                        {/* DO SOMETHING HERE, RESULT */}
+                                        {result.flag === "N/A" ? <Text style={styles.resultText}>{result.result}</Text> : (
 
-                                                                        <Text style={styles.unitText}>{result.Testslist.unit}</Text>
-                                                                        <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
-                                                                    </View>)}
-                            </View>}
+                                          <Text style={[styles.resultText, styles.contentCenter]}>{result.result}</Text>
+
+                                          )}
+                                        
+
+                                        <Text style={styles.unitText}>{result.Testslist.unit}</Text>
+                                        <Text style={styles.referenceText}>{props.data.Patientlists[0].gender === "Male" ? `${result.Testslist.Referencevalue.Male}` : `${result.Testslist.Referencevalue.Female}`}</Text>
+                                        
+                                      
+                                </View>
+                                )}
+
+                                {result.comment === "!" ? null :
+                                  <View style={[styles.sideComment, styles.borderBot]}>
+                                      <Text style={styles.comment}>Comment/s:</Text>
+                                      <Text style={styles.comment}>{result.comment}</Text>
+                                  </View>
+                                }
+                            </View>}                           
                         </View>
                     )
                 })}
 
-                {section.Sectionresults.map((comment, index) =>{
-                  return(
-                    <View key={index}>
-                      {comment.test === "SACRATI" ? 
-                        <View>
-                            <Text style={styles.comment}>Comment/s:</Text>
-                            <Text style={styles.comment}>Limitation: Specimen with alkaline pH, elevated pus, menstrual blood, or vaginal discharge may cause high albumin result. Diagnosis should not be based on a single test method or test result.</Text>
-                            <Text style={styles.comment}> </Text>   
-                            <Text style={styles.comment}>Clinical Determination:</Text>   
-                            <Text style={styles.comment}>No Microalbumin: 0-29</Text>    
-                            <Text style={styles.comment}>Clinical Microalbuminuria: 30-300</Text>  
-                            <Text style={styles.comment}>Macroalbuminuria: greater than 300 </Text> 
-                        </View> 
-                      : null}
-                    </View>
-                  )
-                  })}
-                
+                  {section.Sectionresults.map((comment, index) =>{
+                    return(
+                      <View key={index}>
+                        {comment.test === "SACRATI" ? 
+                          <View>
+                              <Text style={styles.comment}>Comment/s:</Text>
+                              <Text style={styles.comment}>Limitation: Specimen with alkaline pH, elevated pus, menstrual blood, or vaginal discharge may cause high albumin result. Diagnosis should not be based on a single test method or test result.</Text>
+                              <Text style={styles.comment}> </Text>   
+                              <Text style={styles.comment}>Clinical Determination:</Text>   
+                              <Text style={styles.comment}>No Microalbumin: 0-29</Text>    
+                              <Text style={styles.comment}>Clinical Microalbuminuria: 30-300</Text>  
+                              <Text style={styles.comment}>Macroalbuminuria: greater than 300 </Text> 
+                          </View> 
+                        : null}
+                      </View>
+                    )
+                    })}
+
+                  {section.sectionComment === "!" ? null : 
+                    <View style={[styles.sectionComment]}>
+                        <Text style={styles.comment}>Comment/s:</Text>
+                        <Text style={styles.comment}>{section.sectionComment}</Text>
+                    </View>}
                 </View>
             )
          })}

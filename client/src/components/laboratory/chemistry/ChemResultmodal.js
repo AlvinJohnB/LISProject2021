@@ -9,6 +9,7 @@ import host from '../../../config.json'
 import Modal from 'react-bootstrap/Modal'
 import LabLoadingModal from '../../LabLoadingModal';
 import Selectsize from '../../orders/Selectsize';
+import Notesmodal from '../checkin/Notesmodal';
 
     function ChemResultmodal ({setSectionData, showPrevResModal, setShowPrevResModal, setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, setShow, show, closeModal, resultFormData, sectionResultArray} ) {
     
@@ -19,6 +20,9 @@ import Selectsize from '../../orders/Selectsize';
     const [performer, setPerformer] = useState();
 
     const [showSize, setShowSize] = useState(false);
+
+    //Notes
+    const [noteModalShow, setNoteModalShow] = useState(false)
 
     let history = useHistory();
 
@@ -42,6 +46,31 @@ import Selectsize from '../../orders/Selectsize';
 
     const prevResClick = () => {
         setShowPrevResModal(true);
+    }
+
+    const saveSectionComment = async (e) => {
+        const comment = e.target.value;
+        const sResultID = resultFormData[0].Sectionorders[0].id
+
+        if(comment === ""){
+            console.log("No comment entered.");
+
+        }else{
+            await axios.post(`http://${host.ip}:3001/order/section-comment/update/${sResultID}`,{sectionComment: comment},
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                }
+            }).then((response) => {
+                if(response.data.error){
+                    alert("You are not logged in. Please log-in!");
+                    history.push('/login');
+                }
+            }).catch((err) => {
+                console.log("Error in saving comment");
+            })
+        }
+        
     }
 
     const onRelease = async () => {
@@ -176,12 +205,14 @@ import Selectsize from '../../orders/Selectsize';
                                 <strong>Section Number:</strong> {resultFormData[0].Sectionorders[0].sectNumber}<br />
                                 {prevResultData != null &&  prevResultData.length > 0 && <input onClick={prevResClick} type="button" value="Show previous result" className="btn btn-primary" />}
                                 {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={showSelectSize} className="btn btn-success" value = "Print result" />}
+                                <input type="button" value="Notes" onClick={()=>{setNoteModalShow(true)}} className="btn btn-secondary" />
                             </p>  
                                 {/* Prev Result Modal */}
                                 {prevResultData != null &&
                                 <PrevResultModal showPrevResModal={showPrevResModal} setShowPrevResModal={setShowPrevResModal} prevResultData={prevResultData} />}
-
-
+                                
+                                {/* Notes */}
+                                <Notesmodal orderID={resultFormData[0].id} show={noteModalShow} setShow={setNoteModalShow} />
                                 <br />
                                 <table className="table">
                                     <tbody>
@@ -190,6 +221,7 @@ import Selectsize from '../../orders/Selectsize';
                                             <th>Result</th>
                                             <th>Unit</th>
                                             <th>Reference</th>
+                                            <th>Test comment</th>
                                         </tr>
                                         
                                         {sectionResultArray.map((test, index) => {
@@ -197,6 +229,9 @@ import Selectsize from '../../orders/Selectsize';
                                         <ChemTest key={index} status={resultFormData[0].Sectionorders[0].status} ptdata={resultFormData[0].Patientlists[0]} test={test} />
                                         )
                                     })}
+
+                                    <tr>Global Comment:</tr>
+                                    <tr><textarea onBlur={saveSectionComment} placeholder={`${resultFormData[0].Sectionorders[0].sectionComment}`} rows={1} cols={50}></textarea></tr>
                                     </tbody>
                                 </table>
                             </div>

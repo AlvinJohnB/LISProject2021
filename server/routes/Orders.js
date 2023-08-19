@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Users, Package, Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
+const { Users, Ordernotes, Package, Orders, Sectionorders, Patientlist, Orderlist, Sectionresults, Sectionorderlist, Testslist, Referencevalues } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -27,6 +27,46 @@ router.get("/", async (req, res) => {
     }
 });
 
+//REMARKS
+router.post("/remarks-add", validateToken, async (req, res) => {
+    const data = req.body
+    const username = req.user.username
+    const remarks = await Ordernotes.create(
+        {
+            orderID: data.orderID,
+            note: data.note,
+            inputBy: username
+        }
+    );
+    res.json(remarks);
+})
+
+// FETCH REMARKS
+router.get("/remarks-fetch/:id", async (req, res) => {
+    const orderID = req.params.id
+    
+    const remarks = await Ordernotes.findAll({
+        where: {
+            orderID: orderID
+        }
+    })
+    res.json(remarks);
+})
+
+
+
+// Delete Remarks
+router.get("/remarks-delete/:id", async (req, res) => {
+    const orderID = req.params.id
+
+    await Ordernotes.destroy({
+        where: {
+            id: orderID
+        }
+    })
+
+    res.json()
+})
 
 //Prev Transactions
 router.get("/trx/prev/:pID", async (req, res) => {
@@ -489,6 +529,42 @@ router.post("/result/update/:sectionResultID", validateToken, async (req, res) =
 
 
 })
+
+//Update Comment
+router.post("/comment/update/:sectionResultID", validateToken, async (req, res) => {
+    const sectionResultID = req.params.sectionResultID;
+   
+    const comment = req.body.comment;
+    
+    await Sectionresults.update({
+        comment: comment,
+    }, {
+        where: {
+            id: sectionResultID
+        }
+    })
+    res.json({msg: "Record Saved"});
+
+
+})
+
+//Update Section comment
+router.post("/section-comment/update/:sectionOrderID", validateToken, async (req, res) => {
+    const sectionOrderID = req.params.sectionOrderID;
+    const comment = req.body.sectionComment;
+    
+    await Sectionorders.update({
+        sectionComment: comment,
+    }, {
+        where: {
+            id: sectionOrderID
+        }
+    })
+    res.json({msg: "Record Saved"});
+
+
+})
+
 
 //Release Rx
 router.post("/result/release/:sectionOrderID/:status",validateToken, async (req, res) => {

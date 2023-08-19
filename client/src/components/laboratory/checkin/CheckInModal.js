@@ -5,13 +5,17 @@ import { useHistory } from 'react-router-dom';
 import { useState } from 'react'
 import LabLoadingModal from '../../LabLoadingModal';
 import host from '../../../config.json'
+import Notesmodal from './Notesmodal';
 
 
 function CheckInModal(props) {
 
     let history = useHistory();
     const [isLoading, setIsLoading] = useState(false)
-    
+
+    //Remarks and Notes
+    const [noteModalShow, setNoteModalShow] = useState(false)
+
 
     if(isLoading === true){
         return (
@@ -106,7 +110,9 @@ function CheckInModal(props) {
                     </div>
                 <div className="checkin-modal-footer">
                         <input type="button" className="checkin-btn accept" value="Accept" onClick={onAccept}/>
+                        <input onClick={()=>{setNoteModalShow(true)}} type="button" className="checkin-btn bg-secondary" value="Notes/Remarks" />
                 </div>
+                <Notesmodal orderID={props.selected[0].id} show={noteModalShow} setShow={setNoteModalShow} />
             </div>
         </div>
     )

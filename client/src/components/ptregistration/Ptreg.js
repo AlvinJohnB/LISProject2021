@@ -27,7 +27,7 @@ const Ptreg = () => {
         )
     }
     
-    const branch = "CAMILLUS-";
+    const branch = host.branchPtCode;
     let ptId = `${branch}${patientLastId.id+1}`;
 
     let getAge = (e) => {
@@ -98,7 +98,7 @@ const Ptreg = () => {
         setIsLoading(true);
         await axios.get(`http://${host.ip}:3001/patient`).then((response) => {
             setPatientLastId(response.data)
-            const branch = "CAMILLUS-";
+            const branch = host.branchPtCode;
             data.branchid = `${branch}${response.data.id+1}`;
           });
 

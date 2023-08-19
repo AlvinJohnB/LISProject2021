@@ -63,6 +63,30 @@ tr.patient-table:hover{
   flex-wrap: wrap;
 }
 
+.noteDelete:hover{
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: bold;
+  color: red;
+}
+
+.noteDelete{
+  font-size: 11px;
+  display: inline;
+}
+
+.noteAdd:hover{
+  cursor: pointer;
+  text-decoration: underline;
+  font-weight: bold;
+  color:blue;
+}
+
+.noteAdd{
+  font-size: 11px;
+  display: inline;
+}
+
 /* Orders */
 @media (max-width: 768px) {
   .mob{

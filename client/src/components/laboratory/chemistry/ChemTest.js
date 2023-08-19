@@ -32,6 +32,30 @@ function ChemTest({test, ptdata, status}) {
         
     }
 
+    const saveComment = async (e) => {
+        const comment = e.target.value;
+        const sResultID = test.id
+        
+        if(comment === ""){
+            console.log("No comment entered.");
+        }else{
+            await axios.post(`http://${host.ip}:3001/order/comment/update/${sResultID}`,{comment: comment},
+            {
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                }
+            }).then((response) => {
+                if(response.data.error){
+                    alert("You are not logged in. Please log-in!");
+                    history.push('/login');
+                }
+            }).catch((err) => {
+                console.log("Error in saving comment");
+            })
+        }
+        
+    }
+
 
     if(test.Testslist.isPackage){
         return (
@@ -66,6 +90,7 @@ function ChemTest({test, ptdata, status}) {
                         {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                         <td className='mobresform'>{test.Testslist.unit}</td>
                         <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
+                        <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={20}></textarea></td>
                     </tr>
             )        
             }else{
@@ -76,6 +101,7 @@ function ChemTest({test, ptdata, status}) {
                     {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                     <td className='mobresform'>{test.Testslist.unit}</td>
                     <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
+                    <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={20}></textarea></td>
                 </tr>                    
                 )
             }
@@ -96,7 +122,8 @@ function ChemTest({test, ptdata, status}) {
                             </td>}
                         {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                         <td className='mobresform'>{test.Testslist.unit}</td>
-                        <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
+                        <td className='mobresform'>{test.Testslist.Referencevalue.Female}</td>
+                        <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={20}></textarea></td>
                     </tr>
             )        
             }else{
@@ -106,7 +133,8 @@ function ChemTest({test, ptdata, status}) {
                     {status === "RUNNING" && test.isQuali === false && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
                     {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                     <td className='mobresform'>{test.Testslist.unit}</td>
-                    <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
+                    <td className='mobresform'>{test.Testslist.Referencevalue.Female}</td>
+                    <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={20}></textarea></td>
                 </tr>                    
                 )
             }

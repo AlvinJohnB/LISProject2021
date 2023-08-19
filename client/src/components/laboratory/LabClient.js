@@ -180,7 +180,7 @@ function LabClient() {
                                                     placeholder = "Enter lab no..."
                                                     className="form-control mx=3"
                                             />
-                                        <button className="btn btn-primary col-md-4" type="submit">Search</button>
+                                        <button className="btn btn-primary" type="submit">Search</button>
                                         </Form>
                                     </Formik>
                                 </div>

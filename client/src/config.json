@@ -1,8 +1,9 @@
 {
-    "ip": "192.168.254.103",
+    "ip": "localhost",
     "branch":"St. Camillus de Lellis General Hospital Laboratory",
-    "version":"Laboratory Information System v2.3.1 | AlvinJohnB | 082023",
+    "version":"Laboratory Information System v2.4 | AlvinJohnB | 082023",
     "branchcode":"CAM",
+    "branchPtCode":"CAMILLUS-",
 
     "companyname":"St. Camillus De Lellis General Hospital",
     "companyAddress":"Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City",
