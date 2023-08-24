@@ -10,6 +10,10 @@ import Modal from 'react-bootstrap/Modal'
 import LabLoadingModal from '../../LabLoadingModal';
 import Selectsize from '../../orders/Selectsize';
 import Notesmodal from '../checkin/Notesmodal';
+import Diagnosis from '../../updatept/Diagnosis';
+import Adddx from '../../updatept/Adddx';
+import Deletedx from '../../updatept/Deletedx';
+
 
     function ChemResultmodal ({setSectionData, showPrevResModal, setShowPrevResModal, setPrevResultData, prevResultData, setSectionResultArray,setResultFormData, setShow, show, closeModal, resultFormData, sectionResultArray} ) {
     
@@ -24,11 +28,40 @@ import Notesmodal from '../checkin/Notesmodal';
     //Notes
     const [noteModalShow, setNoteModalShow] = useState(false)
 
+    //Dx
+    const [addDxShow, setAddDxShow] = useState(false)
+    const [dx, setDx] = useState([])
+    const [deleteDxShow, setDeleteDxShow] = useState(false)
+    const [dxDeleteID, setDxDeleteID] = useState()
+    
+
     let history = useHistory();
 
     const showSelectSize = async () => {
         setShowSize(true) 
     }
+
+    const deleteDx = async (dxID) => {
+        
+
+        await axios.get(`http://${host.ip}:3001/patient/dx-delete/${dxID}`,{
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                }
+            }).then((res)=>{
+                
+            })
+        setDx(dx.filter((dx) => dx.id !== dxID));
+
+
+    }
+
+    useEffect( async ()=>{
+        await axios.get(`http://${host.ip}:3001/patient/fetch-dx/${resultFormData[0].Patientlists[0].branchid}`).then((response) => {
+        setDx(response.data)
+    })
+       
+    },[resultFormData[0].Patientlists[0].branchid, addDxShow])
 
 
     useEffect(async ()=>{
@@ -213,7 +246,21 @@ import Notesmodal from '../checkin/Notesmodal';
                                 
                                 {/* Notes */}
                                 <Notesmodal orderID={resultFormData[0].id} show={noteModalShow} setShow={setNoteModalShow} />
-                                <br />
+                                
+                                
+                                {/* Dx */}
+                                    {/* 
+                                    const [addDxShow, setAddDxShow] = useState(false)
+                                    const [dx, setDx] = useState()
+                                    const [deleteeDxshow, setDeleteDxShow] = useState(false)
+                                    */}
+                                <Diagnosis setAddDxShow={setAddDxShow} dx={dx} setDeleteDxShow={setDeleteDxShow} setDxDeleteID={setDxDeleteID} deleteDx={deleteDx} />
+                                <Adddx isLab={true} setShow={setAddDxShow} show={addDxShow} ptID={resultFormData[0].Patientlists[0].branchid}/>
+                                <Deletedx setShow={setDeleteDxShow} deleteDx={deleteDx} dxDeleteID={dxDeleteID} show={deleteDxShow} />
+
+
+
+
                                 <table className="table">
                                     <tbody>
                                         <tr className="labheader mobresform">
@@ -234,6 +281,8 @@ import Notesmodal from '../checkin/Notesmodal';
                                     <tr><textarea onBlur={saveSectionComment} placeholder={`${resultFormData[0].Sectionorders[0].sectionComment}`} rows={1} cols={50}></textarea></tr>
                                     </tbody>
                                 </table>
+
+
                             </div>
                         </div>
                         <div className="d-flex">

@@ -26,7 +26,7 @@ function ChemForm() {
     const [sectionData, setSectionData] = useState([])
     const [isLoading, setIsLoading] = useState(true);
     const [show, setShow] = useState(false);
-    const [resultFormData, setResultFormData] = useState();
+    const [resultFormData, setResultFormData] = useState([{Patientlists:[{branchid: 1}]}]);
     const [sectionResultArray, setSectionResultArray] = useState();
     const [prevResultData, setPrevResultData] = useState();
     const [showPrevResModal, setShowPrevResModal] = useState(false);

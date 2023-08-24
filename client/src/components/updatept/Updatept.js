@@ -7,6 +7,10 @@ import * as Yup from 'yup';
 import host from '../../config.json'
 import '../../components/ptregistration/ptreg.css'
 import LoadingModal from '../LoadingModal';
+import Adddx from './Adddx';
+import Deletedx from './Deletedx';
+import Diagnosis from './Diagnosis';
+
 
 const Updatept = () => {
 
@@ -14,6 +18,12 @@ const Updatept = () => {
     const [isLoading, setIsLoading] = useState(true)
     const [hasPrev, setHasPrev] = useState(false);
     const [ptAge, setPtAge] = useState(0);
+
+    const [dx, setDx] = useState()
+    const [addDxShow, setAddDxShow] = useState(false)
+    const [deleteDxShow, setDeleteDxShow] = useState(false)
+    const [dxDeleteID, setDxDeleteID] = useState()
+
     const history = useHistory();
 
     let { pId } = useParams();
@@ -63,10 +73,14 @@ const Updatept = () => {
         }    
     })
 
+    await axios.get(`http://${host.ip}:3001/patient/fetch-dx/${pId}`).then((response) => {
+        setDx(response.data)
+    })
+
     
     setIsLoading(false);
 
-    },[pId])
+    },[pId, addDxShow])
     
     const initialValues = {
         branchid: updatePtData.branchid,
@@ -112,7 +126,6 @@ const Updatept = () => {
         }
         setUpdatePtData({age: agey});
         setPtAge(agey);
-        console.log(ptAge);
     }
     
 
@@ -133,6 +146,20 @@ const Updatept = () => {
 
     const onPrevTrans = () => {
         history.push(`/porders/${pId}`)
+    }
+
+    const deleteDx = async (dxID) => {
+
+        await axios.get(`http://${host.ip}:3001/patient/dx-delete/${dxID}`,{
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                }
+            }).then((res)=>{
+                
+            })
+        setDx(dx.filter((dx) => dx.id !== dxID));
+
+
     }
 
     const onSubmit = async (data) => {
@@ -251,6 +278,41 @@ const Updatept = () => {
                         <ErrorMessage name="gender" component="span" />
                     </div>
                 </div>
+
+                <Diagnosis setAddDxShow={setAddDxShow} dx={dx} setDeleteDxShow={setDeleteDxShow} setDxDeleteID={setDxDeleteID} deleteDx={deleteDx} />
+                <Adddx isLab={false} setShow={setAddDxShow} show={addDxShow} ptID={pId}/>
+                <Deletedx setShow={setDeleteDxShow} show={deleteDxShow} deleteDx={deleteDx} dxDeleteID={dxDeleteID}/>
+
+
+                {/* <strong>Clinical Information</strong> <p className='noteAdd' onClick={()=>{setAddDxShow(true)}}>click here to add</p>
+                <table className='table table-sm'>
+                <tbody>
+                <tr className='table-secondary'>
+                    <th>Date entered</th>
+                    <th className='col-md-8'>Diagnosis/Clinical history</th>
+                    <th>By:</th>
+                </tr>
+                
+                {dx.map((diag, index) => {
+                    return(
+                        <tr>
+                            <td>{Moment(diag.createdAt).format('MMMM DD, yyyy hh:mm a')}</td>
+                            <td>{diag.diagnosis} <p onClick={()=>{deleteDx(diag.id)}} className='noteDelete'>delete</p></td>
+                            <td>{diag.inputBy}</td>
+                        </tr>
+                    )
+                })}
+
+                
+                </tbody>
+                </table>
+                {dx.length <= 0 && <div class="alert alert-info align-items-center">No medical/clinical history to show.</div>} */}
+                
+
+                {/* <AddnotesModal setOrderNotes={setOrderNotes} orderID={orderDetails[0].id} show={addNotesModal} setShow={setAddNotesModal}/> */}
+             
+
+
                 <strong>Contact and other information</strong>
                     <div className="row mb-2">
                         <div className="col-md-4">
@@ -292,6 +354,9 @@ const Updatept = () => {
                         />
                         </div>
                     </div>
+
+                
+                  
 
                     <button className="btn btn-success col-md-2 my-3" type="submit">Submit</button>
                     {hasPrev === true && <button className="btn btn-primary col-md-3 my-3" onClick={onPrevTrans} type="button"><small>Show Previous Transactions</small></button>}

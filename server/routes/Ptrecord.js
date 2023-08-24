@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { Patientlist } = require('../models');
+const { Patientlist, Diagnosis } = require('../models');
 const { Op } = require("sequelize");
 const { validateToken } = require('../middlewares/AuthMiddleware');
 
@@ -36,6 +36,46 @@ router.post("/updatept", validateToken, async(req, res) => {
     })
     res.send();
 })
+
+//ADD DIAGNOSIS
+router.post("/dx-add", validateToken, async(req, res) => {
+    const data = req.body;
+    const name = req.user.username
+    
+    await Diagnosis.create({
+        ptID: data.ptID,
+        diagnosis: data.diagnosis,
+        inputBy: name
+    })
+
+    res.send();
+})
+
+//Fetch Dx
+router.get("/fetch-dx/:ptID", async (req, res) => {
+    const ptID = req.params.ptID;
+    // res.send(ptID)
+    const result = await Diagnosis.findAll({
+        where: {
+            ptID: ptID
+        }
+    })
+    res.json(result);
+})
+
+//DeleteDx
+router.get("/dx-delete/:id", validateToken, async (req, res) => {
+    const dxID = req.params.id
+
+    await Diagnosis.destroy({
+        where: {
+            id: dxID
+        }
+    })
+
+    res.json()
+})
+
 
 router.post("/addpatient", validateToken, async (req, res) => {
     const ptdata = req.body;

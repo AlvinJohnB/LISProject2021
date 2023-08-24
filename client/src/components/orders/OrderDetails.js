@@ -13,7 +13,7 @@ import PrintPrevModal from './PrintPrevModal';
 import Ordernotes from './Ordernotes';
 import AddnotesModal from './AddnotesModal';
 import Deletenotes from './Deletenotes';
-import Moment from 'moment'
+
 
 
 
@@ -119,7 +119,7 @@ function OrderDetails() {
             }
 
              })
-            //  console.log(response.data)
+             
              // FETCH REMARKS
             axios.get(`http://${host.ip}:3001/order/remarks-fetch/${response.data[0].id}`).then((response) => 
             {

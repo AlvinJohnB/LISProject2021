@@ -13,6 +13,10 @@ import '../../components/ptregistration/ptreg.css'
 import './modal.css'
 import LoadingModal from '../LoadingModal';
 
+import Diagnosis from '../updatept/Diagnosis';
+import Adddx from '../updatept/Adddx';
+import Deletedx from '../updatept/Deletedx';
+
 
 const Addorder = () => {
     const [isLoading, setIsLoading] = useState(true)
@@ -23,6 +27,7 @@ const Addorder = () => {
     const [ptData, setPtData] = useState({})
     const [labNumberInput, setLabNumberInput] = useState("")
     const [lastOrderIdData, setLastOrderIdData] = useState({})
+
     
     const [hemaTests, setHemaTests] = useState([])
     const [hemaTestsInput, setHemaTestsInput] = useState("")
@@ -48,8 +53,18 @@ const Addorder = () => {
     const [cmTotalCost, setCmTotalCost] = useState(0);
     const [isDiscounted, setIsDiscounted] = useState(true);
 
+
     //FOR REMARKS
     const [remarks, setRemarks] = useState("");
+
+    //for dx
+    const [dx, setDx] = useState()
+    const [addDxShow, setAddDxShow] = useState(false)
+    const [deleteDxShow, setDeleteDxShow] = useState(false)
+    const [dxDeleteID, setDxDeleteID] = useState()
+
+
+
 
     let { pId } = useParams();
     let history = useHistory();
@@ -87,6 +102,12 @@ const Addorder = () => {
         }
     }
 
+    useEffect(async()=>{
+        await axios.get(`http://${host.ip}:3001/patient/fetch-dx/${pId}`).then((response) => {
+        setDx(response.data)
+    })
+    },[addDxShow])
+
 
     useEffect(()=>{
         calculateCost(totalFee, "total");
@@ -113,6 +134,11 @@ const Addorder = () => {
             }
             setIsLoading(false);
         })
+        
+        await axios.get(`http://${host.ip}:3001/patient/fetch-dx/${pId}`).then((response) => {
+        setDx(response.data)
+        })
+
     }, [pId])
 
     useEffect(() => {
@@ -352,6 +378,19 @@ const Addorder = () => {
         submitHandler();
         setShow(false);
     }
+    
+    const deleteDx = async (dxID) => {
+
+        await axios.get(`http://${host.ip}:3001/patient/dx-delete/${dxID}`,{
+                headers: {
+                    accessToken: localStorage.getItem("accessToken"),
+                }
+            }).then((res)=>{
+                
+            })
+
+        setDx(dx.filter((dx) => dx.id !== dxID));
+    }
 
 
     const initialValues = {
@@ -432,6 +471,7 @@ const Addorder = () => {
                     </div>
                     
                 </div>
+
                 
                 <strong>Request Information</strong>
                     <div className="row">
@@ -487,7 +527,13 @@ const Addorder = () => {
                             />
                         </div>
                         
-                    </div>
+                    </div><br/>
+                
+
+                <Diagnosis setAddDxShow={setAddDxShow} dx={dx} setDeleteDxShow={setDeleteDxShow} setDxDeleteID={setDxDeleteID} deleteDx={deleteDx} />
+                <Adddx isLab={false} setShow={setAddDxShow} show={addDxShow} ptID={pId}/>
+                <Deletedx setShow={setDeleteDxShow} show={deleteDxShow} deleteDx={deleteDx} dxDeleteID={dxDeleteID}/>
+
 
                 <strong>Remarks:</strong>
                     <div className='row'>
