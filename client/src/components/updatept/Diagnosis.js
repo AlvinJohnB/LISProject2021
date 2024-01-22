@@ -1,8 +1,6 @@
 import React from 'react'
 import '../laboratory/checkin/checkinmodal.css' 
 import '../orders/orderdetails.css'
-import {useState} from 'react'
-import host from '../../config.json'
 import Moment from 'moment'
 function Diagnosis({setAddDxShow, dx, deleteDx,setDeleteDxShow, setDxDeleteID }) {
 

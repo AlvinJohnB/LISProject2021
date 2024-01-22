@@ -143,9 +143,6 @@ prevResText:{
 prevRes:{
   fontSize: 9
 },
-borderBot:{
-  borderBottom: '1px dotted black'
-},
 comment:{
   fontSize: 7,
   fontFamily: 'Helvetica-Bold'

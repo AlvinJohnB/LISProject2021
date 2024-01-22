@@ -15,7 +15,6 @@ function Notesmodal(props) {
     const [noteIDforDelete, setNoteIDforDelete] = useState()
     const [deleteNoteShow, setDeleteNoteShow] = useState(false)
 
-    const [remark, setRemark] = useState()
     const [addNotesModal, setAddNotesModal] = useState()
     
 
@@ -70,7 +69,6 @@ function Notesmodal(props) {
                                 }
                                 
                                 
-                                {/* <textarea onBlur={getRemark} placeholder='Type remarks/notes here..'></textarea> */}
                                 <button onClick={()=>{setAddNotesModal(true)}}  className="btn btn-primary"> Add Note </button>
                             </div>
                         </div>

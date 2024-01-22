@@ -1,14 +1,14 @@
 {
-    "ip": "localhost",
-    "branch":"St. Camillus de Lellis General Hospital Laboratory",
+    "ip": "192.168.1.65",
+    "branch":"Biolab Diagnostic Center",
     "version":"Laboratory Information System v2.4 | AlvinJohnB | 082023",
-    "branchcode":"CAM",
-    "branchPtCode":"CAMILLUS-",
+    "branchcode":"BLD",
+    "branchPtCode":"BLD-",
 
-    "companyname":"St. Camillus De Lellis General Hospital",
-    "companyAddress":"Gomburza cor. Z. Flores Sts. Brgy. 6 San Agustin, Laoag City",
-    "companyContact":"Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125  |  e-mail: st.camillusdelellislab@yahoo.com",
-    "companyEmail":"e-mail: st.camillusdelellislab@yahoo.com",
-    "companyContacts":"Cellphone No.: 0961 366 8271 | Telephone No.: 600-1125",
-    "department":"Laboratory Department"
+    "companyname":"Biolab Diagnostic Center",
+    "companyAddress":"Ca Samonte St. Brgy. 5 San Pedro Laoag City",
+    "companyContact":"Cellphone No.: 0985-051-6530 | e-mail: biolabdiagnosticc@gmail.com",
+    "companyEmail":"e-mail: biolabdiagnosticc@gmail.com",
+    "companyContacts":"Cellphone No.: 0985-051-6530",
+    "department":"Clinical Laboratory"
 }

@@ -89,8 +89,8 @@ function ChemTest({test, ptdata, status}) {
                             </td>}
                         {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                         <td className='mobresform'>{test.Testslist.unit}</td>
-                        <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
-                        <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={20}></textarea></td>
+                        <td className=' mob mobresform'>{test.Testslist.Referencevalue.Male}</td>
+                        <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={15}></textarea></td>
                     </tr>
             )        
             }else{
@@ -100,8 +100,8 @@ function ChemTest({test, ptdata, status}) {
                     {status === "RUNNING" && test.isQuali === false && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
                     {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                     <td className='mobresform'>{test.Testslist.unit}</td>
-                    <td className='mobresform'>{test.Testslist.Referencevalue.Male}</td>
-                    <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={20}></textarea></td>
+                    <td className='mob mobresform'>{test.Testslist.Referencevalue.Male}</td>
+                    <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={15}></textarea></td>
                 </tr>                    
                 )
             }
@@ -122,8 +122,8 @@ function ChemTest({test, ptdata, status}) {
                             </td>}
                         {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                         <td className='mobresform'>{test.Testslist.unit}</td>
-                        <td className='mobresform'>{test.Testslist.Referencevalue.Female}</td>
-                        <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={20}></textarea></td>
+                        <td className='mob mobresform'>{test.Testslist.Referencevalue.Female}</td>
+                        <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={15}></textarea></td>
                     </tr>
             )        
             }else{
@@ -133,8 +133,8 @@ function ChemTest({test, ptdata, status}) {
                     {status === "RUNNING" && test.isQuali === false && <td><input onBlur={saveResult} className="rform-input" type="text" placeholder={test.result} /></td>}
                     {status === "RELEASED" && <td><input disabled={true} className="rform-input" type="text" value={test.result} /></td>}
                     <td className='mobresform'>{test.Testslist.unit}</td>
-                    <td className='mobresform'>{test.Testslist.Referencevalue.Female}</td>
-                    <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={20}></textarea></td>
+                    <td className='mob mobresform'>{test.Testslist.Referencevalue.Female}</td>
+                    <td><textarea onBlur={saveComment} placeholder={test.comment} rows={1} cols={15}></textarea></td>
                 </tr>                    
                 )
             }

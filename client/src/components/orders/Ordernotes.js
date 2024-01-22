@@ -20,10 +20,7 @@ function Ordernotes({note, setNoteIDForDelete, setDeleteNotesModal}) {
         <td>{note.note}</td>
         <td>{note.inputBy} <p onClick={()=>{setNoteIDForDelete(note.id); setDeleteNotesModal(true)}} className='noteDelete'>delete</p></td>
     </tr>
-    // <tr>
-    //     <td>{note.note} noted on {Moment(note.createdAt).format('MMMM DD, yyyy hh:mm a')}  by {note.inputBy} <p className='noteDelete' onClick={()=>{setNoteIDForDelete(note.id); setDeleteNotesModal(true)}}>delete</p></td>
-        
-    // </tr>
+   
     )
 }
 

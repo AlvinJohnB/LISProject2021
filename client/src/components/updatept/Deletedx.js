@@ -1,23 +1,11 @@
 import React from 'react'
 import '../laboratory/checkin/checkinmodal.css' 
 import '../orders/orderdetails.css'
-import axios from 'axios'
-import host from '../../config.json'
 import Modal from 'react-bootstrap/Modal'
 
 function Deletedx (props) {
 
 
-
-    // const deleteNote = () => {
-        
-    //     axios.get(`http://${host.ip}:3001/order/remarks-delete/${props.noteIDforDelete}`).then((res) => 
-    //     {
-    //     // Delete remark logic at frontend
-    //      props.setOrderNotes(props.orderNotes.filter((note) => note.id !== props.noteIDforDelete));
-        
-    //     })
-    // }
 
     if(props.show === false){
         return null

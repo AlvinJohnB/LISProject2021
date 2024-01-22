@@ -16,8 +16,8 @@ function Adddx(props) {
         setNote(msg)
     }
 
-    const submitDx = () => {
-            axios.post(`http://${host.ip}:3001/patient/dx-add`,{
+    const submitDx = async () => {
+            await axios.post(`http://${host.ip}:3001/patient/dx-add`,{
                 ptID: props.ptID,
                 diagnosis: note
             },{
@@ -25,7 +25,7 @@ function Adddx(props) {
                     accessToken: localStorage.getItem("accessToken"),
                 }
             }).then((res)=>{
-                
+                props.setShow(false);
             })
     }
 
@@ -48,7 +48,7 @@ function Adddx(props) {
                     <div className="d-flex flex-column">
                         <strong>Enter diagnosis or clinical information</strong><br />
                         <textarea onBlur={addNote}></textarea>
-                        <button onClick={()=>{submitDx(); props.setShow(false);}} className={props.isLab === false ? `btn btn-success col-md-4` : `btn btn-primary col-md-4`}> Submit </button>
+                        <button onClick={()=>{submitDx();}} className={props.isLab === false ? `btn btn-success col-md-4` : `btn btn-primary col-md-4`}> Submit </button>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

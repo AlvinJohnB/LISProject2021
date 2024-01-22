@@ -154,11 +154,6 @@ comment:{
   fontSize: 7,
   fontFamily: 'Helvetica-Bold'
 },
-borderBot:
-{
-  borderBottom: '1px dotted gray'
-},
-
 sideComment:{
   display: 'block',
   paddingLeft: 15

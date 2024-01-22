@@ -25,7 +25,7 @@ function AddnotesModal(props) {
                     accessToken: localStorage.getItem("accessToken"),
                 }
             }).then((res)=>{
-                
+                props.setShow(false);
             })
     }
 
@@ -48,7 +48,7 @@ function AddnotesModal(props) {
                     <div className="d-flex flex-column">
                         <strong>Enter note or remark</strong><br />
                         <textarea onBlur={addNote}></textarea>
-                        <button onClick={()=>{submitNote(); props.setShow(false);}}  className="btn btn-primary col-md-4"> Submit </button>
+                        <button onClick={()=>{submitNote();}}  className="btn btn-primary col-md-4"> Submit </button>
                     </div>
                 </Modal.Body>
                 <Modal.Footer>

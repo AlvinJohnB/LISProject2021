@@ -1,7 +1,6 @@
 import React from 'react'
 import '../laboratory/checkin/checkinmodal.css' 
 import '../orders/orderdetails.css'
-import {useState} from 'react'
 import axios from 'axios'
 import host from '../../config.json'
 import Modal from 'react-bootstrap/Modal'
