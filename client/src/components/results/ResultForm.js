@@ -149,10 +149,22 @@ prevRes:{
 comment:{
   fontSize: 7
 },
+<<<<<<< Updated upstream
 borderBot:
 {
   borderBottom: '1px dotted black'
 }
+=======
+sideComment:{
+  display: 'block',
+  paddingLeft: 15
+},
+
+sectionComment:{
+  display: 'block',
+  paddingLeft: 0
+},
+>>>>>>> Stashed changes
 });
 
 // Create Document Component

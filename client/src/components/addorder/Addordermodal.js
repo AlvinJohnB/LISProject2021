@@ -86,6 +86,7 @@ const Addordermodal = (props) => {
                                                             setMicroTests={props.setMicroTests}
                                                             setChemTests={props.setChemTests}
 
+                                                            isDiscounted={props.isDiscounted}
                                                             setTotalFee={props.setTotalFee}
                                                             setChemFee={props.setChemFee}
                                                             totalFee={props.totalFee}

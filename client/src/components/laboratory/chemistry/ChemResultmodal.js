@@ -180,16 +180,38 @@ import Selectsize from '../../orders/Selectsize';
                                 {/* Prev Result Modal */}
                                 {prevResultData != null &&
                                 <PrevResultModal showPrevResModal={showPrevResModal} setShowPrevResModal={setShowPrevResModal} prevResultData={prevResultData} />}
+<<<<<<< Updated upstream
 
 
                                 <br />
                                 <table className="table">
+=======
+                                
+                                {/* Notes */}
+                                <Notesmodal orderID={resultFormData[0].id} show={noteModalShow} setShow={setNoteModalShow} />
+                                
+                                
+                               
+                                <Diagnosis setAddDxShow={setAddDxShow} dx={dx} setDeleteDxShow={setDeleteDxShow} setDxDeleteID={setDxDeleteID} deleteDx={deleteDx} />
+                                <Adddx isLab={true} setShow={setAddDxShow} show={addDxShow} ptID={resultFormData[0].Patientlists[0].branchid}/>
+                                <Deletedx setShow={setDeleteDxShow} deleteDx={deleteDx} dxDeleteID={dxDeleteID} show={deleteDxShow} />
+
+
+
+
+                                <table className="table table-sm">
+>>>>>>> Stashed changes
                                     <tbody>
-                                        <tr className="labheader mobresform">
+                                        <tr className="table-secondary mobresform">
                                             <th>Test</th>
                                             <th>Result</th>
                                             <th>Unit</th>
+<<<<<<< Updated upstream
                                             <th>Reference</th>
+=======
+                                            <th className='mob'>Reference</th>
+                                            <th>Test comment</th>
+>>>>>>> Stashed changes
                                         </tr>
                                         
                                         {sectionResultArray.map((test, index) => {
@@ -197,8 +219,18 @@ import Selectsize from '../../orders/Selectsize';
                                         <ChemTest key={index} status={resultFormData[0].Sectionorders[0].status} ptdata={resultFormData[0].Patientlists[0]} test={test} />
                                         )
                                     })}
+<<<<<<< Updated upstream
                                     </tbody>
                                 </table>
+=======
+
+                                     </tbody>
+                                </table>
+                                <strong>Global Comment:</strong><br />
+                                    <textarea onBlur={saveSectionComment} placeholder={`${resultFormData[0].Sectionorders[0].sectionComment}`} rows={1} cols={30}></textarea>
+                                   
+
+>>>>>>> Stashed changes
                             </div>
                         </div>
                         <div className="d-flex">
@@ -224,7 +256,7 @@ import Selectsize from '../../orders/Selectsize';
                                     }
                             </div>
 
-                            <div className="col-md-2 mt-2">
+                            <div className="col-md-6 mt-2">
                                     <strong className='mobresform'>Performed by:</strong>
                                         <br />
                                     {resultFormData[0].Sectionorders[0].status === "RELEASED" && 
@@ -250,12 +282,12 @@ import Selectsize from '../../orders/Selectsize';
             </Modal.Body>
             <Modal.Footer>
                 {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
-                    <input type="button" onClick={onRelease} className="btn btn-primary col-md-1" value="Release"/>
+                    <input type="button" onClick={onRelease} className="btn btn-primary" value="Release"/>
                 }
                 {resultFormData[0].Sectionorders[0].status === "RUNNING" && 
                 <input type="button" onClick={undoCheckIn} className="btn btn-danger" value="Undo Check-in/Reject sample" />
                 }
-                {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={onUndoRelease} className="btn btn-danger" value="Undo Release" />}
+                {resultFormData[0].Sectionorders[0].status === "RELEASED" && <input type="button" onClick={onUndoRelease} className="btn btn-danger col-md-4" value="Undo Release" />}
             </Modal.Footer>
             </Modal>
 

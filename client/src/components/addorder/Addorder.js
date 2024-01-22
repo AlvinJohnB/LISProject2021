@@ -62,8 +62,8 @@ const Addorder = () => {
             }
 
         if(isDiscounted === true){
-            let discount = total * 0.2
-            price = total - discount
+            // let discount = total * 0.2
+            price = total
         }else{
             price = total
         }
@@ -89,6 +89,7 @@ const Addorder = () => {
         calculateCost(cmFee, "cm");
     },[totalFee, hemaFee, cmFee, seroFee, chemFee])
     
+    
     useEffect( async () => {
         await axios.get(`http://${host.ip}:3001/test`).then((response) => {
             setTestData(response.data);
@@ -106,7 +107,16 @@ const Addorder = () => {
             }
             setIsLoading(false);
         })
+<<<<<<< Updated upstream
     }, [pId])
+=======
+        
+        await axios.get(`http://${host.ip}:3001/patient/fetch-dx/${pId}`).then((response) => {
+        setDx(response.data)
+        })
+
+    }, [pId, addDxShow])
+>>>>>>> Stashed changes
 
     useEffect(() => {
             const reducedTests = tests.reduce((acc, curr) => `${acc}${curr.testcode} `, '');
@@ -159,7 +169,7 @@ const Addorder = () => {
             let year = new Date().getFullYear();
             let month = new Date().getMonth();
 
-            const branchcode = "CAM";
+            const branchcode = host.branchcode;
             let id = lastOrderIdData.id+1;
 
             let concatLabNo = `${branchcode}-${year}-${month+1}-${id}`
@@ -343,7 +353,7 @@ const Addorder = () => {
 
         forPtId: Yup.string(),
         reqDr: Yup.string().required("This field is required! Put N/A if none"),
-        ptType: Yup.string().required("This field is required!"),
+        ptType: Yup.string(),
         testsRequested: Yup.string(),
         labNumber: Yup.string(),
 
@@ -420,6 +430,7 @@ const Addorder = () => {
                             placeholder="Requesting Physician"
                             autoComplete="off"
                             className='form-control'
+                            
                         />
                         <ErrorMessage name="reqDr" component="span" />
 
@@ -472,7 +483,8 @@ const Addorder = () => {
                             <tbody>
                                 <tr className="table-success">
                                     <td><strong>Requested Test/s</strong></td>
-                                    <td><strong>Regular Unit Cost</strong></td>
+                                    {/* <td><strong>Regular Unit Cost</strong></td> */}
+                                    <td><strong>{isDiscounted === true ? `Discounted Unit Cost`: `Regular Unit Cost`}</strong></td>
                                     <td><strong>Action</strong></td>
                                 </tr>
                                 {tests.map((test) => {
@@ -495,6 +507,7 @@ const Addorder = () => {
                                             seroTests={seroTests}
                                             microTests={microTests}
 
+                                            isDiscounted={isDiscounted}
                                             setTotalFee={setTotalFee}
                                             setChemFee={setChemFee}
                                             totalFee={totalFee}
@@ -547,6 +560,7 @@ const Addorder = () => {
                         setMicroTests={setMicroTests}
                         setChemTests={setChemTests}
 
+                        isDiscounted={isDiscounted}
                         setTotalFee={setTotalFee}
                         setChemFee={setChemFee}
                         totalFee={totalFee}

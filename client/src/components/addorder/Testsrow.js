@@ -1,8 +1,8 @@
 import React from 'react'
-
 import './modal.css'
 
-const Testsrow = ({setCmFee, cmFee, setHemaFee, hemaFee, setSeroFee, seroFee, totalCost, setTotalCost, totalFee, chemFee, setTotalFee, setChemFee, setTestsList, setHemaTests, setCmTests, setSeroTests, setMicroTests, testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests, setChemTests }) => {
+const Testsrow = ({isDiscounted, setCmFee, cmFee, setHemaFee, hemaFee, setSeroFee, seroFee, totalCost, setTotalCost, totalFee, chemFee, setTotalFee, setChemFee, setTestsList, setHemaTests, setCmTests, setSeroTests, setMicroTests, testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests, setChemTests }) => {
+    console.log(isDiscounted)
 
     const handleClick = () => {
         let testSelected = test;
@@ -31,21 +31,57 @@ const Testsrow = ({setCmFee, cmFee, setHemaFee, hemaFee, setSeroFee, seroFee, to
             let section = testSelected.section;
             if(section === "Chemistry"){
                 setChemTests([...chemTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
-                setChemFee([...chemFee, testSelected.cost])
+                
+                if(isDiscounted === true){
+                    setChemFee([...chemFee, testSelected.discCost])
+                }else{
+                    setChemFee([...chemFee, testSelected.cost])
+                }
+
             }else if(section === "Hematology"){
                 setHemaTests([...hemaTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
-                setHemaFee([...hemaFee, testSelected.cost])
+
+                if(isDiscounted === true){
+                    setHemaFee([...hemaFee, testSelected.discCost])
+                }else{
+                    setHemaFee([...hemaFee, testSelected.cost])
+                }
+
+
             }else if(section === "CM"){
                 setCmTests([...cmTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
-                setCmFee([...cmFee, testSelected.cost])
+                
+                if(isDiscounted === true){
+                    setCmFee([...cmFee, testSelected.discCost])
+                }else{
+                    setCmFee([...cmFee, testSelected.cost])
+                }
+
             }else if(section === "Serology"){
                 setSeroTests([...seroTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
-                setSeroFee([...seroFee, testSelected.cost])
+                
+                if(isDiscounted === true){
+                    setSeroFee([...seroFee, testSelected.discCost])
+                }else{
+                    setSeroFee([...seroFee, testSelected.cost])
+                }
+                
             }else if(section === "Micro"){
                 setMicroTests([...microTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
             }
-            setTestsList([...testlist, {testname: testSelected.testname,cost: testSelected.cost, testcode: testSelected.testcode, section: testSelected.section, index: key} ])
-            setTotalFee([...totalFee, testSelected.cost])
+
+            
+            setTestsList([...testlist, {testname: testSelected.testname,cost: testSelected.cost, discCost: testSelected.discCost, testcode: testSelected.testcode, section: testSelected.section, index: key} ])
+            
+            if(isDiscounted === true){
+                setTotalFee([...totalFee, testSelected.discCost])
+            }else{
+                setTotalFee([...totalFee, testSelected.cost])
+            }
+            
+            
+
+            // DISCOUNT LOGIC HERE
 
             close();
         }

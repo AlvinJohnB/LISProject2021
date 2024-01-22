@@ -490,6 +490,64 @@ router.post("/result/update/:sectionResultID", validateToken, async (req, res) =
 
 })
 
+<<<<<<< Updated upstream
+=======
+//Update Comment
+router.post("/comment/update/:sectionResultID", validateToken, async (req, res) => {
+    const sectionResultID = req.params.sectionResultID;
+   
+    const comment = req.body.comment;
+    
+    await Sectionresults.update({
+        comment: comment,
+    }, {
+        where: {
+            id: sectionResultID
+        }
+    })
+    res.json({msg: "Record Saved"});
+
+
+})
+
+//Update Section comment
+router.post("/section-comment/update/:sectionOrderID", validateToken, async (req, res) => {
+    const sectionOrderID = req.params.sectionOrderID;
+    const comment = req.body.sectionComment;
+    
+    await Sectionorders.update({
+        sectionComment: comment,
+    }, {
+        where: {
+            id: sectionOrderID
+        }
+    })
+    res.json({msg: "Record Saved"});
+
+
+})
+
+//Undo Release
+router.post("/result-undo/:sectionOrderID", validateToken, async (req, res) => {
+    const sectionOrderID = req.params.sectionOrderID;
+
+    await Sectionorders.update({
+        status: "PENDING",
+        pathologist: pathologist,
+        performedBy: performedBy
+    }, {
+        where: {
+            id: sectionOrderID
+        }
+    })
+
+    res.send();
+
+
+})
+
+
+>>>>>>> Stashed changes
 //Release Rx
 router.post("/result/release/:sectionOrderID/:status",validateToken, async (req, res) => {
     const sectionOrderID = req.params.sectionOrderID;
@@ -544,6 +602,7 @@ router.post("/check/:labNumber", async (req, res) => {
     let done;
     let secorders;
 
+    // denominator
     const queryOne = await Orders.findOne( {
         where: {
             labNumber: labNumber
@@ -552,6 +611,7 @@ router.post("/check/:labNumber", async (req, res) => {
     })
 
     secorders = queryOne.Sectionorders.length
+    // console.log(queryOne.Sectionorders)
     // res.json(queryOne.Sectionorders.length);
 
     const queryTwo = await Orders.findOne({
@@ -560,10 +620,29 @@ router.post("/check/:labNumber", async (req, res) => {
         },
         include:[{model: Sectionorders, where:{status: "RELEASED"}}]
     })
+
+ 
     // res.json(queryTwo)
+    // NUMERATOR
 
     if(queryTwo == null){
         done = 0
+
+        if(done / secorders == 1){
+            await Orders.update({ status: "RELEASED"}, {where: { labNumber: labNumber }}).then(()=>{
+                Orders.update({progress: 100}, {where: {labNumber:labNumber}})
+            })
+            res.send();
+        }else{
+            let progress = Math.round((done/secorders)*100)
+            console.log(`Progress is, ${progress}`)
+            await Orders.update({status: "PENDING" }, {where: { labNumber: labNumber }}).then(()=>{
+                Orders.update({progress: progress}, {where: {labNumber:labNumber}})
+            })
+            res.send();
+        }
+
+        
     }else{
         done = queryTwo.Sectionorders.length
 

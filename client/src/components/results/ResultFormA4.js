@@ -144,11 +144,32 @@ prevRes:{
   fontSize: 9
 },
 comment:{
+<<<<<<< Updated upstream
   fontSize: 8
 },
 borderBot:{
   borderBottom: '1px dotted black'
 }
+=======
+  fontSize: 7,
+  fontFamily: 'Helvetica-Bold'
+},
+
+borderBot:
+{
+  borderBottom: '1px dotted gray'
+},
+
+sideComment:{
+  display: 'block',
+  paddingLeft: 15
+},
+sectionComment:{
+  display: 'block',
+  paddingLeft: 0
+},
+
+>>>>>>> Stashed changes
 });
 
 // Create Document Component
