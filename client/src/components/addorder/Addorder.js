@@ -65,7 +65,6 @@ const Addorder = () => {
 
 
 
-
     let { pId } = useParams();
     let history = useHistory();
 
@@ -84,11 +83,11 @@ const Addorder = () => {
             }
 
         if(isDiscounted === true){
-            let discount = total * 0.2
-            price = total - discount
+            price = total
         }else{
             price = total
         }
+
         if(section === "total"){
             setTotalCost(price);
         }else if(section === "chem"){
@@ -551,12 +550,13 @@ const Addorder = () => {
                             <tbody>
                                 <tr className="table-success">
                                     <td><strong>Requested Test/s</strong></td>
-                                    <td><strong>Regular Unit Cost</strong></td>
+                                    {isDiscounted === true ? <td><strong>Discounted Unit Cost</strong></td> : <td><strong>Regular Unit Cost</strong></td>}
                                     <td><strong>Action</strong></td>
                                 </tr>
                                 {tests.map((test) => {
                                     return (
                                         <Testrow
+                                            isDiscounted={isDiscounted}
                                             setTests={setTests}
                                             tests={tests}
                                             key={test.index}
@@ -609,6 +609,7 @@ const Addorder = () => {
                     {/* modal  */}
 
                     <Addordermodal 
+                        isDiscounted={isDiscounted}
                         show={show}
                         setShow={setShow}
                         tests={testData}

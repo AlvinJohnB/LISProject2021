@@ -1,13 +1,20 @@
 import React from 'react'
 import './modal.css'
 
-const Testrow = ({setHemaFee, hemaFee, setSeroFee, seroFee, setCmFee, cmFee, totalCost, setTotalCost, totalFee, chemFee, setTotalFee, setChemFee, setTests, test, tests, setCmTests, cmTests, chemTests, setChemTests, hemaTests, setHemaTests, seroTests, setSeroTests, microTests, setMicroTests}) => {
+const Testrow = ({isDiscounted, setHemaFee, hemaFee, setSeroFee, seroFee, setCmFee, cmFee, totalCost, setTotalCost, totalFee, chemFee, setTotalFee, setChemFee, setTests, test, tests, setCmTests, cmTests, chemTests, setChemTests, hemaTests, setHemaTests, seroTests, setSeroTests, microTests, setMicroTests}) => {
+  
     const removeHandler = () => {
         
         // Check what section
         let section = test.section;
         let testToRemove = test.testcode;
-        let costToRemove = test.cost
+        
+        let costToRemove
+        if(isDiscounted === true){
+            costToRemove = test.discCost
+        }else{
+            costToRemove = test.cost
+        }
 
         if(section === "CM"){
             setCmTests(cmTests.filter((test) => test.testcode !== testToRemove));
@@ -37,7 +44,7 @@ const Testrow = ({setHemaFee, hemaFee, setSeroFee, seroFee, setCmFee, cmFee, tot
     return (
         <tr className="tbcontentremove">
             <td>{test.testname}</td> 
-            <td>PHP {test.cost}</td>
+            {isDiscounted === true ? <td>PHP {test.discCost}</td> : <td>PHP {test.cost}</td>}
             <td onClick={removeHandler}>Remove</td>
         </tr>
     )

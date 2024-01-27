@@ -186,6 +186,7 @@ const FullResultsHalf = (props) => {
       
     <View style={styles.patientHeader} fixed={true}>
         <View style={styles.column}>
+          <Text style={styles.patientInfo}>Patient ID: {props.data.Patientlists[0].branchid}</Text>
           <Text style={styles.patientInfo}>Patient Name: {props.data.Patientlists[0].lastname}, {props.data.Patientlists[0].firstname} {props.data.Patientlists[0].middlename}</Text>
           <Text style={styles.patientInfo}>Age/Gender: {props.data.Patientlists[0].age} / {props.data.Patientlists[0].gender}</Text>
           <Text style={styles.patientInfo}>Requesting Physician: {props.data.reqDr}</Text>

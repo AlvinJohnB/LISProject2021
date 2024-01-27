@@ -40,6 +40,10 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING,
             allowNull: true,
         },
+        discCost:{
+            type: DataTypes.STRING,
+            allowNull: true,
+        }
     }, {timestamps: false})
 
     Testslist.associate = (models) => {
