@@ -1,14 +1,14 @@
 {
     "ip": "localhost",
     "branch":"Biolab Diagnostic Center",
-    "version":"Laboratory Information System v2.4 | AlvinJohnB | 082023",
+    "version":"Laboratory Information System v2.4.1 | AlvinJohnB | 020524",
     "branchcode":"BLD",
     "branchPtCode":"BLD-",
 
     "companyname":"Biolab Diagnostic Center",
     "companyAddress":"Ca Samonte St. Brgy. 5 San Pedro Laoag City",
     "companyContact":"Cellphone No.: 0985-051-6530 | e-mail: biolabdiagnosticc@gmail.com",
-    "companyEmail":"e-mail: biolabdiagnosticc@gmail.com",
+    "companyEmail":"e-mail: biolabdiagnosticcenterbld@gmail.com",
     "companyContacts":"Cellphone No.: 0985-051-6530",
     "department":"Clinical Laboratory"
 }

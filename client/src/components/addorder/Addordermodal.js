@@ -1,12 +1,13 @@
 import React from 'react'
 
 
+import { useState } from 'react'
 import './modal.css'
 import Testsrow from './Testsrow';
 import Modal from 'react-bootstrap/Modal'
 
 const Addordermodal = (props) => {
-
+    const [testsArray, setTestsArray] = useState([])
 
     if(!props.show){
         return null
@@ -68,6 +69,8 @@ const Addordermodal = (props) => {
                                                 {props.tests.map((test, key) => {
                                                     return (
                                                         <Testsrow 
+                                                            setTestsArray={setTestsArray}
+                                                            testsArray={testsArray}
                                                             key={key} 
                                                             testcode={test.testcode} 
                                                             testlist={props.testlist} 
@@ -121,19 +124,7 @@ const Addordermodal = (props) => {
         <Modal.Footer>
         </Modal.Footer>
       </Modal>
-        // <div className ="testmodal">
-        //     <div className="modal-wrapper rounded">
-        //         <div className="modal-header">
-        //             <div><strong>Search Tests:</strong>
-        //             </div>
-        //         </div>
-        //         <div className="modal-body">
-        //         </div>
-        //         <div className="modal-foot mt-1 col-md-2">
-        //             <input className="btn btn-danger" type="button" value="Close" onClick={props.close} />
-        //         </div>
-        //     </div>
-        // </div>
+     
     )
 }
 

@@ -11,7 +11,7 @@ import host from '../../config.json'
 // Create styles
 const styles = StyleSheet.create({
   body: {
-    paddingTop: 35,
+    paddingTop: 25,
     paddingBottom: 450,
     paddingHorizontal: 35,
   },
@@ -93,14 +93,18 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica-Bold',
     fontSize: '9px',
   },
+  secMargin:{
+    marginBottom: '3px',
+    marginTop: '8px'
+  },
   abnormal:{
     fontFamily: 'Helvetica-Bold',
   },
 logo:{
-  width: "55px",
+  width: "70px",
   position: 'absolute',
   left: "10px",
-  bottom: "5px"
+  bottom: "-5px"
 },
 flag:{
   width: '55px',
@@ -216,7 +220,7 @@ const FullResultsHalf = (props) => {
       {props.data.Sectionorders.map((section, key) => {
             return(
                 <View key={key}>
-                    <Text style={[styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
+                    <Text style={[styles.secMargin, styles.sectiontext, styles.caps]}>{section.section === "CM" ? `Clinical Microscopy` : section.section}</Text>
                 {section.Sectionresults.map((result, index) => {
                     return(
                         <View key={index}>

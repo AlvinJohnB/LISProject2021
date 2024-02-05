@@ -17,5 +17,12 @@ router.get("/pkg/:pkgname", async (req, res) => {
 
 });
 
+router.get("/test/:testcode", async (req, res) => {
+    let test = req.params.testcode
+    let testdata = await Testslist.findOne({where:{testcode: test}});
+    res.json(testdata);
+
+});
+
 
 module.exports = router

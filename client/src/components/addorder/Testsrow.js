@@ -1,48 +1,56 @@
 import React from 'react'
-// import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import axios from 'axios'
 import './modal.css'
 import host from '../../config.json'
 
-const Testsrow = ({isDiscounted, setCmFee, cmFee, setHemaFee, hemaFee, setSeroFee, seroFee, totalCost, setTotalCost, totalFee, chemFee, setTotalFee, setChemFee, setTestsList, setHemaTests, setCmTests, setSeroTests, setMicroTests, testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests, setChemTests }) => {
+const Testsrow = ({testsArray, setTestsArray, isDiscounted, setCmFee, cmFee, setHemaFee, hemaFee, setSeroFee, seroFee, totalCost, setTotalCost, totalFee, chemFee, setTotalFee, setChemFee, setTestsList, setHemaTests, setCmTests, setSeroTests, setMicroTests, testcode, testname, test, testlist, close, cmTests, microTests, hemaTests, chemTests, seroTests, setChemTests }) => {
     
-    const handleClick = () => {
+    const updateSectionTest = (test, section) => {
+        if(section === "Chemistry"){
+            // setChemTests([...chemTests, {testname: testSelected.testname, testcode: testSelected.testcode, section: testSelected.section}])
+        }
+    }
+   
+
+    const handleClick = async () => {
         let testSelected = test;
         let sec = test.section
-        // console.log(test)
-        
-        // Check if BRANCH PKG plus logic
-        if(sec === "Package"){
-            
-            // fetch tests
-            axios.get(`http://${host.ip}:3001/test/pkg/${testSelected.testcode}`).then((response) => {
-            let testpkg = response.data.tests.split(',') // split tests
-            // check for duplicate test
-            for(let n = 0; n < testpkg.length; n++){
+        // setSelected(test)
 
-                if(testlist.length >=1){
+        // If Package
 
-                    for(let i=0; i < testlist.length; i++){
-                        let encodedTest = testlist[i].testcode
-                        if(testpkg[n] === encodedTest){
-                            alert("Duplicated test detected, please recheck encoded tests!")
-                        }else{
-                            // updatec
-                            
-                        }
-                    }
-                }
+        // if(sec === "Package"){
+        //     await axios.get(`http://${host.ip}:3001/test/pkg/${testSelected.testcode}`).then((response) => {
+        //         console.log(response.data)
+        //         let testpkg = response.data.tests.split(',') // split tests
 
-            }
+        //         //     check for duplicate test
+        //         for(let n = 0; n < testpkg.length; n++){
 
-            
+        //             if(testlist.length > 0){
+        //                 // If testlist has more than 1 test, check for dupp
+        //                 for(let i = 0; i < testlist.length; i++){
+        //                     let encodedTest = testlist[i].testcode
+        //                         if(testpkg[n] === encodedTest){
+        //                             alert("Duplicated test detected, please recheck encoded tests!")
+        //                         }else{
+        //                             // Adds indiv test to array
+        //                             setTestsArray(current => [...current, testpkg[n]])
 
-            })
-            
-            
-        }else{
-        
-        }
+        //                             //get test data from tests state to push to per section array
+                                    
+        //                         }
+        //                 }
+        //             }else{
+        //             // adds indiv test to array
+        //             setTestsArray(current => [...current, testpkg[n]])
+        //             }
+                    
+        //         }
+                
+        //     })
+        // }
 
         // Check for duplicate
         let duplicate = false;
@@ -63,6 +71,7 @@ const Testsrow = ({isDiscounted, setCmFee, cmFee, setHemaFee, hemaFee, setSeroFe
             alert("Duplicate test detected, please recheck.");
             close();
         } else if(notDuplicate){
+
             // Check what section
             let section = testSelected.section;
             if(section === "Chemistry"){

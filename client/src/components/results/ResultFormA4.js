@@ -14,7 +14,7 @@ Font.register({ family: 'arialbd', src: arialbd, fontStyle: 'normal', fontWeight
 // Create styles
 const styles = StyleSheet.create({
   body: {
-    paddingTop: 35,
+    paddingTop: 25,
     paddingBottom: 80,
     paddingHorizontal: 35,
   },
@@ -100,10 +100,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica-Bold',
   },
 logo:{
-  width: "55px",
+  width: "70px",
   position: 'absolute',
   left: "10px",
-  bottom: "5px"
+  bottom: "-5px"
 },
 flag:{
   width: '55px',
