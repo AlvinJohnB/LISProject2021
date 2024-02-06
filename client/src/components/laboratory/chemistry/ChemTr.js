@@ -6,12 +6,12 @@ function ChemTr({ setPrevResultData, details, setShow, setResultFormData, setSec
 
     const selectHandler = async () => {
 
-        await axios.get(`http://${host.ip}:3001/order/resultform/${details.labNumber}/${details.Sectionorders[0].section}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/resultform/${details.labNumber}/${details.Sectionorders[0].section}`).then((response) => {
         setResultFormData(response.data);
         setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
         setShow(true);
         
-        axios.get(`http://${host.ip}:3001/order/result/previous/${response.data[0].Patientlists[0].id}/${details.Sectionorders[0].section}`).then((response) => {
+        axios.get(`http://${host.ip}:${host.port}/order/result/previous/${response.data[0].Patientlists[0].id}/${details.Sectionorders[0].section}`).then((response) => {
             setPrevResultData(response.data)
         })
         })

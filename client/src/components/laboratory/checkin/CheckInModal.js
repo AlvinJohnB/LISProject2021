@@ -28,7 +28,7 @@ function CheckInModal(props) {
         // IF REJECTED
         if(props.selected[0].Sectionorders[0].status === "Sample Rejected - For Check-In"){
 
-            await axios.post(`http://${host.ip}:3001/order/updatesorder`, {
+            await axios.post(`http://${host.ip}:${host.port}/order/updatesorder`, {
                 status: "RUNNING",
                 sectNumber: props.selected[0].Sectionorders[0].sectNumber
             },
@@ -49,7 +49,7 @@ function CheckInModal(props) {
 
         }else{
 
-            await axios.post(`http://${host.ip}:3001/order/updatesorder`, {
+            await axios.post(`http://${host.ip}:${host.port}/order/updatesorder`, {
                 status: "RUNNING",
                 sectNumber: props.selected[0].Sectionorders[0].sectNumber
             },
@@ -67,7 +67,7 @@ function CheckInModal(props) {
         const tests = props.selected[0].Sectionorders[0].tests;
 
 
-        await axios.post(`http://${host.ip}:3001/order/form-create/${props.selected[0].Sectionorders[0].id}`, {
+        await axios.post(`http://${host.ip}:${host.port}/order/form-create/${props.selected[0].Sectionorders[0].id}`, {
                 tests: tests,
             },
             {
@@ -84,7 +84,7 @@ function CheckInModal(props) {
             })
         }
 
-        await axios.get(`http://${host.ip}:3001/order/forcheckin/${props.section}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/forcheckin/${props.section}`).then((response) => {
             props.setCheckInDetails(response.data);
         })
     }

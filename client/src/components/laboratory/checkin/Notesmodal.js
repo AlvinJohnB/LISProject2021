@@ -20,7 +20,7 @@ function Notesmodal(props) {
 
     useEffect(()=>{
 
-        axios.get(`http://${host.ip}:3001/order/remarks-fetch/${props.orderID}`).then((response) => 
+        axios.get(`http://${host.ip}:${host.port}/order/remarks-fetch/${props.orderID}`).then((response) => 
         {
             setOrderNotes(response.data)
         })

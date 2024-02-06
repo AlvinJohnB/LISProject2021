@@ -170,7 +170,7 @@ const ResultFormA4 = (props) => {
   const [pathoInfo, setPathoInfo] = useState({id: 1, username: "DocTin", password: 'Patho1', name: 'Modesty A. Leano, MD, FPSP', pathologist: 'Pathologist', title: 'ANATOMIC AND CLINICAL PATHOLOGIST', licenseNo: '98717'})
 
   useEffect(()=>{
-     axios.get(`http://${host.ip}:3001/auth/info/${props.data.Sectionorders[0].pathologist}`).then((response) => {
+     axios.get(`http://${host.ip}:${host.port}/auth/info/${props.data.Sectionorders[0].pathologist}`).then((response) => {
         setPathoInfo(response.data)
         })
   },[])

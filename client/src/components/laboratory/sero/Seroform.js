@@ -41,7 +41,7 @@ function Seroform() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://${host.ip}:3001/order/section/Serology/${data.labNumber}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/section/Serology/${data.labNumber}`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -52,7 +52,7 @@ function Seroform() {
     }
  
     useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/section/Serology`).then((response) => {
+        axios.get(`http://${host.ip}:${host.port}/order/section/Serology`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })

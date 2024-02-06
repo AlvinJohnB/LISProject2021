@@ -27,7 +27,7 @@ const Ptsearch = () => {
 
   const onSubmit = async (data) => {
 
-    await axios.post(`http://${host.ip}:3001/patient/findpatient`, data).then((response) => {
+    await axios.post(`http://${host.ip}:${host.port}/patient/findpatient`, data).then((response) => {
     
     if(response.data.length <= 0){
       setIsPatientNotFound(true);

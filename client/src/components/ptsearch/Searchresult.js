@@ -14,7 +14,7 @@ const Searchresult = (props) => {
     
     useEffect( async () => {
 
-    await axios.get(`http://${host.ip}:3001/patient/findpatient/${props.patient.lastname},${props.patient.firstname},`).then((response) => {
+    await axios.get(`http://${host.ip}:${host.port}/patient/findpatient/${props.patient.lastname},${props.patient.firstname},`).then((response) => {
         setResultData(response.data);
         setIsLoading(false);
     })

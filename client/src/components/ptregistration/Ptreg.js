@@ -16,7 +16,7 @@ const Ptreg = () => {
     const [patientAge, setPatientAge] = useState(0);
 
     useEffect(async () => {
-      await axios.get(`http://${host.ip}:3001/patient`).then((response) => {
+      await axios.get(`http://${host.ip}:${host.port}/patient`).then((response) => {
         setPatientLastId(response.data)
       });
     }, []);
@@ -96,7 +96,7 @@ const Ptreg = () => {
 
     const onSubmit = async (data) => {
         setIsLoading(true);
-        await axios.get(`http://${host.ip}:3001/patient`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/patient`).then((response) => {
             setPatientLastId(response.data)
             const branch = host.branchPtCode;
             data.branchid = `${branch}${response.data.id+1}`;
@@ -104,7 +104,7 @@ const Ptreg = () => {
 
         data.age = patientAge;
 
-        axios.post(`http://${host.ip}:3001/patient/addpatient`, data,
+        axios.post(`http://${host.ip}:${host.port}/patient/addpatient`, data,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),

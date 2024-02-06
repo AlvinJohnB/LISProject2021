@@ -41,7 +41,7 @@ function Hemaform() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://${host.ip}:3001/order/section/Hematology/${data.labNumber}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/section/Hematology/${data.labNumber}`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -52,7 +52,7 @@ function Hemaform() {
     }
  
     useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/section/Hematology`).then((response) => {
+        axios.get(`http://${host.ip}:${host.port}/order/section/Hematology`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })

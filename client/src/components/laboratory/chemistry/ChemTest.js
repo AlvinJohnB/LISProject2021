@@ -14,7 +14,7 @@ function ChemTest({test, ptdata, status}) {
         if(result === ""){
             console.log("No result entered");
         }else{
-            await axios.post(`http://${host.ip}:3001/order/result/update/${sResultID}`,{result: result, gender: ptdata.gender},
+            await axios.post(`http://${host.ip}:${host.port}/order/result/update/${sResultID}`,{result: result, gender: ptdata.gender},
             {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
@@ -39,7 +39,7 @@ function ChemTest({test, ptdata, status}) {
         if(comment === ""){
             console.log("No comment entered.");
         }else{
-            await axios.post(`http://${host.ip}:3001/order/comment/update/${sResultID}`,{comment: comment},
+            await axios.post(`http://${host.ip}:${host.port}/order/comment/update/${sResultID}`,{comment: comment},
             {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),

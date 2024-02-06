@@ -15,7 +15,7 @@ function PrevTrx() {
 
 
     useEffect(async () => {
-        await axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/trx/prev/${pId}`).then((response) => {
             setOrderDetails(response.data);
             setIsLoading(false);
         })

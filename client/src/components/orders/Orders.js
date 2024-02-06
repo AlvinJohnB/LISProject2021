@@ -41,7 +41,7 @@ function Orders() {
 
 
     useEffect(async () => {
-        await axios.get(`http://${host.ip}:3001/order/getorders`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/getorders`).then((response) => {
             setOrders(response.data);
             setIsLoading(false);
         })
@@ -50,7 +50,7 @@ function Orders() {
     const onSubmit = async (data) => {
         setIsLoading(true)
 
-        await axios.post(`http://${host.ip}:3001/order/filter`, data).then((response) => {
+        await axios.post(`http://${host.ip}:${host.port}/order/filter`, data).then((response) => {
             if(response.data.length === 0){
                 alert('Lab number not found!')
                 setIsLoading(false);

@@ -44,7 +44,7 @@ import Deletedx from '../../updatept/Deletedx';
     const deleteDx = async (dxID) => {
         
 
-        await axios.get(`http://${host.ip}:3001/patient/dx-delete/${dxID}`,{
+        await axios.get(`http://${host.ip}:${host.port}/patient/dx-delete/${dxID}`,{
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 }
@@ -57,7 +57,7 @@ import Deletedx from '../../updatept/Deletedx';
     }
 
     useEffect( async ()=>{
-        await axios.get(`http://${host.ip}:3001/patient/fetch-dx/${resultFormData[0].Patientlists[0].branchid}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/patient/fetch-dx/${resultFormData[0].Patientlists[0].branchid}`).then((response) => {
         setDx(response.data)
     })
        
@@ -67,10 +67,10 @@ import Deletedx from '../../updatept/Deletedx';
     useEffect(async ()=>{
       if(prevResultData || prevResultData == null){
         setIsLoading(false);
-        await axios.post(`http://${host.ip}:3001/auth/pathofetch`).then((response) => {
+        await axios.post(`http://${host.ip}:${host.port}/auth/pathofetch`).then((response) => {
             setPatho(response.data);
         })
-        await axios.post(`http://${host.ip}:3001/auth/fetchperformer`).then((response) => {
+        await axios.post(`http://${host.ip}:${host.port}/auth/fetchperformer`).then((response) => {
             setPerformerList(response.data);
         })
       }
@@ -89,7 +89,7 @@ import Deletedx from '../../updatept/Deletedx';
             console.log("No comment entered.");
 
         }else{
-            await axios.post(`http://${host.ip}:3001/order/section-comment/update/${sResultID}`,{sectionComment: comment},
+            await axios.post(`http://${host.ip}:${host.port}/order/section-comment/update/${sResultID}`,{sectionComment: comment},
             {
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
@@ -112,7 +112,7 @@ import Deletedx from '../../updatept/Deletedx';
         }else{
             const sectOrderID = resultFormData[0].Sectionorders[0].id;
 
-        await axios.post(`http://${host.ip}:3001/order/result/release/${sectOrderID}/RELEASED`, {pathologist: pathoSelected, performedBy: performer},
+        await axios.post(`http://${host.ip}:${host.port}/order/result/release/${sectOrderID}/RELEASED`, {pathologist: pathoSelected, performedBy: performer},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -129,19 +129,19 @@ import Deletedx from '../../updatept/Deletedx';
         // RE RENDER DATA
         
 
-        await axios.get(`http://${host.ip}:3001/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
         })
 
         //CHECK IF ALL TESTS COMPLETED
-        await axios.post(`http://${host.ip}:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
+        await axios.post(`http://${host.ip}:${host.port}/order/check/${resultFormData[0].labNumber}`).then((response) => {
         })
         }
     }
 
     const undoCheckIn = async () => {
-        await axios.post(`http://${host.ip}:3001/order/updatesorder`, {
+        await axios.post(`http://${host.ip}:${host.port}/order/updatesorder`, {
             sectNumber: resultFormData[0].Sectionorders[0].sectNumber,
             status: "Sample Rejected - For Check-In"
         }, {
@@ -151,7 +151,7 @@ import Deletedx from '../../updatept/Deletedx';
         })
 
         //Rerender Data
-        await axios.get(`http://${host.ip}:3001/order/section/Chemistry`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/section/Chemistry`).then((response) => {
             setSectionData(response.data);
         })
 
@@ -162,7 +162,7 @@ import Deletedx from '../../updatept/Deletedx';
         setPathoSelected("invalid")
         const sectOrderID = resultFormData[0].Sectionorders[0].id
 
-        await axios.post(`http://${host.ip}:3001/order/result/release/${sectOrderID}/RUNNING`, {pathologist: null},
+        await axios.post(`http://${host.ip}:${host.port}/order/result/release/${sectOrderID}/RUNNING`, {pathologist: null},
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
@@ -178,13 +178,13 @@ import Deletedx from '../../updatept/Deletedx';
 
         // RE RENDER DATA
 
-        await axios.get(`http://${host.ip}:3001/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/resultform/${resultFormData[0].labNumber}/${resultFormData[0].Sectionorders[0].section}`).then((response) => {
             setResultFormData(response.data);
             setSectionResultArray(response.data[0].Sectionorders[0].Sectionresults);
         })
 
         //CHECK IF ALL TESTS COMPLETED
-        await axios.post(`http://${host.ip}:3001/order/check/${resultFormData[0].labNumber}`).then((response) => {
+        await axios.post(`http://${host.ip}:${host.port}/order/check/${resultFormData[0].labNumber}`).then((response) => {
 
         })
     }

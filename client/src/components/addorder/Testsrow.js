@@ -21,7 +21,7 @@ const Testsrow = ({testsArray, setTestsArray, isDiscounted, setCmFee, cmFee, set
         // If Package
 
         // if(sec === "Package"){
-        //     await axios.get(`http://${host.ip}:3001/test/pkg/${testSelected.testcode}`).then((response) => {
+        //     await axios.get(`http://${host.ip}:${host.port}/test/pkg/${testSelected.testcode}`).then((response) => {
         //         console.log(response.data)
         //         let testpkg = response.data.tests.split(',') // split tests
 

@@ -17,7 +17,7 @@ function AddnotesModal(props) {
     }
 
     const submitNote = () => {
-            axios.post(`http://${host.ip}:3001/order/remarks-add`,{
+            axios.post(`http://${host.ip}:${host.port}/order/remarks-add`,{
                 orderID: props.orderID,
                 note: note
             },{

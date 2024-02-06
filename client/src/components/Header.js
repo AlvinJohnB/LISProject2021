@@ -12,7 +12,7 @@ function Header() {
     const {setAuthState, authState} = useContext(AuthContext);
 
     useEffect( async () => {
-      await axios.get(`http://${host.ip}:3001/auth/auth`,{
+      await axios.get(`http://${host.ip}:${host.port}/auth/auth`,{
         headers:{
           accessToken: localStorage.getItem("accessToken"),
         }

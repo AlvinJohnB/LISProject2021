@@ -17,7 +17,7 @@ function Adddx(props) {
     }
 
     const submitDx = async () => {
-            await axios.post(`http://${host.ip}:3001/patient/dx-add`,{
+            await axios.post(`http://${host.ip}:${host.port}/patient/dx-add`,{
                 ptID: props.ptID,
                 diagnosis: note
             },{

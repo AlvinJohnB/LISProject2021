@@ -30,7 +30,7 @@ const Updatept = () => {
     
     useEffect(async () => {
 
-    await axios.get(`http://${host.ip}:3001/patient/findpatientById/${pId}`).then((response) => {
+    await axios.get(`http://${host.ip}:${host.port}/patient/findpatientById/${pId}`).then((response) => {
         setUpdatePtData(response.data);
 
         //calculate age from bday response
@@ -65,7 +65,7 @@ const Updatept = () => {
         setPtAge(agey);
     })
 
-    await axios.get(`http://${host.ip}:3001/order/trx/prev/${pId}`).then((response) => {
+    await axios.get(`http://${host.ip}:${host.port}/order/trx/prev/${pId}`).then((response) => {
         if(response.data.length < 1){
             setHasPrev(false);
         }else{
@@ -73,7 +73,7 @@ const Updatept = () => {
         }    
     })
 
-    await axios.get(`http://${host.ip}:3001/patient/fetch-dx/${pId}`).then((response) => {
+    await axios.get(`http://${host.ip}:${host.port}/patient/fetch-dx/${pId}`).then((response) => {
         setDx(response.data)
     })
 
@@ -150,7 +150,7 @@ const Updatept = () => {
 
     const deleteDx = async (dxID) => {
 
-        await axios.get(`http://${host.ip}:3001/patient/dx-delete/${dxID}`,{
+        await axios.get(`http://${host.ip}:${host.port}/patient/dx-delete/${dxID}`,{
                 headers: {
                     accessToken: localStorage.getItem("accessToken"),
                 }
@@ -165,7 +165,7 @@ const Updatept = () => {
     const onSubmit = async (data) => {
         setIsLoading(true);
         data.age = ptAge;
-        await axios.post(`http://${host.ip}:3001/patient/updatept`, data,
+        await axios.post(`http://${host.ip}:${host.port}/patient/updatept`, data,
         {
             headers: {
                 accessToken: localStorage.getItem("accessToken")

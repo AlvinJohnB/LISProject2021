@@ -60,7 +60,7 @@ function OrderDetails() {
     useEffect(async () => {
         
         
-        await axios.get(`http://${host.ip}:3001/order/getorder/${labNumber}`, {
+        await axios.get(`http://${host.ip}:${host.port}/order/getorder/${labNumber}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             }
@@ -68,7 +68,7 @@ function OrderDetails() {
             setOrderDetails(response.data); 
             
             const dataSet = response.data
-            axios.get(`http://${host.ip}:3001/order/result/previous/${response.data[0].Patientlists[0].id}`).then((response) => {
+            axios.get(`http://${host.ip}:${host.port}/order/result/previous/${response.data[0].Patientlists[0].id}`).then((response) => {
             
             // Logic here, filter json from date of relase of current
             const presults = response.data
@@ -121,7 +121,7 @@ function OrderDetails() {
              })
              
              // FETCH REMARKS
-            axios.get(`http://${host.ip}:3001/order/remarks-fetch/${response.data[0].id}`).then((response) => 
+            axios.get(`http://${host.ip}:${host.port}/order/remarks-fetch/${response.data[0].id}`).then((response) => 
             {
                 setOrderNotes(response.data)
                 setIsLoading(false)
@@ -133,7 +133,7 @@ function OrderDetails() {
 
 
     const onOrderDelete =  async () => {
-        await axios.post(`http://${host.ip}:3001/order/labno/update`, {
+        await axios.post(`http://${host.ip}:${host.port}/order/labno/update`, {
             labNumber: orderDetails[0].labNumber,
             status: "DELETED"
         })

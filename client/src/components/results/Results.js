@@ -19,7 +19,7 @@ function Results() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://${host.ip}:3001/order/getorder/${data.labNumber}`, {
+        await axios.get(`http://${host.ip}:${host.port}/order/getorder/${data.labNumber}`, {
             headers: {
                 accessToken: localStorage.getItem("accessToken"),
             }

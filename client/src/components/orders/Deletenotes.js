@@ -11,7 +11,7 @@ function Deletenotes (props) {
 
     const deleteNote = () => {
         
-        axios.get(`http://${host.ip}:3001/order/remarks-delete/${props.noteIDforDelete}`).then((res) => 
+        axios.get(`http://${host.ip}:${host.port}/order/remarks-delete/${props.noteIDforDelete}`).then((res) => 
         {
         // Delete remark logic at frontend
          props.setOrderNotes(props.orderNotes.filter((note) => note.id !== props.noteIDforDelete));

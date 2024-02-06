@@ -41,7 +41,7 @@ function ChemForm() {
     })
 
     const onSubmit = async (data) => {
-        await axios.get(`http://${host.ip}:3001/order/section/Chemistry/${data.labNumber}`).then((response) => {
+        await axios.get(`http://${host.ip}:${host.port}/order/section/Chemistry/${data.labNumber}`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
@@ -52,7 +52,7 @@ function ChemForm() {
     }
  
     useEffect(() => {
-        axios.get(`http://${host.ip}:3001/order/section/Chemistry`).then((response) => {
+        axios.get(`http://${host.ip}:${host.port}/order/section/Chemistry`).then((response) => {
             setSectionData(response.data);
             setIsLoading(false);
         })
