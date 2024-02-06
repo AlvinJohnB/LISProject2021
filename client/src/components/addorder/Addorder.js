@@ -174,10 +174,33 @@ const Addorder = () => {
         let month = new Date().getMonth();
 
         const branchcode = `${host.branchcode}`;
-        let id = lastOrderIdData.id+1;
 
-        let concatLabNo = `${branchcode}-${year}-${month+1}-${id}`
-        setLabNumberInput(concatLabNo);
+        let lastOrderLabNo = lastOrderIdData.labNumber
+        let lastOrderLabNoExp = lastOrderLabNo.split('-')
+            
+        // to int exploded
+        let lastOrderYear = parseInt(lastOrderLabNoExp[1])
+        let lastOrderYearId = parseInt(lastOrderLabNoExp[3])
+
+            
+
+        if(year === lastOrderYear){
+            // let nextId = String(lastOrderYearId.id+1).padStart(4, '0')
+            let nextId = lastOrderYearId+1;
+            let nextIdStr = String(nextId).padStart(4, '0')
+            console.log(String(nextId).padStart(4, '0'))
+            
+            let concatLabNo = `${branchcode}-${year}-${month+1}-${nextIdStr}`
+            setLabNumberInput(concatLabNo);
+
+        }else{
+
+            let nextId = '0001';
+            let concatLabNo = `${branchcode}-${year}-${month+1}-${nextId}`
+            setLabNumberInput(concatLabNo);
+
+        }
+
     
     }
 
@@ -187,16 +210,42 @@ const Addorder = () => {
      }else{
 
         await axios.get(`http://${host.ip}:3001/order`).then((response) => {
+            // console.log(response.data)
             setLastOrderIdData(response.data);
             //Set Lab No 
             let year = new Date().getFullYear();
             let month = new Date().getMonth();
 
-            const branchcode = host.branchcode;
-            let id = lastOrderIdData.id+1;
+            let lastOrderLabNo = lastOrderIdData.labNumber
+            let lastOrderLabNoExp = lastOrderLabNo.split('-')
+            
+            // to int exploded
+            let lastOrderYear = parseInt(lastOrderLabNoExp[1])
+            let lastOrderYearId = parseInt(lastOrderLabNoExp[3])
+            console.log(lastOrderYearId)
 
-            let concatLabNo = `${branchcode}-${year}-${month+1}-${id}`
-            data.labNumber = concatLabNo;
+            const branchcode = host.branchcode;
+            
+
+            if(year === lastOrderYear){
+                // let nextId = String(lastOrderYearId.id+1).padStart(4, '0')
+                let nextId = lastOrderYearId+1;
+                let nextIdStr = String(nextId).padStart(4, '0')
+                console.log(String(nextId).padStart(4, '0'))
+                
+                let concatLabNo = `${branchcode}-${year}-${month+1}-${nextIdStr}`
+                data.labNumber = concatLabNo;
+            }else{
+
+                let nextId = '0001';
+                let concatLabNo = `${branchcode}-${year}-${month+1}-${nextId}`
+                data.labNumber = concatLabNo;
+            }
+
+            
+
+            
+            
         })
 
         setIsLoading(true);

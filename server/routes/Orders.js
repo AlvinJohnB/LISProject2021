@@ -252,8 +252,15 @@ router.post("/addsord", validateToken, async (req, res) => {
 
 router.post("/cnxtion", validateToken, async (req, res) => {
     const data = req.body;
-    await Orderlist.create(data);
-    res.json(data);
+
+    const patient = await Patientlist.findOne({where:{id: data.PatientlistId}})
+    const order = await Orders.findOne({where: {id: data.OrderId}})
+    patient.addOrders(order)
+    res.send()
+    // data.OrderId
+    // data.PatientlistId
+    // await Orderlist.create(data);
+    // res.json(data);
 
 });
 
