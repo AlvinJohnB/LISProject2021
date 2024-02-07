@@ -101,10 +101,10 @@ const styles = StyleSheet.create({
     fontFamily: 'Helvetica-Bold',
   },
 logo:{
-  width: "70px",
+  width: "65px",
   position: 'absolute',
   left: "10px",
-  bottom: "-5px"
+  bottom: "-10px"
 },
 flag:{
   width: '55px',

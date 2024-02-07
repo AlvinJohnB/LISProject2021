@@ -1,5 +1,5 @@
 {
-    "ip": "192.168.0.124",
+    "ip": "localhost",
     "port":"3001",
     "branch":"Biolab Diagnostic Center",
     "version":"Laboratory Information System v2.4.1 | AlvinJohnB | 020524",
